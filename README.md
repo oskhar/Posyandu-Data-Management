@@ -1,16 +1,17 @@
-# vue
+# Aplikasi Posyandu Melati
 
-This template should help get you started developing with Vue 3 in Vite.
+Proyek kuliah sebagai wadah untuk berkolaborasi, memahami, dan mengembangkan konsep-konsep rekayasa perangkat lunak secara praktis. Menggunakan metodologi yang relevan dan praktik terbaik untuk merancang, mengembangkan, dan mendokumentasikan perangkat lunak.
 
 ## Recommended IDE Setup
 
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur).
 
-## Type Support for `.vue` Imports in TS
-
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates.
-
-However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can run `Volar: Switch TS Plugin on/off` from VSCode command palette.
+## Tech Stack
+Laravel <sup>(version 10.13.0)</sup>
+Vue <sup>(version 3.3.4)</sup>
+Materio-Laravel-Vue-Template<sup>(version 2.0)</sup>
+NPM <sup>(myVersion 9.8.1)</sup>
+Composer <sup>(myVersion 2.5.2)</sup>
 
 ## Customize configuration
 
@@ -30,7 +31,11 @@ composer install
 npm install
 ```
 
-#### 3. Menggenerate key enkripsi milik laravel
+```sh
+npm run build:icons
+```
+
+#### 3. Meng-generate key enkripsi milik laravel
 ```sh
 php artisan key:generate
 ```
