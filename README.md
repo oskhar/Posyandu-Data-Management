@@ -18,18 +18,38 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 ## Project Setup
 
+#### 1. Install list depedensi composer
+```sh
+composer install
+```
+
+#### 2. Install node module
+
+> **Note**: Pastikan semuanya terinstall dengan baik
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+#### 3. Menggenerate key enkripsi milik laravel
+```sh
+php artisan key:generate
+```
+
+### Compile and Hot-Reload for **Development**
+
+```sh
+php artisan serve
+```
 
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+### Type-Check, Compile and Minify for **Production**
 
+#### Launch masa production
+
+> **Note**: Hanya dijalankan jika app sudah sepenuhnya selesai
 ```sh
 npm run build
 ```

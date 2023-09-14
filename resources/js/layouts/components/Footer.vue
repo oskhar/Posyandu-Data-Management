@@ -11,12 +11,12 @@
         size="1.25rem"
         class="mx-1"
       />
-      By <a
+      Suported By <a
         href="https://themeselection.com"
         target="_blank"
         rel="noopener noreferrer"
         class="text-primary ms-1"
-      >Oskhar</a>
+      >ThemeSelection</a>
     </span>
     <!-- 👉 Footer: right content -->
     <span class="d-md-flex gap-x-4 text-primary d-none">
