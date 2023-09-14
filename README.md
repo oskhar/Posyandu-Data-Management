@@ -7,11 +7,11 @@ Proyek kuliah sebagai wadah untuk berkolaborasi, memahami, dan mengembangkan kon
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur).
 
 ## Tech Stack
-Laravel <sup>(version 10.13.0)</sup>
-Vue <sup>(version 3.3.4)</sup>
-Materio-Laravel-Vue-Template<sup>(version 2.0)</sup>
-NPM <sup>(myVersion 9.8.1)</sup>
-Composer <sup>(myVersion 2.5.2)</sup>
+- Laravel <sup>(version 10.13.0)</sup>
+- Vue <sup>(version 3.3.4)</sup>
+- Materio-Laravel-Vue-Template<sup>(version 2.0)</sup>
+- NPM <sup>(myVersion 9.8.1)</sup>
+- Composer <sup>(myVersion 2.5.2)</sup>
 
 ## Customize configuration
 
