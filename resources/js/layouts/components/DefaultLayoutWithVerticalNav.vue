@@ -51,7 +51,7 @@ const upgradeBanner = computed(() => {
 
         <IconBtn
           class="me-2"
-          href="https://github.com/themeselection/sneat-vuetify-vuejs-laravel-admin-template-free"
+          href="https://github.com/muhamadoskhar"
           target="_blank"
           rel="noopener noreferrer"
         >

@@ -36,6 +36,12 @@ const router = createRouter({
           path: 'form-layouts',
           component: () => import('../pages/form-layouts.vue'),
         },
+      ],
+    },
+    {
+      path: '/',
+      component: () => import('../layouts/guard.vue'),
+      children: [
         {
           path: 'user-home',
           component: () => import('../pages/user-home.vue'),
