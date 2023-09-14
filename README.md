@@ -14,25 +14,29 @@ Proyek kuliah sebagai wadah untuk berkolaborasi, memahami, dan mengembangkan kon
 ## Project Setup
 
 #### 1. Install list depedensi composer
-> **Note**: Pastikan semuanya terinstall dengan baik
-> - [Error dan cara mengatasinya](/docs/errors/composer.md)
-> - [Error issue discussion](https://vitejs.dev/config/)
+Dengan menjalankan `composer install` pada console (terminal/cmd), anda akan menginstall semua depedensi yang dibutuhkan pada aplikasi ini.
 ```sh
 composer install
 ```
+> **Note**: Pastikan composer menginstall semuanya dengan baik
+> - [Error dan cara mengatasinya](/docs/errors/composer_install.md)
+> - [Tempat diksusi tentang error](https://vitejs.dev/config/)
 
 #### 2. Install node module
+Menginstall semua kebutuhan front end untuk menghias web menggunakan alat alat yang disediakan dalam javascript
 
-> **Note**: Pastikan semuanya terinstall dengan baik
 ```sh
 npm install
 ```
+> **Note**: Pastikan npm (node package manager) menginstall semuanya dengan baik
+> - [Error dan cara mengatasinya](/docs/errors/npm_install.md)
+> - [Tempat diksusi tentang error](https://vitejs.dev/config/)
 
 ```sh
 npm run build:icons
 ```
 
-#### 3. Meng-generate key enkripsi milik laravel
+#### 3. Meng-generate key enkripsi
 ```sh
 php artisan key:generate
 ```
