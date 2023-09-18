@@ -40,7 +40,7 @@ const router = createRouter({
     },
     {
       path: '/',
-      component: () => import('../layouts/guard.vue'),
+      component: () => import('../layouts/guest.vue'),
       children: [
         {
           path: 'user-home',

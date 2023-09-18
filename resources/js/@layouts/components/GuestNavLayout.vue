@@ -15,9 +15,6 @@ export default defineComponent({
     syncRef(isOverlayNavActive, isLayoutOverlayVisible)
     
     return () => {
-      // 👉 Vertical nav
-      const verticalNav = h()
-
 
       // 👉 Navbar
       const navbar = h('header', { class: ['layout-navbar navbar-blur'] }, [
@@ -59,7 +56,6 @@ export default defineComponent({
   },
 })
 </script>
-
 <style lang="scss">
 @use "@configured-variables" as variables;
 @use "@layouts/styles/placeholders";
