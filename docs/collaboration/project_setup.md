@@ -2,7 +2,7 @@
 
 Dalam pembuatan software, terutama saat kolaborasi kita perlu memikirkan berbagai teknologi yang sekiranya dapat digunakan oleh tim dengan baik. Pada bagian ini akan dijelaskan mengenai berbagai persiapan yang perlu dilakukan menggunakan teknologi yang sudah disepakati.
 
-### Install and Config for **Prepare**
+### Install and Config for `Prepare`
 #### 1. Install list depedensi composer
 Dengan menjalankan `composer install` pada console (terminal/cmd), anda akan menginstall semua depedensi yang dibutuhkan pada aplikasi ini.
 ```sh
@@ -31,7 +31,7 @@ npm run build:icons
 php artisan key:generate
 ```
 
-### Compile and Hot-Reload for **Development**
+### Compile and Hot-Reload for `Development`
 
 ```sh
 php artisan serve
@@ -41,7 +41,7 @@ php artisan serve
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for **Production**
+### Type-Check, Compile and Minify for `Production`
 
 #### Launch masa production
 
