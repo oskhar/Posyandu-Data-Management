@@ -11,51 +11,17 @@ Proyek kuliah sebagai wadah untuk berkolaborasi, memahami, dan mengembangkan kon
 - Composer -- myversion 2.5.2
 - vite -- version ^4.2.3
 
-## Project Setup
+## Model SDLC
+- Untuk proses pada tahap awal kita mengadopsi `model prototyping`
+- Tahap implementasi kita menggunakan metodelogi pengembangan software `scrum`
+- Secara keseluruhan penerapan model yang kita gunakan lebih condong ke model `RAD` (Rapid Application Development)
 
-#### 1. Install list depedensi composer
-Dengan menjalankan `composer install` pada console (terminal/cmd), anda akan menginstall semua depedensi yang dibutuhkan pada aplikasi ini.
-```sh
-composer install
-```
-> **Note**: Pastikan composer menginstall semuanya dengan baik
-> - [Error dan cara mengatasinya](/docs/errors/composer_install.md)
-> - [Tempat diksusi tentang error](https://vitejs.dev/config/)
+> **Note**: Model ini merupakan pendekatan yang tim pakai dalam pengembangan aplikasi
+> - [Rincian setiap model](/docs/SDLC/rincian.md)
+> - [Alasan penggunaan model](/docs/SDLC/alasan.md)
 
-#### 2. Install node module
-Menginstall semua kebutuhan front end untuk menghias web menggunakan alat alat yang disediakan dalam javascript
 
-```sh
-npm install
-```
-> **Note**: Pastikan npm (node package manager) menginstall semuanya dengan baik
-> - [Error dan cara mengatasinya](/docs/errors/npm_install.md)
-> - [Tempat diksusi tentang error](https://vitejs.dev/config/)
+## Collaboration Setup
+Project ini hanya berfokus pada penyelesaian tugas. Tapi kontibusi dari pihak luar juga sangat diterima di sini, kami berharap project ini dapat berguna untuk jangkauan luas.
 
-```sh
-npm run build:icons
-```
-
-#### 3. Meng-generate key enkripsi
-```sh
-php artisan key:generate
-```
-
-### Compile and Hot-Reload for **Development**
-
-```sh
-php artisan serve
-```
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for **Production**
-
-#### Launch masa production
-
-> **Note**: Hanya dijalankan jika app sudah sepenuhnya selesai
-```sh
-npm run build
-```
+- [Cara Setup Project](/docs/collaboration/project_setup.md)
