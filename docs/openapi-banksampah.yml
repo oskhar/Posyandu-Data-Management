@@ -1,37 +1,42 @@
 openapi: "3.0.2"
 info:
-  title: API Bank Sampah
+  title: API Posyandu Melati
   version: "1.0"
+  description: API ini digunakan untuk mengakses data dan mengelola data dari web posyandu melati
 servers:
   - url: http://localhost:8000/api
 tags:
-  - name: Data pegawai
-    description: Untuk mengola data pegawai
+  - name: Data acara
+    description: Untuk mengelola data berita acara
+  - name: Data komentar
+    description: Untuk mengelola data komentar dari berita acara
 paths:
-  /pegawai:
+  /acara:
     get:
       tags:
-        - Data pegawai
-      summary: MENDAPATKAN data pegawai
+        - Data acara
+      summary: Untuk mendapatkan data berita acara
       parameters:
-        - name: id_pegawai
+        - name: id_acara
           in: query
-          description: Menampilkan spesifik pegawai berdasarkan idnya
+          description: Data primari dari tabel acara
           schema:
-            type: string
-            nullable: true # Parameter bisa bernilai null (opsional)
+            type: integer
+            nullable: true
+
         - name: length
           in: query
           description: Jumlah item yang akan ditampilkan
           schema:
             type: number
-            nullable: true # Parameter bisa bernilai null (opsional)
+            nullable: true
+
         - name: start
           in: query
-          description: Indeks awal data yang akan ditampilkan
+          description: Mengatur ingin memulai pengambilan data dari urutan keberapa
           schema:
             type: number
-            nullable: true # Parameter bisa bernilai null (opsional)
+            nullable: true
       responses:
         200:
           description: OK
@@ -42,137 +47,41 @@ paths:
                 properties:
                   draw:
                     type: number
-                  recordsTotal:
+                  recordTotal:
                     type: number
-                  recordsFiltered:
+                  recordFiltered:
                     type: number
                   data:
-                    type: array # Perubahan: Objek data adalah array
+                    type: array
                     items:
                       type: object
                       properties:
-                        id_pegawai:
+                        id_acara:
+                          type: integer
+                        judul:
                           type: string
-                        nama_pegawai:
+                        isi:
                           type: string
-                        jenis_kelamin:
+                        kapasitas_peserta:
+                          type: integer
+                        email_admin:
                           type: string
-                        status_data:
+                        gambar_acara:
                           type: string
-        400:
-          description: BAD REQUEST
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-              example:
-                errors:
-                  message: "Data ... tidak valid"
-        404:
-          description: NOT FOUND
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-              example:
-                errors:
-                  message: "Data dengan id ... tidak ditemukan"
-    post:
+                        tanggal_acara:
+                          type: string
+  /komentar-acara:
+    get:
       tags:
-        - Data pegawai
-      summary: MENAMBAHKAN data pegawai
-      requestBody:
-        description: Data pegawai untuk menambahkan data pegawai
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                nama_pegawai:
-                  type: string
-                jenis_kelamin:
-                  type: string
-                status_data:
-                  type: string
-      responses:
-        201:
-          description: CREATED
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-              example:
-                errors:
-                  message: "Data ... berhasil ditambahkan"
-        400:
-          description: BAD REQUEST
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-              example:
-                errors:
-                  message: "Data ... tidak valid"
-        409:
-          description: CONFLICT
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-              example:
-                errors:
-                  message: "Data dideteksi berada di tempat sampah !! Pulihkan ?"
-    put:
-      tags:
-        - Data pegawai
-      summary: MENGUBAH data pegawai
-      requestBody:
-        description: Data pegawai untuk mengubah data pegawai
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                id_pegawai:
-                  type: integer
-                nama_pegawai:
-                  type: string
-                jenis_kelamin:
-                  type: string
-                status_data:
-                  type: string
+        - Data komentar
+      summary: Untuk mendapatkan data komentar dari berita acara
+      parameters:
+        - name: id_komentar_acara
+          in: query
+          description: Mengambil data spesifik berdasarkan primary key
+          schema:
+            type: integer
+            nullable: true
       responses:
         200:
           description: OK
@@ -181,147 +90,22 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-              example:
-                errors:
-                  message: "Data ... berhasil diubah"
-        400:
-          description: BAD REQUEST
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-              example:
-                errors:
-                  message: "Data ... tidak valid"
-        404:
-          description: NOT FOUND
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-              example:
-                errors:
-                  message: "Data dengan id ... tidak ditemukan"
-        409:
-          description: CONFLICT
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-              example:
-                errors:
-                  message: "Data dideteksi berada di tempat sampah !! Pulihkan ?"
-    delete:
-      tags:
-        - Data pegawai
-      summary: MENGHAPUS data pegawai
-      requestBody:
-        description: Data pegawai untuk menghapus data pegawai
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                id_pegawai:
-                  type: integer
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-              example:
-                errors:
-                  message: "Data ... berhasil dihapus"
-        404:
-          description: NOT FOUND
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-              example:
-                errors:
-                  message: "Data dengan id ... tidak ditemukan"
-  /pegawai/pulihkan:
-    put:
-      tags:
-        - Data pegawai
-      summary: MEMULIHKAN data pegawai
-      requestBody:
-        description: Data pegawai untuk memulihkan data pegawai
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                id_pegawai:
-                  type: integer
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-              example:
-                errors:
-                  message: "Data ... berhasil dipulihkan"
-        404:
-          description: NOT FOUND
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-              example:
-                errors:
-                  message: "Data dengan id ... tidak ditemukan"
+                  draw:
+                    type: number
+                  recordTotal:
+                    type: number
+                  recordFiltered:
+                    type: number
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id_komentar_acara:
+                          type: integer
+                        id_acara:
+                          type: integer
+                        id_user:
+                          type: integer
+                        isi_komentar:
+                          type: string
