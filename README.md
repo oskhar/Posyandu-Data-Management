@@ -16,7 +16,7 @@ Proyek kuliah sebagai wadah untuk berkolaborasi, memahami, dan mengembangkan kon
 - Tahap implementasi kita menggunakan metodelogi pengembangan software `scrum`
 - Secara keseluruhan penerapan model yang kita gunakan lebih condong ke model `RAD` (Rapid Application Development)
 
-> **Note**: Model ini merupakan pendekatan yang dipakai dalam pengembangan aplikasi. Dan ini tidak absolute, mengikuti penyesuaianan yang ada, tapi tetap memenuhi standar yang sudah ditentukan tanpa merusak alurnya. Perubahan bisa saja terjadi dalam tahap penilaian dari Dosen Bu Dewi (sebagai penguji independen).
+> **Note**: Model ini merupakan pendekatan yang dipakai dalam pengembangan aplikasi. Dan sifatnya tidak absolute, mengikuti penyesuaianan yang ada, tapi tetap memenuhi standar yang sudah ditentukan tanpa merusak alurnya. Perubahan bisa saja terjadi dalam tahap penilaian dari Dosen Bu Dewi (sebagai penguji independen).
 > - [Rincian setiap model](/docs/SDLC/rincian.md)
 > - [Alasan penggunaan model](/docs/SDLC/alasan.md)
 

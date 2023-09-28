@@ -1,0 +1,13 @@
+Pembuatan aplikasi terdiri dari beberapa tahapan tahapan berikut:
+- sosialisasi awal
+- observasi sistem yang akan dibuat 
+- merancang srs (unstable) 
+- membuat UI 
+- wawancara dengan client 
+- merancang srs (fix) 
+- Pemodelan bisnis 
+- Pemodelan database 
+- Skema API 
+- Pembuatan aplikasi backend dan frontend kerja secara pararel 
+- iterasi testing dan fix 
+- meluncurkan production
