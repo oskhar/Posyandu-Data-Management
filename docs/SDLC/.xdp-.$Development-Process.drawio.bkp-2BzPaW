@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2023-09-29T01:14:48.209Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.3.7 Chrome/112.0.5615.204 Electron/24.5.0 Safari/537.36" etag="Qxdr4qH-8K7jaWhE30rL" version="21.3.7" type="device">
+<mxfile host="Electron" modified="2023-09-28T16:00:00.880Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.3.7 Chrome/112.0.5615.204 Electron/24.5.0 Safari/537.36" etag="QEJacT6Sgi3CLk6boe4-" version="21.3.7" type="device">
   <diagram id="6a731a19-8d31-9384-78a2-239565b7b9f0" name="Page-1">
     <mxGraphModel dx="527" dy="874" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
       <root>
@@ -40,8 +40,8 @@
         <mxCell id="990" value="5" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=100;fontFamily=Verdana;fontColor=#F18808;fontStyle=1" parent="1" vertex="1">
           <mxGeometry x="874" y="1251" width="74" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="991" value="&lt;div style=&quot;line-height: 120%&quot;&gt;&lt;font style=&quot;line-height: 120%&quot;&gt;&lt;div&gt;Melakukan sosialisasi untuk&lt;/div&gt;&lt;div&gt;mendapatkan beberapa acuan awal&lt;/div&gt;&lt;div&gt;dalam membuat aplikasi&amp;nbsp;&lt;/div&gt;&lt;/font&gt;&lt;/div&gt;" style="text;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=16;fontFamily=Verdana;fontColor=#888888;html=1;" parent="1" vertex="1">
-          <mxGeometry x="948" y="429" width="250" height="70" as="geometry" />
+        <mxCell id="991" value="&lt;div style=&quot;line-height: 120%&quot;&gt;&lt;font style=&quot;line-height: 120%&quot;&gt;&lt;div&gt;Melakukan sosialisasi awal untuk&lt;/div&gt;&lt;div&gt;mendapatkan beberapa&amp;nbsp;&lt;/div&gt;&lt;/font&gt;&lt;/div&gt;" style="text;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=16;fontFamily=Verdana;fontColor=#888888;html=1;" parent="1" vertex="1">
+          <mxGeometry x="948" y="429" width="240" height="50" as="geometry" />
         </mxCell>
         <mxCell id="992" value="APP DEVELOPMENT" style="whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;fontFamily=Verdana;fontSize=70;fontColor=#dddddd;align=left;" parent="1" vertex="1">
           <mxGeometry x="888" y="79" width="700" height="78" as="geometry" />
@@ -49,8 +49,8 @@
         <mxCell id="993" value="From Idea to Launch" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=35;fontFamily=Verdana;fontColor=#888888;" parent="1" vertex="1">
           <mxGeometry x="892" y="163" width="320" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="994" value="&lt;div style=&quot;line-height: 150%&quot;&gt;OBSERVASI&lt;/div&gt;&lt;div style=&quot;line-height: 150%&quot;&gt;SISTEM&lt;/div&gt;" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=24;fontFamily=Verdana;fontColor=#DDDDDD;fontStyle=1" parent="1" vertex="1">
-          <mxGeometry x="1275" y="604" width="160" height="80" as="geometry" />
+        <mxCell id="994" value="&lt;div style=&quot;line-height: 150%&quot;&gt;IT&#39;S ALL ABOUT&amp;nbsp;&lt;br&gt;&lt;span&gt;VISION-TRACKING&lt;/span&gt;&lt;/div&gt;" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=24;fontFamily=Verdana;fontColor=#DDDDDD;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="1275" y="604" width="240" height="70" as="geometry" />
         </mxCell>
         <mxCell id="995" value="&lt;div&gt;GIVE ME SPACE&lt;/div&gt;" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=24;fontFamily=Verdana;fontColor=#DDDDDD;fontStyle=1" parent="1" vertex="1">
           <mxGeometry x="948.9999999999999" y="875" width="210" height="30" as="geometry" />
@@ -61,11 +61,17 @@
         <mxCell id="997" value="&lt;div style=&quot;line-height: 150%&quot;&gt;DON’T MESS&amp;nbsp;&lt;br&gt;&lt;span&gt;WITH ALIGNMENT&amp;nbsp;&lt;br&gt;&lt;/span&gt;&lt;span&gt;AND SPACING&lt;/span&gt;&lt;/div&gt;" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=24;fontFamily=Verdana;fontColor=#DDDDDD;fontStyle=1" parent="1" vertex="1">
           <mxGeometry x="948.9999999999999" y="1324" width="240" height="110" as="geometry" />
         </mxCell>
-        <mxCell id="999" value="&lt;div&gt;Melakukan observasi terkait sistem&lt;/div&gt;&lt;div&gt;yang akan dirancang, berdasarkan&lt;/div&gt;&lt;div&gt;sistem yang sudah ada dan sudah berjalan&lt;/div&gt;&lt;div&gt;selama ini.&lt;/div&gt;" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=16;fontColor=#888888;fontFamily=Verdana;" parent="1" vertex="1">
-          <mxGeometry x="1275" y="687" width="290" height="80" as="geometry" />
+        <mxCell id="999" value="&lt;div&gt;Guide the viewer&#39;s eye through&amp;nbsp;&lt;br&gt;&lt;span&gt;the content.&lt;/span&gt;&lt;/div&gt;" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=16;fontColor=#888888;fontFamily=Verdana;" parent="1" vertex="1">
+          <mxGeometry x="1275" y="687" width="267" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="1000" value="&lt;div style=&quot;line-height: 120%&quot;&gt;&lt;font style=&quot;line-height: 120%&quot;&gt;&lt;div&gt;Each part of the graphic should&lt;br&gt;be well-structured.&lt;br&gt;&lt;/div&gt;&lt;/font&gt;&lt;/div&gt;" style="text;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=16;fontFamily=Verdana;fontColor=#888888;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1275" y="735" width="262" height="38" as="geometry" />
         </mxCell>
         <mxCell id="1001" value="&lt;div style=&quot;line-height: 120%&quot;&gt;&lt;font style=&quot;line-height: 120%&quot;&gt;&lt;div&gt;It groups content visually.&lt;br&gt;&lt;/div&gt;&lt;/font&gt;&lt;/div&gt;" style="text;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=16;fontFamily=Verdana;fontColor=#888888;html=1;" parent="1" vertex="1">
-          <mxGeometry x="943.5" y="940" width="221" height="19" as="geometry" />
+          <mxGeometry x="949" y="967" width="221" height="19" as="geometry" />
+        </mxCell>
+        <mxCell id="1002" value="Enough &quot;white space&quot; makes&lt;br&gt;an infographic look tidy.&lt;br&gt;" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=16;fontColor=#888888;fontFamily=Verdana;" parent="1" vertex="1">
+          <mxGeometry x="949" y="919" width="244" height="36" as="geometry" />
         </mxCell>
         <mxCell id="1003" value="Each element should have&lt;br&gt;the same styling and the same&lt;br&gt;placement.&lt;br&gt;" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=16;fontColor=#888888;fontFamily=Verdana;" parent="1" vertex="1">
           <mxGeometry x="1275" y="1185" width="260" height="60" as="geometry" />

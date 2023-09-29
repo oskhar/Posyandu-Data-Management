@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2023-09-29T01:14:48.209Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.3.7 Chrome/112.0.5615.204 Electron/24.5.0 Safari/537.36" etag="Qxdr4qH-8K7jaWhE30rL" version="21.3.7" type="device">
+<mxfile host="Electron" modified="2023-09-29T04:07:26.568Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.3.7 Chrome/112.0.5615.204 Electron/24.5.0 Safari/537.36" etag="TvDSjzXSfrb5YbGUiU_w" version="21.3.7" type="device">
   <diagram id="6a731a19-8d31-9384-78a2-239565b7b9f0" name="Page-1">
     <mxGraphModel dx="527" dy="874" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
       <root>
@@ -49,8 +49,8 @@
         <mxCell id="993" value="From Idea to Launch" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=35;fontFamily=Verdana;fontColor=#888888;" parent="1" vertex="1">
           <mxGeometry x="892" y="163" width="320" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="994" value="&lt;div style=&quot;line-height: 150%&quot;&gt;OBSERVASI&lt;/div&gt;&lt;div style=&quot;line-height: 150%&quot;&gt;SISTEM&lt;/div&gt;" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=24;fontFamily=Verdana;fontColor=#DDDDDD;fontStyle=1" parent="1" vertex="1">
-          <mxGeometry x="1275" y="604" width="160" height="80" as="geometry" />
+        <mxCell id="994" value="&lt;div style=&quot;line-height: 150%&quot;&gt;OBSERVASI&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;SISTEM&lt;/span&gt;&lt;/div&gt;" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=24;fontFamily=Verdana;fontColor=#DDDDDD;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="1280" y="613" width="250" height="40" as="geometry" />
         </mxCell>
         <mxCell id="995" value="&lt;div&gt;GIVE ME SPACE&lt;/div&gt;" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=24;fontFamily=Verdana;fontColor=#DDDDDD;fontStyle=1" parent="1" vertex="1">
           <mxGeometry x="948.9999999999999" y="875" width="210" height="30" as="geometry" />
@@ -62,7 +62,7 @@
           <mxGeometry x="948.9999999999999" y="1324" width="240" height="110" as="geometry" />
         </mxCell>
         <mxCell id="999" value="&lt;div&gt;Melakukan observasi terkait sistem&lt;/div&gt;&lt;div&gt;yang akan dirancang, berdasarkan&lt;/div&gt;&lt;div&gt;sistem yang sudah ada dan sudah berjalan&lt;/div&gt;&lt;div&gt;selama ini.&lt;/div&gt;" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=16;fontColor=#888888;fontFamily=Verdana;" parent="1" vertex="1">
-          <mxGeometry x="1275" y="687" width="290" height="80" as="geometry" />
+          <mxGeometry x="1278" y="669" width="290" height="80" as="geometry" />
         </mxCell>
         <mxCell id="1001" value="&lt;div style=&quot;line-height: 120%&quot;&gt;&lt;font style=&quot;line-height: 120%&quot;&gt;&lt;div&gt;It groups content visually.&lt;br&gt;&lt;/div&gt;&lt;/font&gt;&lt;/div&gt;" style="text;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=16;fontFamily=Verdana;fontColor=#888888;html=1;" parent="1" vertex="1">
           <mxGeometry x="943.5" y="940" width="221" height="19" as="geometry" />
