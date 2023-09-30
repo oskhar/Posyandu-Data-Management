@@ -8,7 +8,6 @@ Pada bagian ini akan dibahas mengenai model SDLC yang akan digunakan untuk pende
 - membuat UI
 - wawancara dengan client
 - merancang srs (fix)
-- Pemodelan bisnis
 - Pemodelan database
 - Skema API
 - Pembuatan aplikasi backend dan frontend kerja secara pararel
