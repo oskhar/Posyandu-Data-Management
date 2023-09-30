@@ -23,8 +23,16 @@ Hal ini bertujuan agar client leluasa dalam memberikan pendapatnya terhadap apli
 
 ### Model RAD (Rapid Application Development)
 
-Secara keseluruhan kami menggunakan model RAD, RAD juga memiliki pendekatan dengan client yang terbilang mirip dengan model prototype, tapi bedanya model RAD hanya menggunakan prototype sebagai landasan awal untuk membuat hasil akhir, sedangkan model Prototype melakukan iterasi secara terus menerus sampai batas dimana client puas.
+Secara keseluruhan kami menggunakan model RAD, RAD juga memiliki pendekatan dengan client yang terbilang mirip dengan model prototype, tapi bedanya model RAD hanya menggunakan prototype sebagai landasan awal untuk membuat hasil akhir, sedangkan model Prototype melakukan pengujian iterasi (secara terus menerus) sampai batas dimana client puas.
 
 > **Note**: Itu juga salah satu kelemahan model prototype, developer jadi terpaku dengan intrupsi dari client. Cara untuk menanggulangi kelemahan model prototype adalah dengan membuat kesepakatan di awal, atau mengajukan surat perjanjian mengenai standar atau aturan yang harus dipenuhi oleh client.
 
-Penggunaan model prototype kami di awal berguna sebagai landasan awal yang intens agar dapat membangun berbagai skema aplikasi (seperti skema data, skema bisnis, dan skema API)
+Penggunaan model prototype kami di awal berguna sebagai landasan awal yang intens agar dapat membangun berbagai skema aplikasi (seperti skema data, skema bisnis, dan skema API) yang baik dan stabil. Yang nantinya akan kami lakukan implementasi program secara pararel (Berjalan masing masing antara backend dan frontend) yang berpedoman dengan skema API yang sudah ditentukan menggunakan standar API yaitu OPENAPI, ini sesuai dengan pola pengembangan model RAD (Rapid Application Development).
+
+### Metodelogi Scrum
+
+Scrum merupakan pertemuan rutin dari tim untuk memberikan tinjauan kemajuan dan prioritas dari pekerjaan yang harus dikerjakan pada hari itu, Scrum akan kami laksanakan dalam tahap implementasi (saat pemrograman aplikasi berlangsung). Dengan tahapan kasar sebagai berikut:
+
+- Planing task yang akan dikerjakan
+- Pengerjaan task
+- Pengujian (Check, Fix, dan Refactoring)

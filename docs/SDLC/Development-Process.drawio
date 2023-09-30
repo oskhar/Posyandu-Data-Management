@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2023-09-30T14:36:11.179Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.0 Chrome/114.0.5735.289 Electron/25.8.3 Safari/537.36" etag="eVDiHZDVmh_EljyyO9PD" version="22.0.0" type="device">
+<mxfile host="Electron" modified="2023-09-30T17:24:27.581Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.0 Chrome/114.0.5735.289 Electron/25.8.3 Safari/537.36" etag="pAT-D-TpQrPRceWeYnIP" version="22.0.0" type="device">
   <diagram id="6a731a19-8d31-9384-78a2-239565b7b9f0" name="Page-1">
     <mxGraphModel dx="527" dy="874" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
       <root>
@@ -358,11 +358,11 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="ujTOci2k68L_659IS-yn-1064" value="&lt;div style=&quot;line-height: 150%&quot;&gt;WAWANCARA&lt;/div&gt;&lt;div style=&quot;line-height: 150%&quot;&gt;DENGAN&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;CLIENT&lt;/span&gt;&lt;/div&gt;" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=24;fontFamily=Verdana;fontColor=#DDDDDD;fontStyle=1" parent="1" vertex="1">
-          <mxGeometry x="1312" y="1550" width="230" height="80" as="geometry" />
+        <mxCell id="ujTOci2k68L_659IS-yn-1064" value="&lt;div style=&quot;line-height: 150%&quot;&gt;MERANCANG&lt;/div&gt;&lt;div style=&quot;line-height: 150%&quot;&gt;SRS (FIX)&lt;/div&gt;" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=24;fontFamily=Verdana;fontColor=#DDDDDD;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="1312" y="1550" width="180" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="ujTOci2k68L_659IS-yn-1065" value="Setelah UI sudah tersedia, manfaatkan&lt;br&gt;UI sebagai bahan wawancara visual&lt;br&gt;agar client lebih leluasa dan mudah&lt;br&gt;menyampaikan pendapatnya" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=16;fontColor=#888888;fontFamily=Verdana;" parent="1" vertex="1">
-          <mxGeometry x="1312" y="1650" width="270" height="80" as="geometry" />
+        <mxCell id="ujTOci2k68L_659IS-yn-1065" value="Membuat SRS (Software Reuirement&lt;br&gt;Specification) yang stabil dan menjadi&lt;br&gt;landasan utama dalam pengembangan." style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=16;fontColor=#888888;fontFamily=Verdana;" parent="1" vertex="1">
+          <mxGeometry x="1312" y="1650" width="270" height="70" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
