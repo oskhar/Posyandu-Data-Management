@@ -1,3 +1,7 @@
+# Application Architecture
+
+![Application Architecture](/docs/SDLC/Application-Architecture.png)
+
 # Aplikasi Posyandu Melati
 
 Proyek kuliah sebagai wadah untuk berkolaborasi, memahami, dan mengembangkan konsep-konsep rekayasa perangkat lunak secara praktis. Menggunakan metodologi yang relevan dan praktik terbaik untuk merancang, mengembangkan, dan mendokumentasikan perangkat lunak.
