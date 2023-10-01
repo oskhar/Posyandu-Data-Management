@@ -36,6 +36,9 @@ Project ini hanya berfokus pada penyelesaian tugas. Tapi kontibusi dari pihak lu
 
 ```sh
 cd laravel
+```
+
+```sh
 npm php artisan serve
 ```
 
@@ -43,5 +46,8 @@ npm php artisan serve
 
 ```sh
 cd vue
+```
+
+```sh
 npm run dev
 ```
