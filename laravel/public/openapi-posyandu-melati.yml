@@ -1,22 +1,22 @@
 openapi: "3.0.2"
 info:
-  title: API Bank Sampah
+  title: RESTAPI Posyandu Melati
   version: "1.0"
 servers:
   - url: http://localhost:8000/api
 tags:
-  - name: Data pegawai
-    description: Untuk mengola data pegawai
+  - name: Data perawatan
+    description: Untuk mengola data perawatan
 paths:
-  /pegawai:
+  /perawatan:
     get:
       tags:
-        - Data pegawai
-      summary: MENDAPATKAN data pegawai
+        - Data perawatan
+      summary: MENDAPATKAN data perawatan
       parameters:
-        - name: id_pegawai
+        - name: id_perawatan
           in: query
-          description: Menampilkan spesifik pegawai berdasarkan idnya
+          description: Menampilkan spesifik perawatan berdasarkan idnya
           schema:
             type: string
             nullable: true # Parameter bisa bernilai null (opsional)
@@ -51,9 +51,9 @@ paths:
                     items:
                       type: object
                       properties:
-                        id_pegawai:
+                        id_perawatan:
                           type: string
-                        nama_pegawai:
+                        nama_perawatan:
                           type: string
                         jenis_kelamin:
                           type: string
@@ -91,17 +91,17 @@ paths:
                   message: "Data dengan id ... tidak ditemukan"
     post:
       tags:
-        - Data pegawai
-      summary: MENAMBAHKAN data pegawai
+        - Data perawatan
+      summary: MENAMBAHKAN data perawatan
       requestBody:
-        description: Data pegawai untuk menambahkan data pegawai
+        description: Data perawatan untuk menambahkan data perawatan
         required: true
         content:
           application/json:
             schema:
               type: object
               properties:
-                nama_pegawai:
+                nama_perawatan:
                   type: string
                 jenis_kelamin:
                   type: string
@@ -155,19 +155,19 @@ paths:
                   message: "Data dideteksi berada di tempat sampah !! Pulihkan ?"
     put:
       tags:
-        - Data pegawai
-      summary: MENGUBAH data pegawai
+        - Data perawatan
+      summary: MENGUBAH data perawatan
       requestBody:
-        description: Data pegawai untuk mengubah data pegawai
+        description: Data perawatan untuk mengubah data perawatan
         required: true
         content:
           application/json:
             schema:
               type: object
               properties:
-                id_pegawai:
+                id_perawatan:
                   type: integer
-                nama_pegawai:
+                nama_perawatan:
                   type: string
                 jenis_kelamin:
                   type: string
@@ -236,17 +236,17 @@ paths:
                   message: "Data dideteksi berada di tempat sampah !! Pulihkan ?"
     delete:
       tags:
-        - Data pegawai
-      summary: MENGHAPUS data pegawai
+        - Data perawatan
+      summary: MENGHAPUS data perawatan
       requestBody:
-        description: Data pegawai untuk menghapus data pegawai
+        description: Data perawatan untuk menghapus data perawatan
         required: true
         content:
           application/json:
             schema:
               type: object
               properties:
-                id_pegawai:
+                id_perawatan:
                   type: integer
       responses:
         200:
@@ -279,20 +279,20 @@ paths:
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
-  /pegawai/pulihkan:
+  /perawatan/pulihkan:
     put:
       tags:
-        - Data pegawai
-      summary: MEMULIHKAN data pegawai
+        - Data perawatan
+      summary: MEMULIHKAN data perawatan
       requestBody:
-        description: Data pegawai untuk memulihkan data pegawai
+        description: Data perawatan untuk memulihkan data perawatan
         required: true
         content:
           application/json:
             schema:
               type: object
               properties:
-                id_pegawai:
+                id_perawatan:
                   type: integer
       responses:
         200:
