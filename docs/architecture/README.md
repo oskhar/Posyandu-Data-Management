@@ -1,3 +1,5 @@
+# Basis Data Arsitektur
+
 ## Conceptual Data Model
 
 CDM (Conceptual Data Model) adalah model konseptual yang bertujuan untuk menggambarkan pemahaman tingkat tinggi tentang data dan hubungannya dengan organisasi atau domain bisnis.
