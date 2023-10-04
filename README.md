@@ -1,6 +1,7 @@
 # Application Architecture
 
-Rincian mengenai arsitektur aplikasi click [di sini](/docs/architecture)
+Software Requirement Specification [download.](/docs/architecture/system/SRS.pdf)
+Rincian mengenai rancangan basis data click [di sini.](/docs/architecture/database/README.md)
 
 # Aplikasi Posyandu Melati
 
@@ -16,7 +17,7 @@ Proyek kuliah sebagai wadah untuk berkolaborasi, memahami, dan mengembangkan kon
 - Composer -- myversion 2.5.2
 - vite -- version ^4.2.3
 - Materio -- version 2.0
-- Sneat -- version 2.0
+- Sneat -- version 1.0
 
 ## Model SDLC
 
