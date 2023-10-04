@@ -1,6 +1,5 @@
 # Application Architecture
 
-![Application Architecture](/docs/SDLC/Application-Architecture.png)
 Rincian mengenai arsitektur aplikasi click [di sini](/docs/architecture)
 
 # Aplikasi Posyandu Melati
