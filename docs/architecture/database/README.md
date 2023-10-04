@@ -11,3 +11,5 @@ CDM (Conceptual Data Model) adalah model konseptual yang bertujuan untuk menggam
 LDM adalah model logis yang berfokus pada desain database secara independen dari platform atau teknologi penyimpanan data tertentu.
 
 ![LDM Picture](/docs/architecture/database/Logical-Data-Model.png)
+
+## Physical Data Model
