@@ -1,7 +1,7 @@
 # Application Architecture
 
-Software Requirement Specification [download.](/docs/architecture/system/SRS.pdf)
-Rincian mengenai rancangan basis data click [di sini.](/docs/architecture/database/README.md)
+- Software Requirement Specification [download.](/docs/architecture/system/SRS.pdf)
+- Rincian mengenai rancangan basis data click [di sini.](/docs/architecture/database/README.md)
 
 # Aplikasi Posyandu Melati
 
