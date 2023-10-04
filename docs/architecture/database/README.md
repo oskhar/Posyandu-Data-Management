@@ -13,3 +13,5 @@ LDM adalah model logis yang berfokus pada desain database secara independen dari
 ![LDM Picture](/docs/architecture/database/Logical-Data-Model.png)
 
 ## Physical Data Model
+
+PDM adalah model fisik yang merinci bagaimana data akan disimpan, diindeks, dan diakses dalam database sebenarnya dengan mempertimbangkan aspek teknis dan implementasi.
