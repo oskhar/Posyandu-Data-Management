@@ -1,0 +1,327 @@
+openapi: "3.0.2"
+info:
+  title: RESTAPI Posyandu Melati
+  version: "1.0"
+servers:
+  - url: http://localhost:8000/api
+tags:
+  - name: Data perawatan
+    description: Untuk mengola data perawatan
+paths:
+  /perawatan:
+    get:
+      tags:
+        - Data perawatan
+      summary: MENDAPATKAN data perawatan
+      parameters:
+        - name: id_perawatan
+          in: query
+          description: Menampilkan spesifik perawatan berdasarkan idnya
+          schema:
+            type: string
+            nullable: true # Parameter bisa bernilai null (opsional)
+        - name: length
+          in: query
+          description: Jumlah item yang akan ditampilkan
+          schema:
+            type: number
+            nullable: true # Parameter bisa bernilai null (opsional)
+        - name: start
+          in: query
+          description: Indeks awal data yang akan ditampilkan
+          schema:
+            type: number
+            nullable: true # Parameter bisa bernilai null (opsional)
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  draw:
+                    type: number
+                  recordsTotal:
+                    type: number
+                  recordsFiltered:
+                    type: number
+                  data:
+                    type: array # Perubahan: Objek data adalah array
+                    items:
+                      type: object
+                      properties:
+                        id_perawatan:
+                          type: string
+                        nama_perawatan:
+                          type: string
+                        jenis_kelamin:
+                          type: string
+                        status_data:
+                          type: string
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+        404:
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data dengan id ... tidak ditemukan"
+    post:
+      tags:
+        - Data perawatan
+      summary: MENAMBAHKAN data perawatan
+      requestBody:
+        description: Data perawatan untuk menambahkan data perawatan
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nama_perawatan:
+                  type: string
+                jenis_kelamin:
+                  type: string
+                status_data:
+                  type: string
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... berhasil ditambahkan"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+        409:
+          description: CONFLICT
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data dideteksi berada di tempat sampah !! Pulihkan ?"
+    put:
+      tags:
+        - Data perawatan
+      summary: MENGUBAH data perawatan
+      requestBody:
+        description: Data perawatan untuk mengubah data perawatan
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_perawatan:
+                  type: integer
+                nama_perawatan:
+                  type: string
+                jenis_kelamin:
+                  type: string
+                status_data:
+                  type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... berhasil diubah"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+        404:
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data dengan id ... tidak ditemukan"
+        409:
+          description: CONFLICT
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data dideteksi berada di tempat sampah !! Pulihkan ?"
+    delete:
+      tags:
+        - Data perawatan
+      summary: MENGHAPUS data perawatan
+      requestBody:
+        description: Data perawatan untuk menghapus data perawatan
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_perawatan:
+                  type: integer
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... berhasil dihapus"
+        404:
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data dengan id ... tidak ditemukan"
+  /perawatan/pulihkan:
+    put:
+      tags:
+        - Data perawatan
+      summary: MEMULIHKAN data perawatan
+      requestBody:
+        description: Data perawatan untuk memulihkan data perawatan
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_perawatan:
+                  type: integer
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... berhasil dipulihkan"
+        404:
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data dengan id ... tidak ditemukan"
