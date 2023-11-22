@@ -289,7 +289,7 @@ paths:
                     type: string
                   judul:
                     type: string
-                  desskripsi:
+                  deskripsi:
                     type: string
                   gambar:
                     type: string
@@ -341,7 +341,7 @@ paths:
                   type: integer
                 judul:
                   type: string
-                desskripsi:
+                deskripsi:
                   type: string
                 gambar:
                   type: string
@@ -394,7 +394,7 @@ paths:
                   type: integer
                 judul:
                   type: string
-                desskripsi:
+                deskripsi:
                   type: string
                 gambar:
                   type: string
@@ -679,7 +679,7 @@ paths:
                     type: string
                   judul:
                     type: string
-                  desskripsi:
+                  deskripsi:
                     type: string
                   gambar:
                     type: string
@@ -731,7 +731,7 @@ paths:
                   type: integer
                 judul:
                   type: string
-                desskripsi:
+                deskripsi:
                   type: string
                 gambar:
                   type: string
@@ -872,23 +872,13 @@ paths:
             schema:
               type: object
               properties:
-                id_admin:
-                  type: integer
                 id_jabatan:
                   type: integer
                 email_admin:
                   type: string
                 nama_lengkap:
                   type: string
-                foto_profile:
-                  type: string
-                jenis_kelamin:
-                  type: boolean
-                alamat:
-                  type: string
-                tanggal_lahir:
-                  type: string
-                no_telp:
+                password:
                   type: string
       responses:
         201:

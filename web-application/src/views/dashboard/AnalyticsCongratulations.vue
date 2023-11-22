@@ -18,15 +18,15 @@ const illustrationJohn = computed(() => global.name.value === 'dark' ? illustrat
       >
         <VCardItem>
           <VCardTitle class="text-md-h5 text-primary">
-            Congratulations John! 🎉
+            Selamat Datang Di Posyandu
           </VCardTitle>
         </VCardItem>
 
         <VCardText>
           <span>
-            You have done 72% 🤩 more sales today.
+            Ini merupakan situs web Posyandu Melati
             <br>
-            Check your new raising badge in your profile.
+            Semoga dapat memudahkan masyarakat
           </span>
           <br>
           <VBtn
@@ -34,7 +34,7 @@ const illustrationJohn = computed(() => global.name.value === 'dark' ? illustrat
             class="mt-4"
             size="small"
           >
-            View Badges
+            Selengkapnya
           </VBtn>
         </VCardText>
       </VCol>

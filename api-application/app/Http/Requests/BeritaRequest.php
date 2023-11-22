@@ -33,7 +33,7 @@ class BeritaRequest extends CoreRequest
                 ];
             case 'DELETE':
                 return [
-                    "id_berita" => "required|integer",
+                    "id_berita" => "nullable|integer",
                 ];
             case 'GET':
                 return [

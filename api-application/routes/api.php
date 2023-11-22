@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\EdukasiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => 'auth:sanctum'], function ($router) {
+
+
 });
+
+Route::get('/edukasi', [EdukasiController::class, 'get']);
+Route::post('/edukasi', [EdukasiController::class, 'post']);
+Route::put('/edukasi', [EdukasiController::class, 'put']);
+Route::delete('/edukasi', [EdukasiController::class, 'delete']);
+
+Route::get('/berita', [BeritaController::class, 'get']);
+Route::post('/berita', [BeritaController::class, 'post']);
+Route::put('/berita', [BeritaController::class, 'put']);
+Route::delete('/berita', [BeritaController::class, 'delete']);
