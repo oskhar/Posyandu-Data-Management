@@ -9,13 +9,18 @@ tags:
     description: Untuk mengola data edukasi
   - name: Data berita acara
     description: Untuk mengola data berita acara
+  - name: Data galeri
+    description: Untuk mengola data galeri
+  - name: Data posyandu
+    description: Untuk mengola data posyandu
+  - name: Data admin
+    description: Untuk mengola data admin
 paths:
   /edukasi:
     get:
       tags:
         - Data edukasi
       summary: MENDAPATKAN data edukasi
-
       requestBody:
         description: Data edukasi untuk menghapus data edukasi
         required: true
@@ -39,7 +44,7 @@ paths:
                 properties:
                   id_edukasi:
                     type: string
-                  email:
+                  email_admin:
                     type: string
                   nama_lengkap:
                     type: string
@@ -248,12 +253,13 @@ paths:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
 
+  # ==================================================================
+
   /berita:
     get:
       tags:
         - Data berita acara
       summary: MENDAPATKAN data berita
-
       requestBody:
         description: Data berita untuk menghapus data berita
         required: true
@@ -277,7 +283,7 @@ paths:
                 properties:
                   id_berita:
                     type: integer
-                  email:
+                  email_admin:
                     type: string
                   nama_lengkap:
                     type: string
@@ -453,6 +459,557 @@ paths:
               type: object
               properties:
                 id_berita:
+                  type: integer
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                success:
+                  message: "Data ... berhasil dihapus"
+        404:
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data dengan id ... tidak ditemukan"
+
+  # ==================================================================
+
+  /galeri:
+    get:
+      tags:
+        - Data galeri
+      summary: MENDAPATKAN data galeri
+
+      requestBody:
+        description: Data galeri untuk menghapus data galeri
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_galeri:
+                  type: integer
+
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id_galeri:
+                    type: integer
+                  path:
+                    type: string
+                  tanggal_dibuat:
+                    type: string
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+        404:
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data dengan id ... tidak ditemukan"
+    post:
+      tags:
+        - Data galeri
+      summary: MENAMBAHKAN data galeri
+      requestBody:
+        description: Data galeri untuk menambahkan data galeri
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_admin:
+                  type: integer
+                path:
+                  type: string
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                success:
+                  message: "Data ... berhasil ditambahkan"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+    delete:
+      tags:
+        - Data galeri
+      summary: MENGHAPUS data galeri
+      requestBody:
+        description: Data galeri untuk menghapus data galeri
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_galeri:
+                  type: integer
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                success:
+                  message: "Data ... berhasil dihapus"
+        404:
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data dengan id ... tidak ditemukan"
+
+  # ==================================================================
+
+  /posyandu:
+    get:
+      tags:
+        - Data posyandu
+      summary: MENDAPATKAN data posyandu
+
+      requestBody:
+        description: Data posyandu untuk menghapus data posyandu
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id_posyandu:
+                    type: integer
+                  email_admin:
+                    type: string
+                  nama_lengkap:
+                    type: string
+                  judul:
+                    type: string
+                  desskripsi:
+                    type: string
+                  gambar:
+                    type: string
+                  tanggal_pelaksanaan:
+                    type: string
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+        404:
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data dengan id ... tidak ditemukan"
+    put:
+      tags:
+        - Data posyandu
+      summary: MENGUBAH data posyandu
+      requestBody:
+        description: Data posyandu untuk mengubah data posyandu
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_posyandu:
+                  type: integer
+                judul:
+                  type: string
+                desskripsi:
+                  type: string
+                gambar:
+                  type: string
+                tanggal_pelaksanaan:
+                  type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                success:
+                  message: "Data ... berhasil diubah"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+        404:
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data dengan id ... tidak ditemukan"
+
+  # ==================================================================
+
+  /admin:
+    get:
+      tags:
+        - Data admin
+      summary: MENDAPATKAN data admin
+
+      requestBody:
+        description: Data admin untuk menghapus data admin
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_admin:
+                  type: integer
+                search:
+                  type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id_admin:
+                    type: integer
+                  jabatan:
+                    type: string
+                  email_admin:
+                    type: string
+                  nama_lengkap:
+                    type: string
+                  foto_profile:
+                    type: string
+                  jenis_kelamin:
+                    type: boolean
+                  alamat:
+                    type: string
+                  tanggal_lahir:
+                    type: string
+                  no_telp:
+                    type: string
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+        404:
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data dengan id ... tidak ditemukan"
+    post:
+      tags:
+        - Data admin
+      summary: MENAMBAHKAN data admin
+      requestBody:
+        description: Data admin untuk menambahkan data admin
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_admin:
+                  type: integer
+                id_jabatan:
+                  type: integer
+                email_admin:
+                  type: string
+                nama_lengkap:
+                  type: string
+                foto_profile:
+                  type: string
+                jenis_kelamin:
+                  type: boolean
+                alamat:
+                  type: string
+                tanggal_lahir:
+                  type: string
+                no_telp:
+                  type: string
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                success:
+                  message: "Data ... berhasil ditambahkan"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+    put:
+      tags:
+        - Data admin
+      summary: MENGUBAH data admin
+      requestBody:
+        description: Data admin untuk mengubah data admin
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_admin:
+                  type: integer
+                id_jabatan:
+                  type: integer
+                email_admin:
+                  type: string
+                nama_lengkap:
+                  type: string
+                foto_profile:
+                  type: string
+                jenis_kelamin:
+                  type: boolean
+                alamat:
+                  type: string
+                tanggal_lahir:
+                  type: string
+                no_telp:
+                  type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                success:
+                  message: "Data ... berhasil diubah"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+        404:
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data dengan id ... tidak ditemukan"
+    delete:
+      tags:
+        - Data admin
+      summary: MENGHAPUS data admin
+      requestBody:
+        description: Data admin untuk menghapus data admin
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_admin:
                   type: integer
       responses:
         200:
