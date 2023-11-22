@@ -25,13 +25,14 @@ class BeritaController extends Controller
          * 
          */
         $berita = BeritaModel::select(
-            'email_admin',
-            'nama_lengkap',
-            'judul',
-            'desskripsi',
-            'gambar',
-            'tanggal_pelaksanaan'
-        );
+            'admin.email_admin',
+            'admin.nama_lengkap',
+            'edukasi.judul',
+            'edukasi.deskripsi',
+            'edukasi.gambar',
+            'edukasi.tanggal_pelaksanaan',
+            'edukasi.created_at as tanggal'
+        )->join('admin', 'admin.id', '=', 'edukasi.id_admin');
 
         /**
          * Melakukan filtering atau penyaringan
@@ -50,6 +51,22 @@ class BeritaController extends Controller
          * 
          */
         $berita = $berita->get();
+
+        /**
+         * Menyesuaikan data
+         * 
+         */
+        $berita = $berita->map(function ($result) {
+
+            /**
+             * Mengubah tanggal dan waktu menjadi hanya tanggal saja
+             * tt-bb-hh jj:mm:dd -> tt-bb-hh
+             * 
+             */
+            $result->tanggal = explode(' ', $result->tanggal)[0];
+            return $result;
+
+        });
 
         /**
          * Mengembalikan nilai yang diminta
