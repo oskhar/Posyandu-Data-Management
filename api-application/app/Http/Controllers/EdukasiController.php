@@ -24,8 +24,13 @@ class EdukasiController extends Controller
          * 
          */
         $edukasi = EdukasiModel::select(
-            ''
-        );
+            'admin.email',
+            'admin.nama_lengkap',
+            'edukasi.judul',
+            'edukasi.materi',
+            'edukasi.gambar',
+            'edukasi.tanggal'
+        )->join('admin', 'admin.id', '=', 'edukasi.id_admin');
 
         /**
          * Mendapatkan data yang sudah

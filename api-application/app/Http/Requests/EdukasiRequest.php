@@ -24,18 +24,18 @@ class EdukasiRequest extends CoreRequest
                 ];
             case 'PUT': // Untuk membuat (store)
                 return [
-                    "id_berita" => "required|integer",
+                    "id_edukasi" => "required|integer",
                     "judul" => "required|string",
                     "materi" => "nullable",
                     "gambar" => "nullable",
                 ];
             case 'DELETE':
                 return [
-                    "id_berita" => "required|integer",
+                    "id_edukasi" => "required|integer",
                 ];
             case 'GET':
                 return [
-                    'id_berita' => 'required|integer',
+                    'id_edukasi' => 'nullable|integer',
                     'search' => 'nullable'
                 ];
             default:

@@ -878,6 +878,8 @@ paths:
                   type: string
                 nama_lengkap:
                   type: string
+                password:
+                  type: string
       responses:
         201:
           description: CREATED
