@@ -106,8 +106,6 @@ paths:
                   type: string
                 gambar:
                   type: string
-                tanggal:
-                  type: string
       responses:
         201:
           description: CREATED
@@ -158,8 +156,6 @@ paths:
                 materi:
                   type: string
                 gambar:
-                  type: string
-                tanggal:
                   type: string
       responses:
         200:

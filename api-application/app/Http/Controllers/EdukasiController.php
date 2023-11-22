@@ -24,12 +24,12 @@ class EdukasiController extends Controller
          * 
          */
         $edukasi = EdukasiModel::select(
-            'admin.email',
+            'admin.email_admin',
             'admin.nama_lengkap',
             'edukasi.judul',
             'edukasi.materi',
             'edukasi.gambar',
-            'edukasi.tanggal'
+            'edukasi.created_at as tanggal'
         )->join('admin', 'admin.id', '=', 'edukasi.id_admin');
 
         /**
@@ -40,8 +40,24 @@ class EdukasiController extends Controller
         $edukasi = $edukasi->get();
 
         /**
+         * Menyesuaikan data
+         * 
+         */
+        $edukasi = $edukasi->map(function ($result) {
+
+            /**
+             * Mengubah tanggal dan waktu menjadi hanya tanggal saja
+             * tt-bb-hh jj:mm:dd -> tt-bb-hh
+             * 
+             */
+            $result->tanggal = explode(' ', $result->tanggal)[0];
+            return $result;
+
+        });
+
+        /**
          * Memeberikan data yang diminta
-         * melalui respinse
+         * melalui response
          * 
          */
         return response()->json(
@@ -62,7 +78,7 @@ class EdukasiController extends Controller
          * Melakukan penambahan data ke database
          * 
          */
-        EdukasiController::create($data);
+        EdukasiModel::create($data);
 
         /**
          * Mengembalikan response setelah
