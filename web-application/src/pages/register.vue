@@ -28,18 +28,15 @@ const isPasswordVisible = ref(false)
           </div>
         </template>
 
-        <VCardTitle class="text-2xl font-weight-bold">
+        <!-- <VCardTitle class="text-2xl font-weight-bold">
           sneat
-        </VCardTitle>
+        </VCardTitle> -->
       </VCardItem>
 
       <VCardText class="pt-2">
         <h5 class="text-h5 mb-1">
-          Adventure starts here 🚀
+          Mulai dari sini 🚀
         </h5>
-        <p class="mb-0">
-          Make your app management easy and fun!
-        </p>
       </VCardText>
 
       <VCardText>
@@ -51,7 +48,7 @@ const isPasswordVisible = ref(false)
                 v-model="form.username"
                 autofocus
                 label="Username"
-                placeholder="Johndoe"
+                placeholder="Posyandu"
               />
             </VCol>
             <!-- email -->
@@ -59,7 +56,7 @@ const isPasswordVisible = ref(false)
               <VTextField
                 v-model="form.email"
                 label="Email"
-                placeholder="johndoe@email.com"
+                placeholder="posyandu@email.com"
                 type="email"
               />
             </VCol>
@@ -74,7 +71,7 @@ const isPasswordVisible = ref(false)
                 :append-inner-icon="isPasswordVisible ? 'bx-hide' : 'bx-show'"
                 @click:append-inner="isPasswordVisible = !isPasswordVisible"
               />
-              <div class="d-flex align-center mt-1 mb-4">
+              <!-- <div class="d-flex align-center mt-1 mb-4">
                 <VCheckbox
                   id="privacy-policy"
                   v-model="form.privacyPolicies"
@@ -90,11 +87,12 @@ const isPasswordVisible = ref(false)
                     class="text-primary"
                   >privacy policy & terms</a>
                 </VLabel>
-              </div>
+              </div> -->
 
               <VBtn
                 block
                 type="submit"
+                class="mt-5"
               >
                 Sign up
               </VBtn>
@@ -105,12 +103,12 @@ const isPasswordVisible = ref(false)
               cols="12"
               class="text-center text-base"
             >
-              <span>Already have an account?</span>
+              <span>Sudah punya akun?</span>
               <RouterLink
                 class="text-primary ms-2"
                 to="/login"
               >
-                Sign in instead
+                Sign in
               </RouterLink>
             </VCol>
 
@@ -119,7 +117,7 @@ const isPasswordVisible = ref(false)
               class="d-flex align-center"
             >
               <VDivider />
-              <span class="mx-4">or</span>
+              <span class="mx-4">atau</span>
               <VDivider />
             </VCol>
 

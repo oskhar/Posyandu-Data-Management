@@ -28,16 +28,16 @@ const isPasswordVisible = ref(false)
         </template>
 
         <VCardTitle class="text-2xl font-weight-bold">
-          sneat
+          
         </VCardTitle>
       </VCardItem>
 
       <VCardText class="pt-2">
         <h5 class="text-h5 mb-1">
-          Welcome to sneat! 👋🏻
+          Selamat datang di Posyandu!👋🏻
         </h5>
         <p class="mb-0">
-          Please sign-in to your account and start the adventure
+          Mohon sign-in ke akun anda
         </p>
       </VCardText>
 
@@ -49,7 +49,7 @@ const isPasswordVisible = ref(false)
               <VTextField
                 v-model="form.email"
                 autofocus
-                placeholder="johndoe@email.com"
+                placeholder="posyandu@email.com"
                 label="Email"
                 type="email"
               />
@@ -68,16 +68,12 @@ const isPasswordVisible = ref(false)
 
               <!-- remember me checkbox -->
               <div class="d-flex align-center justify-space-between flex-wrap mt-1 mb-4">
-                <VCheckbox
-                  v-model="form.remember"
-                  label="Remember me"
-                />
 
                 <RouterLink
                   class="text-primary ms-2 mb-1"
                   to="javascript:void(0)"
                 >
-                  Forgot Password?
+                  Lupa Password?
                 </RouterLink>
               </div>
 
@@ -91,16 +87,16 @@ const isPasswordVisible = ref(false)
             </VCol>
 
             <!-- create account -->
-            <VCol
+            <!-- <VCol
               cols="12"
               class="text-center text-base"
             >
-              <span>New on our platform?</span>
+              <span>Baru di platform ini?</span>
               <RouterLink
                 class="text-primary ms-2"
                 to="/register"
               >
-                Create an account
+                Buat akun
               </RouterLink>
             </VCol>
 
@@ -109,16 +105,16 @@ const isPasswordVisible = ref(false)
               class="d-flex align-center"
             >
               <VDivider />
-              <span class="mx-4">or</span>
+              <span class="mx-4">atau</span>
               <VDivider />
-            </VCol>
+            </VCol> -->
 
             <!-- auth providers -->
             <VCol
               cols="12"
               class="text-center"
             >
-              <AuthProvider />
+              <!-- <AuthProvider /> -->
             </VCol>
           </VRow>
         </VForm>
