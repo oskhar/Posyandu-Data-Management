@@ -17,20 +17,20 @@ const router = createRouter({
           component: () => import('../pages/account-settings.vue'),
         },
         {
-          path: 'typography',
-          component: () => import('../pages/typography.vue'),
+          path: 'berita-acara',
+          component: () => import('../pages/berita-acara.vue'),
         },
         {
-          path: 'icons',
-          component: () => import('../pages/icons.vue'),
+          path: 'edukasi',
+          component: () => import('../pages/edukasi.vue'),
         },
         {
-          path: 'cards',
-          component: () => import('../pages/cards.vue'),
+          path: 'galeri',
+          component: () => import('../pages/galeri.vue'),
         },
         {
-          path: 'tables',
-          component: () => import('../pages/tables.vue'),
+          path: 'tentang',
+          component: () => import('../pages/tentang.vue'),
         },
         {
           path: 'form-layouts',
