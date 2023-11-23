@@ -106,8 +106,6 @@ paths:
                   type: string
                 gambar:
                   type: string
-                tanggal:
-                  type: string
       responses:
         201:
           description: CREATED
@@ -158,8 +156,6 @@ paths:
                 materi:
                   type: string
                 gambar:
-                  type: string
-                tanggal:
                   type: string
       responses:
         200:
@@ -671,19 +667,19 @@ paths:
               schema:
                 type: object
                 properties:
-                  id_posyandu:
-                    type: integer
-                  email_admin:
+                  nama_posyandu:
                     type: string
-                  nama_lengkap:
+                  kecamatan:
                     type: string
-                  judul:
+                  kelurahan:
                     type: string
-                  deskripsi:
+                  penyampaian_ketua:
                     type: string
-                  gambar:
+                  gambar_gedung:
                     type: string
-                  tanggal_pelaksanaan:
+                  visi:
+                    type: string
+                  misi:
                     type: string
         400:
           description: BAD REQUEST
@@ -727,15 +723,19 @@ paths:
             schema:
               type: object
               properties:
-                id_posyandu:
-                  type: integer
-                judul:
+                nama_posyandu:
                   type: string
-                deskripsi:
+                kecamatan:
                   type: string
-                gambar:
+                kelurahan:
                   type: string
-                tanggal_pelaksanaan:
+                penyampaian_ketua:
+                  type: string
+                gambar_gedung:
+                  type: string
+                visi:
+                  type: string
+                misi:
                   type: string
       responses:
         200:

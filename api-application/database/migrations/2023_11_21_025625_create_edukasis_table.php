@@ -17,7 +17,6 @@ return new class extends Migration {
             $table->string('judul');
             $table->text('materi');
             $table->string('gambar');
-            $table->date('tanggal');
             $table->timestamps();
         });
     }

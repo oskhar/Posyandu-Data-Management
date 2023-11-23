@@ -18,8 +18,8 @@ class BeritaRequest extends CoreRequest
             case 'POST': // Untuk membuat (store)
                 return [
                     "id_admin" => "required|integer",
-                    "judul" => "required|string",
-                    "deskripsi" => "nullable",
+                    "judul" => "required|string|unique:berita",
+                    "deskripsi" => "nullable|string",
                     "gambar" => "nullable",
                     "tanggal_pelaksanaan" => "required"
                 ];
@@ -27,17 +27,17 @@ class BeritaRequest extends CoreRequest
                 return [
                     "id_berita" => "required|integer",
                     "judul" => "required|string",
-                    "deskripsi" => "nullable",
+                    "deskripsi" => "nullable|string",
                     "gambar" => "nullable",
                     "tanggal_pelaksanaan" => "required"
                 ];
             case 'DELETE':
                 return [
-                    "id_berita" => "nullable|integer",
+                    "id_berita" => "required|integer",
                 ];
             case 'GET':
                 return [
-                    'id_berita' => 'required|integer',
+                    'id_berita' => 'nullable|integer',
                     'search' => 'nullable'
                 ];
             default:
