@@ -6,6 +6,8 @@ use App\Http\Requests\BeritaRequest;
 use App\Models\BeritaModel;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Carbon;
 
 class BeritaController extends Controller
 {
@@ -25,32 +27,48 @@ class BeritaController extends Controller
          * 
          */
         $berita = BeritaModel::select(
+            'berita.id as id_berita',
             'admin.email_admin',
             'admin.nama_lengkap',
-            'edukasi.judul',
-            'edukasi.deskripsi',
-            'edukasi.gambar',
-            'edukasi.tanggal_pelaksanaan',
-            'edukasi.created_at as tanggal'
-        )->join('admin', 'admin.id', '=', 'edukasi.id_admin');
+            'berita.judul',
+            'berita.deskripsi',
+            'berita.gambar',
+            'berita.tanggal_pelaksanaan',
+            'berita.created_at as tanggal'
+        )->join('admin', 'admin.id', '=', 'berita.id_admin');
 
         /**
          * Melakukan filtering atau penyaringan
          * data pada kondisi tertentu
          * 
          */
-        if ($data['id_berita']) {
-            $berita = $berita->where('id', $data['id_berita']);
-        }
-        if ($data['search']) {
-            $berita = $berita->where('judul', 'LIKE', '%' . $data['search'] . '%');
-        }
+        if (!empty($data['search'])) {
 
-        /**
-         * Mengambil data dari query
-         * 
-         */
-        $berita = $berita->get();
+            /**
+             * Memfilter data sesuai request search
+             * 
+             */
+            $berita = $berita->where('judul', 'LIKE', '%' . $data['search'] . '%');
+
+        }
+        if (!empty($data['id_berita'])) {
+
+            /**
+             * Mengambil data dari query
+             * 
+             */
+            $berita = $berita->where('id', $data['id_berita'])
+                ->first();
+
+        } else {
+
+            /**
+             * Mengambil data dari query
+             * 
+             */
+            $berita = $berita->get();
+
+        }
 
         /**
          * Menyesuaikan data
@@ -87,6 +105,64 @@ class BeritaController extends Controller
          */
         $data = $request->validated();
 
+        if (!empty($data['gambar'])) {
+            /**
+             * 'upload' adalah subfolder tempat gambar akan disimpan
+             * di sistem penyimpanan yang Anda konfigurasi
+             */
+            $base64Parts = explode(",", $data['gambar']);
+            $base64Image = end($base64Parts);
+
+            $decodedImage = base64_decode($base64Image);
+
+            /**
+             * Membuat instance Intervention Image
+             * 
+             */
+            $img = Image::make($decodedImage);
+
+            /**
+             * Tentukan ekstensi yang diinginkan
+             * (jpg, jpeg, atau png)
+             * 
+             */
+            $extension = 'jpg';
+
+            /**
+             * Mengidentifikasi tipe MIME gambar
+             * 
+             */
+            $mime = finfo_buffer(finfo_open(), $decodedImage, FILEINFO_MIME_TYPE);
+
+            /**
+             * Jika tipe MIME adalah gambar JPEG, 
+             * maka set ekstensi menjadi 'jpg'
+             * 
+             */
+            if ($mime === 'image/jpeg') {
+                $extension = 'jpeg';
+            }
+
+            /**
+             * Jika tipe MIME adalah gambar PNG,
+             * maka set ekstensi menjadi 'png'
+             * 
+             */
+            if ($mime === 'image/png') {
+                $extension = 'png';
+            }
+
+            $namaFile = $data['id_admin'] . Carbon::now()->format('Y-m-d') . '_' . time() . '.' . $extension;
+
+            /**
+             * Simpan gambar ke folder
+             * 
+             */
+            $path = 'images/upload/' . $namaFile;
+            $img->save(public_path($path), 80);
+            $data['gambar'] = $path;
+        }
+
         /**
          * Melakukan penambahan data
          * 
@@ -120,6 +196,65 @@ class BeritaController extends Controller
          * 
          */
         $berita = BeritaModel::where('id', $data['id_berita'])->first();
+        unset($data['id_berita']);
+
+        if (!empty($data['gambar'])) {
+            /**
+             * 'upload' adalah subfolder tempat gambar akan disimpan
+             * di sistem penyimpanan yang Anda konfigurasi
+             */
+            $base64Parts = explode(",", $data['gambar']);
+            $base64Image = end($base64Parts);
+
+            $decodedImage = base64_decode($base64Image);
+
+            /**
+             * Membuat instance Intervention Image
+             * 
+             */
+            $img = Image::make($decodedImage);
+
+            /**
+             * Tentukan ekstensi yang diinginkan
+             * (jpg, jpeg, atau png)
+             * 
+             */
+            $extension = 'jpg';
+
+            /**
+             * Mengidentifikasi tipe MIME gambar
+             * 
+             */
+            $mime = finfo_buffer(finfo_open(), $decodedImage, FILEINFO_MIME_TYPE);
+
+            /**
+             * Jika tipe MIME adalah gambar JPEG, 
+             * maka set ekstensi menjadi 'jpg'
+             * 
+             */
+            if ($mime === 'image/jpeg') {
+                $extension = 'jpeg';
+            }
+
+            /**
+             * Jika tipe MIME adalah gambar PNG,
+             * maka set ekstensi menjadi 'png'
+             * 
+             */
+            if ($mime === 'image/png') {
+                $extension = 'png';
+            }
+
+            $namaFile = $berita->id_admin . Carbon::now()->format('Y-m-d') . '_' . time() . '.' . $extension;
+
+            /**
+             * Simpan gambar ke folder
+             * 
+             */
+            $path = 'images/upload/' . $namaFile;
+            $img->save(public_path($path), 80);
+            $data['gambar'] = $path;
+        }
 
         /**
          * Melakukan update data
