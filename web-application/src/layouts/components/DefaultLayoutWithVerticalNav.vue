@@ -1,21 +1,23 @@
 <script setup>
-import { useTheme } from 'vuetify'
-import VerticalNavSectionTitle from '@/@layouts/components/VerticalNavSectionTitle.vue'
-import upgradeBannerDark from '@images/pro/upgrade-banner-dark.png'
-import upgradeBannerLight from '@images/pro/upgrade-banner-light.png'
-import VerticalNavLayout from '@layouts/components/VerticalNavLayout.vue'
-import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
+import { useTheme } from "vuetify";
+import VerticalNavSectionTitle from "@/@layouts/components/VerticalNavSectionTitle.vue";
+import upgradeBannerDark from "@images/pro/upgrade-banner-dark.png";
+import upgradeBannerLight from "@images/pro/upgrade-banner-light.png";
+import VerticalNavLayout from "@layouts/components/VerticalNavLayout.vue";
+import VerticalNavLink from "@layouts/components/VerticalNavLink.vue";
 
 // Components
-import Footer from '@/layouts/components/Footer.vue'
-import NavbarThemeSwitcher from '@/layouts/components/NavbarThemeSwitcher.vue'
-import UserProfile from '@/layouts/components/UserProfile.vue'
+import Footer from "@/layouts/components/Footer.vue";
+import NavbarThemeSwitcher from "@/layouts/components/NavbarThemeSwitcher.vue";
+import UserProfile from "@/layouts/components/UserProfile.vue";
 
-const vuetifyTheme = useTheme()
+const vuetifyTheme = useTheme();
 
 const upgradeBanner = computed(() => {
-  return vuetifyTheme.global.name.value === 'light' ? upgradeBannerLight : upgradeBannerDark
-})
+  return vuetifyTheme.global.name.value === "light"
+    ? upgradeBannerLight
+    : upgradeBannerDark;
+});
 </script>
 
 <template>
@@ -24,24 +26,18 @@ const upgradeBanner = computed(() => {
     <template #navbar="{ toggleVerticalOverlayNavActive }">
       <div class="d-flex h-100 align-center">
         <!-- 👉 Vertical nav toggle in overlay mode -->
-        <IconBtn
-          class="ms-n3 d-lg-none"
-          @click="toggleVerticalOverlayNavActive(true)"
-        >
-          <VIcon icon="bx-menu" />
-        </IconBtn>
 
         <!-- 👉 Search -->
         <!-- <div
           class="d-flex align-center cursor-pointer"
           style="user-select: none;"
         > -->
-          <!-- 👉 Search Trigger button -->
-          <!-- <IconBtn>
+        <!-- 👉 Search Trigger button -->
+        <!-- <IconBtn>
             <VIcon icon="bx-search" />
           </IconBtn> -->
 
-          <!-- <span class="d-none d-md-flex align-center text-disabled">
+        <!-- <span class="d-none d-md-flex align-center text-disabled">
             <span class="me-3">Search</span>
             <span class="meta-key">&#8984;K</span>
           </span>
@@ -61,10 +57,20 @@ const upgradeBanner = computed(() => {
         <!-- <IconBtn class="me-2">
           <VIcon icon="bx-bell" />
         </IconBtn> -->
-
-        <NavbarThemeSwitcher class="me-2" />
-
-        <UserProfile />
+        <VRow>
+          <VCol>
+            <IconBtn
+              class="ms-n3 d-lg-none"
+              @click="toggleVerticalOverlayNavActive(true)"
+            >
+              <VIcon icon="bx-menu" />
+            </IconBtn>
+          </VCol>
+          <VCol>
+            <UserProfile class="float-right" />
+            <NavbarThemeSwitcher class="mr-3 float-right" />
+          </VCol>
+        </VRow>
       </div>
     </template>
 
@@ -111,12 +117,7 @@ const upgradeBanner = computed(() => {
           to: '/account-settings',
         }"
       />
-
-      
-      
     </template>
-
-
 
     <!-- 👉 Pages -->
     <slot />
