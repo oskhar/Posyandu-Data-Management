@@ -8,7 +8,7 @@ import AnalyticsTransactions from "@/views/dashboard/AnalyticsTransactions.vue";
 
 // 👉 Images
 import chart from "@images/cards/chart-success.png";
-import wallet from "@/assets/images/pages/3.png";
+import wallet from "@/assets/images/pages/1.png";
 </script>
 
 <template>
