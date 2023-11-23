@@ -41,6 +41,9 @@
                 <v-text-field label="Judul" required></v-text-field>
               </v-col>
               <v-col cols="12">
+                <v-text-field label="Tanggal" required></v-text-field>
+              </v-col>
+              <v-col cols="12">
                 <v-text-field label="Materi" required></v-text-field>
               </v-col>
               <VCol cols="12" md="9">

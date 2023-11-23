@@ -65,7 +65,25 @@ export default {
             <VTextField
               id="judul"
               v-model="judul"
-              placeholder="Masukkan Judul"
+              placeholder="Masukin Judul"
+              persistent-placeholder
+            />
+          </VCol>
+        </VRow>
+      </VCol>
+      <VCol cols="12">
+        <VRow no-gutters>
+          <!-- 👉 First Name -->
+          <VCol cols="12" md="3">
+            <label for="tanggal">Tanggal</label>
+          </VCol>
+
+          <VCol cols="12" md="9">
+            <VTextField
+              type="date"
+              id="tanggal"
+              v-model="tanggal"
+              placeholder="Masukkan tanggal"
               persistent-placeholder
             />
           </VCol>
