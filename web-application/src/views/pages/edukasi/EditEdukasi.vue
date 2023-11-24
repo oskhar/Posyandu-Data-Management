@@ -6,9 +6,7 @@
           <VCol>
             <VBtn> Lihat </VBtn>
 
-            <v-btn color="primary" class="mx-3" v-bind="props"> Edit </v-btn>
-          </VCol>
-          <VCol>
+            <VBtn color="primary" class="mx-3" v-bind="props"> Edit </VBtn>
             <VBtn color="error" class="float-right"> Hapus </VBtn>
           </VCol>
         </VRow>
@@ -20,23 +18,6 @@
         <v-card-text>
           <v-container>
             <v-row>
-              <!-- <v-col cols="12" sm="6" md="4">
-                <v-text-field label="Legal first name*" required></v-text-field>
-              </v-col>
-              <v-col cols="12" sm="6" md="4">
-                <v-text-field
-                  label="Legal middle name"
-                  hint="example of helper text only on focus"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12" sm="6" md="4">
-                <v-text-field
-                  label="Legal last name*"
-                  hint="example of persistent helper text"
-                  persistent-hint
-                  required
-                ></v-text-field>
-              </v-col> -->
               <v-col cols="12">
                 <v-text-field label="Judul" required></v-text-field>
               </v-col>
@@ -79,23 +60,8 @@
                   v-show="projectImageLocal.imageValue !== ''"
                 />
               </VCol>
-              <!-- <v-col cols="12" sm="6">
-                <v-select
-                  :items="['0-17', '18-29', '30-54', '54+']"
-                  label="Age*"
-                  required
-                ></v-select>
-              </v-col>
-              <v-col cols="12" sm="6">
-                <v-autocomplete
-                  :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
-                  label="Interests"
-                  multiple
-                ></v-autocomplete>
-              </v-col> -->
             </v-row>
           </v-container>
-          <!-- <small>*indicates required field</small> -->
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -114,6 +80,7 @@
 <script>
 export default {
   setup() {
+    l;
     const dialog = ref(false);
     const refInputEl = ref();
     const projectImage = {
@@ -127,7 +94,7 @@ export default {
     };
 
     const changeAvatar = (file) => {
-      const fileReader = new FileReader();
+      const fileReader = new FieReader();
       const { files } = file.target;
       if (files && files.length) {
         // Validasi tipe file sebelum menampilkan gambarnya

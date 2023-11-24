@@ -1,58 +1,5 @@
-<script>
-export default {
-  setup() {
-    const judul = ref("");
-    const materi = ref("");
-    const refInputEl = ref();
-
-    const projectImage = {
-      imageValue: "",
-    };
-
-    const projectImageLocal = ref({ ...projectImage });
-
-    const resetAvatar = () => {
-      projectImageLocal.value.imageValue = projectImage.imageValue;
-    };
-
-    const changeAvatar = (file) => {
-      const fileReader = new FileReader();
-      const { files } = file.target;
-      if (files && files.length) {
-        // Validasi tipe file sebelum menampilkan gambarnya
-        if (
-          files[0].type === "image/jpeg" ||
-          files[0].type === "image/png" ||
-          files[0].type === "image/jpg"
-        ) {
-          fileReader.readAsDataURL(files[0]);
-          fileReader.onload = () => {
-            if (typeof fileReader.result === "string") {
-              projectImageLocal.value.imageValue = fileReader.result;
-            }
-          };
-        } else {
-          // Tindakan jika tipe file tidak valid
-          alert("File harus berupa gambar dengan tipe jpeg, png, atau jpg.");
-          resetAvatar();
-        }
-      }
-    };
-    return {
-      refInputEl,
-      judul,
-      materi,
-      projectImage,
-      projectImageLocal,
-      resetAvatar,
-      changeAvatar,
-    };
-  },
-};
-</script>
-
 <template>
-  <VForm @submit.prevent="() => {}">
+  <VForm @submit="submitData">
     <VRow>
       <VCol cols="12">
         <VRow no-gutters>
@@ -143,3 +90,77 @@ export default {
     </VRow>
   </VForm>
 </template>
+
+<script>
+import axios from "axios";
+import config from "@/@core/config.vue";
+
+export default {
+  setup() {
+    const judul = ref("");
+    const materi = ref("");
+    const refInputEl = ref();
+
+    const projectImage = {
+      imageValue: "",
+    };
+
+    const projectImageLocal = ref({ ...projectImage });
+
+    const resetAvatar = () => {
+      projectImageLocal.value.imageValue = projectImage.imageValue;
+    };
+
+    const changeAvatar = (file) => {
+      const fileReader = new FileReader();
+      const { files } = file.target;
+      if (files && files.length) {
+        // Validasi tipe file sebelum menampilkan gambarnya
+        if (
+          files[0].type === "image/jpeg" ||
+          files[0].type === "image/png" ||
+          files[0].type === "image/jpg"
+        ) {
+          fileReader.readAsDataURL(files[0]);
+          fileReader.onload = () => {
+            if (typeof fileReader.result === "string") {
+              projectImageLocal.value.imageValue = fileReader.result;
+            }
+          };
+        } else {
+          // Tindakan jika tipe file tidak valid
+          alert("File harus berupa gambar dengan tipe jpeg, png, atau jpg.");
+          resetAvatar();
+        }
+      }
+    };
+
+    const submitData = async (formData) => {
+      formData.preventDefault();
+
+      const data = new FormData();
+      data.append("id_admin", 1);
+      data.append("judul", judul.value);
+      data.append("materi", materi.value);
+      data.append("gambar", projectImageLocal.value.imageValue);
+      const response = await axios.post(
+        `${config.urlServer}/api/edukasi`,
+        data
+      );
+      if (response.data.success) {
+        alert(response.data.success.message);
+      }
+    };
+    return {
+      refInputEl,
+      judul,
+      materi,
+      projectImage,
+      projectImageLocal,
+      resetAvatar,
+      changeAvatar,
+      submitData,
+    };
+  },
+};
+</script>

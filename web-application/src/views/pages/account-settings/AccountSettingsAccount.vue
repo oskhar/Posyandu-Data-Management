@@ -117,7 +117,7 @@ const currencies = [
             <div class="d-flex flex-wrap gap-2">
               <VBtn color="primary" @click="refInputEl?.click()">
                 <VIcon icon="bx-cloud-upload" class="d-sm-none" />
-                <span class="d-none d-sm-block">Upload new photo</span>
+                <span class="d-none d-sm-block">Unggah foto baru</span>
               </VBtn>
 
               <input
@@ -140,9 +140,7 @@ const currencies = [
               </VBtn>
             </div>
 
-            <p class="text-body-1 mb-0">
-              Diperbolehkan JPG, GIF or PNG. Max size of 800K
-            </p>
+            <p class="text-body-1 mb-0">Diperbolehkan JPG, GIF or PNG.</p>
           </form>
         </VCardText>
 
