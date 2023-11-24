@@ -1,7 +1,7 @@
 <template>
   <VRow>
     <!-- 👉 Popular Uses Of The Internet -->
-    <VCol v-for="data in dataBeritaAcara" cols="12" md="4" sm="6">
+    <VCol v-for="data in dataBeritaAcara" cols="12" md="4" sm="12">
       <VCard>
         <VImg :src="data.gambar" cover max-height="280" />
 

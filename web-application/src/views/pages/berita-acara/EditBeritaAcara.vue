@@ -5,10 +5,7 @@
         <VRow class="mt-3">
           <VCol>
             <VBtn> Lihat </VBtn>
-
             <v-btn color="primary" class="mx-3" v-bind="props"> Edit </v-btn>
-          </VCol>
-          <VCol>
             <VBtn color="error" class="float-right"> Hapus </VBtn>
           </VCol>
         </VRow>
