@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\EdukasiController;
 use Illuminate\Http\Request;
@@ -18,15 +19,34 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'auth:sanctum'], function ($router) {
 
+    /**
+     * Endpoint untuk autentikasi
+     * 
+     */
+    Route::post('/logout', [AuthController::class, 'logout']);
+
+    /**
+     * Endpoint untuk berita
+     * 
+     */
+    Route::post('/berita', [BeritaController::class, 'post']);
+    Route::put('/berita', [BeritaController::class, 'put']);
+    Route::delete('/berita', [BeritaController::class, 'delete']);
 
 });
 
+/**
+ * Endpoint public
+ * 
+ */
+Route::post('/login', [AuthController::class, 'login']);
 Route::get('/edukasi', [EdukasiController::class, 'get']);
+Route::get('/berita', [BeritaController::class, 'get']);
+
+/**
+ * Endpoint untuk edukasi
+ * 
+ */
 Route::post('/edukasi', [EdukasiController::class, 'post']);
 Route::put('/edukasi', [EdukasiController::class, 'put']);
 Route::delete('/edukasi', [EdukasiController::class, 'delete']);
-
-Route::get('/berita', [BeritaController::class, 'get']);
-Route::post('/berita', [BeritaController::class, 'post']);
-Route::put('/berita', [BeritaController::class, 'put']);
-Route::delete('/berita', [BeritaController::class, 'delete']);

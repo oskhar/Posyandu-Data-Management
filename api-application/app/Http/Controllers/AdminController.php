@@ -2,38 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\EdukasiRequest;
-use App\Models\EdukasiModel;
+use App\Http\Requests\AdminRequest;
+use App\Models\AdminModel;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Carbon;
 
-class EdukasiController extends Controller
+class AdminController extends Controller
 {
-    //
-    public function get(EdukasiRequest $request): JsonResponse
+    public function get(AdminRequest $request): JsonResponse
     {
         /**
-         * Melakukan validasi apakah request
-         * yang diberikan sudah sesuai
+         * Melakukan pengecekan kesesuaian data
+         * apakah data yang dikirim sesuai
+         * dengan ketentuan yang berlaku
          * 
          */
         $data = $request->validated();
 
         /**
-         * Membuat query dasar
+         * Membuat query dasar untuk dijadikan
+         * tumpuan dalam pengambilan data
          * 
          */
-        $edukasi = EdukasiModel::select(
-            'edukasi.id as id_edukasi',
-            'admin.email_admin',
-            'admin.nama_lengkap',
-            'edukasi.judul',
-            'edukasi.materi',
-            'edukasi.gambar',
-            'edukasi.created_at as tanggal'
-        )->join('admin', 'admin.id', '=', 'edukasi.id_admin');
+        $berita = AdminModel::select(
+            'nama_lengkap',
+            'email_admin',
+            'id_jabatan',
+            'foto_profile',
+            'jenis_kelamin',
+            'alamat',
+            'tanggal_lahir',
+            'no_telp',
+            'email_verified_at'
+        );
 
         /**
          * Melakukan filtering atau penyaringan
@@ -46,7 +49,7 @@ class EdukasiController extends Controller
              * Memfilter data sesuai request search
              * 
              */
-            $edukasi = $edukasi->where('judul', 'LIKE', '%' . $data['search'] . '%');
+            $berita = $berita->where('nama_lengkap', 'LIKE', '%' . $data['search'] . '%');
 
         }
         if (!empty($data['id_berita'])) {
@@ -55,7 +58,7 @@ class EdukasiController extends Controller
              * Mengambil data dari query
              * 
              */
-            $edukasi = $edukasi->where('id', $data['id_berita'])
+            $berita = $berita->where('id', $data['id_berita'])
                 ->first();
 
         } else {
@@ -64,7 +67,7 @@ class EdukasiController extends Controller
              * Mengambil data dari query
              * 
              */
-            $edukasi = $edukasi->get();
+            $berita = $berita->get();
 
         }
 
@@ -72,7 +75,7 @@ class EdukasiController extends Controller
          * Menyesuaikan data
          * 
          */
-        $edukasi = $edukasi->map(function ($result) {
+        $berita = $berita->map(function ($result) {
 
             /**
              * Mengubah tanggal dan waktu menjadi hanya tanggal saja
@@ -85,20 +88,20 @@ class EdukasiController extends Controller
         });
 
         /**
-         * Memeberikan data yang diminta
-         * melalui response
+         * Mengembalikan nilai yang diminta
+         * sesuai request yang diberikan
          * 
          */
         return response()->json(
-            $edukasi
+            $berita
         )->setStatusCode(200);
     }
 
-    public function post(EdukasiRequest $request): JsonResponse
+    public function post(AdminRequest $request): JsonResponse
     {
         /**
-         * Memeriksa apakah request sesuai
-         * dengan ketentuan berlaku
+         * Melakukan validasi data request
+         * apakah data sesuai ketentuan
          * 
          */
         $data = $request->validated();
@@ -162,39 +165,39 @@ class EdukasiController extends Controller
         }
 
         /**
-         * Melakukan penambahan data ke database
+         * Melakukan penambahan data
          * 
          */
-        EdukasiModel::create($data);
+        AdminModel::create($data);
 
         /**
-         * Mengembalikan response setelah
-         * melakukan penambahan data
+         * Mengembalikan response sesuai dengan
+         * apa yang sudah dikerjakan server
          * 
          */
         return response()->json([
             'success' => [
-                'message' => "Data edukasi berhasil ditambahkan"
+                'message' => 'Data berita berhasil ditambahkan'
             ]
         ])->setStatusCode(201);
     }
 
-    public function put(EdukasiRequest $request): JsonResponse
+    public function put(AdminRequest $request): JsonResponse
     {
         /**
-         * Memeriksa apakah request
-         * sesuai dengan ketentua
+         * Memeriksa apakah data request
+         * sesuai dengan ketentuan
          * 
          */
         $data = $request->validated();
 
         /**
-         * Mendapatkan data tujuan yang ingin
-         * diupdate menggunakan id request
+         * Mengambil data yang ingin diubah
+         * sesuai dengan id yang diberikan
          * 
          */
-        $edukasi = EdukasiModel::where('id', $data['id_edukasi']);
-        unset($data['id_edukasi']);
+        $berita = AdminModel::where('id', $data['id_berita'])->first();
+        unset($data['id_berita']);
 
         if (!empty($data['gambar'])) {
             /**
@@ -243,7 +246,7 @@ class EdukasiController extends Controller
                 $extension = 'png';
             }
 
-            $namaFile = $edukasi->id_admin . Carbon::now()->format('Y-m-d') . '_' . time() . '.' . $extension;
+            $namaFile = $berita->id_admin . Carbon::now()->format('Y-m-d') . '_' . time() . '.' . $extension;
 
             /**
              * Simpan gambar ke folder
@@ -256,52 +259,52 @@ class EdukasiController extends Controller
 
         /**
          * Melakukan update data
+         * sesuai request
          * 
          */
-        $edukasi->update($data);
+        $berita->update($data);
 
         /**
-         * Mengembalikan response setelah
-         * melakukan update data
+         * Mengembalikan response sesuai dengan
+         * apa yang sudah dikerjakan server
          * 
          */
         return response()->json([
             'success' => [
-                'message' => "Data edukasi berhasil diubah"
+                'message' => 'Data berita berhasil diubah'
             ]
         ])->setStatusCode(201);
     }
 
-    public function delete(EdukasiRequest $request): JsonResponse
+    public function delete(AdminRequest $request): JsonResponse
     {
         /**
-         * Memeriksa apakah request
-         * yang diberikan sesuai
+         * Melakukan validasi apakah data
+         * request yang diberikan sesuai
          * 
          */
         $data = $request->validated();
 
         /**
-         * Mendapatkan data yang dituju
-         * menggunakan request id
+         * Mengambil data berita sesuai id
          * 
          */
-        $edukasi = EdukasiModel::where('id', $data['id_edukasi']);
+        $berita = AdminModel::where('id', $data['id_berita'])->first();
 
         /**
-         * Melakukan penghapusan data
+         * Melakukan delete data
          * 
          */
-        $edukasi->delete();
+        $berita->delete();
 
         /**
-         * Mengembalikan response setelah
-         * melakukan delete data
+         * Mengembalikan response sesuai dengan
+         * apa yang sudah dikerjakan server
          * 
          */
         return response()->json([
             'success' => [
-                'message' => "Data edukasi berhasil dihapus"
+                'message' => 'Data berita berhasil dihapus'
             ]
         ])->setStatusCode(200);
     }
