@@ -158,7 +158,7 @@ class EdukasiController extends Controller
              */
             $path = 'images/upload/' . $namaFile;
             $img->save(public_path($path), 80);
-            $data['gambar'] = $path;
+            $data['gambar'] = '/' . $path;
         }
 
         /**
@@ -251,7 +251,7 @@ class EdukasiController extends Controller
              */
             $path = 'images/upload/' . $namaFile;
             $img->save(public_path($path), 80);
-            $data['gambar'] = $path;
+            $data['gambar'] = '/' . $path;
         }
 
         /**

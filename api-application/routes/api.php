@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\EdukasiController;
 use Illuminate\Http\Request;
@@ -18,8 +19,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'auth:sanctum'], function ($router) {
 
+    /**
+     * Endpoint untuk autentikasi
+     * 
+     */
+    Route::post('/logout', [AuthController::class, 'logout']);
 
 });
+
+/**
+ * Endpoint untuk autentikasi
+ * 
+ */
+Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/edukasi', [EdukasiController::class, 'get']);
 Route::post('/edukasi', [EdukasiController::class, 'post']);
