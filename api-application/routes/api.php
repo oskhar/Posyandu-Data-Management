@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\EdukasiController;
@@ -32,6 +33,15 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
     Route::post('/berita', [BeritaController::class, 'post']);
     Route::put('/berita', [BeritaController::class, 'put']);
     Route::delete('/berita', [BeritaController::class, 'delete']);
+
+    /**
+     * Endpoint untuk admin
+     * 
+     */
+    Route::get('/admin', [AdminController::class, 'get']);
+    Route::post('/admin', [AdminController::class, 'post']);
+    Route::put('/admin', [AdminController::class, 'put']);
+    Route::delete('/admin', [AdminController::class, 'delete']);
 
 });
 
