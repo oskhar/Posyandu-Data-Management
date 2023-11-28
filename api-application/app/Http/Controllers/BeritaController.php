@@ -198,7 +198,7 @@ class BeritaController extends Controller
         $berita = BeritaModel::where('id', $data['id_berita'])->first();
         unset($data['id_berita']);
 
-        if (!empty($data['gambar'])) {
+        if (!empty($data['gambar']) && $berita->gambar != $data['gambar']) {
             /**
              * 'upload' adalah subfolder tempat gambar akan disimpan
              * di sistem penyimpanan yang Anda konfigurasi

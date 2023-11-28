@@ -26,7 +26,7 @@ class BeritaRequest extends CoreRequest
             case 'PUT': // Untuk membuat (store)
                 return [
                     "id_berita" => "required|integer",
-                    "judul" => "required|string",
+                    "judul" => "nullable|string",
                     "deskripsi" => "nullable|string",
                     "gambar" => "nullable",
                     "tanggal_pelaksanaan" => "required"

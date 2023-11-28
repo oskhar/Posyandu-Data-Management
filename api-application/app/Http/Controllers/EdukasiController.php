@@ -193,10 +193,10 @@ class EdukasiController extends Controller
          * diupdate menggunakan id request
          * 
          */
-        $edukasi = EdukasiModel::where('id', $data['id_edukasi']);
+        $edukasi = EdukasiModel::where('id', $data['id_edukasi'])->first();
         unset($data['id_edukasi']);
 
-        if (!empty($data['gambar'])) {
+        if (!empty($data['gambar']) && $edukasi->gambar != $data['gambar']) {
             /**
              * 'upload' adalah subfolder tempat gambar akan disimpan
              * di sistem penyimpanan yang Anda konfigurasi
@@ -243,7 +243,7 @@ class EdukasiController extends Controller
                 $extension = 'png';
             }
 
-            $namaFile = $edukasi->first()->id_admin . Carbon::now()->format('Y-m-d') . '_' . time() . '.' . $extension;
+            $namaFile = $edukasi->id_admin . Carbon::now()->format('Y-m-d') . '_' . time() . '.' . $extension;
 
             /**
              * Simpan gambar ke folder

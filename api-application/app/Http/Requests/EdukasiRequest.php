@@ -25,7 +25,7 @@ class EdukasiRequest extends CoreRequest
             case 'PUT': // Untuk membuat (store)
                 return [
                     "id_edukasi" => "required|integer",
-                    "judul" => "required|string",
+                    "judul" => "nullable|string",
                     "materi" => "nullable|string",
                     "gambar" => "nullable",
                 ];
