@@ -243,7 +243,7 @@ class PosyanduController extends Controller
                 $extension = 'png';
             }
 
-            $namaFile = $edukasi->id_admin . Carbon::now()->format('Y-m-d') . '_' . time() . '.' . $extension;
+            $namaFile = $edukasi->first()->id_admin . Carbon::now()->format('Y-m-d') . '_' . time() . '.' . $extension;
 
             /**
              * Simpan gambar ke folder
