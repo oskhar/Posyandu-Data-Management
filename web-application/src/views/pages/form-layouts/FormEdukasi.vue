@@ -45,7 +45,7 @@
           <VCol cols="12" md="9">
             <div class="d-flex flex-column justify-center gap-5">
               <div class="d-flex flex-wrap gap-2">
-                <VBtn color="primary" @click="refInputEl?.click()">
+                <VBtn id="gambar" color="primary" @click="refInputEl?.click()">
                   <VIcon icon="bx-cloud-upload" class="d-sm-none" />
                   <span class="d-none d-sm-block">Upload new photo</span>
                 </VBtn>
@@ -94,7 +94,6 @@
 <script>
 import axios from "axios";
 import config from "@/@core/config.vue";
-
 export default {
   setup() {
     const judul = ref("");
@@ -136,19 +135,23 @@ export default {
     };
 
     const submitData = async (formData) => {
-      formData.preventDefault();
+      try {
+        formData.preventDefault();
 
-      const data = new FormData();
-      data.append("id_admin", 1);
-      data.append("judul", judul.value);
-      data.append("materi", materi.value);
-      data.append("gambar", projectImageLocal.value.imageValue);
-      const response = await axios.post(
-        `${config.urlServer}/api/edukasi`,
-        data
-      );
-      if (response.data.success) {
-        alert(response.data.success.message);
+        const data = new FormData();
+        data.append("id_admin", 1);
+        data.append("judul", judul.value);
+        data.append("materi", materi.value);
+        data.append("gambar", projectImageLocal.value.imageValue);
+        const response = await axios.post(
+          `${config.urlServer}/api/edukasi`,
+          data
+        );
+        if (response.data.success) {
+          alert(response.data.success.message);
+        }
+      } catch (error) {
+        console.log(error);
       }
     };
     return {

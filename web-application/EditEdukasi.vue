@@ -19,7 +19,11 @@
           <v-container>
             <v-row>
               <v-col cols="12">
-                <v-text-field label="Judul" required></v-text-field>
+                <v-text-field
+                  v-model="accountDataLocal.firstName"
+                  label="Judul"
+                  required
+                ></v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-text-field label="Materi" required></v-text-field>
@@ -80,7 +84,6 @@
 <script>
 export default {
   setup() {
-    l;
     const dialog = ref(false);
     const refInputEl = ref();
     const projectImage = {

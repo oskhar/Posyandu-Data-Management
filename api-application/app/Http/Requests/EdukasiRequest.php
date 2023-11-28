@@ -45,8 +45,8 @@ class EdukasiRequest extends CoreRequest
     public function messages(): array
     {
         return [
-            'id_admin.integer' => 'id_programmer harus berupa angka',
-            'id_edukasi.integer' => 'id_projects harus berupa angka',
+            'id_admin.integer' => 'id_admin harus berupa angka',
+            'id_edukasi.integer' => 'id_edukasi harus berupa angka',
             'judul.unique' => 'Judul pernah dipakai sebelumnya, coba judul yang lain',
             'materi.integer' => 'id_programmer harus berupa angka',
         ];
