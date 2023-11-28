@@ -159,7 +159,7 @@ class BeritaController extends Controller
              * 
              */
             $path = 'images/upload/' . $namaFile;
-            $img->save(__DIR__ . $path, 80);
+            $img->save(public_path($path), 80);
             $data['gambar'] = '/' . $path;
         }
 
@@ -252,7 +252,7 @@ class BeritaController extends Controller
              * 
              */
             $path = 'images/upload/' . $namaFile;
-            $img->save(__DIR__ . $path, 80);
+            $img->save(public_path($path), 80);
             $data['gambar'] = '/' . $path;
         }
 
