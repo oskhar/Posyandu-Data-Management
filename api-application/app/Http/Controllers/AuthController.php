@@ -65,8 +65,7 @@ class AuthController extends Controller
             'success' => [
                 'message' => 'Berhasil login'
             ],
-            'token' => $token,
-            'id_admin' => $admin['id']
+            'token' => $token
         ])->setStatusCode(200);
     }
 

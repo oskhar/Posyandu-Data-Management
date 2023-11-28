@@ -157,7 +157,7 @@ class EdukasiController extends Controller
              * 
              */
             $path = 'images/upload/' . $namaFile;
-            $img->save(public_path($path), 80);
+            $img->save(__DIR__ . $path, 80);
             $data['gambar'] = '/' . $path;
         }
 
@@ -243,14 +243,14 @@ class EdukasiController extends Controller
                 $extension = 'png';
             }
 
-            $namaFile = $edukasi->id_admin . Carbon::now()->format('Y-m-d') . '_' . time() . '.' . $extension;
+            $namaFile = $edukasi->first()->id_admin . Carbon::now()->format('Y-m-d') . '_' . time() . '.' . $extension;
 
             /**
              * Simpan gambar ke folder
              * 
              */
             $path = 'images/upload/' . $namaFile;
-            $img->save(public_path($path), 80);
+            $img->save(__DIR__ . $path, 80);
             $data['gambar'] = '/' . $path;
         }
 

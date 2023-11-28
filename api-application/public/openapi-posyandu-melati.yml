@@ -5,6 +5,8 @@ info:
 servers:
   - url: http://localhost:8000/api
 tags:
+  - name: Autentikasi admin
+    description: Untuk melakukan Autentikasi
   - name: Data edukasi
     description: Untuk mengola data edukasi
   - name: Data berita acara
@@ -16,6 +18,139 @@ tags:
   - name: Data admin
     description: Untuk mengola data admin
 paths:
+  /login:
+    post:
+      tags:
+        - Autentikasi admin
+      summary: MELAKUKAN login
+      requestBody:
+        description: Autentikasi admin untuk melakukan login
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email_admin:
+                  type: string
+                password:
+                  type: string
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                  token:
+                    type: string
+              example:
+                success:
+                  message: "Berhasil login"
+                token: "token_autentikasi"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+  /logout:
+    post:
+      tags:
+        - Autentikasi admin
+      summary: MELAKUKAN logout
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                success:
+                  message: "Berhasil logout"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+  /auth:
+    post:
+      tags:
+        - Autentikasi admin
+      summary: MEMERIKSA Autentikasi
+      responses:
+        200:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id_admin:
+                    type: integer
+                  id_jabatan:
+                    type: integer
+                  email_admin:
+                    type: string
+                  nama_lengkap:
+                    type: string
+                  foto_profile:
+                    type: string
+                  jenis_kelamin:
+                    type: string
+                  alamat:
+                    type: string
+                  tanggal_lahir:
+                    type: string
+                  no_telp:
+                    type: string
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
   /edukasi:
     get:
       tags:
@@ -814,8 +949,8 @@ paths:
                 properties:
                   id_admin:
                     type: integer
-                  jabatan:
-                    type: string
+                  id_jabatan:
+                    type: integer
                   email_admin:
                     type: string
                   nama_lengkap:
@@ -823,7 +958,7 @@ paths:
                   foto_profile:
                     type: string
                   jenis_kelamin:
-                    type: boolean
+                    type: string
                   alamat:
                     type: string
                   tanggal_lahir:
@@ -929,6 +1064,15 @@ paths:
                   type: integer
                 email_admin:
                   type: string
+                password:
+                  type: object
+                  properties:
+                    lama:
+                      type: string
+                    baru_a:
+                      type: string
+                    baru_b:
+                      type: string
                 nama_lengkap:
                   type: string
                 foto_profile:

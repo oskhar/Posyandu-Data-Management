@@ -2,40 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\BeritaRequest;
-use App\Models\BeritaModel;
+use App\Http\Requests\PosyanduRequest;
+use App\Models\PosyanduModel;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Carbon;
 
-class BeritaController extends Controller
+class PosyanduController extends Controller
 {
-    public function get(BeritaRequest $request): JsonResponse
+    //
+    public function get(PosyanduRequest $request): JsonResponse
     {
         /**
-         * Melakukan pengecekan kesesuaian data
-         * apakah data yang dikirim sesuai
-         * dengan ketentuan yang berlaku
+         * Melakukan validasi apakah request
+         * yang diberikan sudah sesuai
          * 
          */
         $data = $request->validated();
 
         /**
-         * Membuat query dasar untuk dijadikan
-         * tumpuan dalam pengambilan data
+         * Membuat query dasar
          * 
          */
-        $berita = BeritaModel::select(
-            'berita.id as id_berita',
+        $edukasi = PosyanduModel::select(
+            'edukasi.id as id_edukasi',
             'admin.email_admin',
             'admin.nama_lengkap',
-            'berita.judul',
-            'berita.deskripsi',
-            'berita.gambar',
-            'berita.tanggal_pelaksanaan',
-            'berita.created_at as tanggal'
-        )->join('admin', 'admin.id', '=', 'berita.id_admin');
+            'edukasi.judul',
+            'edukasi.materi',
+            'edukasi.gambar',
+            'edukasi.created_at as tanggal'
+        )->join('admin', 'admin.id', '=', 'edukasi.id_admin');
 
         /**
          * Melakukan filtering atau penyaringan
@@ -48,7 +46,7 @@ class BeritaController extends Controller
              * Memfilter data sesuai request search
              * 
              */
-            $berita = $berita->where('judul', 'LIKE', '%' . $data['search'] . '%');
+            $edukasi = $edukasi->where('judul', 'LIKE', '%' . $data['search'] . '%');
 
         }
         if (!empty($data['id_berita'])) {
@@ -57,7 +55,7 @@ class BeritaController extends Controller
              * Mengambil data dari query
              * 
              */
-            $berita = $berita->where('id', $data['id_berita'])
+            $edukasi = $edukasi->where('id', $data['id_berita'])
                 ->first();
 
         } else {
@@ -66,7 +64,7 @@ class BeritaController extends Controller
              * Mengambil data dari query
              * 
              */
-            $berita = $berita->get();
+            $edukasi = $edukasi->get();
 
         }
 
@@ -74,7 +72,7 @@ class BeritaController extends Controller
          * Menyesuaikan data
          * 
          */
-        $berita = $berita->map(function ($result) {
+        $edukasi = $edukasi->map(function ($result) {
 
             /**
              * Mengubah tanggal dan waktu menjadi hanya tanggal saja
@@ -87,20 +85,20 @@ class BeritaController extends Controller
         });
 
         /**
-         * Mengembalikan nilai yang diminta
-         * sesuai request yang diberikan
+         * Memeberikan data yang diminta
+         * melalui response
          * 
          */
         return response()->json(
-            $berita
+            $edukasi
         )->setStatusCode(200);
     }
 
-    public function post(BeritaRequest $request): JsonResponse
+    public function post(PosyanduRequest $request): JsonResponse
     {
         /**
-         * Melakukan validasi data request
-         * apakah data sesuai ketentuan
+         * Memeriksa apakah request sesuai
+         * dengan ketentuan berlaku
          * 
          */
         $data = $request->validated();
@@ -164,39 +162,39 @@ class BeritaController extends Controller
         }
 
         /**
-         * Melakukan penambahan data
+         * Melakukan penambahan data ke database
          * 
          */
-        BeritaModel::create($data);
+        PosyanduModel::create($data);
 
         /**
-         * Mengembalikan response sesuai dengan
-         * apa yang sudah dikerjakan server
+         * Mengembalikan response setelah
+         * melakukan penambahan data
          * 
          */
         return response()->json([
             'success' => [
-                'message' => 'Data berita berhasil ditambahkan'
+                'message' => "Data edukasi berhasil ditambahkan"
             ]
         ])->setStatusCode(201);
     }
 
-    public function put(BeritaRequest $request): JsonResponse
+    public function put(PosyanduRequest $request): JsonResponse
     {
         /**
-         * Memeriksa apakah data request
-         * sesuai dengan ketentuan
+         * Memeriksa apakah request
+         * sesuai dengan ketentua
          * 
          */
         $data = $request->validated();
 
         /**
-         * Mengambil data yang ingin diubah
-         * sesuai dengan id yang diberikan
+         * Mendapatkan data tujuan yang ingin
+         * diupdate menggunakan id request
          * 
          */
-        $berita = BeritaModel::where('id', $data['id_berita'])->first();
-        unset($data['id_berita']);
+        $edukasi = PosyanduModel::where('id', $data['id_edukasi']);
+        unset($data['id_edukasi']);
 
         if (!empty($data['gambar'])) {
             /**
@@ -245,7 +243,7 @@ class BeritaController extends Controller
                 $extension = 'png';
             }
 
-            $namaFile = $berita->id_admin . Carbon::now()->format('Y-m-d') . '_' . time() . '.' . $extension;
+            $namaFile = $edukasi->first()->id_admin . Carbon::now()->format('Y-m-d') . '_' . time() . '.' . $extension;
 
             /**
              * Simpan gambar ke folder
@@ -258,52 +256,52 @@ class BeritaController extends Controller
 
         /**
          * Melakukan update data
-         * sesuai request
          * 
          */
-        $berita->update($data);
+        $edukasi->update($data);
 
         /**
-         * Mengembalikan response sesuai dengan
-         * apa yang sudah dikerjakan server
+         * Mengembalikan response setelah
+         * melakukan update data
          * 
          */
         return response()->json([
             'success' => [
-                'message' => 'Data berita berhasil diubah'
+                'message' => "Data edukasi berhasil diubah"
             ]
         ])->setStatusCode(201);
     }
 
-    public function delete(BeritaRequest $request): JsonResponse
+    public function delete(PosyanduRequest $request): JsonResponse
     {
         /**
-         * Melakukan validasi apakah data
-         * request yang diberikan sesuai
+         * Memeriksa apakah request
+         * yang diberikan sesuai
          * 
          */
         $data = $request->validated();
 
         /**
-         * Mengambil data berita sesuai id
+         * Mendapatkan data yang dituju
+         * menggunakan request id
          * 
          */
-        $berita = BeritaModel::where('id', $data['id_berita'])->first();
+        $edukasi = PosyanduModel::where('id', $data['id_edukasi']);
 
         /**
-         * Melakukan delete data
+         * Melakukan penghapusan data
          * 
          */
-        $berita->delete();
+        $edukasi->delete();
 
         /**
-         * Mengembalikan response sesuai dengan
-         * apa yang sudah dikerjakan server
+         * Mengembalikan response setelah
+         * melakukan delete data
          * 
          */
         return response()->json([
             'success' => [
-                'message' => 'Data berita berhasil dihapus'
+                'message' => "Data edukasi berhasil dihapus"
             ]
         ])->setStatusCode(200);
     }

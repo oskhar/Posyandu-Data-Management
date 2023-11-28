@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AdminRequest;
 use App\Models\AdminModel;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Carbon;
 
@@ -26,7 +28,7 @@ class AdminController extends Controller
          * tumpuan dalam pengambilan data
          * 
          */
-        $berita = AdminModel::select(
+        $admin = AdminModel::select(
             'nama_lengkap',
             'email_admin',
             'id_jabatan',
@@ -49,16 +51,16 @@ class AdminController extends Controller
              * Memfilter data sesuai request search
              * 
              */
-            $berita = $berita->where('nama_lengkap', 'LIKE', '%' . $data['search'] . '%');
+            $admin = $admin->where('nama_lengkap', 'LIKE', '%' . $data['search'] . '%');
 
         }
-        if (!empty($data['id_berita'])) {
+        if (!empty($data['id_admin'])) {
 
             /**
              * Mengambil data dari query
              * 
              */
-            $berita = $berita->where('id', $data['id_berita'])
+            $admin = $admin->where('id', $data['id_admin'])
                 ->first();
 
         } else {
@@ -67,7 +69,7 @@ class AdminController extends Controller
              * Mengambil data dari query
              * 
              */
-            $berita = $berita->get();
+            $admin = $admin->get();
 
         }
 
@@ -75,7 +77,7 @@ class AdminController extends Controller
          * Menyesuaikan data
          * 
          */
-        $berita = $berita->map(function ($result) {
+        $admin = $admin->map(function ($result) {
 
             /**
              * Mengubah tanggal dan waktu menjadi hanya tanggal saja
@@ -93,7 +95,7 @@ class AdminController extends Controller
          * 
          */
         return response()->json(
-            $berita
+            $admin
         )->setStatusCode(200);
     }
 
@@ -106,12 +108,18 @@ class AdminController extends Controller
          */
         $data = $request->validated();
 
-        if (!empty($data['gambar'])) {
+        /**
+         * Memeriksa apakah data foto_profile ada
+         * 
+         */
+        if (!empty($data['foto_profile'])) {
+
             /**
-             * 'upload' adalah subfolder tempat gambar akan disimpan
+             * 'upload' adalah subfolder tempat foto_profile akan disimpan
              * di sistem penyimpanan yang Anda konfigurasi
+             * 
              */
-            $base64Parts = explode(",", $data['gambar']);
+            $base64Parts = explode(",", $data['foto_profile']);
             $base64Image = end($base64Parts);
 
             $decodedImage = base64_decode($base64Image);
@@ -130,13 +138,13 @@ class AdminController extends Controller
             $extension = 'jpg';
 
             /**
-             * Mengidentifikasi tipe MIME gambar
+             * Mengidentifikasi tipe MIME foto_profile
              * 
              */
             $mime = finfo_buffer(finfo_open(), $decodedImage, FILEINFO_MIME_TYPE);
 
             /**
-             * Jika tipe MIME adalah gambar JPEG, 
+             * Jika tipe MIME adalah foto_profile JPEG, 
              * maka set ekstensi menjadi 'jpg'
              * 
              */
@@ -145,7 +153,7 @@ class AdminController extends Controller
             }
 
             /**
-             * Jika tipe MIME adalah gambar PNG,
+             * Jika tipe MIME adalah foto_profile PNG,
              * maka set ekstensi menjadi 'png'
              * 
              */
@@ -156,12 +164,12 @@ class AdminController extends Controller
             $namaFile = $data['id_admin'] . Carbon::now()->format('Y-m-d') . '_' . time() . '.' . $extension;
 
             /**
-             * Simpan gambar ke folder
+             * Simpan foto_profile ke folder
              * 
              */
             $path = 'images/upload/' . $namaFile;
-            $img->save(public_path($path), 80);
-            $data['gambar'] = '/' . $path;
+            $img->save(__DIR__ . $path, 80);
+            $data['foto_profile'] = '/' . $path;
         }
 
         /**
@@ -196,15 +204,73 @@ class AdminController extends Controller
          * sesuai dengan id yang diberikan
          * 
          */
-        $berita = AdminModel::where('id', $data['id_berita'])->first();
-        unset($data['id_berita']);
+        $admin = AdminModel::where('id', $data['id_admin'])->first();
+        unset($data['id_admin']);
 
-        if (!empty($data['gambar'])) {
+        /**
+         * Memeriksa apakah data password ada
+         * 
+         */
+        if (!empty($data['password'])) {
+
             /**
-             * 'upload' adalah subfolder tempat gambar akan disimpan
+             * Memeriksa apakah password lama sesuai
+             * dengan password yang ada di database
+             * 
+             */
+            if (!Hash::check($data['password']['lama'], $admin)) {
+                throw new HttpResponseException(response()->json([
+                    'errors' => [
+                        'message' => 'Anda memasukan password yang salah'
+                    ]
+                ]));
+            }
+
+            /**
+             * Memeriksa apakah kedua password
+             * baru adalah password yang sama
+             * 
+             */
+            if ($data['password']['baru_a'] != $data['password']['baru_b']) {
+                throw new HttpResponseException(response()->json([
+                    'errors' => [
+                        'message' => 'Password baru harus sama!'
+                    ]
+                ]));
+            }
+
+            /**
+             * Memeriksa apakah kedua password
+             * baru adalah password yang sama
+             * 
+             */
+            if (count($data['password']['baru_a']) < 8) {
+                throw new HttpResponseException(response()->json([
+                    'errors' => [
+                        'message' => 'Password minimal harus 8 karakter!'
+                    ]
+                ]));
+            }
+
+            /**
+             * Enkripsi data password
+             * 
+             */
+            $data['password'] = Hash::make($data['password']);
+
+        }
+
+        /**
+         * Memeriksa apakah data foto_profile ada
+         * 
+         */
+        if (!empty($data['foto_profile'])) {
+
+            /**
+             * 'upload' adalah subfolder tempat foto_profile akan disimpan
              * di sistem penyimpanan yang Anda konfigurasi
              */
-            $base64Parts = explode(",", $data['gambar']);
+            $base64Parts = explode(",", $data['foto_profile']);
             $base64Image = end($base64Parts);
 
             $decodedImage = base64_decode($base64Image);
@@ -223,13 +289,13 @@ class AdminController extends Controller
             $extension = 'jpg';
 
             /**
-             * Mengidentifikasi tipe MIME gambar
+             * Mengidentifikasi tipe MIME foto_profile
              * 
              */
             $mime = finfo_buffer(finfo_open(), $decodedImage, FILEINFO_MIME_TYPE);
 
             /**
-             * Jika tipe MIME adalah gambar JPEG, 
+             * Jika tipe MIME adalah foto_profile JPEG, 
              * maka set ekstensi menjadi 'jpg'
              * 
              */
@@ -238,7 +304,7 @@ class AdminController extends Controller
             }
 
             /**
-             * Jika tipe MIME adalah gambar PNG,
+             * Jika tipe MIME adalah foto_profile PNG,
              * maka set ekstensi menjadi 'png'
              * 
              */
@@ -246,15 +312,15 @@ class AdminController extends Controller
                 $extension = 'png';
             }
 
-            $namaFile = $berita->id_admin . Carbon::now()->format('Y-m-d') . '_' . time() . '.' . $extension;
+            $namaFile = $admin->id_admin . Carbon::now()->format('Y-m-d') . '_' . time() . '.' . $extension;
 
             /**
-             * Simpan gambar ke folder
+             * Simpan foto_profile ke folder
              * 
              */
             $path = 'images/upload/' . $namaFile;
-            $img->save(public_path($path), 80);
-            $data['gambar'] = '/' . $path;
+            $img->save(__DIR__ . $path, 80);
+            $data['foto_profile'] = '/' . $path;
         }
 
         /**
@@ -262,7 +328,7 @@ class AdminController extends Controller
          * sesuai request
          * 
          */
-        $berita->update($data);
+        $admin->update($data);
 
         /**
          * Mengembalikan response sesuai dengan
@@ -289,13 +355,13 @@ class AdminController extends Controller
          * Mengambil data berita sesuai id
          * 
          */
-        $berita = AdminModel::where('id', $data['id_berita'])->first();
+        $admin = AdminModel::where('id', $data['id_admin'])->first();
 
         /**
          * Melakukan delete data
          * 
          */
-        $berita->delete();
+        $admin->delete();
 
         /**
          * Mengembalikan response sesuai dengan
