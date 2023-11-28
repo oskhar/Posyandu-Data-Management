@@ -168,7 +168,7 @@ class AdminController extends Controller
              * 
              */
             $path = 'images/upload/' . $namaFile;
-            $img->save(public_path($path), 80);
+            $img->save(__DIR__ . $path, 80);
             $data['foto_profile'] = '/' . $path;
         }
 
@@ -319,7 +319,7 @@ class AdminController extends Controller
              * 
              */
             $path = 'images/upload/' . $namaFile;
-            $img->save(public_path($path), 80);
+            $img->save(__DIR__ . $path, 80);
             $data['foto_profile'] = '/' . $path;
         }
 
