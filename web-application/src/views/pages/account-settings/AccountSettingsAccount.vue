@@ -1,5 +1,11 @@
 <script setup>
+import axios from "axios";
+import config from "@/@core/config.vue";
 import avatar1 from "@images/avatars/avatar-1.png";
+import { onMounted } from "vue";
+
+const myAcc = [];
+const urlServer = config.urlServer;
 
 const accountData = {
   avatarImg: avatar1,
@@ -97,6 +103,11 @@ const currencies = [
   "HUF",
   "INR",
 ];
+
+// onMounted(async () => {
+//   const response = await axios.get(`${urlServer}/api/admin`);
+//   myAcc = response.data;
+// });
 </script>
 
 <template>
@@ -158,15 +169,6 @@ const currencies = [
                 />
               </VCol>
 
-              <!-- 👉 Last Name -->
-              <!-- <VCol md="6" cols="12">
-                <VTextField
-                  v-model="accountDataLocal.lastName"
-                  placeholder="Doe"
-                  label="Last Name"
-                />
-              </VCol> -->
-
               <!-- 👉 Email -->
               <VCol cols="12" md="6">
                 <VTextField
@@ -175,15 +177,6 @@ const currencies = [
                   type="email"
                 />
               </VCol>
-
-              <!-- 👉 Organization -->
-              <!-- <VCol cols="12" md="6">
-                <VTextField
-                  v-model="accountDataLocal.org"
-                  label="Organization"
-                  placeholder="ThemeSelection"
-                />
-              </VCol> -->
 
               <!-- 👉 Phone -->
               <VCol cols="12" md="6">
@@ -213,17 +206,6 @@ const currencies = [
                   type="date"
                 />
               </VCol>
-
-              <!-- 👉 Zip Code -->
-              <!-- <VCol cols="12" md="6">
-                <VTextField
-                  v-model="accountDataLocal.zip"
-                  label="Zip Code"
-                  placeholder="10001"
-                />
-              </VCol> -->
-
-              <!-- 👉 Country -->
               <VCol cols="12" md="6">
                 <VSelect
                   v-model="accountDataLocal.country"
@@ -252,28 +234,6 @@ const currencies = [
                 />
               </VCol>
 
-              <!-- 👉 Timezone -->
-              <!-- <VCol cols="12" md="6">
-                <VSelect
-                  v-model="accountDataLocal.timezone"
-                  label="Timezone"
-                  placeholder="Select Timezone"
-                  :items="timezones"
-                  :menu-props="{ maxHeight: 200 }"
-                />
-              </VCol> -->
-
-              <!-- 👉 Currency -->
-              <!-- <VCol cols="12" md="6">
-                <VSelect
-                  v-model="accountDataLocal.currency"
-                  label="Currency"
-                  placeholder="Select Currency"
-                  :items="currencies"
-                  :menu-props="{ maxHeight: 200 }"
-                />
-              </VCol> -->
-
               <!-- 👉 Form Actions -->
               <VCol cols="12" class="d-flex flex-wrap gap-4">
                 <VBtn>Simpan Perubahan</VBtn>
@@ -292,23 +252,5 @@ const currencies = [
         </VCardText>
       </VCard>
     </VCol>
-
-    <!-- <VCol cols="12">
-      👉 Deactivate Account
-      <VCard title="Deactivate Account">
-        <VCardText>
-          <div>
-            <VCheckbox
-              v-model="isAccountDeactivated"
-              label="I confirm my account deactivation"
-            />
-          </div>
-
-          <VBtn :disabled="!isAccountDeactivated" color="error" class="mt-3">
-            Deactivate Account
-          </VBtn>
-        </VCardText>
-      </VCard>
-    </VCol> -->
   </VRow>
 </template>

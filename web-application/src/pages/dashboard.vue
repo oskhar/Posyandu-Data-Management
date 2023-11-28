@@ -1,41 +1,42 @@
 <script setup>
-import AnalyticsCongratulations from '@/views/dashboard/AnalyticsCongratulations.vue'
+import AnalyticsCongratulations from "@/views/dashboard/AnalyticsCongratulations.vue";
+import config from "@/@core/config.vue";
+import { onMounted } from "vue";
+import axios from "axios";
 
+import chart from "@images/cards/chart-success.png";
+import info from "@images/cards/chart-info.png";
+import { ref } from "vue";
+
+const urlServer = config.urlServer;
+let data = ref([]);
+let statEdukasi = ref(0);
 
 // 👉 Images
-import chart from '@images/cards/chart-success.png'
-import info from '@images/cards/chart-info.png'
-import paypal from '@images/cards/paypal-error.png'
-import wallet from '@images/cards/wallet-info.png'
 
-const jumlahBerita = 120
-const jumlahEdukasi = 90
-const jumlahGambar = 72
-const jumlahPengurus = 69
+const jumlahBerita = 120;
+const jumlahGambar = 72;
+const jumlahPengurus = 69;
 
-
+onMounted(async () => {
+  const response1 = await axios.get(`${urlServer}/api/edukasi`);
+  data = response1.data;
+  statEdukasi.value += data.length;
+  console.log(statEdukasi);
+});
 </script>
 
 <template>
   <VRow>
     <!-- 👉 Congratulations -->
-    <VCol
-      cols="12"
-      md="12"
-    >
+    <VCol cols="12" md="12">
       <AnalyticsCongratulations />
     </VCol>
 
-    <VCol
-      cols="12"
-      sm="12"
-    >
+    <VCol cols="12" sm="12">
       <VRow>
         <!-- 👉 Profit -->
-        <VCol
-          cols="12"
-          md="3"
-        >
+        <VCol cols="12" md="4">
           <CardStatisticsVertical
             v-bind="{
               title: 'Jumlah Berita',
@@ -46,37 +47,28 @@ const jumlahPengurus = 69
         </VCol>
 
         <!-- 👉 Sales -->
-        <VCol
-          cols="12"
-          md="3"
-        >
+        <VCol cols="12" md="4">
           <CardStatisticsVertical
             v-bind="{
               title: 'Jumlah Edukasi',
-              image: info,
-              stats: jumlahEdukasi,
+              image: chart,
+              stats: statEdukasi,
             }"
           />
         </VCol>
-        <!-- 👉 Profit -->
-        <VCol
-          cols="12"
-          md="3"
-        >
+        <VCol cols="12" md="4">
           <CardStatisticsVertical
             v-bind="{
               title: 'Jumlah Gambar',
-              image: chart,
+              image: info,
               stats: jumlahGambar,
             }"
           />
         </VCol>
+        <!-- 👉 Profit -->
 
         <!-- 👉 Sales -->
-        <VCol
-          cols="12"
-          md="3"
-        >
+        <!-- <VCol cols="12" md="4">
           <CardStatisticsVertical
             v-bind="{
               title: 'Jumlah Gambar',
@@ -84,10 +76,8 @@ const jumlahPengurus = 69
               stats: jumlahPengurus,
             }"
           />
-        </VCol>
+        </VCol> -->
       </VRow>
     </VCol>
-
-    
   </VRow>
 </template>
