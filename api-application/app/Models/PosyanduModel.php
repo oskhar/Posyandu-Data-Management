@@ -44,5 +44,6 @@ class PosyanduModel extends Model
         'gambar_gedung',
         'visi',
         'misi',
+        'rt_rw'
     ];
 }

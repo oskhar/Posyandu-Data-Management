@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\EdukasiRequest;
 use App\Models\EdukasiModel;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -187,6 +188,22 @@ class EdukasiController extends Controller
          * 
          */
         $data = $request->validated();
+
+        /**
+         * Memeriksa apakah request judul kosong
+         * 
+         */
+        if (!empty($data['judul'])) {
+            if ($data['judul'] == "") {
+
+                throw new HttpResponseException(response()->json([
+                    'errors' => [
+                        'message' => 'Judul tidak boleh kosong'
+                    ]
+                ])->setStatusCode(401));
+
+            }
+        }
 
         /**
          * Mendapatkan data tujuan yang ingin

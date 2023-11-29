@@ -21,6 +21,7 @@ class PosyanduSeeder extends Seeder
             'gambar_gedung' => 'images/upload/default.png',
             'visi' => 'Belum ada',
             'misi' => 'Belum ada',
+            'rt_rw' => '01/001',
         ]);
     }
 }

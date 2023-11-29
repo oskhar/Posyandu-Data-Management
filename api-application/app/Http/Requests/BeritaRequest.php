@@ -47,8 +47,10 @@ class BeritaRequest extends CoreRequest
     public function messages(): array
     {
         return [
-            'id_programmers.integer' => 'id_programmer harus berupa angka',
-            'id_projects.integer' => 'id_projects harus berupa angka',
+            'id_admin.integer' => 'id_admin harus berupa angka',
+            'id_berita.integer' => 'id_berita harus berupa angka',
+            'judul.unique' => 'Judul pernah dipakai sebelumnya, coba judul yang lain',
+            'judul.required' => 'Judul tidak boleh kosong',
         ];
     }
 }

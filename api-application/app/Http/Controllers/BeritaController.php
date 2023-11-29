@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BeritaRequest;
 use App\Models\BeritaModel;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -189,6 +190,22 @@ class BeritaController extends Controller
          * 
          */
         $data = $request->validated();
+
+        /**
+         * Memeriksa apakah request judul kosong
+         * 
+         */
+        if (!empty($data['judul'])) {
+            if ($data['judul'] == "") {
+
+                throw new HttpResponseException(response()->json([
+                    'errors' => [
+                        'message' => 'Judul tidak boleh kosong'
+                    ]
+                ])->setStatusCode(401));
+
+            }
+        }
 
         /**
          * Mengambil data yang ingin diubah

@@ -20,6 +20,7 @@ class PosyanduRequest extends CoreRequest
                     'nama_posyandu' => 'nullable|string',
                     'kecamatan' => 'nullable|string',
                     'kelurahan' => 'nullable|string',
+                    'rt_rw' => 'nullable|string',
                     'penyampaian_ketua' => 'nullable|string',
                     'gambar_gedung' => 'nullable',
                     'visi' => 'nullable|string',

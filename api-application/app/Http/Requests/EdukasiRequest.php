@@ -48,7 +48,7 @@ class EdukasiRequest extends CoreRequest
             'id_admin.integer' => 'id_admin harus berupa angka',
             'id_edukasi.integer' => 'id_edukasi harus berupa angka',
             'judul.unique' => 'Judul pernah dipakai sebelumnya, coba judul yang lain',
-            'materi.integer' => 'id_programmer harus berupa angka',
+            'judul.required' => 'Judul tidak boleh kosong',
         ];
     }
 }

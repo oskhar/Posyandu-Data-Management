@@ -68,7 +68,7 @@ class AuthController extends Controller
          * token berupa string
          * 
          */
-        $token = $admin->createToken('personal_access_tokens')->plainTextToken;
+        $token = $admin->createToken('personal_access_tokens', ['server:update'], null)->plainTextToken;
 
         /**
          * Kembalikan response yang sesuai

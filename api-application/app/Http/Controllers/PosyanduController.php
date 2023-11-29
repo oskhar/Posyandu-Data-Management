@@ -25,7 +25,8 @@ class PosyanduController extends Controller
             'penyampaian_ketua',
             'gambar_gedung',
             'visi',
-            'misi'
+            'misi',
+            'rt_rw'
         );
 
         /**

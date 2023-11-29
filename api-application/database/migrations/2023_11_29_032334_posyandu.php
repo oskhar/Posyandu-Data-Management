@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->string('nama_posyandu')->primary()->nullable();
             $table->string('kecamatan')->nullable();
             $table->string('kelurahan')->nullable();
+            $table->string('rt_rw')->nullable();
             $table->text('penyampaian_ketua')->nullable();
             $table->string('gambar_gedung')->nullable();
             $table->text('visi')->nullable();

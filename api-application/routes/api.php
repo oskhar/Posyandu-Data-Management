@@ -19,6 +19,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/**
+ * Endpoint privat
+ * Bearer protect
+ * 
+ */
 Route::group(['middleware' => 'auth:sanctum'], function ($router) {
 
     /**
@@ -45,6 +50,19 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
     Route::put('/admin', [AdminController::class, 'put']);
     Route::delete('/admin', [AdminController::class, 'delete']);
 
+    /**
+     * Endpoint untuk edukasi
+     * 
+     */
+    Route::post('/edukasi', [EdukasiController::class, 'post']);
+    Route::put('/edukasi', [EdukasiController::class, 'put']);
+    Route::delete('/edukasi', [EdukasiController::class, 'delete']);
+
+    /**
+     * Endpoint untuk posyandu
+     * 
+     */
+    Route::put('/posyandu', [PosyanduController::class, 'put']);
 });
 
 /**
@@ -55,13 +73,3 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/edukasi', [EdukasiController::class, 'get']);
 Route::get('/berita', [BeritaController::class, 'get']);
 Route::get('/posyandu', [PosyanduController::class, 'get']);
-
-/**
- * Endpoint untuk edukasi
- * 
- */
-Route::post('/edukasi', [EdukasiController::class, 'post']);
-Route::put('/edukasi', [EdukasiController::class, 'put']);
-Route::delete('/edukasi', [EdukasiController::class, 'delete']);
-
-Route::put('/posyandu', [PosyanduController::class, 'put']);
