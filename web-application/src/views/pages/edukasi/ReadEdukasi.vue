@@ -6,7 +6,8 @@
         <VImg :src="data.gambar" cover style="height: 280px">
           <h2
             v-if="data.gambar == urlServer + null"
-            class="text-center align-items-center"
+            class="text-center"
+            style="margin-top: 25%"
           >
             Tidak Ada Foto
           </h2>
@@ -27,10 +28,10 @@
               <template v-slot:activator="{ props }">
                 <VRow class="mt-3">
                   <VCol>
-                    <VBtn> Lihat </VBtn>
+                    <!-- <VBtn> Lihat </VBtn> -->
 
                     <VBtn color="primary" class="mx-3" v-bind="props">
-                      Edit
+                      Edit & Lihat
                     </VBtn>
                     <VBtn
                       color="error"
@@ -170,31 +171,23 @@ export default {
           }
         );
         if (response.data.success) {
-          alert(response.data.success.message);
+          Swal.fire({
+            toast: true,
+            position: "top",
+            iconColor: "white",
+            color: "white",
+            background: "rgb(var(--v-theme-success))",
+            showConfirmButton: false,
+            timerProgressBar: true,
+            timer: 1500,
+            icon: "success",
+            title: response.data.success.message,
+          });
         }
         console.log(response);
       } catch (error) {
         console.log(error);
       }
-      // const data = new FormData();
-      // data.append("id_admin", 1);
-      // data.append("judul", edukasi.judul);
-      // data.append("materi", edukasi.materi);
-      // // data.append("gambar", this.dataEdukasi.gambar);
-      // const response = await axios.post(
-      //   `${this.urlServer}/api/edukasi`,
-      //   data
-      // );
-
-      //   const { data } = await axios.put(`${this.urlServer}/api/edukasi`, {
-      //     id_edukasi: dataEdukasi.id_edukasi,
-      //     judul: dataEdukasi.judul,
-      //     materi: dataEdukasi.materi,
-      //   });
-      //   console.log(dataEdukasi.materi);
-      // } catch (error) {
-      //   console.log(error);
-      // }
     },
 
     inputGambar() {
@@ -235,7 +228,7 @@ export default {
             background: "rgb(var(--v-theme-success))",
             showConfirmButton: false,
             timerProgressBar: true,
-            timer: 2200,
+            timer: 1500,
             icon: "success",
             title: response.data.success.message,
           });
