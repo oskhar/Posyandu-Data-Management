@@ -16,7 +16,7 @@ const login = async (formLogin) => {
     email_admin: form.value.email,
     password: form.value.password,
   });
-  localStorage.setItem("tokenAuth", response.data.token);
+  localStorage.setItem("tokenAuth", "Bearer " + response.data.token);
   localStorage.setItem("id_admin", response.data.id_admin);
 
   window.location.href = "/dashboard";
@@ -81,7 +81,11 @@ const isPasswordVisible = ref(false);
               </div>
 
               <!-- login button -->
-              <VBtn block type="submit"> Login </VBtn>
+              <VBtn block type="submit">
+                <VProgressCircular indeterminate color="white">
+                </VProgressCircular>
+                Login
+              </VBtn>
             </VCol>
 
             <!-- create account -->

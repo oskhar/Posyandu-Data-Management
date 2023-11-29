@@ -1,4 +1,49 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import config from '@/@core/config.vue'
+import axios from 'axios'
+
+const isAuthenticated = async () => {
+  const url = `${config.urlServer}/api/auth`;
+  const token = localStorage.getItem("tokenAuth");
+
+  if (token) {
+    const headers = {
+      Authorization: token,
+    };
+
+    try {
+      const response = await axios.post(url, {}, { headers });
+      const berhasil = response.status === 200;
+      return berhasil;
+    } catch (error) {
+      localStorage.removeItem("tokenAuth");
+      localStorage.removeItem("id_admin");
+      console.error(error);
+      return false;
+    }
+  } else {
+    localStorage.removeItem("tokenAuth");
+    localStorage.removeItem("id_admin");
+    console.error("Auth Token tidak tersedia");
+    return false;
+  }
+};
+
+const requireAuth = async (to, from, next) => {
+  if (!(await isAuthenticated())) {
+    next("/login"); // Pengguna belum terautentikasi, alihkan ke halaman login.
+  } else {
+    next(); // Pengguna sudah terautentikasi, lanjutkan ke rute yang diminta.
+  }
+};
+
+const requireGuest = async (to, from, next) => {
+  if (await isAuthenticated()) {
+    next("/dashboard"); // Pengguna belum terautentikasi, alihkan ke halaman login.
+  } else {
+    next(); // Pengguna sudah terautentikasi, lanjutkan ke rute yang diminta.
+  }
+};
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -6,6 +51,7 @@ const router = createRouter({
     { path: '/', redirect: '/dashboard' },
     {
       path: '/',
+      beforeEnter:requireAuth,
       component: () => import('../layouts/default.vue'),
       children: [
         {
@@ -40,6 +86,7 @@ const router = createRouter({
     },
     {
       path: '/',
+      beforeEnter:requireGuest,
       component: () => import('../layouts/blank.vue'),
       children: [
         {
