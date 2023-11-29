@@ -4,15 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PosyanduRequest extends FormRequest
+class PosyanduRequest extends CoreRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return false;
-    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -21,8 +14,19 @@ class PosyanduRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        switch ($this->getMethod()) {
+            case 'PUT': // Untuk membuat (store)
+                return [
+                    'nama_posyandu' => 'nullable|string',
+                    'kecamatan' => 'nullable|string',
+                    'kelurahan' => 'nullable|string',
+                    'penyampaian_ketua' => 'nullable|string',
+                    'gambar_gedung' => 'nullable',
+                    'visi' => 'nullable|string',
+                    'misi' => 'nullable|string',
+                ];
+            default:
+                return [];
+        }
     }
 }

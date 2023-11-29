@@ -8,13 +8,28 @@ use Illuminate\Database\Eloquent\Model;
 class PosyanduModel extends Model
 {
     use HasFactory;
-    use HasFactory;
+
     /**
      * Mengatur nama tabel database yang dituju.
      * 
      * @var string
      */
-    protected $table = 'edukasi';
+    protected $table = 'posyandu';
+
+    /**
+     * Menentukan primary key (default = id)
+     * 
+     */
+    protected $primaryKey = 'nama_posyandu';
+    protected $keyType = 'string';
+
+
+    /**
+     * Mengindikasi apakah model memiliki timestamp.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
 
     /**
      * Atribut atau kolom yang boleh diubah.
