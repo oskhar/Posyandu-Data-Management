@@ -29,6 +29,7 @@ class AdminController extends Controller
          * 
          */
         $admin = AdminModel::select(
+            'id as id_admin',
             'nama_lengkap',
             'email_admin',
             'id_jabatan',

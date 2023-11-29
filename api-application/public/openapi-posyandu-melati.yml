@@ -50,10 +50,27 @@ paths:
                         type: string
                   token:
                     type: string
-              example:
-                success:
-                  message: "Berhasil login"
-                token: "token_autentikasi"
+                  admin:
+                    type: object
+                    properties:
+                      id_admin:
+                        type: integer
+                      id_jabatan:
+                        type: integer
+                      email_admin:
+                        type: string
+                      nama_lengkap:
+                        type: string
+                      foto_profile:
+                        type: string
+                      jenis_kelamin:
+                        type: string
+                      alamat:
+                        type: string
+                      tanggal_lahir:
+                        type: string
+                      no_telp:
+                        type: string
         400:
           description: BAD REQUEST
           content:
