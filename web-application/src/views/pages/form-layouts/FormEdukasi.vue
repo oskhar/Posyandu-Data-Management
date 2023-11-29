@@ -94,6 +94,8 @@
 <script>
 import axios from "axios";
 import config from "@/@core/config.vue";
+import Swal from "sweetalert2";
+
 export default {
   setup() {
     const judul = ref("");
@@ -148,8 +150,21 @@ export default {
           data
         );
         if (response.data.success) {
-          alert(response.data.success.message);
+          await Swal.fire({
+            toast: true,
+            position: "top",
+            iconColor: "white",
+            color: "white",
+            background: "rgb(var(--v-theme-success))",
+            showConfirmButton: false,
+            timerProgressBar: true,
+            timer: 2200,
+            icon: "success",
+            title: response.data.success.message,
+          });
         }
+
+        window.location.href = "/edukasi";
       } catch (error) {
         console.log(error);
       }

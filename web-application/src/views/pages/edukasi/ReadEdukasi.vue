@@ -3,7 +3,14 @@
     <!-- 👉 Popular Uses Of The Internet -->
     <VCol v-for="(data, index) in dataEdukasi" cols="12" md="4" sm="12">
       <VCard>
-        <VImg :src="data.gambar" cover style="height: 280px" />
+        <VImg :src="data.gambar" cover style="height: 280px">
+          <h2
+            v-if="data.gambar == urlServer + null"
+            class="text-center align-items-center"
+          >
+            Tidak Ada Foto
+          </h2>
+        </VImg>
 
         <VCardItem>
           <VCardTitle>{{ data.judul }}</VCardTitle>
@@ -132,6 +139,8 @@
 import axios from "axios";
 import config from "@/@core/config.vue";
 import { ref } from "vue";
+import Swal from "sweetalert2";
+
 export default {
   data() {
     return {
@@ -206,14 +215,33 @@ export default {
     },
 
     async deleteEdukasi(id_edukasi) {
-      const response = await axios.delete(
-        `${this.urlServer}/api/edukasi?id_edukasi=${id_edukasi}`
-      );
-      if (response.data.success) {
-        alert(response.data.success.message);
-        this.fetchData();
+      const ask = await Swal.fire({
+        title: "Anda yakin ingin menghapus?",
+        showConfirmButton: false,
+        showDenyButton: true,
+        showCancelButton: true,
+        denyButtonText: "Hapus",
+      });
+      if (ask.isDenied) {
+        const response = await axios.delete(
+          `${this.urlServer}/api/edukasi?id_edukasi=${id_edukasi}`
+        );
+        if (response.data.success) {
+          Swal.fire({
+            toast: true,
+            position: "top",
+            iconColor: "white",
+            color: "white",
+            background: "rgb(var(--v-theme-success))",
+            showConfirmButton: false,
+            timerProgressBar: true,
+            timer: 2200,
+            icon: "success",
+            title: response.data.success.message,
+          });
+          this.fetchData();
+        }
       }
-      console.log(response.data);
     },
 
     async changeAvatar(file, indexEdukasi) {

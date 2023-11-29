@@ -17,6 +17,7 @@ const login = async (formLogin) => {
     password: form.value.password,
   });
   localStorage.setItem("tokenAuth", response.data.token);
+  localStorage.setItem("id_admin", response.data.id_admin);
 
   window.location.href = "/dashboard";
 };
