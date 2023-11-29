@@ -27,20 +27,20 @@ class AuthController extends Controller
          * berdasarkan email yang diberikan
          * 
          */
-        $admin = AdminModel::select(
-            'id as id_admin',
-            'nama_lengkap',
-            'email_admin',
-            'id_jabatan',
-            'foto_profile',
-            'jenis_kelamin',
-            'alamat',
-            'tanggal_lahir',
-            'no_telp',
-            'email_verified_at'
-        )
-            ->where('email_admin', $data['email_admin'])
+        $admin = AdminModel::where('email_admin', $data['email_admin'])
             ->first();
+
+        /**
+         * Memeriksa apakah data admin ditemukan
+         * 
+         */
+        if (empty($admin)) {
+            throw new HttpResponseException(response()->json([
+                'errors' => [
+                    'message' => 'Email atau password salah'
+                ]
+            ])->setStatusCode(401));
+        }
 
         /**
          * Memeriksa apakah password yang
@@ -55,7 +55,7 @@ class AuthController extends Controller
          * password yang diberikan maka
          * 
          */
-        if (!$admin || !$passwordIsCorrect) {
+        if (!$passwordIsCorrect) {
             throw new HttpResponseException(response()->json([
                 'errors' => [
                     'message' => 'Email atau password salah'
@@ -78,7 +78,7 @@ class AuthController extends Controller
             'success' => [
                 'message' => 'Berhasil login'
             ],
-            'admin' => $admin,
+            'id_admin' => $admin->id,
             'token' => $token
         ])->setStatusCode(200);
     }
