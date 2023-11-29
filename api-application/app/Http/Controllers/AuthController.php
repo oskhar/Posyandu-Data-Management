@@ -87,4 +87,21 @@ class AuthController extends Controller
             ]
         ])->setStatusCode(200);
     }
+
+    public function authData(Request $request)
+    {
+        /**
+         * Hapus token dari database
+         * 
+         */
+        $admin = Auth::user();
+
+        /**
+         * Kembalikan response yang sesuai
+         * 
+         */
+        return response()->json(
+            $admin
+        )->setStatusCode(200);
+    }
 }

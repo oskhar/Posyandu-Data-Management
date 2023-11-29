@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
      * Endpoint untuk autentikasi
      * 
      */
+    Route::post('/auth', [AuthController::class, 'authData']);
     Route::post('/logout', [AuthController::class, 'logout']);
 
     /**
