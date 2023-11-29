@@ -1,48 +1,49 @@
 <script setup>
-import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
-import logo from '@images/logo.svg?raw'
+import AuthProvider from "@/views/pages/authentication/AuthProvider.vue";
+import logo from "@images/logo.svg?raw";
+import axios from "axios";
+import config from "@/@core/config.vue";
 
 const form = ref({
-  email: '',
-  password: '',
+  email: "",
+  password: "",
   remember: false,
-})
+});
 
-const isPasswordVisible = ref(false)
+const login = async (formLogin) => {
+  formLogin.preventDefault();
+  const response = await axios.post(`${config.urlServer}/api/login`, {
+    email_admin: form.value.email,
+    password: form.value.password,
+  });
+  localStorage.setItem("tokenAuth", response.data.token);
+
+  window.location.href = "/dashboard";
+};
+
+const isPasswordVisible = ref(false);
 </script>
 
 <template>
   <div class="auth-wrapper d-flex align-center justify-center pa-4">
-    <VCard
-      class="auth-card pa-4 pt-7"
-      max-width="448"
-    >
+    <VCard class="auth-card pa-4 pt-7" max-width="448">
       <VCardItem class="justify-center">
         <template #prepend>
           <div class="d-flex">
-            <div
-              class="d-flex text-primary"
-              v-html="logo"
-            />
+            <div class="d-flex text-primary" v-html="logo" />
           </div>
         </template>
 
-        <VCardTitle class="text-2xl font-weight-bold">
-          
-        </VCardTitle>
+        <VCardTitle class="text-2xl font-weight-bold"> </VCardTitle>
       </VCardItem>
 
       <VCardText class="pt-2">
-        <h5 class="text-h5 mb-1">
-          Selamat datang di Posyandu!👋🏻
-        </h5>
-        <p class="mb-0">
-          Mohon sign-in ke akun anda
-        </p>
+        <h5 class="text-h5 mb-1">Selamat datang di Posyandu!👋🏻</h5>
+        <p class="mb-0">Mohon sign-in ke akun anda</p>
       </VCardText>
 
       <VCardText>
-        <VForm @submit.prevent="$router.push('/')">
+        <VForm @submit="login">
           <VRow>
             <!-- email -->
             <VCol cols="12">
@@ -67,8 +68,9 @@ const isPasswordVisible = ref(false)
               />
 
               <!-- remember me checkbox -->
-              <div class="d-flex align-center justify-space-between flex-wrap mt-1 mb-4">
-
+              <div
+                class="d-flex align-center justify-space-between flex-wrap mt-1 mb-4"
+              >
                 <RouterLink
                   class="text-primary ms-2 mb-1"
                   to="javascript:void(0)"
@@ -78,12 +80,7 @@ const isPasswordVisible = ref(false)
               </div>
 
               <!-- login button -->
-              <VBtn
-                block
-                type="submit"
-              >
-                Login
-              </VBtn>
+              <VBtn block type="submit"> Login </VBtn>
             </VCol>
 
             <!-- create account -->
@@ -110,10 +107,7 @@ const isPasswordVisible = ref(false)
             </VCol> -->
 
             <!-- auth providers -->
-            <VCol
-              cols="12"
-              class="text-center"
-            >
+            <VCol cols="12" class="text-center">
               <!-- <AuthProvider /> -->
             </VCol>
           </VRow>

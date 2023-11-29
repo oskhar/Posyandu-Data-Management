@@ -3,7 +3,7 @@
     <!-- 👉 Popular Uses Of The Internet -->
     <VCol v-for="(data, index) in dataEdukasi" cols="12" md="4" sm="12">
       <VCard>
-        <VImg :src="data.gambar" cover max-height="280" />
+        <VImg :src="data.gambar" cover style="height: 280px" />
 
         <VCardItem>
           <VCardTitle>{{ data.judul }}</VCardTitle>
@@ -145,25 +145,11 @@ export default {
   methods: {
     async putData(indexEdukasi) {
       try {
-        // data.append(
-        //   "id_edukasi",
-        //   this.dataEdukasi[indexEdukasi].id_edukasi.value
-        // );
-        // data.append("judul", this.dataEdukasi[indexEdukasi].judul.value);
-        // data.append("materi", this.dataEdukasi[indexEdukasi].materi.value);
-        // data.append("gambar", this.dataEdukasi[indexEdukasi].gambar.value);
-        // const response = await axios.post(
-        //   `${this.urlServer}/api/edukasi`,
-        //   data
-        // );
-        // console.log(this.dataEdukasi);
         const data = {
           id_edukasi: this.dataEdukasi[indexEdukasi].id_edukasi,
           judul: this.dataEdukasi[indexEdukasi].judul,
           materi: this.dataEdukasi[indexEdukasi].materi,
-          gambar: this.dataEdukasi[indexEdukasi].gambar,
         };
-        console.log(data);
 
         const response = await axios.put(
           `${this.urlServer}/api/edukasi`,
@@ -174,6 +160,9 @@ export default {
             },
           }
         );
+        if (response.data.success) {
+          alert(response.data.success.message);
+        }
         console.log(response);
       } catch (error) {
         console.log(error);
@@ -238,9 +227,16 @@ export default {
           files.type === "image/jpg"
         ) {
           fileReader.readAsDataURL(files);
-          fileReader.onload = () => {
+          fileReader.onload = async () => {
             if (typeof fileReader.result === "string") {
               this.dataEdukasi[indexEdukasi].gambar = fileReader.result;
+              const response = await axios.put(
+                `${this.urlServer}/api/edukasi`,
+                {
+                  id_edukasi: this.dataEdukasi[indexEdukasi].id_edukasi,
+                  gambar: fileReader.result,
+                }
+              );
             }
           };
         } else {
