@@ -1,14 +1,96 @@
-<script setup>
+<script>
 // 👉 Images
 import posyandu from "@images/pages/3.png";
 import langit from "@images/pages/2.png";
+export default {
+  data: () => ({
+    dialog: false,
+    posyandu: posyandu,
+    langit: langit,
+    profil: "Lorem ipsum dolor ",
+    visi: "labore fugit assumenda ",
+    misi: "corrupti veritatis quidem nostru",
+  }),
+  methods: {
+    save() {
+      this.profil = profil;
+      this.visi = visi;
+      this.misi = misi;
+    },
+  },
+};
 </script>
 
 <template>
   <VRow>
-    <VCol cols="12">
-      <h1 class="text-primary">POSYANDU MELATI</h1>
-    </VCol>
+    <div class="d-flex w-100 align-content-center">
+      <VRow class="mx-1">
+        <VCol cols="12">
+          <v-row justify="center">
+            <v-dialog v-model="dialog" persistent width="1024">
+              <template v-slot:activator="{ props }">
+                <div style="width: 100%" class="py-5 px-3">
+                  <h1 class="text-primary float-left">POSYANDU MELATI</h1>
+                  <v-btn color="primary" class="float-right" v-bind="props">
+                    Edit
+                  </v-btn>
+                </div>
+              </template>
+              <v-card>
+                <v-card-title>
+                  <span class="text-h5">User Profile</span>
+                </v-card-title>
+                <v-card-text>
+                  <v-container>
+                    <v-row>
+                      <v-col cols="12">
+                        <VTextarea
+                          label="Profil"
+                          v-model="profil"
+                          required
+                        ></VTextarea>
+                      </v-col>
+                      <v-col cols="12">
+                        <VTextarea
+                          label="Visi"
+                          v-model="visi"
+                          required
+                        ></VTextarea>
+                      </v-col>
+                      <v-col cols="12">
+                        <VTextarea
+                          label="Misi"
+                          v-model="misi"
+                          required
+                        ></VTextarea>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                  <small>*indicates required field</small>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    color="blue-darken-1"
+                    variant="text"
+                    @click="dialog = false"
+                  >
+                    Close
+                  </v-btn>
+                  <v-btn
+                    color="blue-darken-1"
+                    variant="text"
+                    @click="dialog = false"
+                  >
+                    Save
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </v-row>
+        </VCol>
+      </VRow>
+    </div>
     <VCol cols="12">
       <img
         style="width: 100%; height: 500px; object-fit: cover"
@@ -35,19 +117,7 @@ import langit from "@images/pages/2.png";
 
             <VCardText>
               <span>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Voluptatum fugit explicabo fugiat quidem nobis praesentium
-                facere. Expedita tempore architecto quo suscipit, adipisci
-                consequuntur sed ipsa labore fugit assumenda ratione possimus
-                vero minus quae eos nesciunt nulla perferendis ad totam laborum.
-                Neque ad corrupti veritatis quidem nostrum, nesciunt repudiandae
-                inventore odio quod hic maiores consequuntur minima voluptatum.
-                Adipisci hic debitis est temporibus possimus similique rem non,
-                fugiat fuga vel doloremque eligendi ut nulla ea rerum iste
-                accusamus doloribus! Hic similique possimus repellendus porro
-                reiciendis impedit quisquam, tempora exercitationem rem pariatur
-                maiores. Dolorum laboriosam fugiat libero fuga voluptatum illum
-                quidem, culpa minima!
+                {{ profil }}
                 <br />
                 <br />
                 Semoga dapat memudahkan masyarakat
@@ -68,19 +138,7 @@ import langit from "@images/pages/2.png";
 
             <VCardText>
               <span>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Voluptatum fugit explicabo fugiat quidem nobis praesentium
-                facere. Expedita tempore architecto quo suscipit, adipisci
-                consequuntur sed ipsa labore fugit assumenda ratione possimus
-                vero minus quae eos nesciunt nulla perferendis ad totam laborum.
-                Neque ad corrupti veritatis quidem nostrum, nesciunt repudiandae
-                inventore odio quod hic maiores consequuntur minima voluptatum.
-                Adipisci hic debitis est temporibus possimus similique rem non,
-                fugiat fuga vel doloremque eligendi ut nulla ea rerum iste
-                accusamus doloribus! Hic similique possimus repellendus porro
-                reiciendis impedit quisquam, tempora exercitationem rem pariatur
-                maiores. Dolorum laboriosam fugiat libero fuga voluptatum illum
-                quidem, culpa minima!
+                {{ visi }}
                 <br />
                 <br />
                 Semoga dapat memudahkan masyarakat
@@ -101,19 +159,7 @@ import langit from "@images/pages/2.png";
 
             <VCardText>
               <span>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Voluptatum fugit explicabo fugiat quidem nobis praesentium
-                facere. Expedita tempore architecto quo suscipit, adipisci
-                consequuntur sed ipsa labore fugit assumenda ratione possimus
-                vero minus quae eos nesciunt nulla perferendis ad totam laborum.
-                Neque ad corrupti veritatis quidem nostrum, nesciunt repudiandae
-                inventore odio quod hic maiores consequuntur minima voluptatum.
-                Adipisci hic debitis est temporibus possimus similique rem non,
-                fugiat fuga vel doloremque eligendi ut nulla ea rerum iste
-                accusamus doloribus! Hic similique possimus repellendus porro
-                reiciendis impedit quisquam, tempora exercitationem rem pariatur
-                maiores. Dolorum laboriosam fugiat libero fuga voluptatum illum
-                quidem, culpa minima!
+                {{ misi }}
                 <br />
                 <br />
                 Semoga dapat memudahkan masyarakat

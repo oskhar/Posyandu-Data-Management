@@ -20,6 +20,9 @@
                       placeholder="Masukkan Judul"
                       persistent-placeholder
                     />
+                    <sup class="text-error">*harus unik</sup>
+                    <br />
+                    <sup class="text-error">*tidak boleh kosong</sup>
                   </VCol>
                 </VRow>
               </VCol>

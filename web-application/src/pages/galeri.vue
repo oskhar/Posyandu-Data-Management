@@ -1,10 +1,6 @@
 <script setup>
 // 👉 Images
 import wallet from "@/assets/images/pages/1.png";
-
-const vos = ref("mehh");
-vos.value = "hai";
-console.log(vos.value);
 </script>
 
 <template>
