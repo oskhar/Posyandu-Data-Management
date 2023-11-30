@@ -15,19 +15,25 @@ let statBerita = ref(0);
 
 // 👉 Images
 
-const jumlahBerita = 120;
 const jumlahGambar = 72;
-const jumlahPengurus = 69;
 
-onMounted(async () => {
+const fetchBerita = async () => {
   const response1 = await axios.get(`${urlServer}/api/berita`);
   data = response1.data;
   statBerita.value += data.length;
   console.log(statBerita);
+};
+
+const fetchEdukasi = async () => {
   const response2 = await axios.get(`${urlServer}/api/edukasi`);
   data = response2.data;
   statEdukasi.value += data.length;
   console.log(statEdukasi);
+};
+
+onMounted(() => {
+  fetchEdukasi();
+  fetchBerita();
 });
 </script>
 

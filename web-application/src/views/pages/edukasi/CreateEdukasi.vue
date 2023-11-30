@@ -119,6 +119,7 @@ import Swal from "sweetalert2";
 export default {
   setup() {
     const judul = ref("");
+
     const materi = ref("");
     const refInputEl = ref();
 
@@ -161,13 +162,18 @@ export default {
         formData.preventDefault();
 
         const data = new FormData();
-        data.append("id_admin", 1);
+        data.append("id_admin", localStorage.getItem("id_admin"));
         data.append("judul", judul.value);
         data.append("materi", materi.value);
         data.append("gambar", projectImageLocal.value.imageValue);
         const response = await axios.post(
           `${config.urlServer}/api/edukasi`,
-          data
+          data,
+          {
+            headers: {
+              Authorization: localStorage.getItem("tokenAuth"),
+            },
+          }
         );
         if (response.data.success) {
           await Swal.fire({
