@@ -133,6 +133,17 @@
       </VCard>
     </VCol>
   </VRow>
+  <VRow>
+    <VCol>
+      <div class="text-center my-3 float-right">
+        <v-pagination
+          v-model="page"
+          :length="15"
+          :total-visible="5"
+        ></v-pagination>
+      </div>
+    </VCol>
+  </VRow>
 </template>
 
 <script>
@@ -149,6 +160,7 @@ export default {
       dataEdukasi: ref([]),
       urlServer: config.urlServer,
       refInput: ref(),
+      page: 1,
     };
   },
 
@@ -166,7 +178,7 @@ export default {
           data,
           {
             headers: {
-              "Content-Type": "application/json",
+              Authorization: localStorage.getItem("tokenAuth"),
             },
           }
         );
@@ -217,7 +229,12 @@ export default {
       });
       if (ask.isDenied) {
         const response = await axios.delete(
-          `${this.urlServer}/api/edukasi?id_edukasi=${id_edukasi}`
+          `${this.urlServer}/api/edukasi?id_edukasi=${id_edukasi}`,
+          {
+            headers: {
+              Authorization: localStorage.getItem("tokenAuth"),
+            },
+          }
         );
         if (response.data.success) {
           Swal.fire({

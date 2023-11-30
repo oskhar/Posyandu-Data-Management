@@ -178,7 +178,7 @@ export default {
         formData.preventDefault();
 
         const data = new FormData();
-        data.append("id_admin", 1);
+        data.append("id_admin", localStorage.getItem("id_admin"));
         data.append("judul", judul.value);
         data.append("deskripsi", deskripsi.value);
         data.append("tanggal_pelaksanaan", tanggal_pelaksanaan.value);
