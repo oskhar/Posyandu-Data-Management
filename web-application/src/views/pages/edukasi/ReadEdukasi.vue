@@ -1,6 +1,5 @@
 <template>
   <VRow>
-    <!-- 👉 Popular Uses Of The Internet -->
     <VCol v-for="(data, index) in dataEdukasi" cols="12" md="4" sm="12">
       <VCard>
         <VImg :src="data.gambar" cover style="height: 280px">
@@ -138,8 +137,9 @@
       <div class="text-center my-3 float-right">
         <v-pagination
           v-model="page"
-          :length="15"
+          :length="banyakPage"
           :total-visible="5"
+          @click="fetchData"
         ></v-pagination>
       </div>
     </VCol>
@@ -161,6 +161,7 @@ export default {
       urlServer: config.urlServer,
       refInput: ref(),
       page: 1,
+      banyakPage: 0,
     };
   },
 
@@ -196,7 +197,6 @@ export default {
             title: response.data.success.message,
           });
         }
-        console.log(response);
       } catch (error) {
         console.log(error);
       }
@@ -207,8 +207,11 @@ export default {
     },
 
     async fetchData() {
-      const response = await axios.get(`${this.urlServer}/api/edukasi`);
-      this.dataEdukasi = response.data.map((item) => {
+      const banyakDataTampil = 6;
+      const response = await axios.get(
+        `${this.urlServer}/api/edukasi?start=${this.page}&length=${banyakDataTampil}`
+      );
+      this.dataEdukasi = response.data.edukasi.map((item) => {
         item.id_edukasi = ref(item.id_edukasi);
         item.judul = ref(item.judul);
         item.materi = ref(item.materi);
@@ -216,7 +219,7 @@ export default {
         item.refInput = ref();
         return item;
       });
-      console.log(this.dataEdukasi);
+      this.banyakPage = Math.ceil(response.data.jumlah_data / banyakDataTampil);
     },
 
     async deleteEdukasi(id_edukasi) {
