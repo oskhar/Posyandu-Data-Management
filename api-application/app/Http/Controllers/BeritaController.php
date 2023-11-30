@@ -27,7 +27,7 @@ class BeritaController extends Controller
          * tumpuan dalam pengambilan data
          * 
          */
-        $berita = BeritaModel::select(
+        $query = BeritaModel::select(
             'berita.id as id_berita',
             'admin.email_admin',
             'admin.nama_lengkap',
@@ -49,52 +49,87 @@ class BeritaController extends Controller
              * Memfilter data sesuai request search
              * 
              */
-            $berita = $berita->where('judul', 'LIKE', '%' . $data['search'] . '%');
-
-        }
-        if (!empty($data['id_berita'])) {
-
-            /**
-             * Mengambil data dari query
-             * 
-             */
-            $berita = $berita->where('id', $data['id_berita'])
-                ->first();
-
-        } else {
-
-            /**
-             * Mengambil data dari query
-             * 
-             */
-            $berita = $berita->get();
+            $query = $query->where('judul', 'LIKE', '%' . $data['search'] . '%');
 
         }
 
         /**
-         * Menyesuaikan data
+         * Mengambil banyaknya data yang diambil
          * 
          */
-        $berita = $berita->map(function ($result) {
+        $count = $query->count();
+
+        if (!empty($data['id_berita'])) {
+
+            /**
+             * Mengambil query data sesuai id
+             * 
+             */
+            $query = $query->where('id', $data['id_berita']);
+
+            /**
+             * Mengambil data dari query dan
+             * akan dijadikan response
+             * 
+             */
+            $count = $query->count();
+            $berita = $query->first();
 
             /**
              * Mengubah tanggal dan waktu menjadi hanya tanggal saja
              * tt-bb-hh jj:mm:dd -> tt-bb-hh
              * 
              */
-            $result->tanggal = explode(' ', $result->tanggal)[0];
-            return $result;
+            $berita->tanggal = explode(' ', $berita->tanggal)[0];
+            return $berita;
 
-        });
+        } else {
+
+            /**
+             * Memeriksa apakah data ingin difilter
+             * 
+             */
+            if (isset($data['start']) && isset($data['length'])) {
+                $berita = $query->offset(($data['start'] - 1) * $data['length'])
+                    ->limit($data['length']);
+            }
+
+            /**
+             * Mengambil data dari query dan
+             * akan dijadikan response
+             * 
+             */
+            $berita = $query->get();
+
+            /**
+             * Menyesuaikan data
+             * 
+             */
+            $berita = $berita->map(function ($result) {
+
+                /**
+                 * Mengubah tanggal dan waktu menjadi hanya tanggal saja
+                 * tt-bb-hh jj:mm:dd -> tt-bb-hh
+                 * 
+                 */
+                $result->tanggal = explode(' ', $result->tanggal)[0];
+                return $result;
+
+            });
+
+        }
+
+
 
         /**
          * Mengembalikan nilai yang diminta
          * sesuai request yang diberikan
          * 
          */
-        return response()->json(
-            $berita
-        )->setStatusCode(200);
+        return response()->json([
+            'berita' => $berita,
+            'jumlah_data' => $count
+        ])->setStatusCode(200);
     }
 
     public function post(BeritaRequest $request): JsonResponse

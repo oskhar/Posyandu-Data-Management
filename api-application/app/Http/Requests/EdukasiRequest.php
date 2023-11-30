@@ -36,6 +36,8 @@ class EdukasiRequest extends CoreRequest
             case 'GET':
                 return [
                     'id_edukasi' => 'nullable|integer',
+                    'start' => 'nullable|integer',
+                    'length' => 'nullable|integer',
                     'search' => 'nullable'
                 ];
             default:

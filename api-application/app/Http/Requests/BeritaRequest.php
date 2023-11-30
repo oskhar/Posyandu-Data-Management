@@ -38,7 +38,9 @@ class BeritaRequest extends CoreRequest
             case 'GET':
                 return [
                     'id_berita' => 'nullable|integer',
-                    'search' => 'nullable'
+                    'search' => 'nullable',
+                    'start' => 'nullable|integer',
+                    'length' => 'nullable|integer'
                 ];
             default:
                 return [];

@@ -26,7 +26,7 @@ class EdukasiController extends Controller
          * Membuat query dasar
          * 
          */
-        $edukasi = EdukasiModel::select(
+        $query = EdukasiModel::select(
             'edukasi.id as id_edukasi',
             'admin.email_admin',
             'admin.nama_lengkap',
@@ -47,52 +47,85 @@ class EdukasiController extends Controller
              * Memfilter data sesuai request search
              * 
              */
-            $edukasi = $edukasi->where('judul', 'LIKE', '%' . $data['search'] . '%');
-
-        }
-        if (!empty($data['id_berita'])) {
-
-            /**
-             * Mengambil data dari query
-             * 
-             */
-            $edukasi = $edukasi->where('id', $data['id_berita'])
-                ->first();
-
-        } else {
-
-            /**
-             * Mengambil data dari query
-             * 
-             */
-            $edukasi = $edukasi->get();
+            $query = $query->where('judul', 'LIKE', '%' . $data['search'] . '%');
 
         }
 
         /**
-         * Menyesuaikan data
+         * Mengambil banyaknya data yang diambil
          * 
          */
-        $edukasi = $edukasi->map(function ($result) {
+        $count = $query->count();
+
+        if (!empty($data['id_edukasi'])) {
+
+            /**
+             * Mengambil query data sesuai id
+             * 
+             */
+            $query = $query->where('id', $data['id_edukasi']);
+
+            /**
+             * Mengambil data dari query dan
+             * akan dijadikan response
+             * 
+             */
+            $count = $query->count();
+            $edukasi = $query->first();
 
             /**
              * Mengubah tanggal dan waktu menjadi hanya tanggal saja
              * tt-bb-hh jj:mm:dd -> tt-bb-hh
              * 
              */
-            $result->tanggal = explode(' ', $result->tanggal)[0];
-            return $result;
+            $edukasi->tanggal = explode(' ', $edukasi->tanggal)[0];
+            return $edukasi;
 
-        });
+        } else {
+
+            /**
+             * Memeriksa apakah data ingin difilter
+             * 
+             */
+            if (isset($data['start']) && isset($data['length'])) {
+                $edukasi = $query->offset(($data['start'] - 1) * $data['length'])
+                    ->limit($data['length']);
+            }
+
+            /**
+             * Mengambil data dari query dan
+             * akan dijadikan response
+             * 
+             */
+            $edukasi = $query->get();
+
+            /**
+             * Menyesuaikan data
+             * 
+             */
+            $edukasi = $edukasi->map(function ($result) {
+
+                /**
+                 * Mengubah tanggal dan waktu menjadi hanya tanggal saja
+                 * tt-bb-hh jj:mm:dd -> tt-bb-hh
+                 * 
+                 */
+                $result->tanggal = explode(' ', $result->tanggal)[0];
+                return $result;
+
+            });
+
+        }
 
         /**
          * Memeberikan data yang diminta
          * melalui response
          * 
          */
-        return response()->json(
-            $edukasi
-        )->setStatusCode(200);
+        return response()->json([
+            'edukasi' => $edukasi,
+            'jumlah_data' => $count
+        ])->setStatusCode(200);
     }
 
     public function post(EdukasiRequest $request): JsonResponse
