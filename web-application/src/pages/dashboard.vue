@@ -18,17 +18,13 @@ let statBerita = ref(0);
 const jumlahGambar = 72;
 
 const fetchBerita = async () => {
-  const response1 = await axios.get(`${urlServer}/api/berita`);
-  data = response1.data;
-  statBerita.value += data.length;
-  console.log(statBerita);
+  const response = await axios.get(`${urlServer}/api/berita`);
+  statBerita.value = response.data.jumlah_data;
 };
 
 const fetchEdukasi = async () => {
-  const response2 = await axios.get(`${urlServer}/api/edukasi`);
-  data = response2.data;
-  statEdukasi.value += data.length;
-  console.log(statEdukasi);
+  const response = await axios.get(`${urlServer}/api/edukasi`);
+  statEdukasi.value = response.data.jumlah_data;
 };
 
 onMounted(() => {

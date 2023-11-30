@@ -142,6 +142,18 @@
       </VCard>
     </VCol>
   </VRow>
+  <VRow>
+    <VCol>
+      <div class="text-center my-3 float-right">
+        <v-pagination
+          v-model="page"
+          :length="banyakPage"
+          :total-visible="5"
+          @click="fetchData"
+        ></v-pagination>
+      </div>
+    </VCol>
+  </VRow>
 </template>
 
 <script>
@@ -158,6 +170,8 @@ export default {
       dataBerita: ref([]),
       urlServer: config.urlServer,
       refInput: ref(),
+      page: 1,
+      banyakPage: 0,
     };
   },
 
@@ -201,8 +215,11 @@ export default {
     },
 
     async fetchData() {
-      const response = await axios.get(`${this.urlServer}/api/berita`);
-      this.dataBerita = response.data.map((item) => {
+      const banyakDataTampil = 6;
+      const response = await axios.get(
+        `${this.urlServer}/api/berita?start=${this.page}&length=${banyakDataTampil}`
+      );
+      this.dataBerita = response.data.berita.map((item) => {
         item.id_berita = ref(item.id_berita);
         item.judul = ref(item.judul);
         item.tanggal_pelaksanaan = ref(item.tanggal_pelaksanaan);
@@ -211,7 +228,7 @@ export default {
         item.refInput = ref();
         return item;
       });
-      console.log(this.dataBerita);
+      this.banyakPage = Math.ceil(response.data.jumlah_data / banyakDataTampil);
     },
 
     async deleteBerita(id_berita) {
@@ -224,7 +241,12 @@ export default {
       });
       if (ask.isDenied) {
         const response = await axios.delete(
-          `${this.urlServer}/api/berita?id_berita=${id_berita}`
+          `${this.urlServer}/api/berita?id_berita=${id_berita}`,
+          {
+            headers: {
+              Authorization: localStorage.getItem("tokenAuth"),
+            },
+          }
         );
         if (response.data.success) {
           Swal.fire({
