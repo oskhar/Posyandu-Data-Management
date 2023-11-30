@@ -29,7 +29,7 @@ class BeritaRequest extends CoreRequest
                     "judul" => "nullable|string",
                     "deskripsi" => "nullable|string",
                     "gambar" => "nullable",
-                    "tanggal_pelaksanaan" => "required"
+                    "tanggal_pelaksanaan" => "nullable"
                 ];
             case 'DELETE':
                 return [
