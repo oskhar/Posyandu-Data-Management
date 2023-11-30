@@ -11,6 +11,7 @@ import { ref } from "vue";
 const urlServer = config.urlServer;
 let data = ref([]);
 let statEdukasi = ref(0);
+let statBerita = ref(0);
 
 // 👉 Images
 
@@ -19,8 +20,12 @@ const jumlahGambar = 72;
 const jumlahPengurus = 69;
 
 onMounted(async () => {
-  const response1 = await axios.get(`${urlServer}/api/edukasi`);
+  const response1 = await axios.get(`${urlServer}/api/berita`);
   data = response1.data;
+  statBerita.value += data.length;
+  console.log(statBerita);
+  const response2 = await axios.get(`${urlServer}/api/edukasi`);
+  data = response2.data;
   statEdukasi.value += data.length;
   console.log(statEdukasi);
 });
@@ -41,7 +46,7 @@ onMounted(async () => {
             v-bind="{
               title: 'Jumlah Berita',
               image: chart,
-              stats: jumlahBerita,
+              stats: statBerita,
             }"
           />
         </VCol>

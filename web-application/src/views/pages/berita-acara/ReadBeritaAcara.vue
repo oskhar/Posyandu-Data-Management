@@ -6,7 +6,7 @@
         <VImg :src="data.gambar" cover style="height: 280px">
           <h2
             v-if="data.gambar == urlServer + null"
-            class="text-center"
+            class="text-center text-secondary"
             style="margin-top: 25%"
           >
             Tidak Ada Foto

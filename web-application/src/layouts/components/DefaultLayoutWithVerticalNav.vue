@@ -5,6 +5,7 @@ import upgradeBannerDark from "@images/pro/upgrade-banner-dark.png";
 import upgradeBannerLight from "@images/pro/upgrade-banner-light.png";
 import VerticalNavLayout from "@layouts/components/VerticalNavLayout.vue";
 import VerticalNavLink from "@layouts/components/VerticalNavLink.vue";
+import VerticalNavLinkTree from "@layouts/components/VerticalNavLinkTree.vue";
 
 // Components
 import Footer from "@/layouts/components/Footer.vue";
@@ -101,6 +102,41 @@ const upgradeBanner = computed(() => {
           title: 'Galeri',
           icon: 'bx-image',
           to: '/galeri',
+        }"
+      />
+      <VerticalNavLinkTree
+        :item="{
+          title: 'Data',
+          children: [
+            {
+              title: 'Format 1',
+              to: '/data/format-1',
+            },
+            {
+              title: 'Format 2',
+              to: '/data/format-2',
+            },
+            {
+              title: 'Format 3',
+              to: '/data/format-3',
+            },
+            {
+              title: 'Format 4',
+              to: '/data/format-4',
+            },
+            {
+              title: 'Format 5',
+              to: '/data/format-5',
+            },
+            {
+              title: 'Format 6',
+              to: '/data/format-6',
+            },
+            {
+              title: 'Format 7',
+              to: '/data/format-7',
+            },
+          ],
         }"
       />
       <VerticalNavLink

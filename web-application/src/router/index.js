@@ -75,6 +75,39 @@ const router = createRouter({
           component: () => import('../pages/galeri.vue'),
         },
         {
+          path: 'data/',
+          children: [
+              {
+                path: 'format-1',
+                component: () => import('../pages/format-1.vue'),
+              },
+              {
+                path: 'format-2',
+                component: () => import('../pages/format-2.vue'),
+              },
+              {
+                path: 'format-3',
+                component: () => import('../pages/format-3.vue'),
+              },
+              {
+                path: 'format-4',
+                component: () => import('../pages/format-4.vue'),
+              },
+              {
+                path: 'format-5',
+                component: () => import('../pages/format-5.vue'),
+              },
+              {
+                path: 'format-6',
+                component: () => import('../pages/format-6.vue'),
+              },
+              {
+                path: 'format-7',
+                component: () => import('../pages/format-7.vue'),
+              },
+          ]
+        },
+        {
           path: 'tentang',
           component: () => import('../pages/tentang.vue'),
         },
