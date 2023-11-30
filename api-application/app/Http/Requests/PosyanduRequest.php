@@ -18,6 +18,7 @@ class PosyanduRequest extends CoreRequest
             case 'PUT': // Untuk membuat (store)
                 return [
                     'nama_posyandu' => 'nullable|string',
+                    'kota' => 'nullable|string',
                     'kecamatan' => 'nullable|string',
                     'kelurahan' => 'nullable|string',
                     'rt_rw' => 'nullable|string',

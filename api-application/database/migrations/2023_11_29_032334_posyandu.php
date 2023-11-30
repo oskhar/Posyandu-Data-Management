@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('posyandu', function (Blueprint $table) {
             $table->string('nama_posyandu')->primary()->nullable();
+            $table->string('kota')->nullable();
             $table->string('kecamatan')->nullable();
             $table->string('kelurahan')->nullable();
             $table->string('rt_rw')->nullable();

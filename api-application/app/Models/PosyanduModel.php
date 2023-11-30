@@ -38,12 +38,13 @@ class PosyanduModel extends Model
      */
     protected $fillable = [
         'nama_posyandu',
+        'kota',
         'kecamatan',
         'kelurahan',
+        'rt_rw',
         'penyampaian_ketua',
         'gambar_gedung',
         'visi',
         'misi',
-        'rt_rw'
     ];
 }

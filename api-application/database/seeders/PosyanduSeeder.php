@@ -15,10 +15,11 @@ class PosyanduSeeder extends Seeder
         //
         \DB::table('posyandu')->insert([
             'nama_posyandu' => 'Posyandu Melati',
+            'kota' => 'Periuk',
             'kecamatan' => 'Periuk',
             'kelurahan' => 'Periuk',
             'penyampaian_ketua' => 'Belum ada',
-            'gambar_gedung' => 'images/upload/default.png',
+            'gambar_gedung' => '/images/upload/default.png',
             'visi' => 'Belum ada',
             'misi' => 'Belum ada',
             'rt_rw' => '01/001',

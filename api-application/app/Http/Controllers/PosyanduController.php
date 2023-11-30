@@ -20,6 +20,7 @@ class PosyanduController extends Controller
          */
         $posyandu = PosyanduModel::select(
             'nama_posyandu',
+            'kota',
             'kecamatan',
             'kelurahan',
             'penyampaian_ketua',
