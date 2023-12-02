@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class EdukasiModel extends Model
+class GambarModel extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,7 @@ class EdukasiModel extends Model
      * 
      * @var string
      */
-    protected $table = 'edukasi';
+    protected $table = 'gambar';
 
     /**
      * Atribut atau kolom yang boleh diubah.
@@ -23,9 +23,6 @@ class EdukasiModel extends Model
      */
     protected $fillable = [
         "id_admin",
-        'judul',
-        'materi',
         'gambar',
-        'tanggal',
     ];
 }

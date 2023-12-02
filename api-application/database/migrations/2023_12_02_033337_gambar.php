@@ -10,9 +10,11 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('format_1', function (Blueprint $table) {
+        Schema::create('gambar', function (Blueprint $table) {
             $table->id();
-            $table->string('keterangan');
+            $table->bigInteger('id_admin')->unsigned();
+            $table->foreign('id_admin')->references('id')->on('admin')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('gambar')->nullable();
             $table->timestamps();
         });
     }
@@ -22,6 +24,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('format');
+        Schema::dropIfExists('gambar');
     }
 };

@@ -632,8 +632,10 @@ paths:
               schema:
                 type: object
                 properties:
-                  id_gambar:
-                    type: integer
+                  email_admin:
+                    type: string
+                  nama_lengkap:
+                    type: string
                   gambar:
                     type: string
                   tanggal:
