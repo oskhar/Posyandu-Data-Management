@@ -10,8 +10,10 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('format_1', function (Blueprint $table) {
+        Schema::create('format_a', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('id_bayi')->unsigned();
+            $table->foreign('id_bayi')->references('id')->on('bayi')->onDelete('cascade')->onUpdate('cascade');
             $table->string('keterangan');
             $table->timestamps();
         });
@@ -22,6 +24,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('format');
+        Schema::dropIfExists('format_a');
     }
 };

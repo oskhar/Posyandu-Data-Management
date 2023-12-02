@@ -15,7 +15,7 @@ class PosyanduSeeder extends Seeder
         //
         \DB::table('posyandu')->insert([
             'nama_posyandu' => 'Posyandu Melati',
-            'kota' => 'Periuk',
+            'kota' => 'Tangerang',
             'kecamatan' => 'Periuk',
             'kelurahan' => 'Periuk',
             'penyampaian_ketua' => 'Belum ada',

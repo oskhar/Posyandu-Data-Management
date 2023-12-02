@@ -12,7 +12,7 @@ class GambarRequest extends CoreRequest
     public function rules(): array
     {
         switch ($this->getMethod()) {
-            case 'POST': // Untuk membuat (store)
+            case 'POST':
                 return [
                     'id_admin' => 'required|integer',
                     'gambar' => 'required',

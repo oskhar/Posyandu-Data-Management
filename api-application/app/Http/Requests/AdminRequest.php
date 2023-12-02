@@ -13,13 +13,13 @@ class AdminRequest extends CoreRequest
     public function rules(): array
     {
         switch ($this->getMethod()) {
-            case 'POST': // Untuk membuat (store)
+            case 'POST':
                 return [
                     'nama_lengkap' => 'required',
                     'email_admin' => 'required',
                     'id_jabatan' => 'required',
                 ];
-            case 'PUT': // Untuk membuat (store)
+            case 'PUT':
                 return [
                     'nama_lengkap' => 'nullable',
                     'email_admin' => 'nullable',

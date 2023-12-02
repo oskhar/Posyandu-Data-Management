@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\EdukasiController;
+use App\Http\Controllers\FormatAController;
 use App\Http\Controllers\GambarController;
 use App\Http\Controllers\PosyanduController;
 use Illuminate\Http\Request;
@@ -70,6 +71,15 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
     Route::post('/admin', [AdminController::class, 'post']);
     Route::put('/admin', [AdminController::class, 'put']);
     Route::delete('/admin', [AdminController::class, 'delete']);
+
+    /**
+     * Endpoint untuk format-a
+     * 
+     */
+    Route::get('/format-a', [FormatAController::class, 'get']);
+    Route::post('/format-a', [FormatAController::class, 'post']);
+    Route::put('/format-a', [FormatAController::class, 'put']);
+    Route::delete('/format-a', [FormatAController::class, 'delete']);
 });
 
 /**

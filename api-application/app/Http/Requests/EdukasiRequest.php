@@ -13,14 +13,14 @@ class EdukasiRequest extends CoreRequest
     public function rules(): array
     {
         switch ($this->getMethod()) {
-            case 'POST': // Untuk membuat (store)
+            case 'POST':
                 return [
                     "id_admin" => "required|integer",
                     "judul" => "required|string|unique:edukasi",
                     "materi" => "nullable|string",
                     "gambar" => "nullable",
                 ];
-            case 'PUT': // Untuk membuat (store)
+            case 'PUT':
                 return [
                     "id_edukasi" => "required|integer",
                     "judul" => "nullable|string",

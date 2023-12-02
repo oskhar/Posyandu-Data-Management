@@ -13,7 +13,7 @@ class PosyanduRequest extends CoreRequest
     public function rules(): array
     {
         switch ($this->getMethod()) {
-            case 'PUT': // Untuk membuat (store)
+            case 'PUT':
                 return [
                     'nama_posyandu' => 'nullable|string',
                     'kota' => 'nullable|string',

@@ -57,6 +57,38 @@ class EdukasiController extends Controller
          */
         $count = $query->count();
 
+        /**
+         * Memeriksa apakah data ingin difilter
+         * 
+         */
+        if (isset($data['start']) && isset($data['length'])) {
+            $edukasi = $query->offset(($data['start'] - 1) * $data['length'])
+                ->limit($data['length']);
+        }
+
+        /**
+         * Mengambil data dari query dan
+         * akan dijadikan response
+         * 
+         */
+        $edukasi = $query->get();
+
+        /**
+         * Menyesuaikan data
+         * 
+         */
+        $edukasi = $edukasi->map(function ($result) {
+
+            /**
+             * Mengubah tanggal dan waktu menjadi hanya tanggal saja
+             * tt-bb-hh jj:mm:dd -> tt-bb-hh
+             * 
+             */
+            $result->tanggal = explode(' ', $result->tanggal)[0];
+            return $result;
+
+        });
+
         if (!empty($data['id_edukasi'])) {
 
             /**
@@ -79,41 +111,6 @@ class EdukasiController extends Controller
              * 
              */
             $edukasi->tanggal = explode(' ', $edukasi->tanggal)[0];
-            return $edukasi;
-
-        } else {
-
-            /**
-             * Memeriksa apakah data ingin difilter
-             * 
-             */
-            if (isset($data['start']) && isset($data['length'])) {
-                $edukasi = $query->offset(($data['start'] - 1) * $data['length'])
-                    ->limit($data['length']);
-            }
-
-            /**
-             * Mengambil data dari query dan
-             * akan dijadikan response
-             * 
-             */
-            $edukasi = $query->get();
-
-            /**
-             * Menyesuaikan data
-             * 
-             */
-            $edukasi = $edukasi->map(function ($result) {
-
-                /**
-                 * Mengubah tanggal dan waktu menjadi hanya tanggal saja
-                 * tt-bb-hh jj:mm:dd -> tt-bb-hh
-                 * 
-                 */
-                $result->tanggal = explode(' ', $result->tanggal)[0];
-                return $result;
-
-            });
 
         }
 
