@@ -108,14 +108,14 @@ class AuthController extends Controller
          * Hapus token dari database
          * 
          */
-        $admin = Auth::user();
+        $id_admin = Auth::user()->id;
 
         /**
          * Kembalikan response yang sesuai
          * 
          */
-        return response()->json(
-            $admin
-        )->setStatusCode(200);
+        return response()->json([
+            'id_admin' => $id_admin
+        ])->setStatusCode(200);
     }
 }

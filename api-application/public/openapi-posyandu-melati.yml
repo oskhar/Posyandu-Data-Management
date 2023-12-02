@@ -11,8 +11,8 @@ tags:
     description: Untuk mengola data edukasi
   - name: Data berita acara
     description: Untuk mengola data berita acara
-  - name: Data galeri
-    description: Untuk mengola data galeri
+  - name: Data gambar
+    description: Untuk mengola data gambar
   - name: Data posyandu
     description: Untuk mengola data posyandu
   - name: Data admin
@@ -50,27 +50,8 @@ paths:
                         type: string
                   token:
                     type: string
-                  admin:
-                    type: object
-                    properties:
-                      id_admin:
-                        type: integer
-                      id_jabatan:
-                        type: integer
-                      email_admin:
-                        type: string
-                      nama_lengkap:
-                        type: string
-                      foto_profile:
-                        type: string
-                      jenis_kelamin:
-                        type: string
-                      alamat:
-                        type: string
-                      tanggal_lahir:
-                        type: string
-                      no_telp:
-                        type: string
+                  id_admin:
+                    type: integer
         400:
           description: BAD REQUEST
           content:
@@ -137,22 +118,6 @@ paths:
                 properties:
                   id_admin:
                     type: integer
-                  id_jabatan:
-                    type: integer
-                  email_admin:
-                    type: string
-                  nama_lengkap:
-                    type: string
-                  foto_profile:
-                    type: string
-                  jenis_kelamin:
-                    type: string
-                  alamat:
-                    type: string
-                  tanggal_lahir:
-                    type: string
-                  no_telp:
-                    type: string
         400:
           description: BAD REQUEST
           content:
@@ -642,21 +607,21 @@ paths:
 
   # ==================================================================
 
-  /galeri:
+  /gambar:
     get:
       tags:
-        - Data galeri
-      summary: MENDAPATKAN data galeri
+        - Data gambar
+      summary: MENDAPATKAN data gambar
 
       requestBody:
-        description: Data galeri untuk menghapus data galeri
+        description: Data gambar untuk menghapus data gambar
         required: true
         content:
           application/json:
             schema:
               type: object
               properties:
-                id_galeri:
+                id_gambar:
                   type: integer
 
       responses:
@@ -667,11 +632,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  id_galeri:
+                  id_gambar:
                     type: integer
-                  path:
+                  gambar:
                     type: string
-                  tanggal_dibuat:
+                  tanggal:
                     type: string
         400:
           description: BAD REQUEST
@@ -705,10 +670,10 @@ paths:
                   message: "Data dengan id ... tidak ditemukan"
     post:
       tags:
-        - Data galeri
-      summary: MENAMBAHKAN data galeri
+        - Data gambar
+      summary: MENAMBAHKAN data gambar
       requestBody:
-        description: Data galeri untuk menambahkan data galeri
+        description: Data gambar untuk menambahkan data gambar
         required: true
         content:
           application/json:
@@ -717,7 +682,7 @@ paths:
               properties:
                 id_admin:
                   type: integer
-                path:
+                gambar:
                   type: string
       responses:
         201:
@@ -752,17 +717,17 @@ paths:
                   message: "Data ... tidak valid"
     delete:
       tags:
-        - Data galeri
-      summary: MENGHAPUS data galeri
+        - Data gambar
+      summary: MENGHAPUS data gambar
       requestBody:
-        description: Data galeri untuk menghapus data galeri
+        description: Data gambar untuk menghapus data gambar
         required: true
         content:
           application/json:
             schema:
               type: object
               properties:
-                id_galeri:
+                id_gambar:
                   type: integer
       responses:
         200:
@@ -821,9 +786,13 @@ paths:
                 properties:
                   nama_posyandu:
                     type: string
+                  kota:
+                    type: string
                   kecamatan:
                     type: string
                   kelurahan:
+                    type: string
+                  rt_rw:
                     type: string
                   penyampaian_ketua:
                     type: string
@@ -877,9 +846,13 @@ paths:
               properties:
                 nama_posyandu:
                   type: string
+                kota:
+                  type: string
                 kecamatan:
                   type: string
                 kelurahan:
+                  type: string
+                rt_rw:
                   type: string
                 penyampaian_ketua:
                   type: string
