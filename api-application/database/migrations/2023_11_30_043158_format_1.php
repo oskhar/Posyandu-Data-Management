@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->bigInteger('id_bayi')->unsigned();
             $table->foreign('id_bayi')->references('id')->on('bayi')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('keterangan');
+            $table->text('keterangan');
             $table->timestamps();
         });
     }

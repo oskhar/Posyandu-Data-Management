@@ -165,20 +165,27 @@ paths:
               schema:
                 type: object
                 properties:
-                  id_edukasi:
-                    type: string
-                  email_admin:
-                    type: string
-                  nama_lengkap:
-                    type: string
-                  judul:
-                    type: string
-                  materi:
-                    type: string
-                  gambar:
-                    type: string
-                  tanggal:
-                    type: string
+                  jumlah_data:
+                    type: integer
+                  edukasi:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id_edukasi:
+                          type: string
+                        email_admin:
+                          type: string
+                        nama_lengkap:
+                          type: string
+                        judul:
+                          type: string
+                        materi:
+                          type: string
+                        gambar:
+                          type: string
+                        tanggal:
+                          type: string
         400:
           description: BAD REQUEST
           content:
@@ -404,20 +411,27 @@ paths:
               schema:
                 type: object
                 properties:
-                  id_berita:
+                  jumlah_data:
                     type: integer
-                  email_admin:
-                    type: string
-                  nama_lengkap:
-                    type: string
-                  judul:
-                    type: string
-                  deskripsi:
-                    type: string
-                  gambar:
-                    type: string
-                  tanggal_pelaksanaan:
-                    type: string
+                  berita:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id_berita:
+                          type: integer
+                        email_admin:
+                          type: string
+                        nama_lengkap:
+                          type: string
+                        judul:
+                          type: string
+                        deskripsi:
+                          type: string
+                        gambar:
+                          type: string
+                        tanggal_pelaksanaan:
+                          type: string
         400:
           description: BAD REQUEST
           content:
@@ -646,14 +660,21 @@ paths:
               schema:
                 type: object
                 properties:
-                  email_admin:
-                    type: string
-                  nama_lengkap:
-                    type: string
+                  jumlah_data:
+                    type: integer
                   gambar:
-                    type: string
-                  tanggal:
-                    type: string
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        email_admin:
+                          type: string
+                        nama_lengkap:
+                          type: string
+                        gambar:
+                          type: string
+                        tanggal:
+                          type: string
         400:
           description: BAD REQUEST
           content:
@@ -953,24 +974,31 @@ paths:
               schema:
                 type: object
                 properties:
-                  id_admin:
+                  jumlah_data:
                     type: integer
-                  id_jabatan:
-                    type: integer
-                  email_admin:
-                    type: string
-                  nama_lengkap:
-                    type: string
-                  foto_profile:
-                    type: string
-                  jenis_kelamin:
-                    type: string
-                  alamat:
-                    type: string
-                  tanggal_lahir:
-                    type: string
-                  no_telp:
-                    type: string
+                  admin:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id_admin:
+                          type: integer
+                        id_jabatan:
+                          type: integer
+                        email_admin:
+                          type: string
+                        nama_lengkap:
+                          type: string
+                        foto_profile:
+                          type: string
+                        jenis_kelamin:
+                          type: string
+                        alamat:
+                          type: string
+                        tanggal_lahir:
+                          type: string
+                        no_telp:
+                          type: string
         400:
           description: BAD REQUEST
           content:
@@ -1215,24 +1243,41 @@ paths:
               schema:
                 type: object
                 properties:
-                  id_format_a:
+                  nama_posyandu:
+                    type: string
+                  kota:
+                    type: string
+                  judul_format:
+                    type: string
+                  jumlah_kelahiran:
                     type: integer
-                  nama_ayah:
-                    type: string
-                  nama_ibu:
-                    type: string
-                  nama_bayi:
-                    type: string
-                  jenis_kelamin:
-                    type: string
-                  tanggal_lahir:
-                    type: string
-                  tanggal_meninggal_bayi:
-                    type: string
-                  tanggal_meninggal_ibu:
-                    type: string
-                  keterangan:
-                    type: string
+                  jumlah_kematian:
+                    type: integer
+                  jumlah_data:
+                    type: integer
+                  format_a:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id_format_a:
+                          type: integer
+                        nama_ayah:
+                          type: string
+                        nama_ibu:
+                          type: string
+                        nama_bayi:
+                          type: string
+                        jenis_kelamin:
+                          type: string
+                        tanggal_lahir:
+                          type: string
+                        tanggal_meninggal_bayi:
+                          type: string
+                        tanggal_meninggal_ibu:
+                          type: string
+                        keterangan:
+                          type: string
         400:
           description: BAD REQUEST
           content:

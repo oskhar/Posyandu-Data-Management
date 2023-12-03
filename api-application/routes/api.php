@@ -4,8 +4,10 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\EdukasiController;
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\FormatAController;
 use App\Http\Controllers\GambarController;
+use App\Http\Controllers\ImportController;
 use App\Http\Controllers\PosyanduController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -80,6 +82,26 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
     Route::post('/format-a', [FormatAController::class, 'post']);
     Route::put('/format-a', [FormatAController::class, 'put']);
     Route::delete('/format-a', [FormatAController::class, 'delete']);
+
+    /**
+     * Endpoint untuk export file excel
+     * 
+     */
+    Route::prefix('export')->group(function () {
+
+        Route::get('/format-a', [ExportController::class, 'exportFormatAExcel']);
+
+    });
+
+    /**
+     * Endpoint untuk import file excel
+     * 
+     */
+    Route::prefix('import')->group(function () {
+
+        Route::post('/format-a', [ImportController::class, 'importFormatAExcel']);
+
+    });
 });
 
 /**

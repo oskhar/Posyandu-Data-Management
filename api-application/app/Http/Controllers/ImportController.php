@@ -9,7 +9,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ImportController extends Controller
 {
-    public function importFormatA(Request $request): JsonResponse
+    public function importFormatAExcel(Request $request): JsonResponse
     {
         /**
          * Memasukan request ke dalam variabel

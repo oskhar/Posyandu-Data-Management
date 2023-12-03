@@ -11,13 +11,13 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('posyandu', function (Blueprint $table) {
-            $table->string('nama_posyandu')->primary()->nullable();
-            $table->string('kota')->nullable();
-            $table->string('kecamatan')->nullable();
-            $table->string('kelurahan')->nullable();
-            $table->string('rt_rw')->nullable();
+            $table->string('nama_posyandu', 50)->primary()->nullable();
+            $table->string('kota', 30)->nullable();
+            $table->string('kecamatan', 30)->nullable();
+            $table->string('kelurahan', 30)->nullable();
+            $table->string('rt_rw', 10)->nullable();
             $table->text('penyampaian_ketua')->nullable();
-            $table->string('gambar_gedung')->nullable();
+            $table->string('gambar_gedung', 70)->nullable();
             $table->text('visi')->nullable();
             $table->text('misi')->nullable();
         });

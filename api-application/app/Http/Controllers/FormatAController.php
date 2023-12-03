@@ -6,13 +6,14 @@ use App\Http\Requests\FormatARequest;
 use App\Models\BayiModel;
 use App\Models\FormatAModel;
 use App\Models\OrangTuaModel;
+use App\Models\PosyanduModel;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class FormatAController extends Controller
 {
-    protected $namaFormat = 'Catatan ibu hamil, kelahiran, kematian bayi dan kematian ibu hamil, melahirkan / nifas januari - desember tahun';
+    protected $judulFormat = 'Catatan ibu hamil, kelahiran, kematian bayi dan kematian ibu hamil, melahirkan / nifas januari - desember tahun';
     public function get(FormatARequest $request): JsonResponse
     {
         /**
@@ -34,10 +35,19 @@ class FormatAController extends Controller
             'bayi.tanggal_lahir',
             'bayi.tanggal_meninggal as tanggal_meninggal_bayi',
             'orang_tua.tanggal_meninggal_ibu',
-            'format_a.keterangan'
+            'format_a.keterangan',
+            'format_a.created_at as tanggal'
         )
             ->join('bayi', 'bayi.id', 'format_a.id_bayi')
-            ->join('orang_tua', 'orang_tua.id', 'bayi.id_orang_tua');
+            ->join('orang_tua', 'orang_tua.id', 'bayi.id_orang_tua')
+            ->orderByDesc('format_a.created_at');
+
+        /**
+         * Mendapatkan data jumlah kematian
+         * dan jumlah kelahiran bayi
+         * 
+         */
+        $jumlahKematian = $query->whereNotNull('bayi.tanggal_meninggal')->count();
 
         /**
          * Melakukan filtering atau penyaringan
@@ -59,6 +69,8 @@ class FormatAController extends Controller
          * 
          */
         $count = $query->count();
+        $jumlahKelahiran = $count - $jumlahKematian;
+        $jumlahKematian += $query->whereNotNull('orang_tua.tanggal_meninggal_ibu')->count();
 
         /**
          * Memeriksa apakah data ingin difilter
@@ -107,12 +119,26 @@ class FormatAController extends Controller
         }
 
         /**
+         * Mengambil data posyandu
+         * 
+         */
+        $posyandu = PosyanduModel::select(
+            'nama_posyandu',
+            'kota'
+        )->first();
+
+        /**
          * Mengembalikan response sesuai request
          * 
          */
         return response()->json([
+            'nama_posyandu' => $posyandu->nama_posyandu,
+            'kota' => $posyandu->kota,
+            'judul_format' => $this->judulFormat,
+            'jumlah_kelahiran' => $jumlahKelahiran,
+            'jumlah_kematian' => $jumlahKematian,
+            'jumlah_data' => $count,
             'format_a' => $formatA,
-            'jumlah_data' => $count
         ])->setStatusCode(200);
     }
     public function post(FormatARequest $request): JsonResponse

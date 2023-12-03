@@ -15,7 +15,7 @@ class PosyanduController extends Controller
     public function get(): JsonResponse
     {
         /**
-         * Membuat query dasar
+         * Mengambil data posyandu
          * 
          */
         $posyandu = PosyanduModel::select(
@@ -28,14 +28,7 @@ class PosyanduController extends Controller
             'visi',
             'misi',
             'rt_rw'
-        );
-
-        /**
-         * Mengambil data dari query
-         * yang sudah tersedia
-         * 
-         */
-        $posyandu = $posyandu->first();
+        )->first();
 
         /**
          * Memeberikan data yang diminta

@@ -12,8 +12,8 @@ return new class extends Migration {
     {
         Schema::create('jabatan', function (Blueprint $table) {
             $table->id();
-            $table->integer('level');
-            $table->string('nama');
+            $table->integer('level')->unsigned();
+            $table->string('nama', 50);
             $table->timestamps();
         });
     }

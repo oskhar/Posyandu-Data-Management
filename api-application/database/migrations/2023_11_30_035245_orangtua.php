@@ -12,8 +12,8 @@ return new class extends Migration {
     {
         Schema::create('orang_tua', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_ayah')->nullable();
-            $table->string('nama_ibu');
+            $table->string('nama_ayah', 50)->nullable();
+            $table->string('nama_ibu', 50);
             $table->date('tanggal_lahir_ibu')->nullable();
             $table->date('tanggal_meninggal_ibu')->nullable();
             $table->boolean('wus_pus')->nullable();
