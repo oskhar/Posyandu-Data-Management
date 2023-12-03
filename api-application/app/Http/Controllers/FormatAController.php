@@ -60,7 +60,7 @@ class FormatAController extends Controller
              * Memfilter data sesuai request search
              * 
              */
-            $query = $query->where('nama_bayi', 'LIKE', '%' . $data['search'] . '%');
+            $query = $query->where('bayi.nama_bayi', 'LIKE', '%' . $data['search'] . '%');
 
         }
 
@@ -106,7 +106,7 @@ class FormatAController extends Controller
              * Mengambil query data sesuai id
              * 
              */
-            $query = $query->where('id', $data['id_format_a']);
+            $query = $query->where('format_a.id', $data['id_format_a']);
 
             /**
              * Mengambil data dari query dan
@@ -236,14 +236,14 @@ class FormatAController extends Controller
         )
             ->join('bayi', 'bayi.id', 'format_a.id_bayi')
             ->join('orang_tua', 'orang_tua.id', 'bayi.id_orang_tua')
-            ->find($data['id_format_a'])
+            ->where('format_a.id', $data['id_format_a'])
             ->first();
 
         /**
          * Melakukan pengubahan data format_a
          * 
          */
-        FormatAModel::find($data['id_format_a'])->update([
+        FormatAModel::where('id', $data['id_format_a'])->update([
             'id_bayi' => $formatA->id_bayi,
             'keterangan' => $data['keterangan'] ?? $formatA->keterangan,
         ]);
@@ -295,7 +295,7 @@ class FormatAController extends Controller
          * request id dan mlakukan penghapusan data
          * 
          */
-        FormatAModel::find($data['id_format_a'])
+        FormatAModel::where('id', $data['id_format_a'])
             ->delete();
 
         /**

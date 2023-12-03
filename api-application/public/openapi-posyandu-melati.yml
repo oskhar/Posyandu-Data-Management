@@ -182,6 +182,8 @@ paths:
                           type: string
                         materi:
                           type: string
+                        overview:
+                          type: string
                         gambar:
                           type: string
                         tanggal:
@@ -427,6 +429,8 @@ paths:
                         judul:
                           type: string
                         deskripsi:
+                          type: string
+                        overview:
                           type: string
                         gambar:
                           type: string

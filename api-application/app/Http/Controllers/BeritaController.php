@@ -87,6 +87,7 @@ class BeritaController extends Controller
              * 
              */
             $result->tanggal = explode(' ', $result->tanggal)[0];
+            $result->overview = strlen($result->deskripsi) > 55 ? substr($result->deskripsi, 0, 55) . "..." : $result->deskripsi;
             return $result;
 
         });
@@ -97,14 +98,14 @@ class BeritaController extends Controller
              * Mengambil query data sesuai id
              * 
              */
-            $query = $query->where('id', $data['id_berita']);
+            $query = $query->where('berita.id', $data['id_berita']);
 
             /**
              * Mengambil data dari query dan
              * akan dijadikan response
              * 
              */
-            $count = $query->count();
+            $count = 1;
             $berita = $query->first();
 
             /**
@@ -113,6 +114,7 @@ class BeritaController extends Controller
              * 
              */
             $berita->tanggal = explode(' ', $berita->tanggal)[0];
+            $berita->overview = strlen($berita->deskripsi) > 55 ? substr($berita->deskripsi, 0, 55) . "..." : $berita->deskripsi;
 
         }
 
@@ -124,8 +126,8 @@ class BeritaController extends Controller
          * 
          */
         return response()->json([
+            'jumlah_data' => $count,
             'berita' => $berita,
-            'jumlah_data' => $count
         ])->setStatusCode(200);
     }
 

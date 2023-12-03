@@ -85,6 +85,7 @@ class EdukasiController extends Controller
              * 
              */
             $result->tanggal = explode(' ', $result->tanggal)[0];
+            $result->overview = strlen($result->materi) > 55 ? substr($result->materi, 0, 55) . "..." : $result->materi;
             return $result;
 
         });
@@ -95,14 +96,14 @@ class EdukasiController extends Controller
              * Mengambil query data sesuai id
              * 
              */
-            $query = $query->where('id', $data['id_edukasi']);
+            $query = $query->where('edukasi.id', $data['id_edukasi']);
 
             /**
              * Mengambil data dari query dan
              * akan dijadikan response
              * 
              */
-            $count = $query->count();
+            $count = 1;
             $edukasi = $query->first();
 
             /**
@@ -111,6 +112,7 @@ class EdukasiController extends Controller
              * 
              */
             $edukasi->tanggal = explode(' ', $edukasi->tanggal)[0];
+            $edukasi->overview = strlen($edukasi->materi) > 55 ? substr($edukasi->materi, 0, 55) . "..." : $edukasi->materi;
 
         }
 
@@ -120,8 +122,8 @@ class EdukasiController extends Controller
          * 
          */
         return response()->json([
+            'jumlah_data' => $count,
             'edukasi' => $edukasi,
-            'jumlah_data' => $count
         ])->setStatusCode(200);
     }
 
