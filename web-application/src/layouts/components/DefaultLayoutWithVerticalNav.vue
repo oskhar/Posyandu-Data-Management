@@ -99,7 +99,7 @@ const upgradeBanner = computed(() => {
       />
       <VerticalNavLink
         :item="{
-          title: 'Galeri',
+          title: 'Gambar',
           icon: 'bx-image',
           to: '/galeri',
         }"

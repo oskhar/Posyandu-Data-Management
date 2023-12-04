@@ -82,8 +82,8 @@ const isPasswordVisible = ref(false);
 
               <!-- login button -->
               <VBtn block type="submit">
-                <VProgressCircular indeterminate color="white">
-                </VProgressCircular>
+                <!-- <VProgressCircular indeterminate color="white" v-if="isLoaded">
+                </VProgressCircular> -->
                 Login
               </VBtn>
             </VCol>
