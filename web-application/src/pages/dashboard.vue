@@ -28,8 +28,8 @@ const fetchEdukasi = async () => {
 };
 
 onMounted(() => {
-  fetchEdukasi();
   fetchBerita();
+  fetchEdukasi();
 });
 </script>
 

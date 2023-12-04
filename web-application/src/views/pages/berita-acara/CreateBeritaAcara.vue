@@ -201,7 +201,7 @@ export default {
             background: "rgb(var(--v-theme-success))",
             showConfirmButton: false,
             timerProgressBar: true,
-            timer: 10,
+            timer: 1000,
             icon: "success",
             title: response.data.success.message,
           });

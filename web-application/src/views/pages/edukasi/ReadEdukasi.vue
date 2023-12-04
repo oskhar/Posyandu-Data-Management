@@ -276,6 +276,11 @@ export default {
                 {
                   id_edukasi: this.dataEdukasi[indexEdukasi].id_edukasi,
                   gambar: fileReader.result,
+                },
+                {
+                  headers: {
+                    Authorization: localStorage.getItem("tokenAuth"),
+                  },
                 }
               );
             }

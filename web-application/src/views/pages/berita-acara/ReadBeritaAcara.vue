@@ -280,10 +280,18 @@ export default {
           fileReader.onload = async () => {
             if (typeof fileReader.result === "string") {
               this.dataBerita[indexBerita].gambar = fileReader.result;
-              const response = await axios.put(`${this.urlServer}/api/berita`, {
-                id_berita: this.dataBerita[indexBerita].id_berita,
-                gambar: fileReader.result,
-              });
+              const response = await axios.put(
+                `${this.urlServer}/api/berita`,
+                {
+                  id_berita: this.dataBerita[indexBerita].id_berita,
+                  gambar: fileReader.result,
+                },
+                {
+                  headers: {
+                    Authorization: localStorage.getItem("tokenAuth"),
+                  },
+                }
+              );
             }
           };
         } else {
