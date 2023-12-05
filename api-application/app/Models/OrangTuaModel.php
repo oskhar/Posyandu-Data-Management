@@ -24,6 +24,7 @@ class OrangTuaModel extends Model
     protected $fillable = [
         'nama_ayah',
         'nama_ibu',
+        'rt_rw',
         'tanggal_lahir_ibu',
         'tanggal_meninggal_ibu',
         'wus_pus',

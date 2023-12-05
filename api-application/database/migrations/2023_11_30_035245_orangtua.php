@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->string('nama_ibu', 50);
             $table->date('tanggal_lahir_ibu')->nullable();
             $table->date('tanggal_meninggal_ibu')->nullable();
+            $table->string('rt_rw', 10)->nullable();
             $table->boolean('wus_pus')->nullable();
             $table->text('tahapan_ks')->nullable();
             $table->boolean('memiliki_kms')->nullable();

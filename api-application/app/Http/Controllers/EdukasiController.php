@@ -34,7 +34,8 @@ class EdukasiController extends Controller
             'edukasi.materi',
             'edukasi.gambar',
             'edukasi.created_at as tanggal'
-        )->join('admin', 'admin.id', '=', 'edukasi.id_admin');
+        )->join('admin', 'admin.id', '=', 'edukasi.id_admin')
+            ->orderByDesc('edukasi.created_at');
 
         /**
          * Melakukan filtering atau penyaringan
@@ -47,7 +48,7 @@ class EdukasiController extends Controller
              * Memfilter data sesuai request search
              * 
              */
-            $query = $query->where('judul', 'LIKE', '%' . $data['search'] . '%');
+            $query = $query->where('edukasi.judul', 'LIKE', '%' . $data['search'] . '%');
 
         }
 

@@ -17,7 +17,10 @@ class EdukasiModelFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'id_admin' => 1,
+            'judul' => $this->faker->sentence,
+            'materi' => $this->faker->paragraph,
+            'gambar' => '/images/upload/default.png',
         ];
     }
 }

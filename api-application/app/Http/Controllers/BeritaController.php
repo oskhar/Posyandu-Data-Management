@@ -36,7 +36,8 @@ class BeritaController extends Controller
             'berita.gambar',
             'berita.tanggal_pelaksanaan',
             'berita.created_at as tanggal'
-        )->join('admin', 'admin.id', '=', 'berita.id_admin');
+        )->join('admin', 'admin.id', '=', 'berita.id_admin')
+            ->orderByDesc('berita.created_at');
 
         /**
          * Melakukan filtering atau penyaringan
@@ -49,7 +50,7 @@ class BeritaController extends Controller
              * Memfilter data sesuai request search
              * 
              */
-            $query = $query->where('judul', 'LIKE', '%' . $data['search'] . '%');
+            $query = $query->where('berita.judul', 'LIKE', '%' . $data['search'] . '%');
 
         }
 

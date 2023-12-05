@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->bigInteger('id_admin')->unsigned();
             $table->foreign('id_admin')->references('id')->on('admin')->onDelete('cascade')->onUpdate('cascade');
-            $table->string("judul", 50);
+            $table->string("judul");
             $table->text("deskripsi")->nullable();
             $table->string("gambar", 70)->nullable();
             $table->date("tanggal_pelaksanaan");

@@ -10,13 +10,12 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('edukasi', function (Blueprint $table) {
+        Schema::create('penimbangan', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_admin')->unsigned();
-            $table->foreign('id_admin')->references('id')->on('admin')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('judul');
-            $table->text('materi')->nullable();
-            $table->string('gambar', 70)->nullable();
+            $table->bigInteger('id_bayi')->unsigned();
+            $table->foreign('id_bayi')->references('id')->on('bayi')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('bulan', 20);
+            $table->integer('berat_badan');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('edukasi');
+        Schema::dropIfExists('penimbangan');
     }
 };

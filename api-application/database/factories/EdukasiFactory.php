@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Edukasi>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\EdukasiModel>
  */
 class EdukasiFactory extends Factory
 {
@@ -17,7 +17,10 @@ class EdukasiFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'id_admin' => 1,
+            'judul' => $this->faker->sentence,
+            'materi' => $this->faker->paragraph,
+            'gambar' => '/images/upload/default.png',
         ];
     }
 }
