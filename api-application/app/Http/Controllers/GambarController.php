@@ -28,11 +28,10 @@ class GambarController extends Controller
          */
         $query = GambarModel::select(
             'gambar.id as id_gambar',
-            'admin.email_admin',
             'admin.nama_lengkap',
             'gambar.gambar',
-            'gambar.created_at as tanggal'
-        )->join('admin', 'admin.id', '=', 'gambar.id_admin');
+        )->join('admin', 'admin.id', '=', 'gambar.id_admin')
+            ->orderByDesc('gambar.created_at');
 
         /**
          * Mengambil banyaknya data yang diambil
