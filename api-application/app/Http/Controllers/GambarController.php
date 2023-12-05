@@ -27,6 +27,7 @@ class GambarController extends Controller
          * 
          */
         $query = GambarModel::select(
+            'gambar.id as id_gambar',
             'admin.email_admin',
             'admin.nama_lengkap',
             'gambar.gambar',
