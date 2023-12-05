@@ -18,12 +18,12 @@ let statBerita = ref(0);
 const jumlahGambar = 72;
 
 const fetchBerita = async () => {
-  const response = await axios.get(`${urlServer}/api/berita`);
+  const response = await axios.get(`${urlServer}/api/berita?start=0&length=0`);
   statBerita.value = response.data.jumlah_data;
 };
 
 const fetchEdukasi = async () => {
-  const response = await axios.get(`${urlServer}/api/edukasi`);
+  const response = await axios.get(`${urlServer}/api/edukasi?start=0&length=0`);
   statEdukasi.value = response.data.jumlah_data;
 };
 

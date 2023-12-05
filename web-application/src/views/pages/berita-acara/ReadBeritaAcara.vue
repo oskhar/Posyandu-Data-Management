@@ -20,7 +20,7 @@
 
         <VCardText>
           <p class="mb-4">
-            {{ data.deskripsi }}
+            {{ data.overview }}
           </p>
 
           <v-row justify="center">
