@@ -220,7 +220,7 @@ class GambarController extends Controller
          * menggunakan request id
          * 
          */
-        $edukasi = GambarModel::where('id', $data['id_edukasi']);
+        $edukasi = GambarModel::where('id', $data['id_gambar']);
 
         /**
          * Melakukan penghapusan data
