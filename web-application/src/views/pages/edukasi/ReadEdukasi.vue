@@ -19,8 +19,9 @@
 
         <VCardText>
           <p class="mb-4">
-            {{ data.materi }}
+            {{ data.overview }}
           </p>
+          <p>penulis: {{ data.nama_lengkap }}</p>
 
           <v-row justify="center">
             <v-dialog v-model="dialog[data.id_edukasi]" persistent width="1024">
