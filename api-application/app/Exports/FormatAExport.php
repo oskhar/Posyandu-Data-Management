@@ -36,7 +36,6 @@ class FormatAExport implements FromCollection, WithHeadings, WithEvents, WithCus
     {
         //
         return FormatAModel::select(
-            'format_a.id as id_format_a',
             'orang_tua.nama_ayah',
             'orang_tua.nama_ibu',
             'bayi.nama as nama_bayi',

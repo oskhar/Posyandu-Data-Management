@@ -7,11 +7,9 @@ use App\Models\BayiModel;
 use App\Models\OrangTuaModel;
 use Illuminate\Http\JsonResponse;
 
-class WargaController extends Controller
-{
+class WargaController extends Controller {
     //
-    public function get(WargaRequest $request): JsonResponse
-    {
+    public function get(WargaRequest $request): JsonResponse {
         /**
          * Memeriksa validasi data request
          * 
@@ -24,6 +22,7 @@ class WargaController extends Controller
          * 
          */
         $query = OrangTuaModel::select(
+            'orang_tua.id as id_warga',
             'bayi.nama',
             'bayi.jenis_kelamin',
             'bayi.berat_lahir',
@@ -46,15 +45,15 @@ class WargaController extends Controller
          * data pada kondisi tertentu
          * 
          */
-        if (!empty($data['search'])) {
+        if(!empty($data['search'])) {
 
             /**
              * Memfilter data sesuai request search
              * 
              */
-            $query = $query->where('bayi.nama', 'LIKE', '%' . $data['search'] . '%')
-                ->orWhere('orang_tua.nama_ibu', 'LIKE', '%' . $data['search'] . '%')
-                ->orWhere('orang_tua.nama_ayah', 'LIKE', '%' . $data['search'] . '%');
+            $query = $query->where('bayi.nama', 'LIKE', '%'.$data['search'].'%')
+                ->orWhere('orang_tua.nama_ibu', 'LIKE', '%'.$data['search'].'%')
+                ->orWhere('orang_tua.nama_ayah', 'LIKE', '%'.$data['search'].'%');
 
         }
 
@@ -68,7 +67,7 @@ class WargaController extends Controller
          * Memeriksa apakah data ingin difilter
          * 
          */
-        if (isset($data['start']) && isset($data['length'])) {
+        if(isset($data['start']) && isset($data['length'])) {
             $warga = $query->offset(($data['start'] - 1) * $data['length'])
                 ->limit($data['length']);
         }
@@ -80,7 +79,11 @@ class WargaController extends Controller
          */
         $warga = $query->get();
 
-        if (!empty($data['id_warga'])) {
+        /**
+         * Memeriksa apakah data id_warga ada
+         * 
+         */
+        if(!empty($data['id_warga'])) {
 
             /**
              * Mengambil query data sesuai id
@@ -109,8 +112,7 @@ class WargaController extends Controller
             'warga' => $warga,
         ])->setStatusCode(200);
     }
-    public function post(WargaRequest $request): JsonResponse
-    {
+    public function post(WargaRequest $request): JsonResponse {
         /**
          * Memeriksa validasi request
          * 
@@ -133,7 +135,8 @@ class WargaController extends Controller
             'memiliki_kia' => $data['memiliki_kia'],
         ]);
 
-        if (!empty($data['nama_bayi'])) {
+        if(!empty($data['nama_bayi'])) {
+
             /**
              * Melakukan penambahan data bayi
              * 
@@ -146,6 +149,7 @@ class WargaController extends Controller
                 'tanggal_lahir' => $data['tanggal_lahir'],
                 'tanggal_meninggal' => $data['tanggal_meninggal'],
             ]);
+
         }
 
         /**
@@ -159,8 +163,7 @@ class WargaController extends Controller
             ]
         ])->setStatusCode(201);
     }
-    public function put(WargaRequest $request): JsonResponse
-    {
+    public function put(WargaRequest $request): JsonResponse {
         /**
          * Mengembalikan response sesuai dengan
          * apa yang sudah dikerjakan server
@@ -169,6 +172,27 @@ class WargaController extends Controller
         return response()->json([
             'success' => [
                 'message' => 'Data warga berhasil diubah'
+            ]
+        ])->setStatusCode(201);
+    }
+    public function delete(WargaRequest $request): JsonResponse {
+        /**
+         * Melakukan validasi data request
+         * 
+         */
+        $data = $request->validated();
+
+        OrangTuaModel::where('id', $data['id_warga'])
+            ->delete();
+
+        /**
+         * Mengembalikan response sesuai dengan
+         * apa yang sudah dikerjakan server
+         * 
+         */
+        return response()->json([
+            'success' => [
+                'message' => 'Data warga berhasil dihapus'
             ]
         ])->setStatusCode(201);
     }
