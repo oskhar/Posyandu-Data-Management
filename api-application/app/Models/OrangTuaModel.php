@@ -14,7 +14,7 @@ class OrangTuaModel extends Model
      * 
      * @var string
      */
-    protected $table = 'format_a';
+    protected $table = 'orang_tua';
 
     /**
      * Atribut atau kolom yang boleh diubah.
