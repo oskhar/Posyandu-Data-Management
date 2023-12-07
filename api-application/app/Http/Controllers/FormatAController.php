@@ -43,13 +43,6 @@ class FormatAController extends Controller
             ->orderByDesc('format_a.created_at');
 
         /**
-         * Mendapatkan data jumlah kematian
-         * dan jumlah kelahiran bayi
-         * 
-         */
-        $jumlahKematian = $query->whereNotNull('bayi.tanggal_meninggal')->count();
-
-        /**
          * Melakukan filtering atau penyaringan
          * data pada kondisi tertentu
          * 
@@ -69,8 +62,6 @@ class FormatAController extends Controller
          * 
          */
         $count = $query->count();
-        $jumlahKelahiran = $count - $jumlahKematian;
-        $jumlahKematian += $query->whereNotNull('orang_tua.tanggal_meninggal_ibu')->count();
 
         /**
          * Memeriksa apakah data ingin difilter
@@ -126,6 +117,35 @@ class FormatAController extends Controller
             'nama_posyandu',
             'kota'
         )->first();
+
+        /**
+         * Membuat query utama
+         * 
+         */
+        $queriArimatik = FormatAModel::select(
+            'format_a.id as id_format_a',
+            'orang_tua.nama_ayah',
+            'orang_tua.nama_ibu',
+            'bayi.nama as nama_bayi',
+            'bayi.jenis_kelamin',
+            'bayi.tanggal_lahir',
+            'bayi.tanggal_meninggal as tanggal_meninggal_bayi',
+            'orang_tua.tanggal_meninggal_ibu',
+            'format_a.keterangan',
+            'format_a.created_at as tanggal'
+        )
+            ->join('bayi', 'bayi.id', 'format_a.id_bayi')
+            ->join('orang_tua', 'orang_tua.id', 'bayi.id_orang_tua')
+            ->orderByDesc('format_a.created_at');
+
+        /**
+         * Mendapatkan data jumlah kematian
+         * dan jumlah kelahiran bayi
+         * 
+         */
+        $jumlahKematian = $queriArimatik->whereNotNull('bayi.tanggal_meninggal')->count();
+        $jumlahKelahiran = $count - $jumlahKematian;
+        $jumlahKematian += $queriArimatik->whereNotNull('orang_tua.tanggal_meninggal_ibu')->count();
 
         /**
          * Mengembalikan response sesuai request
