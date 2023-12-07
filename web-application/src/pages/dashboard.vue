@@ -1,5 +1,6 @@
 <script setup>
 import AnalyticsCongratulations from "@/views/dashboard/AnalyticsCongratulations.vue";
+import AnalyticsFinanceTab from "@/views/dashboard/AnalyticsFinanceTab.vue";
 import config from "@/@core/config.vue";
 import { onMounted } from "vue";
 import axios from "axios";
@@ -15,7 +16,7 @@ let statBerita = ref(0);
 
 // 👉 Images
 
-const jumlahGambar = 72;
+const statGambar = ref(0);
 
 const fetchBerita = async () => {
   const response = await axios.get(`${urlServer}/api/berita?start=0&length=0`);
@@ -26,10 +27,15 @@ const fetchEdukasi = async () => {
   const response = await axios.get(`${urlServer}/api/edukasi?start=0&length=0`);
   statEdukasi.value = response.data.jumlah_data;
 };
+const fetchGambar = async () => {
+  const response = await axios.get(`${urlServer}/api/gambar?start=0&length=0`);
+  statGambar.value = response.data.jumlah_data;
+};
 
 onMounted(() => {
   fetchBerita();
   fetchEdukasi();
+  fetchGambar();
 });
 </script>
 
@@ -45,6 +51,7 @@ onMounted(() => {
         <!-- 👉 Profit -->
         <VCol cols="12" md="4">
           <CardStatisticsVertical
+            href="/berita-acara"
             v-bind="{
               title: 'Jumlah Berita',
               image: chart,
@@ -56,6 +63,7 @@ onMounted(() => {
         <!-- 👉 Sales -->
         <VCol cols="12" md="4">
           <CardStatisticsVertical
+            href="/edukasi"
             v-bind="{
               title: 'Jumlah Edukasi',
               image: chart,
@@ -65,10 +73,11 @@ onMounted(() => {
         </VCol>
         <VCol cols="12" md="4">
           <CardStatisticsVertical
+            href="/galeri"
             v-bind="{
               title: 'Jumlah Gambar',
               image: info,
-              stats: jumlahGambar,
+              stats: statGambar,
             }"
           />
         </VCol>
@@ -77,14 +86,17 @@ onMounted(() => {
         <!-- 👉 Sales -->
         <!-- <VCol cols="12" md="4">
           <CardStatisticsVertical
-            v-bind="{
+          v-bind="{
               title: 'Jumlah Gambar',
               image: info,
               stats: jumlahPengurus,
             }"
-          />
-        </VCol> -->
+            />
+          </VCol> -->
       </VRow>
+    </VCol>
+    <VCol cols="12" md="12">
+      <AnalyticsFinanceTab />
     </VCol>
   </VRow>
 </template>
