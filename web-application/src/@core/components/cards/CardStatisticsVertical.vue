@@ -12,26 +12,15 @@ const props = defineProps({
     type: String,
     required: true,
   },
-})
-
-
+});
 </script>
 
 <template>
   <VCard>
     <VCardText class="d-flex align-center pb-4">
-      <img
-        width="42"
-        :src="props.image"
-        alt="image"
-      >
+      <img width="42" :src="props.image" alt="image" />
 
       <VSpacer />
-
-      <MoreBtn
-        size="x-small"
-        class="me-n3 mt-n4"
-      />
     </VCardText>
 
     <VCardText>

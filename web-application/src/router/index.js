@@ -82,6 +82,10 @@ const router = createRouter({
                 component: () => import('../pages/format-1.vue'),
               },
               {
+                path: 'format-1-create',
+                component: () => import('../pages/format-1-create.vue'),
+              },
+              {
                 path: 'format-2',
                 component: () => import('../pages/format-2.vue'),
               },
