@@ -272,7 +272,7 @@ class FormatAController extends Controller
          * Melakukan pengubahan data bayi
          * 
          */
-        $bayi = BayiModel::find($formatA->id_bayi)->update([
+        $bayi = BayiModel::where('id', $formatA->id_bayi)->update([
             'nama' => $data['nama_bayi'] ?? $formatA->nama_bayi,
             'jenis_kelamin' => $data['jenis_kelamin'] ?? $formatA->jenis_kelamin,
             'tanggal_lahir' => $data['tanggal_lahir'] ?? $formatA->tanggal_lahir,
@@ -283,12 +283,11 @@ class FormatAController extends Controller
          * Melakukan pengubahan data orang_tua
          * 
          */
-        OrangTuaModel::find($bayi->id_orang_tua)->update([
+        OrangTuaModel::where('id', $bayi->id_orang_tua)->update([
             'nama_ayah' => $data['nama_ayah'] ?? $formatA->nama_ayah,
             'nama_ibu' => $data['nama_ibu'] ?? $formatA->nama_ibu,
             'tanggal_meninggal_ibu' => $data['tanggal_meninggal_ibu'] ?? $formatA->tanggal_meninggal_ibu,
         ]);
-
 
         /**
          * Mengembalikan response setelah
