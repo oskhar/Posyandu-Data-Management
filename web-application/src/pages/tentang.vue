@@ -1,22 +1,78 @@
 <script>
 // 👉 Images
-import posyandu from "@images/pages/3.png";
+import posyanduImg from "@images/pages/3.png";
 import langit from "@images/pages/2.png";
+import config from "@/@core/config.vue";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { ref } from "vue";
+
 export default {
-  data: () => ({
-    dialog: false,
-    posyandu: posyandu,
-    langit: langit,
-    profil: "Lorem ipsum dolor ",
-    visi: "labore fugit assumenda ",
-    misi: "corrupti veritatis quidem nostru",
-  }),
+  data() {
+    return {
+      dialog: false,
+      posyanduImg: posyanduImg,
+      posyandu: ref([]),
+      langit: langit,
+      profil: "Lorem ipsum dolor ",
+      visi: "labore fugit assumenda ",
+      misi: "corrupti veritatis quidem nostru",
+    };
+  },
   methods: {
-    save() {
-      this.profil = profil;
-      this.visi = visi;
-      this.misi = misi;
+    async putData() {
+      try {
+        const data = {
+          nama_posyandu: this.posyandu.nama_posyandu,
+          kota: this.posyandu.kota,
+          kecamatan: this.posyandu.kecamatan,
+          kelurahan: this.posyandu.kelurahan,
+          rt_rw: this.posyandu.rt_rt,
+          penyampaian_ketua: this.posyandu.penyampaian_ketua,
+          gambar_gedung: this.posyandu.gambar_gedung,
+          visi: this.posyandu.visi,
+          misi: this.posyandu.misi,
+        };
+        console.log(data);
+
+        const response = await axios.put(
+          `${config.urlServer}/api/posyandu`,
+          data,
+          {
+            headers: {
+              Authorization: localStorage.getItem("tokenAuth"),
+            },
+          }
+        );
+        if (response.data.success) {
+          Swal.fire({
+            toast: true,
+            position: "top",
+            iconColor: "white",
+            color: "white",
+            background: "rgb(var(--v-theme-success))",
+            showConfirmButton: false,
+            timerProgressBar: true,
+            timer: 1500,
+            icon: "success",
+            title: response.data.success.message,
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
     },
+    async fetchData() {
+      const response = await axios.get(`${config.urlServer}/api/posyandu`, {
+        headers: {
+          Authorization: localStorage.getItem("tokenAuth"),
+        },
+      });
+      this.posyandu = response.data;
+    },
+  },
+  mounted() {
+    this.fetchData();
   },
 };
 </script>
@@ -46,27 +102,26 @@ export default {
                       <v-col cols="12">
                         <VTextarea
                           label="Profil"
-                          v-model="profil"
+                          v-model="posyandu.penyampaian_ketua"
                           required
                         ></VTextarea>
                       </v-col>
                       <v-col cols="12">
                         <VTextarea
                           label="Visi"
-                          v-model="visi"
+                          v-model="posyandu.visi"
                           required
                         ></VTextarea>
                       </v-col>
                       <v-col cols="12">
                         <VTextarea
                           label="Misi"
-                          v-model="misi"
+                          v-model="posyandu.misi"
                           required
                         ></VTextarea>
                       </v-col>
                     </v-row>
                   </v-container>
-                  <small>*indicates required field</small>
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
@@ -80,7 +135,10 @@ export default {
                   <v-btn
                     color="blue-darken-1"
                     variant="text"
-                    @click="dialog = false"
+                    @click="
+                      putData();
+                      dialog = false;
+                    "
                   >
                     Save
                   </v-btn>
@@ -101,7 +159,7 @@ export default {
     <VCol md="3" sm="12">
       <img
         style="width: 100%; height: 250px; object-fit: cover"
-        :src="posyandu"
+        :src="posyanduImg"
         alt=""
       />
     </VCol>
@@ -117,10 +175,7 @@ export default {
 
             <VCardText>
               <span>
-                {{ profil }}
-                <br />
-                <br />
-                Semoga dapat memudahkan masyarakat
+                {{ posyandu.penyampaian_ketua }}
               </span>
               <br />
             </VCardText>
@@ -138,10 +193,7 @@ export default {
 
             <VCardText>
               <span>
-                {{ visi }}
-                <br />
-                <br />
-                Semoga dapat memudahkan masyarakat
+                {{ posyandu.visi }}
               </span>
               <br />
             </VCardText>
@@ -159,10 +211,7 @@ export default {
 
             <VCardText>
               <span>
-                {{ misi }}
-                <br />
-                <br />
-                Semoga dapat memudahkan masyarakat
+                {{ posyandu.misi }}
               </span>
               <br />
             </VCardText>

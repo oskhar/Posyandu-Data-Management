@@ -20,7 +20,7 @@
             </thead>
 
             <tbody>
-              <tr v-for="item in dataFormatA" :key="item.dessert">
+              <tr v-for="(item, index) in dataFormatA" :key="item.dessert">
                 <td>
                   {{ item.nama_bayi }}
                 </td>
@@ -31,18 +31,198 @@
                   {{ item.nama_ibu }}
                 </td>
                 <td class="text-center">
-                  <VBtn> <v-icon>mdi-edit</v-icon></VBtn>
-                  <VBtn class="ml-2" color="error">
+                  <v-dialog
+                    v-model="dialog[item.id_format_a]"
+                    persistent
+                    width="1024"
+                  >
+                    <template v-slot:activator="{ props }">
+                      <v-btn color="primary" v-bind="props">
+                        <v-icon>mdi-edit</v-icon>
+                      </v-btn>
+                    </template>
+                    <v-card>
+                      <v-card-title>
+                        <span class="text-h5">Ubah Data</span>
+                      </v-card-title>
+                      <v-card-text>
+                        <v-container>
+                          <v-row>
+                            <VCol cols="12">
+                              <VRow no-gutters>
+                                <!-- 👉 First Name -->
+                                <VCol cols="12" md="3">
+                                  <label for="ayah">Nama Ayah</label>
+                                </VCol>
+
+                                <VCol cols="12" md="9">
+                                  <VTextField
+                                    id="ayah"
+                                    v-model="item.nama_ayah"
+                                    placeholder="Masukkan Nama Ayah"
+                                    persistent-placeholder
+                                  />
+                                  <sup class="text-error">*Wajib diisi</sup>
+                                </VCol>
+                              </VRow>
+                            </VCol>
+                            <VCol cols="12">
+                              <VRow no-gutters>
+                                <!-- 👉 First Name -->
+                                <VCol cols="12" md="3">
+                                  <label for="ibu">Nama Ibu</label>
+                                </VCol>
+
+                                <VCol cols="12" md="9">
+                                  <VTextField
+                                    v-model="item.nama_ibu"
+                                    id="ibu"
+                                    placeholder="Masukkan Nama Ibu"
+                                    persistent-placeholder
+                                  />
+                                  <sup class="text-error">*Wajib diisi</sup>
+                                </VCol>
+                              </VRow>
+                            </VCol>
+                            <VCol cols="12">
+                              <VRow no-gutters>
+                                <!-- 👉 First Name -->
+                                <VCol cols="12" md="3">
+                                  <label for="bayi">Nama Bayi</label>
+                                </VCol>
+
+                                <VCol cols="12" md="9">
+                                  <VTextField
+                                    v-model="item.nama_bayi"
+                                    id="bayi"
+                                    placeholder="Masukkan Nama Bayi"
+                                    persistent-placeholder
+                                  />
+                                  <sup class="text-error">*Wajib diisi</sup>
+                                </VCol>
+                              </VRow>
+                            </VCol>
+                            <VCol cols="12">
+                              <VRow no-gutters>
+                                <!-- 👉 First Name -->
+                                <VCol cols="12" md="3">
+                                  <label for="kelamin">Jenis Kelamin</label>
+                                </VCol>
+
+                                <VCol cols="12" md="9">
+                                  <VSelect
+                                    v-model="item.jenis_kelamin"
+                                    :items="['L', 'P']"
+                                  />
+                                  <sup class="text-error">*Wajib diisi</sup>
+                                </VCol>
+                              </VRow>
+                            </VCol>
+                            <VCol cols="12">
+                              <VRow no-gutters>
+                                <!-- 👉 First Name -->
+                                <VCol cols="12" md="3">
+                                  <label for="tanggal-lahir"
+                                    >Tanggal Lahir</label
+                                  >
+                                </VCol>
+
+                                <VCol cols="12" md="9">
+                                  <VTextField
+                                    placeholder=""
+                                    type="date"
+                                    v-model="item.tanggal_lahir"
+                                  />
+                                  <sup class="text-error">*Wajib diisi</sup>
+                                </VCol>
+                              </VRow>
+                            </VCol>
+                            <VCol cols="12">
+                              <VRow no-gutters>
+                                <!-- 👉 First Name -->
+                                <VCol cols="12" md="3">
+                                  <label for="tanggal-meninggal-bayi"
+                                    >Tanggal Meninggal Bayi</label
+                                  >
+                                </VCol>
+
+                                <VCol cols="12" md="9">
+                                  <VTextField
+                                    placeholder=""
+                                    type="date"
+                                    v-model="item.tanggal_meninggal_bayi"
+                                  />
+                                </VCol>
+                              </VRow>
+                            </VCol>
+                            <VCol cols="12">
+                              <VRow no-gutters>
+                                <!-- 👉 First Name -->
+                                <VCol cols="12" md="3">
+                                  <label for="tanggal-meninggal-ibu"
+                                    >Tanggal Meninggal Ibu</label
+                                  >
+                                </VCol>
+
+                                <VCol cols="12" md="9">
+                                  <VTextField
+                                    placeholder=""
+                                    type="date"
+                                    v-model="item.tanggal_meninggal_ibu"
+                                  />
+                                </VCol>
+                              </VRow>
+                            </VCol>
+                            <VCol cols="12">
+                              <VRow no-gutters>
+                                <!-- 👉 First Name -->
+                                <VCol cols="12" md="3">
+                                  <label for="keterangan">Keterangan</label>
+                                </VCol>
+
+                                <VCol cols="12" md="9">
+                                  <VTextField
+                                    v-model="item.keterangan"
+                                    placeholder="Masukkan Keterangan"
+                                    persistent-placeholder
+                                  />
+                                </VCol>
+                              </VRow>
+                            </VCol>
+                          </v-row>
+                        </v-container>
+                      </v-card-text>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          color="blue-darken-1"
+                          variant="text"
+                          @click="dialog[item.id_format_a] = false"
+                        >
+                          Close
+                        </v-btn>
+                        <v-btn
+                          color="blue-darken-1"
+                          variant="text"
+                          @click="
+                            putData(index);
+                            dialog[item.id_format_a] = false;
+                          "
+                        >
+                          Save
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
+                  <!-- <VBtn> </VBtn> -->
+                  <VBtn
+                    class="ml-2"
+                    color="error"
+                    @click="deleteData(item.id_format_a)"
+                  >
                     <v-icon>mdi-delete</v-icon></VBtn
                   >
                 </td>
-
-                <!-- <td class="text-center">
-                {{ item.carbs }}
-              </td>
-              <td class="text-center">
-                {{ item.protein }}
-              </td> -->
               </tr>
             </tbody>
           </VTable>
@@ -83,6 +263,49 @@ export default {
   },
 
   methods: {
+    async putData(indexFormatA) {
+      try {
+        const data = {
+          id_format_a: this.dataFormatA[indexFormatA].id_format_a,
+          nama_ayah: this.dataFormatA[indexFormatA].nama_ayah,
+          nama_ibu: this.dataFormatA[indexFormatA].nama_ibu,
+          nama_bayi: this.dataFormatA[indexFormatA].nama_bayi,
+          jenis_kelamin: this.dataFormatA[indexFormatA].jenis_kelamin,
+          tanggal_lahir: this.dataFormatA[indexFormatA].tanggal_lahir,
+          tanggal_meninggal_bayi:
+            this.dataFormatA[indexFormatA].tanggal_meninggal_bayi,
+          tanggal_meninggal_ibu:
+            this.dataFormatA[indexFormatA].tanggal_meninggal_ibu,
+          keterangan: this.dataFormatA[indexFormatA].keterangan,
+        };
+
+        const response = await axios.put(
+          `${this.urlServer}/api/format-a`,
+          data,
+          {
+            headers: {
+              Authorization: localStorage.getItem("tokenAuth"),
+            },
+          }
+        );
+        if (response.data.success) {
+          Swal.fire({
+            toast: true,
+            position: "top",
+            iconColor: "white",
+            color: "white",
+            background: "rgb(var(--v-theme-success))",
+            showConfirmButton: false,
+            timerProgressBar: true,
+            timer: 1500,
+            icon: "success",
+            title: response.data.success.message,
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async fetchData() {
       const response = await axios.get(
         `${config.urlServer}/api/format-a?length=20&start=${this.page}`,
@@ -94,6 +317,40 @@ export default {
       );
       this.dataFormatA = response.data.format_a;
       this.banyakPage = Math.ceil(response.data.jumlah_data / 20);
+    },
+    async deleteData(id_format_a) {
+      const ask = await Swal.fire({
+        title: "Anda yakin ingin menghapus?",
+        showConfirmButton: false,
+        showDenyButton: true,
+        showCancelButton: true,
+        denyButtonText: "Hapus",
+      });
+      if (ask.isDenied) {
+        const response = await axios.delete(
+          `${this.urlServer}/api/format-a?id_format_a=${id_format_a}`,
+          {
+            headers: {
+              Authorization: localStorage.getItem("tokenAuth"),
+            },
+          }
+        );
+        if (response.data.success) {
+          Swal.fire({
+            toast: true,
+            position: "top",
+            iconColor: "white",
+            color: "white",
+            background: "rgb(var(--v-theme-success))",
+            showConfirmButton: false,
+            timerProgressBar: true,
+            timer: 1500,
+            icon: "success",
+            title: response.data.success.message,
+          });
+          this.fetchData();
+        }
+      }
     },
   },
   mounted() {
