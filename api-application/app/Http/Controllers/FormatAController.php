@@ -267,9 +267,6 @@ class FormatAController extends Controller
             'id_bayi' => $formatA->id_bayi,
             'keterangan' => $data['keterangan'] ?? $formatA->keterangan,
         ]);
-        return response()->json([
-            'success' => $formatA->id_bayi
-        ])->setStatusCode(201);
 
         /**
          * Melakukan pengubahan data bayi
