@@ -14,6 +14,14 @@ class EdukasiSeeder extends Seeder
     public function run(): void
     {
         //
-        EdukasiModel::factory(57977)->create();
+        // EdukasiModel::factory(57977)->create();
+        while (true) {
+            EdukasiModel::create([
+                'id_admin' => 1,
+                'judul' => fake()->sentence(),
+                'materi' => fake()->paragraph(),
+                'gambar' => '/images/upload/default.png',
+            ]);
+        }
     }
 }
