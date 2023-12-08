@@ -1,55 +1,71 @@
-<script setup>
+<script>
 import axios from "axios";
 import config from "@/@core/config.vue";
 import avatar1 from "@images/avatars/avatar-1.png";
-import { onMounted } from "vue";
+import Swal from "sweetalert2";
 
-const myAcc = [];
-const urlServer = config.urlServer;
+export default {
+  setup() {
+    const myAcc = [];
+    const urlServer = config.urlServer;
+    const data = ref([]);
 
-const accountData = {
-  avatarImg: avatar1,
-  firstName: "jo",
-  email: "posyandu@gmail.com",
-  org: "ThemeSelection",
-  phone: "857 9876 4532",
-  address: "Jln. Mangga No.20 RT.02/12 ",
-  tanggalLahir: "2024-12-12",
-  zip: "10001",
-  country: "PELINDUNG",
-  kelamin: "Laki-laki",
-  timezone: "(GMT-11:00) International Date Line West",
-  currency: "USD",
-};
-
-const refInputEl = ref();
-const accountDataLocal = ref(structuredClone(accountData));
-
-const resetForm = () => {
-  accountDataLocal.value = structuredClone(accountData);
-};
-
-const changeAvatar = (file) => {
-  const fileReader = new FileReader();
-  const { files } = file.target;
-  if (files && files.length) {
-    fileReader.readAsDataURL(files[0]);
-    fileReader.onload = () => {
-      if (typeof fileReader.result === "string")
-        accountDataLocal.value.avatarImg = fileReader.result;
+    const accountData = {
+      avatarImg: avatar1,
+      firstName: "jo",
+      email: "posyandu@gmail.com",
+      org: "ThemeSelection",
+      phone: "857 9876 4532",
+      address: "Jln. Mangga No.20 RT.02/12 ",
+      tanggalLahir: "2024-12-12",
+      zip: "10001",
+      country: "PELINDUNG",
+      kelamin: "Laki-laki",
+      timezone: "(GMT-11:00) International Date Line West",
+      currency: "USD",
     };
-  }
-};
 
-// reset avatar image
-const resetAvatar = () => {
-  accountDataLocal.value.avatarImg = accountData.avatarImg;
-};
+    const refInputEl = ref();
+    const accountDataLocal = ref(structuredClone(accountData));
 
-// onMounted(async () => {
-//   const response = await axios.get(`${urlServer}/api/admin`);
-//   myAcc = response.data;
-// });
+    const resetForm = () => {
+      accountDataLocal.value = structuredClone(accountData);
+    };
+
+    const changeAvatar = (file) => {
+      const fileReader = new FileReader();
+      const { files } = file.target;
+      if (files && files.length) {
+        fileReader.readAsDataURL(files[0]);
+        fileReader.onload = () => {
+          if (typeof fileReader.result === "string")
+            accountDataLocal.value.avatarImg = fileReader.result;
+        };
+      }
+    };
+
+    // reset avatar image
+    const resetAvatar = () => {
+      accountDataLocal.value.avatarImg = accountData.avatarImg;
+    };
+
+    // onMounted(async () => {
+    //   const response = await axios.get(`${urlServer}/api/admin`);
+    //   myAcc = response.data;
+    // });
+    return {
+      urlServer,
+      avatar1,
+      data,
+      accountData,
+      accountDataLocal,
+      refInputEl,
+      resetForm,
+      changeAvatar,
+      resetAvatar,
+    };
+  },
+};
 </script>
 
 <template>
