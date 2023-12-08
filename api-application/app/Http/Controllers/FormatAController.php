@@ -267,17 +267,22 @@ class FormatAController extends Controller
             'id_bayi' => $formatA->id_bayi,
             'keterangan' => $data['keterangan'] ?? $formatA->keterangan,
         ]);
+        return response()->json([
+            'success' => $formatA->id_bayi
+        ])->setStatusCode(201);
 
         /**
          * Melakukan pengubahan data bayi
          * 
          */
-        $bayi = BayiModel::where('id', $formatA->id_bayi)->update([
+        $bayi = BayiModel::where('id', $formatA->id_bayi);
+        $bayi->update([
             'nama' => $data['nama_bayi'] ?? $formatA->nama_bayi,
             'jenis_kelamin' => $data['jenis_kelamin'] ?? $formatA->jenis_kelamin,
             'tanggal_lahir' => $data['tanggal_lahir'] ?? $formatA->tanggal_lahir,
             'tanggal_meninggal' => $data['tanggal_meninggal_bayi'] ?? $formatA->tanggal_meninggal_bayi,
         ]);
+        $bayi = $bayi->select('id_orang_tua')->first();
 
         /**
          * Melakukan pengubahan data orang_tua

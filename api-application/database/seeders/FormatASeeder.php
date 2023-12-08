@@ -14,6 +14,6 @@ class FormatASeeder extends Seeder
     public function run(): void
     {
         //
-        FormatAModel::factory(100000)->create();
+        FormatAModel::factory(60000)->create();
     }
 }
