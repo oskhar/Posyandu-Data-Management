@@ -21,7 +21,7 @@ class FormatAExport implements FromCollection, WithHeadings, WithEvents, WithCus
             'Nama Ayah',
             'Nama Ibu',
             'Nama Bayi',
-            'Jenis Kelamin',
+            'L/P',
             'Tanggal Lahir',
             'Tanggal Meninggal Bayi',
             'Tanggal Meninggal Ibu',
@@ -48,6 +48,8 @@ class FormatAExport implements FromCollection, WithHeadings, WithEvents, WithCus
             ->join('bayi', 'bayi.id', 'format_a.id_bayi')
             ->join('orang_tua', 'orang_tua.id', 'bayi.id_orang_tua')
             ->orderByDesc('format_a.created_at')
+            ->offset(0)
+            ->limit(20)
             ->get();
     }
 
@@ -74,11 +76,11 @@ class FormatAExport implements FromCollection, WithHeadings, WithEvents, WithCus
         $sheet->getColumnDimension('C')->setWidth(26);
         $sheet->getColumnDimension('D')->setWidth(3);
         $sheet->getColumnDimension('E')->setWidth(15);
-        $sheet->getColumnDimension('F')->setWidth(15);
-        $sheet->getColumnDimension('G')->setWidth(15);
-        $sheet->getColumnDimension('H')->setWidth(20);
+        $sheet->getColumnDimension('F')->setWidth(20);
+        $sheet->getColumnDimension('G')->setWidth(20);
+        $sheet->getColumnDimension('H')->setWidth(50);
         return [
-            1 => ['font' => ['size' => 16]],
+            1 => ['font' => ['bold' => true]],
             4 => ['font' => ['bold' => true]],
         ];
     }

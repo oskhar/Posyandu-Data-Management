@@ -100,7 +100,21 @@ export default {
                   },
                 }
               );
-              window.location.href = "/galeri";
+              if (response.data.success) {
+                Swal.fire({
+                  toast: true,
+                  position: "top",
+                  iconColor: "white",
+                  color: "white",
+                  background: "rgb(var(--v-theme-success))",
+                  showConfirmButton: false,
+                  timerProgressBar: true,
+                  timer: 1500,
+                  icon: "success",
+                  title: response.data.success.message,
+                });
+                this.fetchData();
+              }
             }
           };
         } else {
@@ -127,39 +141,22 @@ export default {
           <span class="d-none d-sm-block">Upload new photo</span>
         </VBtn>
 
-        <input
-          id="inputGambar"
-          ref="refInputEl"
-          type="file"
-          name="file"
-          accept=".jpeg,.png,.jpg"
-          hidden
-          @change="changeAvatar"
-        />
+        <input id="inputGambar" ref="refInputEl" type="file" name="file" accept=".jpeg,.png,.jpg" hidden
+          @change="changeAvatar" />
       </div>
     </VCol>
   </VRow>
   <VRow>
     <VCol cols="12" md="3" sm="6" v-for="data in dataGambar">
-      <VImg
-        style="width: 100%; height: 200px"
-        cover
-        :src="data.gambar"
-        alt="image"
-        @click="lihatGambar(data.gambar, data.nama_lengkap, data.id_gambar)"
-      />
+      <VImg style="width: 100%; height: 200px" cover :src="data.gambar" alt="image"
+        @click="lihatGambar(data.gambar, data.nama_lengkap, data.id_gambar)" />
       <!-- <h1>{{ data.id_gambar }}</h1> -->
     </VCol>
   </VRow>
   <VRow>
     <VCol>
       <div class="text-center my-3 float-right">
-        <v-pagination
-          v-model="page"
-          :length="banyakPage"
-          :total-visible="5"
-          @click="fetchData"
-        ></v-pagination>
+        <v-pagination v-model="page" :length="banyakPage" :total-visible="5" @click="fetchData"></v-pagination>
       </div>
     </VCol>
   </VRow>

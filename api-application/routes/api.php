@@ -84,16 +84,6 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
     Route::delete('/format-a', [FormatAController::class, 'delete']);
 
     /**
-     * Endpoint untuk export file excel
-     * 
-     */
-    Route::prefix('export')->group(function () {
-
-        Route::get('/format-a', [ExportController::class, 'exportFormatAExcel']);
-
-    });
-
-    /**
      * Endpoint untuk import file excel
      * 
      */
@@ -113,3 +103,14 @@ Route::get('/edukasi', [EdukasiController::class, 'get']);
 Route::get('/berita', [BeritaController::class, 'get']);
 Route::get('/gambar', [GambarController::class, 'get']);
 Route::get('/posyandu', [PosyanduController::class, 'get']);
+
+
+/**
+ * Endpoint untuk export file excel
+ * 
+ */
+Route::prefix('export')->group(function () {
+
+    Route::get('/format-a', [ExportController::class, 'exportFormatAExcel']);
+
+});

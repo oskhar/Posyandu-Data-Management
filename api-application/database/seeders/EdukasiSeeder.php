@@ -15,13 +15,13 @@ class EdukasiSeeder extends Seeder
     {
         //
         // EdukasiModel::factory(57977)->create();
-        while (true) {
-            EdukasiModel::create([
-                'id_admin' => 1,
-                'judul' => fake()->sentence(),
-                'materi' => fake()->paragraph(),
-                'gambar' => '/images/upload/default.png',
-            ]);
-        }
+        // while (true) {
+        //     EdukasiModel::create([
+        //         'id_admin' => 1,
+        //         'judul' => fake()->sentence(),
+        //         'materi' => fake()->paragraph(),
+        //         'gambar' => '/images/upload/default.png',
+        //     ]);
+        // }
     }
 }

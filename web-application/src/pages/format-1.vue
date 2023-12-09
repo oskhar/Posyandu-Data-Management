@@ -6,7 +6,8 @@
         <VCardItem>
           <div class="d-flex justify-end">
             <VBtn class="ml-4" href="/data/format-1-create"> Tambah </VBtn>
-            <VBtn class="ml-4"> Export </VBtn>
+            <VBtn class="ml-4" @click="exportExcel"> Export </VBtn>
+            <!-- @click="exportExcel" -->
             <VBtn class="ml-4" to="/"> Import </VBtn>
           </div>
           <VTable>
@@ -31,11 +32,7 @@
                   {{ item.nama_ibu }}
                 </td>
                 <td class="text-center">
-                  <v-dialog
-                    v-model="dialog[item.id_format_a]"
-                    persistent
-                    width="1024"
-                  >
+                  <v-dialog v-model="dialog[item.id_format_a]" persistent width="1024">
                     <template v-slot:activator="{ props }">
                       <v-btn color="primary" v-bind="props">
                         <v-icon>mdi-edit</v-icon>
@@ -56,12 +53,8 @@
                                 </VCol>
 
                                 <VCol cols="12" md="9">
-                                  <VTextField
-                                    id="ayah"
-                                    v-model="item.nama_ayah"
-                                    placeholder="Masukkan Nama Ayah"
-                                    persistent-placeholder
-                                  />
+                                  <VTextField id="ayah" v-model="item.nama_ayah" placeholder="Masukkan Nama Ayah"
+                                    persistent-placeholder />
                                   <sup class="text-error">*Wajib diisi</sup>
                                 </VCol>
                               </VRow>
@@ -74,12 +67,8 @@
                                 </VCol>
 
                                 <VCol cols="12" md="9">
-                                  <VTextField
-                                    v-model="item.nama_ibu"
-                                    id="ibu"
-                                    placeholder="Masukkan Nama Ibu"
-                                    persistent-placeholder
-                                  />
+                                  <VTextField v-model="item.nama_ibu" id="ibu" placeholder="Masukkan Nama Ibu"
+                                    persistent-placeholder />
                                   <sup class="text-error">*Wajib diisi</sup>
                                 </VCol>
                               </VRow>
@@ -92,12 +81,8 @@
                                 </VCol>
 
                                 <VCol cols="12" md="9">
-                                  <VTextField
-                                    v-model="item.nama_bayi"
-                                    id="bayi"
-                                    placeholder="Masukkan Nama Bayi"
-                                    persistent-placeholder
-                                  />
+                                  <VTextField v-model="item.nama_bayi" id="bayi" placeholder="Masukkan Nama Bayi"
+                                    persistent-placeholder />
                                   <sup class="text-error">*Wajib diisi</sup>
                                 </VCol>
                               </VRow>
@@ -110,10 +95,7 @@
                                 </VCol>
 
                                 <VCol cols="12" md="9">
-                                  <VSelect
-                                    v-model="item.jenis_kelamin"
-                                    :items="['L', 'P']"
-                                  />
+                                  <VSelect v-model="item.jenis_kelamin" :items="['L', 'P']" />
                                   <sup class="text-error">*Wajib diisi</sup>
                                 </VCol>
                               </VRow>
@@ -122,17 +104,11 @@
                               <VRow no-gutters>
                                 <!-- 👉 First Name -->
                                 <VCol cols="12" md="3">
-                                  <label for="tanggal-lahir"
-                                    >Tanggal Lahir</label
-                                  >
+                                  <label for="tanggal-lahir">Tanggal Lahir</label>
                                 </VCol>
 
                                 <VCol cols="12" md="9">
-                                  <VTextField
-                                    placeholder=""
-                                    type="date"
-                                    v-model="item.tanggal_lahir"
-                                  />
+                                  <VTextField placeholder="" type="date" v-model="item.tanggal_lahir" />
                                   <sup class="text-error">*Wajib diisi</sup>
                                 </VCol>
                               </VRow>
@@ -141,17 +117,11 @@
                               <VRow no-gutters>
                                 <!-- 👉 First Name -->
                                 <VCol cols="12" md="3">
-                                  <label for="tanggal-meninggal-bayi"
-                                    >Tanggal Meninggal Bayi</label
-                                  >
+                                  <label for="tanggal-meninggal-bayi">Tanggal Meninggal Bayi</label>
                                 </VCol>
 
                                 <VCol cols="12" md="9">
-                                  <VTextField
-                                    placeholder=""
-                                    type="date"
-                                    v-model="item.tanggal_meninggal_bayi"
-                                  />
+                                  <VTextField placeholder="" type="date" v-model="item.tanggal_meninggal_bayi" />
                                 </VCol>
                               </VRow>
                             </VCol>
@@ -159,17 +129,11 @@
                               <VRow no-gutters>
                                 <!-- 👉 First Name -->
                                 <VCol cols="12" md="3">
-                                  <label for="tanggal-meninggal-ibu"
-                                    >Tanggal Meninggal Ibu</label
-                                  >
+                                  <label for="tanggal-meninggal-ibu">Tanggal Meninggal Ibu</label>
                                 </VCol>
 
                                 <VCol cols="12" md="9">
-                                  <VTextField
-                                    placeholder=""
-                                    type="date"
-                                    v-model="item.tanggal_meninggal_ibu"
-                                  />
+                                  <VTextField placeholder="" type="date" v-model="item.tanggal_meninggal_ibu" />
                                 </VCol>
                               </VRow>
                             </VCol>
@@ -181,11 +145,8 @@
                                 </VCol>
 
                                 <VCol cols="12" md="9">
-                                  <VTextField
-                                    v-model="item.keterangan"
-                                    placeholder="Masukkan Keterangan"
-                                    persistent-placeholder
-                                  />
+                                  <VTextField v-model="item.keterangan" placeholder="Masukkan Keterangan"
+                                    persistent-placeholder />
                                 </VCol>
                               </VRow>
                             </VCol>
@@ -194,34 +155,22 @@
                       </v-card-text>
                       <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn
-                          color="blue-darken-1"
-                          variant="text"
-                          @click="dialog[item.id_format_a] = false"
-                        >
+                        <v-btn color="blue-darken-1" variant="text" @click="dialog[item.id_format_a] = false">
                           Close
                         </v-btn>
-                        <v-btn
-                          color="blue-darken-1"
-                          variant="text"
-                          @click="
-                            putData(index);
-                            dialog[item.id_format_a] = false;
-                          "
-                        >
+                        <v-btn color="blue-darken-1" variant="text" @click="
+                          putData(index);
+                        dialog[item.id_format_a] = false;
+                        ">
                           Save
                         </v-btn>
                       </v-card-actions>
                     </v-card>
                   </v-dialog>
                   <!-- <VBtn> </VBtn> -->
-                  <VBtn
-                    class="ml-2"
-                    color="error"
-                    @click="deleteData(item.id_format_a)"
-                  >
-                    <v-icon>mdi-delete</v-icon></VBtn
-                  >
+                  <VBtn class="ml-2" color="error" @click="deleteData(item.id_format_a)">
+                    <v-icon>mdi-delete</v-icon>
+                  </VBtn>
                 </td>
               </tr>
             </tbody>
@@ -233,11 +182,7 @@
   <VRow>
     <VCol>
       <div class="text-center my-3 float-right">
-        <v-pagination
-          v-model="page"
-          :length="banyakPage"
-          :total-visible="4"
-        ></v-pagination>
+        <v-pagination v-model="page" :length="banyakPage" :total-visible="4" @click="fetchData"></v-pagination>
       </div>
     </VCol>
   </VRow>
@@ -263,6 +208,29 @@ export default {
   },
 
   methods: {
+    async exportExcel() {
+
+      const response = await axios(
+        {
+          method: 'get',
+          url: `${this.urlServer}/api/export/format-a`,
+          responseType: 'blob',
+          headers: {
+            Authorization: localStorage.getItem("tokenAuth"),
+          },
+        });
+
+      // Get the namaFile from the Content-Disposition header
+      const namaFile = "Format-1.xlsx";
+
+      console.log(response);
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', namaFile);
+      document.body.appendChild(link);
+      link.click();
+    },
     async putData(indexFormatA) {
       try {
         const data = {

@@ -18,7 +18,7 @@ class AdminSeeder extends Seeder
             'id_jabatan' => 1,
             'email_admin' => 'aidil@gmail.com',
             'nama_lengkap' => 'aidil manaf',
-            'password' => Hash::make('123456')
+            'password' => Hash::make('123456'),
         ]);
     }
 }
