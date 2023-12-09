@@ -94,16 +94,6 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
         Route::get('/format-a', [ExportController::class, 'exportFormatAExcel']);
 
     });
-
-    /**
-     * Endpoint untuk import file excel
-     * 
-     */
-    Route::prefix('import')->group(function () {
-
-        Route::post('/format-a', [ImportController::class, 'importFormatAExcel']);
-
-    });
 });
 
 /**
