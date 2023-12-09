@@ -1253,9 +1253,13 @@ paths:
                     type: string
                   judul_format:
                     type: string
-                  jumlah_kelahiran:
+                  jumlah_lahir:
                     type: integer
-                  jumlah_kematian:
+                  jumlah_meninggal:
+                    type: integer
+                  jumlah_bayi_meninggal:
+                    type: integer
+                  jumlah_ibu_meninggal:
                     type: integer
                   jumlah_data:
                     type: integer

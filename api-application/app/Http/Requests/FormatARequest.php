@@ -44,6 +44,7 @@ class FormatARequest extends CoreRequest
             case 'GET':
                 return [
                     'id_format_a' => 'nullable|integer',
+                    'tahun' => 'nullable',
                     'search' => 'nullable',
                     'start' => 'nullable|integer',
                     'length' => 'nullable|integer'

@@ -16,7 +16,7 @@ class FormatASeeder extends Seeder
     public function run(): void
     {
         //
-        // FormatAModel::factory(60000)->create();
+        FormatAModel::factory(100)->create();
         // while (true) {
         //     $orangTua = OrangTuaModel::create([
         //         "nama_ayah" => fake()->name(),
@@ -28,7 +28,7 @@ class FormatASeeder extends Seeder
         //         "id_orang_tua" => $orangTua->id,
         //         "nama" => fake()->name(),
         //         "jenis_kelamin" => ['L', 'P'][rand(0, 1)],
-        //         "tanggal_lahir" => fake()->date(),
+        // "tanggal_lahir" => fake()->date(),
         //         "tanggal_meninggal" => [true, false][rand(0, 1)] ? fake()->date() : null,
         //     ]);
 

@@ -14,6 +14,11 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class FormatAExport implements FromCollection, WithHeadings, WithEvents, WithCustomStartCell, WithStyles
 {
+    protected $tahunDipilih;
+    public function __construct($tahunDipilih = null)
+    {
+        $this->tahunDipilih = $tahunDipilih;
+    }
     public function headings(): array
     {
         // Menyusun baris judul Anda
@@ -48,8 +53,7 @@ class FormatAExport implements FromCollection, WithHeadings, WithEvents, WithCus
             ->join('bayi', 'bayi.id', 'format_a.id_bayi')
             ->join('orang_tua', 'orang_tua.id', 'bayi.id_orang_tua')
             ->orderByDesc('format_a.created_at')
-            ->offset(0)
-            ->limit(20)
+            ->whereYear('bayi.tanggal_lahir', '=', $this->tahunDipilih ?? now()->year)
             ->get();
     }
 

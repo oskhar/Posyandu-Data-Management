@@ -10,10 +10,11 @@ use App\Models\PosyanduModel;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class FormatAController extends Controller
 {
-    protected $judulFormat = 'Catatan ibu hamil, kelahiran, kematian bayi dan kematian ibu hamil, melahirkan / nifas januari - desember tahun';
+    protected $judulFormat = 'Catatan ibu hamil, kelahiran, kematian bayi dan kematian ibu hamil, melahirkan / nifas januari - desember';
     public function get(FormatARequest $request): JsonResponse
     {
         /**
@@ -40,7 +41,30 @@ class FormatAController extends Controller
         )
             ->join('bayi', 'bayi.id', 'format_a.id_bayi')
             ->join('orang_tua', 'orang_tua.id', 'bayi.id_orang_tua')
-            ->orderByDesc('format_a.created_at');
+            ->orderBy('bayi.tanggal_lahir', 'ASC');
+
+        /**
+         * Membuat query untuk perhitaungan
+         * 
+         */
+        $queryMenghitung = BayiModel::select(
+            'bayi.id'
+        )->join('orang_tua', 'orang_tua.id', 'bayi.id_orang_tua');
+
+        /**
+         * Memfilter data berdasarkan tahun
+         * 
+         */
+        if (!empty($data['tahun'])) {
+
+            /**
+             * Melakukan filtering pada query
+             * 
+             */
+            $query = $query->whereYear('bayi.tanggal_lahir', '=', $data['tahun']);
+            $queryMenghitung = $queryMenghitung->whereYear('bayi.tanggal_lahir', '=', $data['tahun']);
+
+        }
 
         /**
          * Melakukan filtering atau penyaringan
@@ -109,6 +133,12 @@ class FormatAController extends Controller
 
         }
 
+        $formatA = $formatA->map(function ($item) {
+            $tanggalLahir = Carbon::parse($item->tanggal_lahir);
+            $item->tanggal_lahir = $tanggalLahir->format("d M Y");
+            return $item;
+        });
+
         /**
          * Mengambil data posyandu
          * 
@@ -119,33 +149,26 @@ class FormatAController extends Controller
         )->first();
 
         /**
-         * Membuat query utama
-         * 
-         */
-        $queriArimatik = FormatAModel::select(
-            'format_a.id as id_format_a',
-            'orang_tua.nama_ayah',
-            'orang_tua.nama_ibu',
-            'bayi.nama as nama_bayi',
-            'bayi.jenis_kelamin',
-            'bayi.tanggal_lahir',
-            'bayi.tanggal_meninggal as tanggal_meninggal_bayi',
-            'orang_tua.tanggal_meninggal_ibu',
-            'format_a.keterangan',
-            'format_a.created_at as tanggal'
-        )
-            ->join('bayi', 'bayi.id', 'format_a.id_bayi')
-            ->join('orang_tua', 'orang_tua.id', 'bayi.id_orang_tua')
-            ->orderByDesc('format_a.created_at');
-
-        /**
          * Mendapatkan data jumlah kematian
          * dan jumlah kelahiran bayi
          * 
          */
-        $jumlahKematian = $queriArimatik->whereNotNull('bayi.tanggal_meninggal')->count();
-        $jumlahKelahiran = $count - $jumlahKematian;
-        $jumlahKematian += $queriArimatik->whereNotNull('orang_tua.tanggal_meninggal_ibu')->count();
+        $jumlahBayiMeninggal = $queryMenghitung->whereNotNull('bayi.tanggal_meninggal')->count();
+        $jumlahIbuMeninggal = $queryMenghitung->whereNotNull('orang_tua.tanggal_meninggal_ibu')->count();
+
+        $jumlahMeninggal = $jumlahBayiMeninggal + $jumlahIbuMeninggal;
+        $jumlahLahir = $count - $jumlahBayiMeninggal;
+
+        /**
+         * Mendapatkan seluruh tahun lahir yang bisa dipilih
+         * 
+         */
+        $listTahunLahir = BayiModel::selectRaw('YEAR(tanggal_lahir) as tahun_lahir')
+            ->orderByDesc('tanggal_lahir')
+            ->distinct()
+            ->pluck('tahun_lahir');
+
+        $listTahunLahir = $listTahunLahir->toArray();
 
         /**
          * Mengembalikan response sesuai request
@@ -154,9 +177,12 @@ class FormatAController extends Controller
         return response()->json([
             'nama_posyandu' => $posyandu->nama_posyandu,
             'kota' => $posyandu->kota,
+            'list_tahun_lahir' => $listTahunLahir,
             'judul_format' => $this->judulFormat,
-            'jumlah_kelahiran' => $jumlahKelahiran,
-            'jumlah_kematian' => $jumlahKematian,
+            'jumlah_lahir' => $jumlahLahir,
+            'jumlah_meninggal' => $jumlahMeninggal,
+            'jumlah_bayi_meninggal' => $jumlahBayiMeninggal,
+            'jumlah_ibu_meninggal' => $jumlahIbuMeninggal,
             'jumlah_data' => $count,
             'format_a' => $formatA,
         ])->setStatusCode(200);

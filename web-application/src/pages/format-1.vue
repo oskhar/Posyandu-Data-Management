@@ -1,33 +1,45 @@
 <template>
   <VRow>
-    <VCol md="9" sm="12">
+    <VCol cols="12" md="8" sm="12">
       <VCard>
         <VCardItem style="min-height: 170px">
-          <h1 class="text-primary">{{ judulFormatA }} {{ tahun }}</h1>
-          <h2 class="">{{ namaPosyandu }} - {{ kota }}</h2>
-          <h2 class="">Jumlah Kelahiran: {{ jumlahKelahiran }}</h2>
-          <h2 class="">Jumlah Kematian: {{ jumlahKematian }}</h2>
+          <h2>{{ judulFormatA }}</h2>
+          <h3 class="text-secondary mt-5">{{ namaPosyandu }} - {{ kota }}</h3>
+          <h4 class="mt-5">
+            <font>Jumlah Lahir: <font class="text-primary">{{ jumlahLahiran }}</font>
+            </font>
+            <font class="float-right">Jumlah Meninggal: <font class="text-error">{{ jumlahMeninggal }}</font>
+            </font>
+          </h4>
+        </VCardItem>
+      </VCard>
+      <VCard class="mt-5">
+        <VCardItem>
+          <VSelect v-model="tahun" :items="listTahunLahir" />
         </VCardItem>
       </VCard>
     </VCol>
-    <VCol md="3" sm="12">
-      <AnalyticsBarCharts title="Data"></AnalyticsBarCharts>
+    <VCol cols="12" md="4" sm="12">
+      <VCard>
+        <VCardItem>
+          <VueApexCharts class="float-center" type="pie" width="400" :options="chartOptions" :series="series" />
+        </VCardItem>
+      </VCard>
     </VCol>
-
     <VCol cols="12">
       <VCard title="Format 1">
         <!-- <VCardText> </VCardText> -->
         <VCardItem>
           <div class="d-flex justify-end">
-            <VBtn class="ml-4" href="/data/format-1-create"> Tambah </VBtn>
-            <VBtn class="ml-4" @click="exportExcel"> Export </VBtn>
-            <!-- @click="exportExcel" -->
-            <VBtn class="ml-4" href="/data/format-1-import"> Import </VBtn>
+            <VBtn class="ml-4" href="/data/format-1-create" prepend-icon="bx-plus"> Tambah </VBtn>
+            <VBtn class="ml-4" @click="exportExcel" prepend-icon="bx-download"> Download </VBtn>
           </div>
           <VTable>
             <thead>
               <tr>
-                <th class="text-uppercase">Nama Anak</th>
+                <th>No</th>
+                <th>Nama Anak</th>
+                <th>Tanggal Lahir</th>
                 <th>Nama Ayah</th>
                 <th>Nama Ibu</th>
                 <th style="width: 220px">Aksi</th>
@@ -37,7 +49,13 @@
             <tbody>
               <tr v-for="(item, index) in dataFormatA" :key="item.dessert">
                 <td>
+                  {{ index + 1 }}
+                </td>
+                <td>
                   {{ item.nama_bayi }}
+                </td>
+                <td>
+                  {{ item.tanggal_lahir }}
                 </td>
                 <td class="text-center">
                   {{ item.nama_ayah }}
@@ -46,11 +64,7 @@
                   {{ item.nama_ibu }}
                 </td>
                 <td class="text-center">
-                  <v-dialog
-                    v-model="dialog[item.id_format_a]"
-                    persistent
-                    width="1024"
-                  >
+                  <v-dialog v-model="dialog[item.id_format_a]" persistent width="1024">
                     <template v-slot:activator="{ props }">
                       <v-btn color="primary" v-bind="props">
                         <v-icon>mdi-edit</v-icon>
@@ -71,12 +85,8 @@
                                 </VCol>
 
                                 <VCol cols="12" md="9">
-                                  <VTextField
-                                    id="ayah"
-                                    v-model="item.nama_ayah"
-                                    placeholder="Masukkan Nama Ayah"
-                                    persistent-placeholder
-                                  />
+                                  <VTextField id="ayah" v-model="item.nama_ayah" placeholder="Masukkan Nama Ayah"
+                                    persistent-placeholder />
                                   <sup class="text-error">*Wajib diisi</sup>
                                 </VCol>
                               </VRow>
@@ -89,12 +99,8 @@
                                 </VCol>
 
                                 <VCol cols="12" md="9">
-                                  <VTextField
-                                    v-model="item.nama_ibu"
-                                    id="ibu"
-                                    placeholder="Masukkan Nama Ibu"
-                                    persistent-placeholder
-                                  />
+                                  <VTextField v-model="item.nama_ibu" id="ibu" placeholder="Masukkan Nama Ibu"
+                                    persistent-placeholder />
                                   <sup class="text-error">*Wajib diisi</sup>
                                 </VCol>
                               </VRow>
@@ -107,12 +113,8 @@
                                 </VCol>
 
                                 <VCol cols="12" md="9">
-                                  <VTextField
-                                    v-model="item.nama_bayi"
-                                    id="bayi"
-                                    placeholder="Masukkan Nama Bayi"
-                                    persistent-placeholder
-                                  />
+                                  <VTextField v-model="item.nama_bayi" id="bayi" placeholder="Masukkan Nama Bayi"
+                                    persistent-placeholder />
                                   <sup class="text-error">*Wajib diisi</sup>
                                 </VCol>
                               </VRow>
@@ -125,10 +127,7 @@
                                 </VCol>
 
                                 <VCol cols="12" md="9">
-                                  <VSelect
-                                    v-model="item.jenis_kelamin"
-                                    :items="['L', 'P']"
-                                  />
+                                  <VSelect v-model="item.jenis_kelamin" :items="['L', 'P']" />
                                   <sup class="text-error">*Wajib diisi</sup>
                                 </VCol>
                               </VRow>
@@ -137,17 +136,11 @@
                               <VRow no-gutters>
                                 <!-- 👉 First Name -->
                                 <VCol cols="12" md="3">
-                                  <label for="tanggal-lahir"
-                                    >Tanggal Lahir</label
-                                  >
+                                  <label for="tanggal-lahir">Tanggal Lahir</label>
                                 </VCol>
 
                                 <VCol cols="12" md="9">
-                                  <VTextField
-                                    placeholder=""
-                                    type="date"
-                                    v-model="item.tanggal_lahir"
-                                  />
+                                  <VTextField placeholder="" type="date" v-model="item.tanggal_lahir" />
                                   <sup class="text-error">*Wajib diisi</sup>
                                 </VCol>
                               </VRow>
@@ -156,17 +149,11 @@
                               <VRow no-gutters>
                                 <!-- 👉 First Name -->
                                 <VCol cols="12" md="3">
-                                  <label for="tanggal-meninggal-bayi"
-                                    >Tanggal Meninggal Bayi</label
-                                  >
+                                  <label for="tanggal-meninggal-bayi">Tanggal Meninggal Bayi</label>
                                 </VCol>
 
                                 <VCol cols="12" md="9">
-                                  <VTextField
-                                    placeholder=""
-                                    type="date"
-                                    v-model="item.tanggal_meninggal_bayi"
-                                  />
+                                  <VTextField placeholder="" type="date" v-model="item.tanggal_meninggal_bayi" />
                                 </VCol>
                               </VRow>
                             </VCol>
@@ -174,17 +161,11 @@
                               <VRow no-gutters>
                                 <!-- 👉 First Name -->
                                 <VCol cols="12" md="3">
-                                  <label for="tanggal-meninggal-ibu"
-                                    >Tanggal Meninggal Ibu</label
-                                  >
+                                  <label for="tanggal-meninggal-ibu">Tanggal Meninggal Ibu</label>
                                 </VCol>
 
                                 <VCol cols="12" md="9">
-                                  <VTextField
-                                    placeholder=""
-                                    type="date"
-                                    v-model="item.tanggal_meninggal_ibu"
-                                  />
+                                  <VTextField placeholder="" type="date" v-model="item.tanggal_meninggal_ibu" />
                                 </VCol>
                               </VRow>
                             </VCol>
@@ -196,11 +177,8 @@
                                 </VCol>
 
                                 <VCol cols="12" md="9">
-                                  <VTextField
-                                    v-model="item.keterangan"
-                                    placeholder="Masukkan Keterangan"
-                                    persistent-placeholder
-                                  />
+                                  <VTextField v-model="item.keterangan" placeholder="Masukkan Keterangan"
+                                    persistent-placeholder />
                                 </VCol>
                               </VRow>
                             </VCol>
@@ -209,32 +187,20 @@
                       </v-card-text>
                       <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn
-                          color="blue-darken-1"
-                          variant="text"
-                          @click="dialog[item.id_format_a] = false"
-                        >
+                        <v-btn color="blue-darken-1" variant="text" @click="dialog[item.id_format_a] = false">
                           Close
                         </v-btn>
-                        <v-btn
-                          color="blue-darken-1"
-                          variant="text"
-                          @click="
-                            putData(index);
-                            dialog[item.id_format_a] = false;
-                          "
-                        >
+                        <v-btn color="blue-darken-1" variant="text" @click="
+                          putData(index);
+                        dialog[item.id_format_a] = false;
+                        ">
                           Save
                         </v-btn>
                       </v-card-actions>
                     </v-card>
                   </v-dialog>
                   <!-- <VBtn> </VBtn> -->
-                  <VBtn
-                    class="ml-2"
-                    color="error"
-                    @click="deleteData(item.id_format_a)"
-                  >
+                  <VBtn class="ml-2" color="error" @click="deleteData(item.id_format_a)">
                     <v-icon>mdi-delete</v-icon>
                   </VBtn>
                 </td>
@@ -247,14 +213,10 @@
   </VRow>
   <VRow>
     <VCol>
-      <div class="text-center my-3 float-right">
-        <v-pagination
-          v-model="page"
-          :length="banyakPage"
-          :total-visible="4"
-          @click="fetchData"
-        ></v-pagination>
-      </div>
+      <font>Jumlah data: <font class="text-primary">{{ jumlahData }}</font>
+      </font>
+      <v-pagination class=" float-right" v-model="page" :length="banyakPage" :total-visible="4"
+        @click="fetchData"></v-pagination>
     </VCol>
   </VRow>
 </template>
@@ -266,6 +228,7 @@ import AnalyticsBarCharts from "@/views/dashboard/AnalyticsBarCharts.vue";
 import config from "@/@core/config.vue";
 import { ref } from "vue";
 import Swal from "sweetalert2";
+import VueApexCharts from "vue3-apexcharts";
 
 export default {
   data() {
@@ -273,19 +236,52 @@ export default {
     return {
       dialog: ref([]),
       urlServer: config.urlServer,
-      refInput: ref(),
       page: 1,
       banyakPage: 5,
       dataFormatA: [],
       judulFormatA: "",
       namaPosyandu: "",
       kota: "",
-      jumlahKelahiran: "gg",
-      jumlahKematian: "",
+      jumlahData: 0,
+      jumlahLahiran: "",
+      jumlahMeninggal: "",
       tahun: d.getFullYear(),
+      listTahunLahir: [d.getFullYear()],
+      series: [10, 10, 10],
+      chartOptions: {
+        chart: {
+          width: 380,
+          type: 'pie',
+        },
+        legend: {
+          formatter: function (val, opts) {
+            return val + " - " + opts.w.globals.series[opts.seriesIndex]
+          }
+        },
+        colors: ['rgba(var(--v-theme-primary), 1)', 'rgba(var(--v-theme-warning), 1)', 'rgba(var(--v-theme-error), 1)'],
+        labels: ['Bayi Lahir', 'Bayi Meninggal', 'Ibu Meninggal'],
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }]
+      },
     };
   },
 
+  watch: {
+    // Properti tahun akan dipantau
+    tahun: function (newTahun, oldTahun) {
+      // Ketika tahun berubah, panggil fungsi fetchData
+      this.fetchData();
+    }
+  },
   methods: {
     async exportExcel() {
       const response = await axios({
@@ -297,10 +293,8 @@ export default {
         },
       });
 
-      // Get the namaFile from the Content-Disposition header
       const namaFile = "Format-1.xlsx";
 
-      console.log(response);
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
@@ -308,6 +302,7 @@ export default {
       document.body.appendChild(link);
       link.click();
     },
+
     async putData(indexFormatA) {
       try {
         const data = {
@@ -353,7 +348,7 @@ export default {
     },
     async fetchData() {
       const response = await axios.get(
-        `${config.urlServer}/api/format-a?length=20&start=${this.page}`,
+        `${config.urlServer}/api/format-a?length=20&start=${this.page}&tahun=${this.tahun}`,
         {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
@@ -361,13 +356,15 @@ export default {
         }
       );
       this.dataFormatA = response.data.format_a;
-      this.banyakPage = Math.ceil(response.data.jumlah_data / 20);
-      this.judulFormatA = response.data.judul_format;
-      this.namaPosyandu = response.data.nama_posyandu;
-      this.kota = response.data.kota;
-      this.jumlahKelahiran = response.data.jumlah_kelahiran;
-      this.jumlahKematian = response.data.jumlah_kematian;
-      console.log(this.jumlahKematian);
+      this.jumlahLahiran = response.data.jumlah_lahir;
+      this.jumlahMeninggal = response.data.jumlah_meninggal;
+      this.series = [
+        response.data.jumlah_lahir,
+        response.data.jumlah_bayi_meninggal,
+        response.data.jumlah_ibu_meninggal,
+      ];
+      this.jumlahData = response.data.jumlah_data;
+      return response;
     },
     async deleteData(id_format_a) {
       const ask = await Swal.fire({
@@ -406,9 +403,15 @@ export default {
   },
   components: {
     AnalyticsBarCharts,
+    VueApexCharts,
   },
-  mounted() {
-    this.fetchData();
+  async mounted() {
+    const response = await this.fetchData();
+    this.banyakPage = Math.ceil(response.data.jumlah_data / 20);
+    this.judulFormatA = response.data.judul_format;
+    this.namaPosyandu = response.data.nama_posyandu;
+    this.kota = response.data.kota;
+    this.listTahunLahir = response.data.list_tahun_lahir;
   },
 };
 </script>

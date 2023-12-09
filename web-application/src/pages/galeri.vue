@@ -136,9 +136,8 @@ export default {
   <VRow>
     <VCol>
       <div class="d-flex flex-wrap gap-2 float-right">
-        <VBtn id="gambar" color="primary" @click="inputGambar">
-          <VIcon icon="bx-cloud-upload" class="d-sm-none" />
-          <span class="d-none d-sm-block">Upload new photo</span>
+        <VBtn id="gambar" color="primary" prepend-icon="bx-cloud-upload" @click="inputGambar">
+          <span class="d-none d-sm-block">Tambah Gambar</span>
         </VBtn>
 
         <input id="inputGambar" ref="refInputEl" type="file" name="file" accept=".jpeg,.png,.jpg" hidden

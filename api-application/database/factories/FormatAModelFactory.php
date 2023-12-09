@@ -21,15 +21,15 @@ class FormatAModelFactory extends Factory
         $orangTua = OrangTuaModel::create([
             "nama_ayah" => $this->faker->name,
             "nama_ibu" => $this->faker->name,
-            "tanggal_meninggal_ibu" => [true, false][rand(0, 1)] ? $this->faker->date : null,
+            "tanggal_meninggal_ibu" => [true, false, false, false, false, false][rand(0, 5)] ? ['2021', '2022', '2023'][rand(0, 2)] . $this->faker->date('-m-d') : null,
         ]);
 
         $bayi = BayiModel::create([
             "id_orang_tua" => $orangTua->id,
             "nama" => $this->faker->name,
             "jenis_kelamin" => ['L', 'P'][rand(0, 1)],
-            "tanggal_lahir" => $this->faker->date,
-            "tanggal_meninggal" => [true, false][rand(0, 1)] ? $this->faker->date : null,
+            "tanggal_lahir" => ['2021', '2022', '2023'][rand(0, 2)] . $this->faker->date('-m-d'),
+            "tanggal_meninggal" => [true, false, false, false, false, false][rand(0, 5)] ? ['2021', '2022', '2023'][rand(0, 2)] . $this->faker->date('-m-d') : null,
         ]);
 
         return [

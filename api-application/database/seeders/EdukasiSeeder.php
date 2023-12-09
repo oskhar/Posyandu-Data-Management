@@ -14,7 +14,7 @@ class EdukasiSeeder extends Seeder
     public function run(): void
     {
         //
-        // EdukasiModel::factory(57977)->create();
+        EdukasiModel::factory(30)->create();
         // while (true) {
         //     EdukasiModel::create([
         //         'id_admin' => 1,

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Exports\FormatAExport;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Http\Response;
 
 class ExportController extends Controller
 {
@@ -25,7 +25,7 @@ class ExportController extends Controller
          */
         $this->currentTime = $now->format('Y-m-d.H:i:s');
     }
-    public function exportFormatAExcel()
+    public function exportFormatAExcel(Request $request)
     {
 
         /**
@@ -38,6 +38,6 @@ class ExportController extends Controller
          * Menggunakan Excel::download untuk menghasilkan response
          * 
          */
-        return Excel::download(new FormatAExport, $namaFileExcel);
+        return Excel::download(new FormatAExport($request->tahun_dipilih), $namaFileExcel);
     }
 }
