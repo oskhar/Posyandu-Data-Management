@@ -14,10 +14,10 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class FormatAExport implements FromCollection, WithHeadings, WithEvents, WithCustomStartCell, WithStyles
 {
-    protected $tahunDipilih;
-    public function __construct($tahunDipilih = null)
+    protected $tahun;
+    public function __construct($tahun = null)
     {
-        $this->tahunDipilih = $tahunDipilih;
+        $this->tahun = $tahun;
     }
     public function headings(): array
     {
@@ -66,8 +66,8 @@ class FormatAExport implements FromCollection, WithHeadings, WithEvents, WithCus
          * data berdasarkan tahun
          * 
          */
-        if (!empty($this->tahunDipilih)) {
-            $query = $query->whereYear('bayi.tanggal_lahir', '=', $this->tahunDipilih);
+        if (!empty($this->tahun)) {
+            $query = $query->whereYear('bayi.tanggal_lahir', '=', $this->tahun);
         }
 
         /**

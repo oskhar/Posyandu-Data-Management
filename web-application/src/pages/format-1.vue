@@ -2,13 +2,15 @@
   <VRow>
     <VCol cols="12" md="8" sm="12">
       <VCard>
-        <VCardItem style="min-height: 170px">
+        <VProgressCircular v-if="isLoading" indeterminate color="primary" class="mt-5 float-center" size="50">
+        </VProgressCircular>
+        <VCardItem v-else style="min-height: 170px">
           <h2>{{ judulFormatA }}</h2>
           <h3 class="text-secondary mt-5">{{ namaPosyandu }} - {{ kota }}</h3>
           <h4 class="mt-5">
-            <font>Jumlah Lahir: <font class="text-primary">{{ jumlahLahiran }}</font>
+            <font>Lahir: <font class="text-primary">{{ jumlahLahiran }}</font>
             </font>
-            <font class="float-right">Jumlah Meninggal: <font class="text-error">{{ jumlahMeninggal }}</font>
+            <font class="float-right">Meninggal: <font class="text-error">{{ jumlahMeninggal }}</font>
             </font>
           </h4>
         </VCardItem>
@@ -22,7 +24,9 @@
     <VCol cols="12" md="4" sm="12">
       <VCard>
         <VCardItem>
-          <VueApexCharts class="float-center" type="pie" width="400" :options="chartOptions" :series="series" />
+          <VProgressCircular v-if="isLoading" indeterminate color="primary" class="mt-5 float-center" size="50">
+          </VProgressCircular>
+          <VueApexCharts v-else class="float-center" width="400" :options="chartOptions" :series="series" />
         </VCardItem>
       </VCard>
     </VCol>
@@ -47,7 +51,11 @@
             </thead>
 
             <tbody>
-              <tr v-for="(item, index) in dataFormatA" :key="item.dessert">
+
+              <VProgressCircular v-if="isLoading" indeterminate color="primary" class="mt-5 float-center" size="50">
+              </VProgressCircular>
+
+              <tr v-else v-for="(item, index) in dataFormatA" :key="item.dessert">
                 <td>
                   {{ index + 1 }}
                 </td>
@@ -247,37 +255,109 @@ export default {
       jumlahMeninggal: "",
       tahun: d.getFullYear(),
       listTahunLahir: [d.getFullYear()],
-      series: [10, 10, 10],
+      isLoading: false,
+      // series: [10, 10, 10],
+      // chartOptions: {
+      //   chart: {
+      //     width: 380,
+      //     type: 'pie',
+      //   },
+      //   legend: {
+      //     formatter: function (val, opts) {
+      //       return val + " - " + opts.w.globals.series[opts.seriesIndex]
+      //     }
+      //   },
+      //   colors: ['rgba(var(--v-theme-primary), 1)', 'rgba(var(--v-theme-warning), 1)', 'rgba(var(--v-theme-error), 1)'],
+      //   labels: ['Bayi Lahir', 'Bayi Meninggal', 'Ibu Meninggal'],
+      //   responsive: [{
+      //     breakpoint: 480,
+      //     options: {
+      //       chart: {
+      //         width: 200
+      //       },
+      //       legend: {
+      //         position: 'bottom'
+      //       }
+      //     }
+      //   }]
+      // },
+      series: [{
+        data: [0, 0, 0]
+      }],
       chartOptions: {
         chart: {
-          width: 380,
-          type: 'pie',
+          type: 'bar',
+          height: 380
         },
-        legend: {
-          formatter: function (val, opts) {
-            return val + " - " + opts.w.globals.series[opts.seriesIndex]
+        plotOptions: {
+          bar: {
+            barHeight: '100%',
+            distributed: true,
+            horizontal: true,
+            dataLabels: {
+              position: 'bottom'
+            },
           }
         },
-        colors: ['rgba(var(--v-theme-primary), 1)', 'rgba(var(--v-theme-warning), 1)', 'rgba(var(--v-theme-error), 1)'],
-        labels: ['Bayi Lahir', 'Bayi Meninggal', 'Ibu Meninggal'],
-        responsive: [{
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200
-            },
-            legend: {
-              position: 'bottom'
+        colors: ['rgba(var(--v-theme-primary), 1)', 'rgba(var(--v-theme-warning), 1)', 'rgba(var(--v-theme-error), 1)'
+        ],
+        dataLabels: {
+          enabled: true,
+          textAnchor: 'start',
+          style: {
+            colors: ['#fff']
+          },
+          formatter: function (val, opt) {
+            return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val
+          },
+          offsetX: 0,
+          dropShadow: {
+            enabled: true
+          }
+        },
+        stroke: {
+          width: 1,
+          colors: ['#fff']
+        },
+        xaxis: {
+          categories: [
+            'Bayi Lahir', 'Bayi Meninggal', 'Ibu Meninggal'
+          ],
+        },
+        yaxis: {
+          labels: {
+            show: false
+          }
+        },
+        title: {
+          text: 'Custom DataLabels',
+          align: 'center',
+          floating: true
+        },
+        subtitle: {
+          text: 'Category Names as DataLabels inside bars',
+          align: 'center',
+        },
+        tooltip: {
+          theme: 'dark',
+          x: {
+            show: false
+          },
+          y: {
+            title: {
+              formatter: function () {
+                return ''
+              }
             }
           }
-        }]
+        }
       },
     };
   },
 
   watch: {
     // Properti tahun akan dipantau
-    tahun: function (newTahun, oldTahun) {
+    tahun: function () {
       // Ketika tahun berubah, panggil fungsi fetchData
       this.fetchData();
     }
@@ -286,14 +366,25 @@ export default {
     async exportExcel() {
       const response = await axios({
         method: "get",
-        url: `${this.urlServer}/api/export/format-a`,
+        url: `${this.urlServer}/api/export/format-a?tahun=${this.tahun}`,
         responseType: "blob",
         headers: {
           Authorization: localStorage.getItem("tokenAuth"),
         },
       });
 
-      const namaFile = "Format-1.xlsx";
+      // Membuat objek Date yang merepresentasikan waktu saat ini
+      const currentDate = new Date();
+
+      // Mendapatkan tahun, bulan, tanggal, jam, menit, dan detik
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth() + 1; // Perlu ditambah 1 karena indeks bulan dimulai dari 0
+      const day = currentDate.getDate();
+      const hours = currentDate.getHours();
+      const minutes = currentDate.getMinutes();
+      const seconds = currentDate.getSeconds();
+      const currentDateTime = `_${year}-${month}-${day}_${hours}:${minutes}:${seconds}`;
+      const namaFile = `Format-1${currentDateTime}.xlsx`;
 
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
@@ -347,6 +438,7 @@ export default {
       }
     },
     async fetchData() {
+      this.isLoading = true;
       const response = await axios.get(
         `${config.urlServer}/api/format-a?length=20&start=${this.page}&tahun=${this.tahun}`,
         {
@@ -355,16 +447,27 @@ export default {
           },
         }
       );
+
+      this.isLoading = false;
+
       this.dataFormatA = response.data.format_a;
       this.jumlahLahiran = response.data.jumlah_lahir;
       this.jumlahMeninggal = response.data.jumlah_meninggal;
-      this.series = [
-        response.data.jumlah_lahir,
-        response.data.jumlah_bayi_meninggal,
-        response.data.jumlah_ibu_meninggal,
-      ];
+      // this.series = [
+      //   response.data.jumlah_lahir,
+      //   response.data.jumlah_bayi_meninggal,
+      //   response.data.jumlah_ibu_meninggal,
+      // ];
+      this.series = [{
+        data: [
+          response.data.jumlah_lahir,
+          response.data.jumlah_bayi_meninggal,
+          response.data.jumlah_ibu_meninggal,
+        ]
+      }]
       this.jumlahData = response.data.jumlah_data;
       return response;
+
     },
     async deleteData(id_format_a) {
       const ask = await Swal.fire({

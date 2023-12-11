@@ -38,6 +38,6 @@ class ExportController extends Controller
          * Menggunakan Excel::download untuk menghasilkan response
          * 
          */
-        return Excel::download(new FormatAExport($request->tahun_dipilih), $namaFileExcel);
+        return Excel::download(new FormatAExport($request->tahun), $namaFileExcel);
     }
 }
