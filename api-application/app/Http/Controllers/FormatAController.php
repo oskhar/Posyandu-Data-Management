@@ -14,7 +14,7 @@ use Illuminate\Support\Carbon;
 
 class FormatAController extends Controller
 {
-    protected $judulFormat = 'Catatan ibu hamil, kelahiran, kematian bayi dan kematian ibu hamil, melahirkan / nifas januari - desember';
+    protected $judulFormat = 'Catatan ibu hamil, kelahiran, kematian bayi dan kematian ibu hamil, melahirkan atau nifas Januari - Desember';
     public function get(FormatARequest $request): JsonResponse
     {
         /**

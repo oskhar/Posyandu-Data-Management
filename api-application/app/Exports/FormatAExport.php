@@ -92,7 +92,7 @@ class FormatAExport implements FromCollection, WithHeadings, WithEvents, WithCus
                 $event->sheet->getDelegate()->mergeCells('A1:H3');
 
                 // Menambahkan judul ke tengah-tengah sel yang digabungkan
-                $event->sheet->setCellValue('A1', 'Catatan ibu hamil, kelahiran, kematian bayi' . chr(10) . 'dan kematian ibu hamil, melahirkan / nifas' . chr(10) . 'Januari - Desember tahun');
+                $event->sheet->setCellValue('A1', 'Catatan ibu hamil, kelahiran, kematian bayi' . chr(10) . 'dan kematian ibu hamil, melahirkan atau nifas' . chr(10) . 'Januari - Desember');
                 $event->sheet->getStyle('A1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
             },
         ];

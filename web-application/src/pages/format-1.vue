@@ -74,7 +74,7 @@
                 <td class="text-center">
                   <v-dialog v-model="dialog[item.id_format_a]" persistent width="1024">
                     <template v-slot:activator="{ props }">
-                      <v-btn color="primary" v-bind="props">
+                      <v-btn color="primary" class="ml-2" v-bind="props">
                         <v-icon>mdi-edit</v-icon>
                       </v-btn>
                     </template>
