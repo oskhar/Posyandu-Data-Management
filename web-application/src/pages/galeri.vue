@@ -30,7 +30,7 @@ export default {
         `${this.urlServer}/api/gambar?start=${this.page}&length=${banyakDataTampil}`
       );
       this.dataGambar = response.data.gambar.map((item) => {
-        item.gambar = ref(this.urlServer + item.gambar);
+        item.gambar = ref(config.imagePath + item.gambar);
         item.refInput = ref();
         item.nama_lengkap = ref(item.nama_lengkap);
         return item;

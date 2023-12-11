@@ -177,7 +177,7 @@ export default {
         item.id_edukasi = ref(item.id_edukasi);
         item.judul = ref(item.judul);
         item.materi = ref(item.materi);
-        item.gambar = ref(this.urlServer + item.gambar);
+        item.gambar = ref(config.imagePath + item.gambar);
         item.refInput = ref();
         return item;
       });

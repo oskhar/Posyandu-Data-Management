@@ -19,6 +19,8 @@ tags:
     description: Untuk mengola data admin
   - name: Data Format 1
     description: Untuk mengola data Format 1
+  - name: Data Format 2 A
+    description: Untuk mengola data Format 2 A
 paths:
   /login:
     post:
@@ -1457,6 +1459,288 @@ paths:
       summary: MENGHAPUS data format-a
       requestBody:
         description: Data Format 1 untuk menghapus data format-a
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_format_a:
+                  type: integer
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                success:
+                  message: "Data ... berhasil dihapus"
+        404:
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data dengan id ... tidak ditemukan"
+
+  # ==================================================================
+
+  /format-ba:
+    get:
+      tags:
+        - Data Format 2 A
+      summary: MENDAPATKAN data format-ba
+      requestBody:
+        description: Data Format 2 A untuk menghapus data format-ba
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_format_a:
+                  type: integer
+                search:
+                  type: string
+                start:
+                  type: integer
+                length:
+                  type: integer
+
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  nama_posyandu:
+                    type: string
+                  kota:
+                    type: string
+                  judul_format:
+                    type: string
+                  jumlah_lahir:
+                    type: integer
+                  jumlah_meninggal:
+                    type: integer
+                  jumlah_bayi_meninggal:
+                    type: integer
+                  jumlah_ibu_meninggal:
+                    type: integer
+                  jumlah_data:
+                    type: integer
+                  format_a:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id_format_a:
+                          type: integer
+                        nama_ayah:
+                          type: string
+                        nama_ibu:
+                          type: string
+                        nama_bayi:
+                          type: string
+                        jenis_kelamin:
+                          type: string
+                        tanggal_lahir:
+                          type: string
+                        tanggal_meninggal_bayi:
+                          type: string
+                        tanggal_meninggal_ibu:
+                          type: string
+                        keterangan:
+                          type: string
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+        404:
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data dengan id ... tidak ditemukan"
+    post:
+      tags:
+        - Data Format 2 A
+      summary: MENAMBAHKAN data format-ba
+      requestBody:
+        description: Data Format 2 A untuk menambahkan data format-ba
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nama_ayah:
+                  type: string
+                nama_ibu:
+                  type: string
+                nama_bayi:
+                  type: string
+                jenis_kelamin:
+                  type: string
+                tanggal_lahir:
+                  type: string
+                tanggal_meninggal_bayi:
+                  type: string
+                tanggal_meninggal_ibu:
+                  type: string
+                keterangan:
+                  type: string
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                success:
+                  message: "Data ... berhasil ditambahkan"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+    put:
+      tags:
+        - Data Format 2 A
+      summary: MENGUBAH data format-ba
+      requestBody:
+        description: Data Format 2 A untuk mengubah data format-ba
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_format_a:
+                  type: integer
+                nama_ayah:
+                  type: string
+                nama_ibu:
+                  type: string
+                nama_bayi:
+                  type: string
+                jenis_kelamin:
+                  type: string
+                tanggal_lahir:
+                  type: string
+                tanggal_meninggal_bayi:
+                  type: string
+                tanggal_meninggal_ibu:
+                  type: string
+                keterangan:
+                  type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                success:
+                  message: "Data ... berhasil diubah"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+        404:
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data dengan id ... tidak ditemukan"
+    delete:
+      tags:
+        - Data Format 2 A
+      summary: MENGHAPUS data format-ba
+      requestBody:
+        description: Data Format 2 A untuk menghapus data format-ba
         required: true
         content:
           application/json:

@@ -180,7 +180,7 @@ export default {
         item.judul = ref(item.judul);
         item.tanggal_pelaksanaan = ref(item.tanggal_pelaksanaan);
         item.deskripsi = ref(item.deskripsi);
-        item.gambar = ref(this.urlServer + item.gambar);
+        item.gambar = ref(config.imagePath + item.gambar);
         item.refInput = ref();
         return item;
       });

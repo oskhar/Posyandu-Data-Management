@@ -21,7 +21,10 @@ class FormatAExport implements FromCollection, WithHeadings, WithEvents, WithCus
     }
     public function headings(): array
     {
-        // Menyusun baris judul Anda
+        /**
+         * Menyusun baris judul Anda
+         * 
+         */
         return [
             'Nama Ayah',
             'Nama Ibu',
@@ -39,8 +42,12 @@ class FormatAExport implements FromCollection, WithHeadings, WithEvents, WithCus
      */
     public function collection()
     {
-        //
-        return FormatAModel::select(
+        /**
+         * Membuat query dasar yang akan
+         * dijadikan query utama
+         * 
+         */
+        $query = FormatAModel::select(
             'orang_tua.nama_ayah',
             'orang_tua.nama_ibu',
             'bayi.nama as nama_bayi',
@@ -52,9 +59,29 @@ class FormatAExport implements FromCollection, WithHeadings, WithEvents, WithCus
         )
             ->join('bayi', 'bayi.id', 'format_a.id_bayi')
             ->join('orang_tua', 'orang_tua.id', 'bayi.id_orang_tua')
-            ->orderByDesc('format_a.created_at')
-            ->whereYear('bayi.tanggal_lahir', '=', $this->tahunDipilih ?? now()->year)
-            ->get();
+            ->orderByDesc('format_a.created_at');
+
+        /**
+         * Memeriksa apakah user meminta
+         * data berdasarkan tahun
+         * 
+         */
+        if (!empty($this->tahunDipilih)) {
+            $query = $query->whereYear('bayi.tanggal_lahir', '=', $this->tahunDipilih);
+        }
+
+        /**
+         * Mengambil data dari query
+         * 
+         */
+        $formatA = $query->get();
+
+        /**
+         * Mengembalikan data format a untuk
+         * dicetak sebagai file excel
+         * 
+         */
+        return $formatA;
     }
 
     public function registerEvents(): array
@@ -73,7 +100,11 @@ class FormatAExport implements FromCollection, WithHeadings, WithEvents, WithCus
 
     public function styles(Worksheet $sheet)
     {
-        // Mengatur "wrap text" atau "teks berjalan otomatis" untuk kolom yang membutuhkan
+        /**
+         * Mengatur "wrap text" atau "teks berjalan
+         * otomatis" untuk kolom yang membutuhkan
+         * 
+         */
         $sheet->getStyle(1)->getAlignment()->setWrapText(true);
         $sheet->getColumnDimension('A')->setWidth(26);
         $sheet->getColumnDimension('B')->setWidth(26);
