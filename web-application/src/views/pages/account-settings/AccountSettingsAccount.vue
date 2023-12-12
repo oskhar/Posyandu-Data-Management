@@ -2,68 +2,63 @@
 import axios from "axios";
 import config from "@/@core/config.vue";
 import avatar1 from "@images/avatars/avatar-1.png";
-import Swal from "sweetalert2";
+import { onMounted } from "vue";
 
 export default {
-  setup() {
-    const myAcc = [];
-    const urlServer = config.urlServer;
-    const data = ref([]);
-
-    const accountData = {
-      avatarImg: avatar1,
-      firstName: "jo",
-      email: "posyandu@gmail.com",
-      org: "ThemeSelection",
-      phone: "857 9876 4532",
-      address: "Jln. Mangga No.20 RT.02/12 ",
-      tanggalLahir: "2024-12-12",
-      zip: "10001",
-      country: "PELINDUNG",
-      kelamin: "Laki-laki",
-      timezone: "(GMT-11:00) International Date Line West",
-      currency: "USD",
-    };
-
-    const refInputEl = ref();
-    const accountDataLocal = ref(structuredClone(accountData));
-
-    const resetForm = () => {
-      accountDataLocal.value = structuredClone(accountData);
-    };
-
-    const changeAvatar = (file) => {
-      const fileReader = new FileReader();
-      const { files } = file.target;
-      if (files && files.length) {
-        fileReader.readAsDataURL(files[0]);
-        fileReader.onload = () => {
-          if (typeof fileReader.result === "string")
-            accountDataLocal.value.avatarImg = fileReader.result;
-        };
-      }
-    };
-
-    // reset avatar image
-    const resetAvatar = () => {
-      accountDataLocal.value.avatarImg = accountData.avatarImg;
-    };
-
-    // onMounted(async () => {
-    //   const response = await axios.get(`${urlServer}/api/admin`);
-    //   myAcc = response.data;
-    // });
+  data() {
     return {
-      urlServer,
-      avatar1,
-      data,
-      accountData,
-      accountDataLocal,
-      refInputEl,
-      resetForm,
-      changeAvatar,
-      resetAvatar,
+      refInputEl: ref(),
+      urlServer: config.urlServer,
+      accountData: {
+        avatarImg: avatar1,
+        firstName: "jo",
+        email: "posyandu@gmail.com",
+        org: "ThemeSelection",
+        phone: "857 9876 4532",
+        address: "Jln. Mangga No.20 RT.02/12 ",
+        tanggalLahir: "2024-12-12",
+        zip: "10001",
+        country: "PELINDUNG",
+        kelamin: "Laki-laki",
+        timezone: "(GMT-11:00) International Date Line West",
+        currency: "USD",
+      },
+      refInputEl: ref(),
     };
+  },
+  components: {},
+  mounted() {
+    console.log(this.accountData);
+  },
+  methods: {
+    uploadGambar() {
+      document.querySelector("#gambar").click();
+    },
+    resetForm() {
+      this.accountDataLocal.value = structuredClone(this.accountData);
+    },
+    resetAvatar() {
+      this.accountDataLocal.value.avatarImg = this.accountData.avatarImg;
+    },
+    async changeAvatar(file) {
+      const files = file.target.files[0];
+      if (files) {
+        const fileReader = new FileReader();
+        // Validasi tipe file sebelum menampilkan gambarnya
+        if (
+          files.type === "image/jpeg" ||
+          files.type === "image/png" ||
+          files.type === "image/jpg"
+        ) {
+          fileReader.readAsDataURL(files);
+          fileReader.onload = async () => {
+            if (typeof fileReader.result === "string")
+              this.accountData.avatarImg = fileReader.result;
+            const response = await axios.put();
+          };
+        }
+      }
+    },
   },
 };
 </script>
@@ -78,38 +73,29 @@ export default {
             rounded="lg"
             size="100"
             class="me-6"
-            :image="accountDataLocal.avatarImg"
+            :image="accountData.avatarImg"
           />
 
           <!-- 👉 Upload Photo -->
           <form class="d-flex flex-column justify-center gap-5">
             <div class="d-flex flex-wrap gap-2">
-              <VBtn color="primary" @click="refInputEl?.click()">
+              <VBtn color="primary" @click="uploadGambar">
                 <VIcon icon="bx-cloud-upload" class="d-sm-none" />
                 <span class="d-none d-sm-block">Unggah foto baru</span>
               </VBtn>
 
               <input
+                id="gambar"
                 ref="refInputEl"
                 type="file"
                 name="file"
                 accept=".jpeg,.png,.jpg,GIF"
                 hidden
-                @input="changeAvatar"
+                @input="changeAvatar($event)"
               />
-
-              <VBtn
-                type="reset"
-                color="error"
-                variant="tonal"
-                @click="resetAvatar"
-              >
-                <span class="d-none d-sm-block">Reset</span>
-                <VIcon icon="bx-refresh" class="d-sm-none" />
-              </VBtn>
             </div>
 
-            <p class="text-body-1 mb-0">Diperbolehkan JPG, GIF or PNG.</p>
+            <p class="text-body-1 mb-0">Diperbolehkan JPG atau PNG.</p>
           </form>
         </VCardText>
 
@@ -122,7 +108,7 @@ export default {
               <!-- 👉 First Name -->
               <VCol md="6" cols="12">
                 <VTextField
-                  v-model="accountDataLocal.firstName"
+                  v-model="accountData.firstName"
                   label="Nama Lengkap"
                 />
               </VCol>
@@ -130,7 +116,7 @@ export default {
               <!-- 👉 Email -->
               <VCol cols="12" md="6">
                 <VTextField
-                  v-model="accountDataLocal.email"
+                  v-model="accountData.email"
                   label="E-mail"
                   type="email"
                 />
@@ -139,7 +125,7 @@ export default {
               <!-- 👉 Phone -->
               <VCol cols="12" md="6">
                 <VTextField
-                  v-model="accountDataLocal.phone"
+                  v-model="accountData.phone"
                   label="Nomor Telepon"
                   placeholder="858 8888 5555"
                   prefix="+62"
@@ -149,7 +135,7 @@ export default {
               <!-- 👉 Address -->
               <VCol cols="12" md="6">
                 <VTextField
-                  v-model="accountDataLocal.address"
+                  v-model="accountData.address"
                   label="Alamat"
                   placeholder="123 Main St, New York, NY 10001"
                 />
@@ -158,7 +144,7 @@ export default {
               <!-- 👉 tanggalLahir -->
               <VCol cols="12" md="6">
                 <VTextField
-                  v-model="accountDataLocal.tanggalLahir"
+                  v-model="accountData.tanggalLahir"
                   label="Tanggal Lahir"
                   placeholder=""
                   type="date"
@@ -166,7 +152,7 @@ export default {
               </VCol>
               <VCol cols="12" md="6">
                 <VSelect
-                  v-model="accountDataLocal.country"
+                  v-model="accountData.country"
                   label="Jabatan"
                   :items="[
                     'PELINDUNG',
@@ -185,7 +171,7 @@ export default {
               <!-- 👉 kelamin -->
               <VCol cols="12" md="6">
                 <VSelect
-                  v-model="accountDataLocal.kelamin"
+                  v-model="accountData.kelamin"
                   label="Kelamin"
                   placeholder="Laki-laki"
                   :items="['Laki-laki', 'Perempuan']"
@@ -195,15 +181,6 @@ export default {
               <!-- 👉 Form Actions -->
               <VCol cols="12" class="d-flex flex-wrap gap-4">
                 <VBtn>Simpan Perubahan</VBtn>
-
-                <VBtn
-                  color="secondary"
-                  variant="tonal"
-                  type="reset"
-                  @click.prevent="resetForm"
-                >
-                  Reset
-                </VBtn>
               </VCol>
             </VRow>
           </VForm>

@@ -20,9 +20,9 @@
                       placeholder="Masukkan Judul"
                       persistent-placeholder
                     />
-                    <sup class="text-error">*harus unik</sup>
+                    <sup class="text-error">*wajib diisi</sup>
                     <br />
-                    <sup class="text-error">*tidak boleh kosong</sup>
+                    <sup class="text-error">*harus unik</sup>
                   </VCol>
                 </VRow>
               </VCol>
@@ -98,9 +98,15 @@
 
               <!-- 👉 submit and reset button -->
               <VCol offset-md="3" cols="12" md="9" class="d-flex gap-4">
-                <VBtn type="submit"> Submit </VBtn>
-                <VBtn color="secondary" variant="tonal" type="reset">
-                  Reset
+                <VBtn type="submit" :disabled="isLoading"
+                  ><VProgressCircular
+                    v-if="isLoading"
+                    indeterminate
+                    color="white"
+                  >
+                  </VProgressCircular>
+
+                  <span v-else>Submit</span>
                 </VBtn>
               </VCol>
             </VRow>
@@ -118,6 +124,7 @@ import Swal from "sweetalert2";
 
 export default {
   setup() {
+    let isLoading = ref(false);
     const judul = ref("");
 
     const materi = ref("");
@@ -160,6 +167,7 @@ export default {
     const submitData = async (formData) => {
       try {
         formData.preventDefault();
+        isLoading.value = true;
 
         const data = new FormData();
         data.append("id_admin", localStorage.getItem("id_admin"));
@@ -194,6 +202,7 @@ export default {
       } catch (error) {
         console.log(error);
       }
+      isLoading.value = false;
     };
     return {
       refInputEl,
@@ -204,6 +213,7 @@ export default {
       resetAvatar,
       changeAvatar,
       submitData,
+      isLoading,
     };
   },
 };
