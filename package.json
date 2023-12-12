@@ -1,0 +1,14 @@
+{
+  "name": "softwareengineering-studentproject",
+  "version": "1.0.0",
+  "description": "- Software Requirement Specification [download.](/docs/architecture/system/SRS.pdf)\r - Rincian mengenai rancangan basis data click [di sini.](/docs/architecture/database/README.md)",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

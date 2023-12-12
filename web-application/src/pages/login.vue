@@ -86,6 +86,10 @@ const isPasswordVisible = ref(false);
                 </VProgressCircular> -->
                 Login
               </VBtn>
+
+              <router-link to="./">
+                <VBtn block type="submit" class="mt-5"> Back </VBtn>
+              </router-link>
             </VCol>
 
             <!-- create account -->
