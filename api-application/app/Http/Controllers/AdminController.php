@@ -28,7 +28,7 @@ class AdminController extends Controller
          * tumpuan dalam pengambilan data
          * 
          */
-        $admin = AdminModel::select(
+        $query = AdminModel::select(
             'id as id_admin',
             'nama_lengkap',
             'email_admin',
@@ -41,6 +41,28 @@ class AdminController extends Controller
             'email_verified_at'
         );
 
+        if (!empty($data['id_admin'])) {
+
+            /**
+             * Mengambil data dari query
+             * 
+             */
+            $admin = $query
+                ->where('id', $data['id_admin'])
+                ->first();
+            $admin->tanggal = explode(' ', $admin->tanggal)[0];
+
+            /**
+             * Mengembalikan nilai yang diminta
+             * sesuai request yang diberikan
+             * 
+             */
+            return response()->json(
+                $admin
+            )->setStatusCode(200);
+
+        }
+
         /**
          * Melakukan filtering atau penyaringan
          * data pada kondisi tertentu
@@ -52,27 +74,30 @@ class AdminController extends Controller
              * Memfilter data sesuai request search
              * 
              */
-            $admin = $admin->where('nama_lengkap', 'LIKE', '%' . $data['search'] . '%');
+            $query = $query->where('nama_lengkap', 'LIKE', '%' . $data['search'] . '%');
 
         }
-        if (!empty($data['id_admin'])) {
 
-            /**
-             * Mengambil data dari query
-             * 
-             */
-            $admin = $admin->where('id', $data['id_admin'])
-                ->first();
+        /**
+         * Mengambil banyaknya data yang diambil
+         * 
+         */
+        $count = $query->count();
 
-        } else {
-
-            /**
-             * Mengambil data dari query
-             * 
-             */
-            $admin = $admin->get();
-
+        /**
+         * Memeriksa apakah data ingin difilter
+         * 
+         */
+        if (isset($data['start']) && isset($data['length'])) {
+            $query = $query->offset(($data['start'] - 1) * $data['length'])
+                ->limit($data['length']);
         }
+
+        /**
+         * Mengambil data dari query
+         * 
+         */
+        $admin = $query->get();
 
         /**
          * Menyesuaikan data
@@ -95,9 +120,10 @@ class AdminController extends Controller
          * sesuai request yang diberikan
          * 
          */
-        return response()->json(
-            $admin
-        )->setStatusCode(200);
+        return response()->json([
+            "jumlah_data" => $count,
+            "admin" => $admin
+        ])->setStatusCode(200);
     }
 
     public function post(AdminRequest $request): JsonResponse

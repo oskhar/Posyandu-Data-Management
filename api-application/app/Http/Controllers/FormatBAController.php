@@ -15,7 +15,7 @@ use Illuminate\Support\Carbon;
 
 class FormatBAController extends Controller
 {
-    protected $judulFormat = 'Catatan ibu hamil, kelahiran, kematian bayi dan kematian ibu hamil, melahirkan / nifas januari - desember';
+    protected $judulFormat = 'Regrister bayi (0 - 5 bulan) dalam wilayah kerja posyandu Januari - Desember';
     public function get(FormatBARequest $request): JsonResponse
     {
         /**
@@ -30,13 +30,15 @@ class FormatBAController extends Controller
          */
         $query = FormatBModel::select(
             'format_a.id as id_format_a',
-            'orang_tua.nama_ayah',
-            'orang_tua.nama_ibu',
             'bayi.nama as nama_bayi',
             'bayi.jenis_kelamin',
             'bayi.tanggal_lahir',
-            'bayi.tanggal_meninggal as tanggal_meninggal_bayi',
-            'orang_tua.tanggal_meninggal_ibu',
+            'bayi.berat_lahir',
+            'orang_tua.nama_ibu',
+            'orang_tua.nama_ayah',
+            'orang_tua.rt_rw',
+            'orang_tua.memiliki_kms',
+            'orang_tua.memiliki_kia',
             'format_a.keterangan',
             'format_a.created_at as tanggal'
         )
@@ -45,147 +47,14 @@ class FormatBAController extends Controller
             ->orderBy('bayi.tanggal_lahir', 'ASC');
 
         /**
-         * Membuat query untuk perhitaungan
-         * 
+         * Memasukan data penimbangan
          */
-        $queryMenghitung = BayiModel::select(
-            'bayi.id'
-        )->join('orang_tua', 'orang_tua.id', 'bayi.id_orang_tua');
-
-        /**
-         * Memfilter data berdasarkan tahun
-         * 
-         */
-        if (!empty($data['tahun'])) {
-
-            /**
-             * Melakukan filtering pada query
-             * 
-             */
-            $query = $query->whereYear('bayi.tanggal_lahir', '=', $data['tahun']);
-            $queryMenghitung = $queryMenghitung->whereYear('bayi.tanggal_lahir', '=', $data['tahun']);
-
-        }
-
-        /**
-         * Melakukan filtering atau penyaringan
-         * data pada kondisi tertentu
-         * 
-         */
-        if (!empty($data['search'])) {
-
-            /**
-             * Memfilter data sesuai request search
-             * 
-             */
-            $query = $query->where('bayi.nama_bayi', 'LIKE', '%' . $data['search'] . '%');
-
-        }
-
-        /**
-         * Mengambil banyaknya data yang diambil
-         * 
-         */
-        $count = $query->count();
-
-        /**
-         * Memeriksa apakah data ingin difilter
-         * 
-         */
-        if (isset($data['start']) && isset($data['length'])) {
-
-            /**
-             * Mengambil data gambar dari
-             * query yang sudah difilter
-             * 
-             */
-            $formatA = $query
-                ->offset(($data['start'] - 1) * $data['length'])
-                ->limit($data['length']);
-
-        }
-
-        /**
-         * Mengambil data dari query dan
-         * akan dijadikan response
-         * 
-         */
-        $formatA = $query->get();
-
-        /**
-         * Memeriksa apakah id_format_a ada
-         * 
-         */
-        if (!empty($data['id_format_a'])) {
-
-            /**
-             * Mengambil query data sesuai id
-             * 
-             */
-            $query = $query->where('format_a.id', $data['id_format_a']);
-
-            /**
-             * Mengambil data dari query dan
-             * akan dijadikan response
-             * 
-             */
-            $count = $query->count();
-            $formatA = $query->first();
-
-        }
-
-        $formatA = $formatA->map(function ($item) {
-            $tanggalLahir = Carbon::parse($item->tanggal_lahir);
-            $item->tanggal_lahir = $tanggalLahir->format("d M Y");
-            return $item;
-        });
-
-        /**
-         * Mengambil data posyandu
-         * 
-         */
-        $posyandu = PosyanduModel::select(
-            'nama_posyandu',
-            'kota'
-        )->first();
-
-        /**
-         * Mendapatkan data jumlah kematian
-         * dan jumlah kelahiran bayi
-         * 
-         */
-        $jumlahBayiMeninggal = $queryMenghitung->whereNotNull('bayi.tanggal_meninggal')->count();
-        $jumlahIbuMeninggal = $queryMenghitung->whereNotNull('orang_tua.tanggal_meninggal_ibu')->count();
-
-        $jumlahMeninggal = $jumlahBayiMeninggal + $jumlahIbuMeninggal;
-        $jumlahLahir = $count - $jumlahBayiMeninggal;
-
-        /**
-         * Mendapatkan seluruh tahun lahir yang bisa dipilih
-         * 
-         */
-        $listTahunLahir = BayiModel::selectRaw('YEAR(tanggal_lahir) as tahun_lahir')
-            ->orderByDesc('tanggal_lahir')
-            ->distinct()
-            ->pluck('tahun_lahir');
-
-        $listTahunLahir = $listTahunLahir->toArray();
 
         /**
          * Mengembalikan response sesuai request
          * 
          */
         return response()->json([
-            'nama_posyandu' => $posyandu->nama_posyandu,
-            'kota' => $posyandu->kota,
-            'list_tahun_lahir' => $listTahunLahir,
-            'judul_format' => $this->judulFormat,
-            'jumlah_lahir' => $jumlahLahir,
-            'jumlah_meninggal' => $jumlahMeninggal,
-            'jumlah_bayi_meninggal' => $jumlahBayiMeninggal,
-            'jumlah_ibu_meninggal' => $jumlahIbuMeninggal,
-            'jumlah_data' => $count,
-            'format_a' => $formatA,
         ])->setStatusCode(200);
     }
     public function post(FormatBARequest $request): JsonResponse

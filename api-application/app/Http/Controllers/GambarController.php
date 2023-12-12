@@ -50,7 +50,7 @@ class GambarController extends Controller
              * query yang sudah difilter
              * 
              */
-            $gambar = $query
+            $query = $query
                 ->offset(($data['start'] - 1) * $data['length'])
                 ->limit($data['length']);
 
