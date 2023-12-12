@@ -21,6 +21,7 @@ class AdminRequest extends CoreRequest
                 ];
             case 'PUT':
                 return [
+                    'id_admin' => 'required',
                     'nama_lengkap' => 'nullable',
                     'email_admin' => 'nullable',
                     'password' => 'nullable',
