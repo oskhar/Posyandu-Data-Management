@@ -212,7 +212,7 @@ class AdminController extends Controller
          */
         return response()->json([
             'success' => [
-                'message' => 'Data berita berhasil ditambahkan'
+                'message' => 'Data admin berhasil ditambahkan'
             ]
         ])->setStatusCode(201);
     }
@@ -364,7 +364,7 @@ class AdminController extends Controller
          */
         return response()->json([
             'success' => [
-                'message' => 'Data berita berhasil diubah'
+                'message' => 'Data admin berhasil diubah'
             ]
         ])->setStatusCode(201);
     }
@@ -379,7 +379,7 @@ class AdminController extends Controller
         $data = $request->validated();
 
         /**
-         * Mengambil data berita sesuai id
+         * Mengambil data admin sesuai id
          * 
          */
         $admin = AdminModel::where('id', $data['id_admin'])->first();
@@ -397,7 +397,7 @@ class AdminController extends Controller
          */
         return response()->json([
             'success' => [
-                'message' => 'Data berita berhasil dihapus'
+                'message' => 'Data admin berhasil dihapus'
             ]
         ])->setStatusCode(200);
     }
