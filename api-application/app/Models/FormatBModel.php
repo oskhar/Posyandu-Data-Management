@@ -14,7 +14,7 @@ class FormatBModel extends Model
      * 
      * @var string
      */
-    protected $table = 'format_a';
+    protected $table = 'format_b';
 
     /**
      * Atribut atau kolom yang boleh diubah.

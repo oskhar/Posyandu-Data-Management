@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('format_ba', function (Blueprint $table) {
+        Schema::create('format_b', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('id_bayi')->unsigned();
             $table->foreign('id_bayi')->references('id')->on('bayi')->onDelete('cascade')->onUpdate('cascade');
@@ -24,6 +24,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('format_ba');
+        Schema::dropIfExists('format_b');
     }
 };

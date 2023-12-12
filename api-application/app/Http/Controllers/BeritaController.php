@@ -65,7 +65,7 @@ class BeritaController extends Controller
          * 
          */
         if (isset($data['start']) && isset($data['length'])) {
-            $berita = $query->offset(($data['start'] - 1) * $data['length'])
+            $query = $query->offset(($data['start'] - 1) * $data['length'])
                 ->limit($data['length']);
         }
 

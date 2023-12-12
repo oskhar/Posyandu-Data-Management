@@ -98,7 +98,7 @@ class FormatAController extends Controller
              * query yang sudah difilter
              * 
              */
-            $formatA = $query
+            $query = $query
                 ->offset(($data['start'] - 1) * $data['length'])
                 ->limit($data['length']);
 
