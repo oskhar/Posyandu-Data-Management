@@ -50,7 +50,6 @@ class AdminController extends Controller
             $admin = $query
                 ->where('id', $data['id_admin'])
                 ->first();
-            $count = 1;
             $admin->tanggal = explode(' ', $admin->tanggal)[0];
 
             /**
@@ -58,10 +57,9 @@ class AdminController extends Controller
              * sesuai request yang diberikan
              * 
              */
-            return response()->json([
-                "jumlah_data" => $count,
-                "admin" => $admin
-            ])->setStatusCode(200);
+            return response()->json(
+                $admin
+            )->setStatusCode(200);
 
         }
 
