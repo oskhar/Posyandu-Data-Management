@@ -1,6 +1,6 @@
 <template>
   <div class="text-center" style="margin-top: 200px">
-    <strong style="font-size: 35px">BERITA DAN ACARA</strong>
+    <strong style="font-size: 35px">OBAT - OBATAN</strong>
   </div>
   <div class="card-tiga">
     <v-card class="mx-auto" width="260">

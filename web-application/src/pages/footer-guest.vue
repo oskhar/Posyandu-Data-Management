@@ -1,29 +1,26 @@
 <template>
   <v-footer
-    class="bg-indigo-lighten-1 text-center d-flex flex-column"
+    class="bg-indigo-lighten-1 text-center d-flex flex-column bg-primary"
     style="margin-top: 100px"
   >
-    <div>
+    <div class="">
       <v-btn
         v-for="icon in icons"
         :key="icon"
         class="mx-4"
         :icon="icon"
         variant="text"
+        color="ffffff"
       ></v-btn>
     </div>
 
     <div class="pt-0">
-      Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet. Mauris
-      cursus commodo interdum. Praesent ut risus eget metus luctus accumsan id
-      ultrices nunc. Sed at orci sed massa consectetur dignissim a sit amet dui.
-      Duis commodo vitae velit et faucibus. Morbi vehicula lacinia malesuada.
-      Nulla placerat augue vel ipsum ultrices, cursus iaculis dui sollicitudin.
-      Vestibulum eu ipsum vel diam elementum tempor vel ut orci. Orci varius
-      natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+      Alamat Posyandu
+      <p>
+        Jl. Mutiara Pluit No.40, RT.002/RW.009, Periuk, Tangerang City, Banten
+        15131
+      </p>
     </div>
-
-    <v-divider></v-divider>
 
     <div>
       <strong> CopyRight PosyanduMelati</strong>

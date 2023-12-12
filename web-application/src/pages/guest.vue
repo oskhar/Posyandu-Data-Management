@@ -1,6 +1,7 @@
 <script setup>
 import langit from "@images/pages/2.png";
-import cardEmpat from "./cards-guest.vue";
+import cardBerita from "./card-beritaacara.vue";
+import cardObat from "./card-obatobatan.vue";
 import tentangGuest from "./tentang-guest.vue";
 import footerGuest from "./footer-guest.vue";
 </script>
@@ -12,7 +13,7 @@ import footerGuest from "./footer-guest.vue";
       <div>
         <router-link to="/">Logo</router-link>
       </div>
-      <router-link to="./login.vue">
+      <router-link to="./login">
         <VBtn> Log in </VBtn>
       </router-link>
     </div>
@@ -39,11 +40,9 @@ import footerGuest from "./footer-guest.vue";
           >
           </v-img>
 
-          <v-card-subtitle class="pt-4"> JUDUL </v-card-subtitle>
-
-          <v-card-text>
-            <div>Penjelasan detail</div>
-          </v-card-text>
+          <h2 class="pt-4 text-center" style="margin: 20px">
+            <strong>BERITA & ACARA</strong>
+          </h2>
         </v-card>
 
         <v-card class="mx-auto" width="380">
@@ -54,12 +53,9 @@ import footerGuest from "./footer-guest.vue";
             cover
           >
           </v-img>
-
-          <v-card-subtitle class="pt-4"> JUDUL </v-card-subtitle>
-
-          <v-card-text>
-            <div>Penjelasan detail</div>
-          </v-card-text>
+          <h2 class="pt-4 text-center" style="margin: 20px">
+            <strong>OBAT - OBATAN</strong>
+          </h2>
         </v-card>
 
         <v-card class="mx-auto" width="380">
@@ -70,17 +66,14 @@ import footerGuest from "./footer-guest.vue";
             cover
           >
           </v-img>
-
-          <v-card-subtitle class="pt-4"> JUDUL </v-card-subtitle>
-
-          <v-card-text>
-            <div>Penjelasan detail</div>
-          </v-card-text>
+          <h2 class="pt-4 text-center" style="margin: 20px">
+            <strong>TENTANG POSYANDU</strong>
+          </h2>
         </v-card>
       </div>
     </div>
-    <cardEmpat />
-    <cardEmpat />
+    <cardBerita />
+    <cardObat />
     <tentangGuest />
   </div>
   <footerGuest />

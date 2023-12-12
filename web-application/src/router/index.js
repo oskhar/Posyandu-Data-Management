@@ -72,6 +72,10 @@ const router = createRouter({
           component: () => import("../pages/account-settings.vue"),
         },
         {
+          path: "berita-acara-guest",
+          component: () => import("../pages/berita-acara-guest.vue"),
+        },
+        {
           path: "berita-acara",
           component: () => import("../pages/berita-acara.vue"),
         },

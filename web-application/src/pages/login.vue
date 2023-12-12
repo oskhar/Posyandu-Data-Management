@@ -87,7 +87,7 @@ const isPasswordVisible = ref(false);
                 Login
               </VBtn>
 
-              <router-link to="./guest.vue">
+              <router-link to="./">
                 <VBtn block type="submit" class="mt-5"> Back </VBtn>
               </router-link>
             </VCol>

@@ -7,9 +7,9 @@ export default {
     dialog: false,
     posyandu: posyandu,
     langit: langit,
-    profil: "Lorem ipsum dolor ",
-    visi: "labore fugit assumenda ",
-    misi: "corrupti veritatis quidem nostru",
+    profil: "Belum ada",
+    visi: "Belum ada ",
+    misi: "Belum ada",
   }),
   methods: {
     save() {
@@ -107,7 +107,7 @@ export default {
                 {{ profil }}
                 <br />
                 <br />
-                Semoga dapat memudahkan masyarakat
+                Belum ada
               </span>
               <br />
             </VCardText>
@@ -126,9 +126,6 @@ export default {
             <VCardText>
               <span>
                 {{ visi }}
-                <br />
-                <br />
-                Semoga dapat memudahkan masyarakat
               </span>
               <br />
             </VCardText>
@@ -147,9 +144,6 @@ export default {
             <VCardText>
               <span>
                 {{ misi }}
-                <br />
-                <br />
-                Semoga dapat memudahkan masyarakat
               </span>
               <br />
             </VCardText>
