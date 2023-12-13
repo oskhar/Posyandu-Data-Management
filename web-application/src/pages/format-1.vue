@@ -67,6 +67,7 @@
             </VBtn>
           </div>
           <VTable>
+            <VTextField v-model="dataSearch"> </VTextField>
             <thead>
               <tr>
                 <th>No</th>
@@ -337,6 +338,7 @@ export default {
   data() {
     const d = new Date();
     return {
+      dataSearch: "",
       dialog: ref([]),
       urlServer: config.urlServer,
       page: 1,
@@ -434,6 +436,9 @@ export default {
       // Ketika tahun berubah, panggil fungsi fetchData
       this.fetchData();
     },
+    dataSearch: function () {
+      this.fetchData();
+    },
   },
   methods: {
     async exportExcel() {
@@ -513,7 +518,7 @@ export default {
     async fetchData() {
       this.isLoading = true;
       const response = await axios.get(
-        `${config.urlServer}/api/format-a?length=20&start=${this.page}&tahun=${this.tahun}`,
+        `${config.urlServer}/api/format-a?length=20&start=${this.page}&tahun=${this.tahun}&search=${this.dataSearch}`,
         {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),

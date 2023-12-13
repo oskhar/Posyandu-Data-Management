@@ -1,8 +1,10 @@
 <script setup>
-import AuthProvider from "@/views/pages/authentication/AuthProvider.vue";
 import logo from "@images/logo.svg?raw";
 import axios from "axios";
 import config from "@/@core/config.vue";
+import Swal from "sweetalert2";
+
+let isLoading = ref(false);
 
 const form = ref({
   email: "",
@@ -12,14 +14,31 @@ const form = ref({
 
 const login = async (formLogin) => {
   formLogin.preventDefault();
-  const response = await axios.post(`${config.urlServer}/api/login`, {
-    email_admin: form.value.email,
-    password: form.value.password,
-  });
-  localStorage.setItem("tokenAuth", "Bearer " + response.data.token);
-  localStorage.setItem("id_admin", response.data.id_admin);
+  isLoading.value = true;
+  try {
+    const response = await axios.post(`${config.urlServer}/api/login`, {
+      email_admin: form.value.email,
+      password: form.value.password,
+    });
+    localStorage.setItem("tokenAuth", "Bearer " + response.data.token);
+    localStorage.setItem("id_admin", response.data.id_admin);
 
-  window.location.href = "/dashboard";
+    window.location.href = "/dashboard";
+  } catch (error) {
+    Swal.fire({
+      toast: true,
+      position: "top",
+      iconColor: "white",
+      color: "white",
+      background: "rgb(var(--v-theme-error))",
+      showConfirmButton: false,
+      timerProgressBar: true,
+      timer: 2000,
+      icon: "error",
+      title: "Email atau Password salah",
+    });
+  }
+  isLoading.value = false;
 };
 
 const isPasswordVisible = ref(false);
@@ -60,6 +79,7 @@ const isPasswordVisible = ref(false);
             <!-- password -->
             <VCol cols="12">
               <VTextField
+                class="mb-5"
                 v-model="form.password"
                 label="Password"
                 placeholder="············"
@@ -69,7 +89,7 @@ const isPasswordVisible = ref(false);
               />
 
               <!-- remember me checkbox -->
-              <div
+              <!-- <div
                 class="d-flex align-center justify-space-between flex-wrap mt-1 mb-4"
               >
                 <RouterLink
@@ -78,38 +98,17 @@ const isPasswordVisible = ref(false);
                 >
                   Lupa Password?
                 </RouterLink>
-              </div>
+              </div> -->
 
               <!-- login button -->
-              <VBtn block type="submit">
-                <!-- <VProgressCircular indeterminate color="white" v-if="isLoaded">
-                </VProgressCircular> -->
-                Login
+
+              <VBtn type="submit" :disabled="isLoading" style="width: 448px">
+                <VProgressCircular v-if="isLoading" indeterminate color="white">
+                </VProgressCircular>
+
+                <font v-else>Submit</font>
               </VBtn>
             </VCol>
-
-            <!-- create account -->
-            <!-- <VCol
-              cols="12"
-              class="text-center text-base"
-            >
-              <span>Baru di platform ini?</span>
-              <RouterLink
-                class="text-primary ms-2"
-                to="/register"
-              >
-                Buat akun
-              </RouterLink>
-            </VCol>
-
-            <VCol
-              cols="12"
-              class="d-flex align-center"
-            >
-              <VDivider />
-              <span class="mx-4">atau</span>
-              <VDivider />
-            </VCol> -->
 
             <!-- auth providers -->
             <VCol cols="12" class="text-center">
