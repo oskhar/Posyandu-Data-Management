@@ -2,43 +2,92 @@
 import axios from "axios";
 import config from "@/@core/config.vue";
 import avatar1 from "@images/avatars/avatar-1.png";
-import { onMounted } from "vue";
+import { ref } from "vue";
+import Swal from "sweetalert2";
+
+let isLoading = ref(false);
 
 export default {
   data() {
     return {
+      urlServer: config.urlServer,
       refInputEl: ref(),
       urlServer: config.urlServer,
-      accountData: {
-        avatarImg: avatar1,
-        firstName: "jo",
-        email: "posyandu@gmail.com",
-        org: "ThemeSelection",
-        phone: "857 9876 4532",
-        address: "Jln. Mangga No.20 RT.02/12 ",
-        tanggalLahir: "2024-12-12",
-        zip: "10001",
-        country: "PELINDUNG",
-        kelamin: "Laki-laki",
-        timezone: "(GMT-11:00) International Date Line West",
-        currency: "USD",
-      },
+      imagePath: config.imagePath,
       refInputEl: ref(),
+      dataAdmin: ref([]),
+      isLoading: isLoading,
     };
   },
   components: {},
   mounted() {
-    console.log(this.accountData);
+    this.fetchData();
   },
   methods: {
+    async submitData(formData) {
+      try {
+        formData.preventDefault();
+        isLoading.value = true;
+
+        const response = await axios.put(
+          `${config.urlServer}/api/admin`,
+          {
+            id_admin: localStorage.getItem("id_admin"),
+            nama_lengkap: this.dataAdmin.nama_lengkap,
+            email_admin: this.dataAdmin.email_admin,
+            jenis_kelamin: this.dataAdmin.jenis_kelamin,
+            tanggal_lahir: this.dataAdmin.tanggal_lahir,
+            no_telp: this.dataAdmin.no_telp,
+            id_jabatan: this.dataAdmin.id_jabatan,
+            alamat: this.dataAdmin.alamat,
+          },
+          {
+            headers: {
+              Authorization: localStorage.getItem("tokenAuth"),
+            },
+          }
+        );
+        if (response.data.success) {
+          await Swal.fire({
+            toast: true,
+            position: "top",
+            iconColor: "white",
+            color: "white",
+            background: "rgb(var(--v-theme-success))",
+            showConfirmButton: false,
+            timerProgressBar: true,
+            timer: 1500,
+            icon: "success",
+            title: response.data.success.message,
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      isLoading.value = false;
+    },
+    async fetchData() {
+      const response = await axios.get(
+        `${config.urlServer}/api/admin?id_admin=${localStorage.getItem(
+          "id_admin"
+        )}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("tokenAuth"),
+          },
+        }
+      );
+      this.dataAdmin = response.data;
+      this.dataAdmin.foto_profile =
+        this.imagePath + this.dataAdmin.foto_profile;
+      // console.log(this.dataAdmin);
+    },
+
     uploadGambar() {
       document.querySelector("#gambar").click();
     },
     resetForm() {
       this.accountDataLocal.value = structuredClone(this.accountData);
-    },
-    resetAvatar() {
-      this.accountDataLocal.value.avatarImg = this.accountData.avatarImg;
     },
     async changeAvatar(file) {
       const files = file.target.files[0];
@@ -52,9 +101,31 @@ export default {
         ) {
           fileReader.readAsDataURL(files);
           fileReader.onload = async () => {
-            if (typeof fileReader.result === "string")
-              this.accountData.avatarImg = fileReader.result;
-            const response = await axios.put();
+            this.dataAdmin.foto_profile = fileReader.result;
+            const response = await axios.put(
+              `${this.urlServer}/api/admin`,
+              {
+                id_admin: localStorage.getItem("id_admin"),
+                foto_profile: fileReader.result,
+              },
+              { headers: { Authorization: localStorage.getItem("tokenAuth") } }
+            );
+
+            if (response.data.success) {
+              await Swal.fire({
+                toast: true,
+                position: "top",
+                iconColor: "white",
+                color: "white",
+                background: "rgb(var(--v-theme-success))",
+                showConfirmButton: false,
+                timerProgressBar: true,
+                timer: 1500,
+                icon: "success",
+                title: response.data.success.message,
+              });
+              this.fetchData();
+            }
           };
         }
       }
@@ -73,7 +144,7 @@ export default {
             rounded="lg"
             size="100"
             class="me-6"
-            :image="accountData.avatarImg"
+            :image="dataAdmin.foto_profile"
           />
 
           <!-- 👉 Upload Photo -->
@@ -103,12 +174,12 @@ export default {
 
         <VCardText>
           <!-- 👉 Form -->
-          <VForm class="mt-6">
+          <VForm class="mt-6" @submit="submitData">
             <VRow>
               <!-- 👉 First Name -->
               <VCol md="6" cols="12">
                 <VTextField
-                  v-model="accountData.firstName"
+                  v-model="dataAdmin.nama_lengkap"
                   label="Nama Lengkap"
                 />
               </VCol>
@@ -116,7 +187,7 @@ export default {
               <!-- 👉 Email -->
               <VCol cols="12" md="6">
                 <VTextField
-                  v-model="accountData.email"
+                  v-model="dataAdmin.email_admin"
                   label="E-mail"
                   type="email"
                 />
@@ -125,7 +196,7 @@ export default {
               <!-- 👉 Phone -->
               <VCol cols="12" md="6">
                 <VTextField
-                  v-model="accountData.phone"
+                  v-model="dataAdmin.no_telp"
                   label="Nomor Telepon"
                   placeholder="858 8888 5555"
                   prefix="+62"
@@ -135,7 +206,7 @@ export default {
               <!-- 👉 Address -->
               <VCol cols="12" md="6">
                 <VTextField
-                  v-model="accountData.address"
+                  v-model="dataAdmin.alamat"
                   label="Alamat"
                   placeholder="123 Main St, New York, NY 10001"
                 />
@@ -144,7 +215,7 @@ export default {
               <!-- 👉 tanggalLahir -->
               <VCol cols="12" md="6">
                 <VTextField
-                  v-model="accountData.tanggalLahir"
+                  v-model="dataAdmin.tanggal_lahir"
                   label="Tanggal Lahir"
                   placeholder=""
                   type="date"
@@ -152,17 +223,17 @@ export default {
               </VCol>
               <VCol cols="12" md="6">
                 <VSelect
-                  v-model="accountData.country"
+                  v-model="dataAdmin.id_jabatan"
                   label="Jabatan"
                   :items="[
-                    'PELINDUNG',
-                    'PENANGGUNG JAWAB',
-                    'SEKRETARIS',
-                    'BENDAHARA',
-                    'PENDAFTARAN',
-                    'PENIMBANGAN',
-                    'PENCATATAN',
-                    'PENYULUHAN',
+                    { title: 'PELINDUNG', value: 1 },
+                    { title: 'PENANGGUNG JAWAB', value: 2 },
+                    { title: 'SEKRETARIS', value: 3 },
+                    { title: 'BENDAHARA', value: 4 },
+                    { title: 'PENDAFTARAN', value: 5 },
+                    { title: 'PENIMBANGAN', value: 6 },
+                    { title: 'PENCATATAN', value: 7 },
+                    { title: 'PENYULUHAN', value: 8 },
                   ]"
                   placeholder="Select Country"
                 />
@@ -171,16 +242,25 @@ export default {
               <!-- 👉 kelamin -->
               <VCol cols="12" md="6">
                 <VSelect
-                  v-model="accountData.kelamin"
+                  v-model="dataAdmin.jenis_kelamin"
                   label="Kelamin"
-                  placeholder="Laki-laki"
-                  :items="['Laki-laki', 'Perempuan']"
+                  placeholder="L"
+                  :items="['L', 'P']"
                 />
               </VCol>
 
               <!-- 👉 Form Actions -->
-              <VCol cols="12" class="d-flex flex-wrap gap-4">
-                <VBtn>Simpan Perubahan</VBtn>
+              <VCol cols="12" md="9">
+                <VBtn type="submit" :disabled="isLoading"
+                  ><VProgressCircular
+                    v-if="isLoading"
+                    indeterminate
+                    color="white"
+                  >
+                  </VProgressCircular>
+
+                  <span v-else>Submit</span>
+                </VBtn>
               </VCol>
             </VRow>
           </VForm>
