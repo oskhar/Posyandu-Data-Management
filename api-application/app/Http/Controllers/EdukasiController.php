@@ -37,6 +37,45 @@ class EdukasiController extends Controller
         )->join('admin', 'admin.id', '=', 'edukasi.id_admin')
             ->orderByDesc('edukasi.created_at');
 
+
+        /**
+         * Langsung mengembalikan data response
+         * jika request id terdeteksi
+         * 
+         */
+        if (!empty($data['id_edukasi'])) {
+
+            /**
+             * Mengambil query data sesuai id
+             * 
+             */
+            $query = $query->where('edukasi.id', $data['id_edukasi']);
+
+            /**
+             * Mengambil data dari query dan
+             * akan dijadikan response
+             * 
+             */
+            $edukasi = $query->first();
+
+            /**
+             * Mengubah tanggal dan waktu menjadi hanya tanggal saja
+             * tt-bb-hh jj:mm:dd -> tt-bb-hh
+             * 
+             */
+            $edukasi->tanggal = explode(' ', $edukasi->tanggal)[0];
+            $edukasi->overview = strlen($edukasi->materi) > 45 ? substr($edukasi->materi, 0, 45) . "..." : $edukasi->materi;
+
+            /**
+             * Mengembalikan nilai yang diminta
+             * sesuai request yang diberikan
+             * 
+             */
+            return response()->json(
+                $edukasi
+            )->setStatusCode(200);
+        }
+
         /**
          * Melakukan filtering atau penyaringan
          * data pada kondisi tertentu
@@ -90,32 +129,6 @@ class EdukasiController extends Controller
             return $result;
 
         });
-
-        if (!empty($data['id_edukasi'])) {
-
-            /**
-             * Mengambil query data sesuai id
-             * 
-             */
-            $query = $query->where('edukasi.id', $data['id_edukasi']);
-
-            /**
-             * Mengambil data dari query dan
-             * akan dijadikan response
-             * 
-             */
-            $count = 1;
-            $edukasi = $query->first();
-
-            /**
-             * Mengubah tanggal dan waktu menjadi hanya tanggal saja
-             * tt-bb-hh jj:mm:dd -> tt-bb-hh
-             * 
-             */
-            $edukasi->tanggal = explode(' ', $edukasi->tanggal)[0];
-            $edukasi->overview = strlen($edukasi->materi) > 45 ? substr($edukasi->materi, 0, 45) . "..." : $edukasi->materi;
-
-        }
 
         /**
          * Memeberikan data yang diminta

@@ -77,7 +77,9 @@ class FormatAController extends Controller
              * Memfilter data sesuai request search
              * 
              */
-            $query = $query->where('bayi.nama_bayi', 'LIKE', '%' . $data['search'] . '%');
+            $query = $query->where('bayi.nama', 'LIKE', '%' . $data['search'] . '%')
+                ->orWhere('orang_tua.nama_ibu', 'LIKE', '%' . $data['search'] . '%')
+                ->orWhere('orang_tua.nama_ayah', 'LIKE', '%' . $data['search'] . '%');
 
         }
 

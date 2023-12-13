@@ -40,6 +40,45 @@ class BeritaController extends Controller
             ->orderByDesc('berita.created_at');
 
         /**
+         * Langsung mengembalikan data response
+         * jika request id terdeteksi
+         * 
+         */
+        if (!empty($data['id_berita'])) {
+
+            /**
+             * Mengambil query data sesuai id
+             * 
+             */
+            $query = $query->where('berita.id', $data['id_berita']);
+
+            /**
+             * Mengambil data dari query dan
+             * akan dijadikan response
+             * 
+             */
+            $berita = $query->first();
+
+            /**
+             * Mengubah tanggal dan waktu menjadi hanya tanggal saja
+             * tt-bb-hh jj:mm:dd -> tt-bb-hh
+             * 
+             */
+            $berita->tanggal = explode(' ', $berita->tanggal)[0];
+            $berita->overview = strlen($berita->deskripsi) > 45 ? substr($berita->deskripsi, 0, 45) . "..." : $berita->deskripsi;
+
+            /**
+             * Mengembalikan nilai yang diminta
+             * sesuai request yang diberikan
+             * 
+             */
+            return response()->json(
+                $berita
+            )->setStatusCode(200);
+
+        }
+
+        /**
          * Melakukan filtering atau penyaringan
          * data pada kondisi tertentu
          * 
@@ -92,34 +131,6 @@ class BeritaController extends Controller
             return $result;
 
         });
-
-        if (!empty($data['id_berita'])) {
-
-            /**
-             * Mengambil query data sesuai id
-             * 
-             */
-            $query = $query->where('berita.id', $data['id_berita']);
-
-            /**
-             * Mengambil data dari query dan
-             * akan dijadikan response
-             * 
-             */
-            $count = 1;
-            $berita = $query->first();
-
-            /**
-             * Mengubah tanggal dan waktu menjadi hanya tanggal saja
-             * tt-bb-hh jj:mm:dd -> tt-bb-hh
-             * 
-             */
-            $berita->tanggal = explode(' ', $berita->tanggal)[0];
-            $berita->overview = strlen($berita->deskripsi) > 45 ? substr($berita->deskripsi, 0, 45) . "..." : $berita->deskripsi;
-
-        }
-
-
 
         /**
          * Mengembalikan nilai yang diminta

@@ -9,6 +9,7 @@ use App\Http\Controllers\FormatAController;
 use App\Http\Controllers\GambarController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\PosyanduController;
+use App\Http\Controllers\StatistikController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -83,8 +84,6 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
     Route::put('/format-a', [FormatAController::class, 'put']);
     Route::delete('/format-a', [FormatAController::class, 'delete']);
 
-
-
     /**
      * Endpoint untuk export file excel
      * 
@@ -92,6 +91,16 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
     Route::prefix('export')->group(function () {
 
         Route::get('/format-a', [ExportController::class, 'exportFormatAExcel']);
+
+    });
+
+    /**
+     * Endpoint untuk mendapatkan data statistik
+     * 
+     */
+    Route::prefix('statistik')->group(function () {
+
+        Route::get('/dashboard', [StatistikController::class, 'dashboard']);
 
     });
 });

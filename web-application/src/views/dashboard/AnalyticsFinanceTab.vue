@@ -9,7 +9,7 @@ import { hexToRgb } from '@layouts/utils'
 const vuetifyTheme = useTheme()
 
 const series = {
-  income: [{
+  berita: [{
     data: [
       24,
       21,
@@ -21,7 +21,7 @@ const series = {
       29,
     ],
   }],
-  expenses: [{
+  edukasi: [{
     data: [
       24,
       21,
@@ -33,7 +33,7 @@ const series = {
       29,
     ],
   }],
-  profit: [{
+  gambar: [{
     data: [
       24,
       21,
@@ -47,45 +47,45 @@ const series = {
   }],
 }
 
-const currentTab = ref('income')
+const currentTab = ref('berita')
 
 const tabData = computed(() => {
   const data = {
-    income: {
+    berita: {
       avatar: statsVerticalWallet,
-      title: 'Total Income',
-      stats: '$459.1k',
-      profitLoss: 65,
-      profitLossAmount: '6.5k',
-      compareToLastWeek: '$39k',
+      title: 'Berita acara',
+      stats: '30',
+      gambarLoss: 65,
+      gambarLossAmount: '60',
+      compareToLastWeek: '3',
     },
-    expenses: {
+    edukasi: {
       avatar: statsVerticalPaypal,
-      title: 'Total Expenses',
-      stats: '$316.5k',
-      profitLoss: 27.8,
-      profitLossAmount: '7.2k',
-      compareToLastWeek: '$16k',
+      title: 'Edukasi',
+      stats: '32',
+      gambarLoss: 27.8,
+      gambarLossAmount: '10',
+      compareToLastWeek: '5',
     },
-    profit: {
+    gambar: {
       avatar: statsVerticalChart,
-      title: 'Total Profit',
-      stats: '$147.9k',
-      profitLoss: 35.1,
-      profitLossAmount: '4.5k',
-      compareToLastWeek: '$28k',
+      title: 'gambar',
+      stats: '5',
+      gambarLoss: 35.1,
+      gambarLossAmount: '20',
+      compareToLastWeek: '1',
     },
   }
-  
+
   return data[currentTab.value]
 })
 
 const chartConfig = computed(() => {
   const currentTheme = vuetifyTheme.current.value.colors
   const variableTheme = vuetifyTheme.current.value.variables
-  const disabledTextColor = `rgba(${ hexToRgb(String(currentTheme['on-surface'])) },${ variableTheme['disabled-opacity'] })`
-  const borderColor = `rgba(${ hexToRgb(String(variableTheme['border-color'])) },${ variableTheme['border-opacity'] })`
-  
+  const disabledTextColor = `rgba(${hexToRgb(String(currentTheme['on-surface']))},${variableTheme['disabled-opacity']})`
+  const borderColor = `rgba(${hexToRgb(String(variableTheme['border-color']))},${variableTheme['border-opacity']})`
+
   return {
     chart: {
       parentHeightOffset: 0,
@@ -188,28 +188,21 @@ const chartConfig = computed(() => {
 <template>
   <VCard>
     <VCardItem>
-      <VTabs
-        v-model="currentTab"
-        class="v-tabs-pill"
-      >
-        <VTab value="income">
-          Income
+      <VTabs v-model="currentTab" class="v-tabs-pill">
+        <VTab value="berita">
+          Berita
         </VTab>
-        <VTab value="expenses">
-          Expenses
+        <VTab value="edukasi">
+          edukasi
         </VTab>
-        <VTab value="profit">
-          Profit
+        <VTab value="gambar">
+          gambar
         </VTab>
       </VTabs>
     </VCardItem>
 
     <VCardText class="d-flex align-center gap-3">
-      <VAvatar
-        size="46"
-        rounded
-        :image="tabData.avatar"
-      />
+      <VAvatar size="46" rounded :image="tabData.avatar" />
 
       <div>
         <p class="mb-0">
@@ -219,41 +212,27 @@ const chartConfig = computed(() => {
           <h6 class="text-h6">
             {{ tabData.stats }}
           </h6>
-          <span
-            class="text-sm"
-            :class="tabData.profitLoss > 0 ? 'text-success' : 'text-error'"
-          >
-            <VIcon
-              size="24"
-              icon="bx-chevron-up"
-            />
-            {{ tabData.profitLoss }}%
+          <span class="text-sm" :class="tabData.gambarLoss > 0 ? 'text-success' : 'text-error'">
+            <VIcon size="24" icon="bx-chevron-up" />
+            {{ tabData.gambarLoss }}%
           </span>
         </div>
       </div>
     </VCardText>
 
     <VCardText>
-      <VueApexCharts
-        type="area"
-        :height="241"
-        :options="chartConfig"
-        :series="series[currentTab]"
-      />
+      <VueApexCharts type="area" :height="241" :options="chartConfig" :series="series[currentTab]" />
     </VCardText>
 
     <VCardText class="d-flex align-center justify-center gap-3">
-      <VProgressCircular
-        size="45"
-        :model-value="tabData.profitLoss"
-      >
-        <span class="text-xs text-medium-emphasis">{{ tabData.profitLossAmount }}</span>
+      <VProgressCircular size="45" :model-value="tabData.gambarLoss">
+        <span class="text-xs text-medium-emphasis">{{ tabData.gambarLossAmount }}</span>
       </VProgressCircular>
 
       <div>
         <h6 class="text-base font-weight-regular">
           <span class="text-capitalize">{{ currentTab }}</span>
-          <span> this week</span>
+          <span> minggu ini</span>
         </h6>
         <span class="text-sm text-disabled">{{ tabData.compareToLastWeek }} less than last week</span>
       </div>
