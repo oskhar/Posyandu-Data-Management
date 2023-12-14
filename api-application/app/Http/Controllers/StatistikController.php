@@ -15,9 +15,9 @@ class StatistikController extends Controller
     {
         $lastWeek = Carbon::now()->subWeek();
 
-        $berita = $this->getDataLastWeek(BeritaModel::class, $lastWeek, 'berita');
-        $edukasi = $this->getDataLastWeek(EdukasiModel::class, $lastWeek, 'edukasi');
-        $gambar = $this->getDataLastWeek(GambarModel::class, $lastWeek, 'gambar');
+        $berita = $this->getDataLastWeek(BeritaModel::class, $lastWeek);
+        $edukasi = $this->getDataLastWeek(EdukasiModel::class, $lastWeek);
+        $gambar = $this->getDataLastWeek(GambarModel::class, $lastWeek);
 
         return response()->json([
             'berita' => $berita,
@@ -26,7 +26,7 @@ class StatistikController extends Controller
         ])->setStatusCode(200);
     }
 
-    private function getDataLastWeek($model, $lastWeek, $jenis)
+    private function getDataLastWeek($model, $lastWeek)
     {
         $dataThisWeek = $model::where('created_at', '>=', Carbon::now()->startOfWeek())
             ->selectRaw('DATE(created_at) as date, COUNT(*) as count')
@@ -41,9 +41,9 @@ class StatistikController extends Controller
 
         $result = [
             'jumlah_hari_ini' => $this->getDataCountByDate($dataThisWeek, Carbon::now()->toDateString()),
-            'persentase_perubahan_kemarin' => $this->calculatePercentageChange($dataThisWeek, $dataLastWeek),
+            'persentase_perubahan_minggu_lalu' => $this->calculatePercentageChange($dataThisWeek, $dataLastWeek),
             'jumlah_minggu_ini' => $dataThisWeek->sum('count'),
-            'bandingkan_minggu_lalu' => $this->compareThisWeekToLastWeek($dataThisWeek, $dataLastWeek, $jenis),
+            'bandingkan_minggu_lalu' => $this->compareThisWeekToLastWeek($dataThisWeek, $dataLastWeek),
             'statistik' => [],
         ];
 
@@ -66,27 +66,27 @@ class StatistikController extends Controller
         $countThisWeek = $dataThisWeek->sum('count');
         $countLastWeek = $dataLastWeek->sum('count');
 
-        if ($countLastWeek == 0) {
+        if ($countThisWeek == 0 && $countLastWeek == 0) {
             return 0;
         }
 
-        $percentageChange = (($countThisWeek - $countLastWeek) / $countLastWeek) * 100;
-        return number_format($percentageChange, 2);
+        $percentageChange = (($countThisWeek) / ($countLastWeek + $countThisWeek)) * 100;
+        return $percentageChange;
     }
 
-    private function compareThisWeekToLastWeek($dataThisWeek, $dataLastWeek, $jenis)
+    private function compareThisWeekToLastWeek($dataThisWeek, $dataLastWeek)
     {
         $countThisWeek = $dataThisWeek->sum('count');
         $countLastWeek = $dataLastWeek->sum('count');
 
         if ($countThisWeek < $countLastWeek) {
             $diff = $countLastWeek - $countThisWeek;
-            return "{$diff} {$jenis} lebih sedikit dari minggu lalu";
+            return "{$diff} lebih sedikit dari minggu lalu";
         } elseif ($countThisWeek > $countLastWeek) {
             $diff = $countThisWeek - $countLastWeek;
-            return "{$diff} {$jenis} lebih banyak dari minggu lalu";
+            return "{$diff} lebih banyak dari minggu lalu";
         } else {
-            return "Jumlah {$jenis} sama dengan minggu lalu";
+            return "Jumlah sama dengan minggu lalu";
         }
     }
 }
