@@ -28,7 +28,7 @@ import footerGuest from "./footer-guest.vue";
     <!-- CARD 3 -->
     <div class="card">
       <div class="text-center" style="margin-top: 200px">
-        <strong style="font-size: 35px">JUDUL TIGA CARD</strong>
+        <strong style="font-size: 35px">KATEGORI - KATEGORI</strong>
       </div>
       <div class="card-tiga">
         <v-card class="mx-auto" width="380">
