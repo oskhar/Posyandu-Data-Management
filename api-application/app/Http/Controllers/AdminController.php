@@ -245,7 +245,7 @@ class AdminController extends Controller
              * dengan password yang ada di database
              * 
              */
-            if (!Hash::check($data['password']['lama'], $admin)) {
+            if (!Hash::check($data['password']['lama'], $admin->password)) {
                 throw new HttpResponseException(response()->json([
                     'errors' => [
                         'message' => 'Anda memasukan password yang salah'
@@ -271,7 +271,7 @@ class AdminController extends Controller
              * baru adalah password yang sama
              * 
              */
-            if (count($data['password']['baru_a']) < 8) {
+            if (strlen($data['password']['baru_a']) < 8) {
                 throw new HttpResponseException(response()->json([
                     'errors' => [
                         'message' => 'Password minimal harus 8 karakter!'
