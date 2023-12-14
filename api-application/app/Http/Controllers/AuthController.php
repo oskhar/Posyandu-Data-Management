@@ -79,6 +79,7 @@ class AuthController extends Controller
                 'message' => 'Berhasil login'
             ],
             'id_admin' => $admin->id,
+            'foto_profile' => $admin->foto_profile,
             'token' => $token
         ])->setStatusCode(200);
     }
