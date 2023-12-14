@@ -1,7 +1,7 @@
 <script setup>
 import langit from "@images/pages/2.png";
-import cardBerita from "./card-beritaacara.vue";
-import cardObat from "./card-obatobatan.vue";
+import cardEdukasi from "./card-edukasi.vue";
+import cardBeritaAcara from "./card-berita-acara.vue";
 import tentangGuest from "./tentang-guest.vue";
 import footerGuest from "./footer-guest.vue";
 </script>
@@ -41,7 +41,7 @@ import footerGuest from "./footer-guest.vue";
           </v-img>
 
           <h2 class="pt-4 text-center" style="margin: 20px">
-            <strong>BERITA & ACARA</strong>
+            <strong>EDUKASI</strong>
           </h2>
         </v-card>
 
@@ -54,7 +54,7 @@ import footerGuest from "./footer-guest.vue";
           >
           </v-img>
           <h2 class="pt-4 text-center" style="margin: 20px">
-            <strong>OBAT - OBATAN</strong>
+            <strong>BERITA & ACARA</strong>
           </h2>
         </v-card>
 
@@ -72,8 +72,8 @@ import footerGuest from "./footer-guest.vue";
         </v-card>
       </div>
     </div>
-    <cardBerita />
-    <cardObat />
+    <cardEdukasi />
+    <cardBeritaAcara />
     <tentangGuest />
   </div>
   <footerGuest />
