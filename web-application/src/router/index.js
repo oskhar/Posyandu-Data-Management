@@ -58,7 +58,7 @@ const router = createRouter({
         },
         {
           path: "berita-acara-guest",
-          component: () => import("../pages/berita-acara-guest.vue"),
+          component: () => import("../pages/edukasi-guest.vue"),
         },
         {
           path: "berita-acara",

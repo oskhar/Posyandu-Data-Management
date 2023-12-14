@@ -37,8 +37,6 @@
                 <template v-slot:activator="{ props }">
                   <VRow class="mt-3">
                     <VCol>
-                      <!-- <VBtn> Lihat </VBtn> -->
-
                       <VBtn color="primary" class="mx-3" v-bind="props">
                         Selengkapnya
                       </VBtn>

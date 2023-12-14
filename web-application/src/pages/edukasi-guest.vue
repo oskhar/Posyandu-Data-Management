@@ -11,7 +11,6 @@ import langit from "@images/pages/2.png";
       alt=""
     />
   </div>
-  <p>ftyuio</p>
 </template>
 
 <style scope>
