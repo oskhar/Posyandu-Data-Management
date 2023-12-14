@@ -283,7 +283,7 @@ class AdminController extends Controller
              * Enkripsi data password
              * 
              */
-            $data['password'] = Hash::make($data['password']);
+            $data['password'] = Hash::make($data['password']['baru_a']);
 
         }
 
