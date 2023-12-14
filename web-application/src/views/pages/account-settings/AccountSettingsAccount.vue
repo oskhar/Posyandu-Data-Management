@@ -125,6 +125,7 @@ export default {
                 title: response.data.success.message,
               });
               this.fetchData();
+              localStorage.setItem("foto_profile", fileReader.result);
             }
           };
         }

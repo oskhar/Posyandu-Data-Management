@@ -1,6 +1,7 @@
 <script setup>
 import axios from "axios";
 import config from "@/@core/config.vue";
+import Swal from "sweetalert2";
 
 const isCurrentPasswordVisible = ref(false);
 const isNewPasswordVisible = ref(false);
@@ -12,14 +13,6 @@ const confirmPassword = ref("");
 const submitkan = async (formData) => {
   formData.preventDefault();
   try {
-    console.log({
-      id_admin: localStorage.getItem("id_admin"),
-      password: {
-        lama: currentPassword.value,
-        baru_a: newPassword.value,
-        baru_b: confirmPassword.value,
-      },
-    });
     const response = await axios.put(
       `${config.urlServer}/api/admin`,
       {
@@ -33,7 +26,7 @@ const submitkan = async (formData) => {
       { headers: { Authorization: localStorage.getItem("tokenAuth") } }
     );
     if (response.data.success) {
-      await Swal.fire({
+      Swal.fire({
         toast: true,
         position: "top",
         iconColor: "white",
@@ -41,13 +34,27 @@ const submitkan = async (formData) => {
         background: "rgb(var(--v-theme-success))",
         showConfirmButton: false,
         timerProgressBar: true,
-        timer: 1000,
+        timer: 2000,
         icon: "success",
         title: response.data.success.message,
       });
+    } else {
+      console.log(response);
+      Swal.fire({
+        toast: true,
+        position: "top",
+        iconColor: "white",
+        color: "white",
+        background: "rgb(var(--v-theme-error))",
+        showConfirmButton: false,
+        timerProgressBar: true,
+        timer: 2000,
+        icon: "error",
+        title: response.data.errors.message,
+      });
     }
   } catch (error) {
-    console.log("error");
+    console.log(error);
   }
 };
 
