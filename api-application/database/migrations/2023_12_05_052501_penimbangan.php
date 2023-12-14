@@ -14,8 +14,9 @@ return new class extends Migration {
             $table->id();
             $table->bigInteger('id_bayi')->unsigned();
             $table->foreign('id_bayi')->references('id')->on('bayi')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('bulan', 20);
             $table->integer('berat_badan');
+            $table->string('ntob')->nullable();
+            $table->string('asi_ekslusif')->nullable();
             $table->timestamps();
         });
     }

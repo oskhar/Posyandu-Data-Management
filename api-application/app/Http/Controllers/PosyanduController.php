@@ -141,38 +141,4 @@ class PosyanduController extends Controller
             ],
         ])->setStatusCode(201);
     }
-
-    public function delete(PosyanduRequest $request): JsonResponse
-    {
-        /**
-         * Memeriksa apakah request
-         * yang diberikan sesuai
-         * 
-         */
-        $data = $request->validated();
-
-        /**
-         * Mendapatkan data yang dituju
-         * menggunakan request id
-         * 
-         */
-        $posyandu = PosyanduModel::where('id', $data['id_edukasi']);
-
-        /**
-         * Melakukan penghapusan data
-         * 
-         */
-        $posyandu->delete();
-
-        /**
-         * Mengembalikan response setelah
-         * melakukan delete data
-         * 
-         */
-        return response()->json([
-            'success' => [
-                'message' => "Data edukasi berhasil dihapus"
-            ]
-        ])->setStatusCode(200);
-    }
 }

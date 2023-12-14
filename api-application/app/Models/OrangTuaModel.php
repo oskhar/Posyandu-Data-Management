@@ -32,4 +32,5 @@ class OrangTuaModel extends Model
         'memiliki_kms',
         'memiliki_kia',
     ];
+
 }

@@ -37,7 +37,11 @@ class FormatAController extends Controller
             'bayi.tanggal_meninggal as tanggal_meninggal_bayi',
             'orang_tua.tanggal_meninggal_ibu',
             'format_a.keterangan',
-            'format_a.created_at as tanggal'
+            'format_a.created_at as tanggal',
+            'bayi.berat_lahir',
+            'orang_tua.rt_rw',
+            'orang_tua.memiliki_kms',
+            'orang_tua.memiliki_kia'
         )
             ->join('bayi', 'bayi.id', 'format_a.id_bayi')
             ->join('orang_tua', 'orang_tua.id', 'bayi.id_orang_tua')
@@ -222,6 +226,9 @@ class FormatAController extends Controller
                 'nama_ayah' => $data['nama_ayah'],
                 'nama_ibu' => $data['nama_ibu'],
                 'tanggal_meninggal_ibu' => $data['tanggal_meninggal_ibu'],
+                'rt_rw' => $data['rt_rw'],
+                'memiliki_kms' => $data['memiliki_kms'],
+                'memiliki_kia' => $data['memiliki_kia'],
             ]);
 
             /**
@@ -233,6 +240,7 @@ class FormatAController extends Controller
                 'nama' => $data['nama_bayi'],
                 'jenis_kelamin' => $data['jenis_kelamin'],
                 'tanggal_lahir' => $data['tanggal_lahir'],
+                'berat_lahir' => $data['berat_lahir'],
                 'tanggal_meninggal' => $data['tanggal_meninggal_bayi'],
             ]);
         }
@@ -306,6 +314,7 @@ class FormatAController extends Controller
             'jenis_kelamin' => $data['jenis_kelamin'] ?? $formatA->jenis_kelamin,
             'tanggal_lahir' => $data['tanggal_lahir'] ?? $formatA->tanggal_lahir,
             'tanggal_meninggal' => $data['tanggal_meninggal_bayi'] ?? $formatA->tanggal_meninggal_bayi,
+            'berat_lahir' => $data['berat_lahir'] ?? $formatA->berat_lahir,
         ]);
         $bayi = $bayi->select('id_orang_tua')->first();
 
@@ -317,6 +326,9 @@ class FormatAController extends Controller
             'nama_ayah' => $data['nama_ayah'] ?? $formatA->nama_ayah,
             'nama_ibu' => $data['nama_ibu'] ?? $formatA->nama_ibu,
             'tanggal_meninggal_ibu' => $data['tanggal_meninggal_ibu'] ?? $formatA->tanggal_meninggal_ibu,
+            'rt_rw' => $data['rt_rw'] ?? $formatA->rt_rw,
+            'memiliki_kms' => $data['memiliki_kms'] ?? $formatA->memiliki_kms,
+            'memiliki_kia' => $data['memiliki_kia'] ?? $formatA->memiliki_kia,
         ]);
 
         /**

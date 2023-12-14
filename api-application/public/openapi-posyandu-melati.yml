@@ -1784,3 +1784,76 @@ paths:
                   message: "Data dengan id ... tidak ditemukan"
 
   # ==================================================================
+  # ==================================================================
+
+  /statistik/dashboard:
+    get:
+      tags:
+        - Data statistik
+      summary: MENDAPATKAN data statistik
+
+      requestBody:
+        description: Data statistik untuk menghapus data statistik
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  nama_statistik:
+                    type: string
+                  kota:
+                    type: string
+                  kecamatan:
+                    type: string
+                  kelurahan:
+                    type: string
+                  rt_rw:
+                    type: string
+                  penyampaian_ketua:
+                    type: string
+                  gambar_gedung:
+                    type: string
+                  visi:
+                    type: string
+                  misi:
+                    type: string
+                  foto_profile_ketua:
+                    type: string
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+        404:
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data dengan id ... tidak ditemukan"
