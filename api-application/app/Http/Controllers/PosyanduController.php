@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PosyanduRequest;
+use App\Models\AdminModel;
 use App\Models\PosyanduModel;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -29,6 +30,15 @@ class PosyanduController extends Controller
             'misi',
             'rt_rw'
         )->first();
+
+        /**
+         * Mengambil foto_profile ketua
+         * 
+         */
+        $posyandu->foto_profile_ketua = AdminModel::select('foto_profile')
+            ->orderBy('id_jabatan')
+            ->first()
+            ->foto_profile;
 
         /**
          * Memeberikan data yang diminta

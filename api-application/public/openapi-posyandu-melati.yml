@@ -845,6 +845,8 @@ paths:
                     type: string
                   misi:
                     type: string
+                  foto_profile_ketua:
+                    type: string
         400:
           description: BAD REQUEST
           content:
