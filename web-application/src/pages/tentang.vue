@@ -11,15 +11,53 @@ export default {
   data() {
     return {
       dialog: false,
+      urlServer: config.urlServer,
+      refInput: ref(),
+      imagePath: config.imagePath,
       posyanduImg: posyanduImg,
       posyandu: ref([]),
       langit: langit,
-      profil: "Lorem ipsum dolor ",
-      visi: "labore fugit assumenda ",
-      misi: "corrupti veritatis quidem nostru",
     };
   },
   methods: {
+    inputGambar() {
+      // console.log(this.posyandu.refInput);
+      document.getElementById("inputGambar").click();
+    },
+    async changeAvatar(file) {
+      const files = file.target.files[0];
+      if (files) {
+        const fileReader = new FileReader();
+        // Validasi tipe file sebelum menampilkan gambarnya
+        if (
+          files.type === "image/jpeg" ||
+          files.type === "image/png" ||
+          files.type === "image/jpg"
+        ) {
+          fileReader.readAsDataURL(files);
+          fileReader.onload = async () => {
+            if (typeof fileReader.result === "string") {
+              this.posyandu.gambar_gedung = fileReader.result;
+              const response = await axios.put(
+                `${this.urlServer}/api/posyandu`,
+                {
+                  gambar_gedung: this.posyandu.gambar_gedung,
+                },
+                {
+                  headers: {
+                    Authorization: localStorage.getItem("tokenAuth"),
+                  },
+                }
+              );
+            }
+          };
+        } else {
+          // Tindakan jika tipe file tidak valid
+          alert("File harus berupa gambar dengan tipe jpeg, png, atau jpg.");
+          resetAvatar();
+        }
+      }
+    },
     async putData() {
       try {
         const data = {
@@ -29,7 +67,6 @@ export default {
           kelurahan: this.posyandu.kelurahan,
           rt_rw: this.posyandu.rt_rt,
           penyampaian_ketua: this.posyandu.penyampaian_ketua,
-          gambar_gedung: this.posyandu.gambar_gedung,
           visi: this.posyandu.visi,
           misi: this.posyandu.misi,
         };
@@ -69,6 +106,8 @@ export default {
         },
       });
       this.posyandu = response.data;
+      this.posyandu.gambar_gedung =
+        config.imagePath + this.posyandu.gambar_gedung;
     },
   },
   mounted() {
@@ -120,6 +159,37 @@ export default {
                           required
                         ></VTextarea>
                       </v-col>
+                      <VCol cols="12" md="9">
+                        <div class="d-flex flex-column justify-center gap-5">
+                          <div class="d-flex flex-wrap gap-2">
+                            <VBtn
+                              id="gambar"
+                              color="primary"
+                              @click="inputGambar"
+                            >
+                              <VIcon icon="bx-cloud-upload" class="d-sm-none" />
+                              <span class="d-none d-sm-block"
+                                >Upload foto baru</span
+                              >
+                            </VBtn>
+
+                            <input
+                              id="inputGambar"
+                              type="file"
+                              name="file"
+                              accept=".jpeg,.png,.jpg"
+                              hidden
+                              @change="changeAvatar($event)"
+                            />
+                          </div>
+                        </div>
+                        <VAvatar
+                          rounded="lg"
+                          size="200"
+                          class="me-1 mt-3"
+                          :image="posyandu.gambar_gedung"
+                        />
+                      </VCol>
                     </v-row>
                   </v-container>
                 </v-card-text>
@@ -152,7 +222,7 @@ export default {
     <VCol cols="12">
       <img
         style="width: 100%; height: 500px; object-fit: cover"
-        :src="langit"
+        :src="posyandu.gambar_gedung"
         alt=""
       />
     </VCol>

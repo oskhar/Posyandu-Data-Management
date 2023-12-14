@@ -1,6 +1,6 @@
 <script setup>
 import AnalyticsCongratulations from "@/views/dashboard/AnalyticsCongratulations.vue";
-import AnalyticsFinanceTab from "@/views/dashboard/AnalyticsFinanceTab.vue";
+import StatistikDashboard from "@/views/dashboard/StatistikDashboard.vue";
 import config from "@/@core/config.vue";
 import { onMounted } from "vue";
 import axios from "axios";
@@ -96,7 +96,7 @@ onMounted(() => {
       </VRow>
     </VCol>
     <VCol cols="12" md="12">
-      <AnalyticsFinanceTab />
+      <StatistikDashboard />
     </VCol>
   </VRow>
 </template>
