@@ -5,10 +5,12 @@ import statsVerticalChart from "@images/cards/chart-success.png";
 import statsVerticalPaypal from "@images/cards/paypal-error.png";
 import statsVerticalWallet from "@images/cards/wallet-primary.png";
 import { hexToRgb } from "@layouts/utils";
+import config from "@/@core/config.vue";
+import axios from "axios";
 
 const vuetifyTheme = useTheme();
 
-const series = {
+let series = {
   berita: [
     {
       data: [24, 21, 30, 22, 42, 26, 35, 29],
@@ -28,31 +30,55 @@ const series = {
 
 const currentTab = ref("berita");
 
-const tabData = computed(() => {
+const tabData = computed(async () => {
+  const response = await axios.get(
+    `${config.urlServer}/api/statistik/dashboard`,
+    { headers: { Authorization: localStorage.getItem("tokenAuth") } }
+  );
+  series = {
+    berita: [
+      {
+        data: Object.values(response.data.berita.statistik),
+      },
+    ],
+    edukasi: [
+      {
+        data: Object.values(response.data.edukasi.statistik),
+      },
+    ],
+    gambar: [
+      {
+        data: Object.values(response.data.gambar.statistik),
+      },
+    ],
+  };
+  console.log(series);
   const data = {
     berita: {
       avatar: statsVerticalWallet,
       title: "Berita acara",
-      stats: "30",
-      gambarLoss: -65,
-      gambarLossAmount: "60",
-      compareToLastWeek: "3",
+      stats: toString(response.data.berita.jumlah_hari_ini),
+      gambarLoss: toString(response.data.berita.persentase_perubahan_kemarin),
+      gambarLossAmount: toString(response.data.berita.jumlah_minggu_ini),
+      compareToLastWeek: toString(
+        response.data.berita.bandingkan_dengan_minggu_lalu
+      ),
     },
     edukasi: {
       avatar: statsVerticalPaypal,
       title: "Edukasi",
-      stats: "32",
-      gambarLoss: 27.8,
-      gambarLossAmount: "10",
-      compareToLastWeek: "5",
+      stats: response.data.edukasi.jumlah_hari_ini,
+      gambarLoss: response.data.edukasi.persentase_perubahan_kemarin,
+      gambarLossAmount: response.data.edukasi.jumlah_minggu_ini,
+      compareToLastWeek: response.data.edukasi.bandingkan_dengan_minggu_lalu,
     },
     gambar: {
       avatar: statsVerticalChart,
       title: "gambar",
-      stats: "5",
-      gambarLoss: 35.1,
-      gambarLossAmount: "20",
-      compareToLastWeek: "1",
+      stats: response.data.gambar.jumlah_hari_ini,
+      gambarLoss: response.data.gambar.persentase_perubahan_kemarin,
+      gambarLossAmount: response.data.gambar.jumlah_minggu_ini,
+      compareToLastWeek: response.data.gambar.bandingkan_dengan_minggu_lalu,
     },
   };
 
