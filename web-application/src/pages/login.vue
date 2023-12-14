@@ -22,6 +22,10 @@ const login = async (formLogin) => {
     });
     localStorage.setItem("tokenAuth", "Bearer " + response.data.token);
     localStorage.setItem("id_admin", response.data.id_admin);
+    localStorage.setItem(
+      "foto_profile",
+      config.imagePath + response.data.foto_profile
+    );
 
     window.location.href = "/dashboard";
   } catch (error) {

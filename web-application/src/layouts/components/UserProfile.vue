@@ -3,6 +3,7 @@ import avatar1 from "@images/avatars/avatar-1.png";
 import axios from "axios";
 import config from "@/@core/config.vue";
 
+const fotoProfile = localStorage.getItem("foto_profile");
 const logout = async () => {
   const response = await axios.post(
     `${config.urlServer}/api/logout`,
@@ -13,6 +14,7 @@ const logout = async () => {
       },
     }
   );
+  localStorage.clear();
   window.location.href = "/login";
 };
 </script>
@@ -28,7 +30,7 @@ const logout = async () => {
       bordered
     >
       <VAvatar class="cursor-pointer" color="primary" variant="tonal">
-        <VImg :src="avatar1" />
+        <VImg :src="fotoProfile" />
 
         <!-- SECTION Menu -->
         <VMenu
@@ -50,7 +52,7 @@ const logout = async () => {
                     color="success"
                   >
                     <VAvatar color="primary" variant="tonal">
-                      <VImg :src="avatar1" />
+                      <VImg :src="fotoProfile" />
                     </VAvatar>
                   </VBadge>
                 </VListItemAction>
@@ -64,7 +66,7 @@ const logout = async () => {
             <VDivider class="my-2" />
 
             <!-- 👉 Profile -->
-            <VListItem link>
+            <VListItem link to="/account-settings">
               <template #prepend>
                 <VIcon class="me-2" icon="bx-user" size="22" />
               </template>
