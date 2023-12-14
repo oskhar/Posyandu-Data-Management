@@ -141,41 +141,6 @@ export default {
       this.banyakPage = Math.ceil(response.data.jumlah_data / banyakDataTampil);
     },
 
-    async deleteEdukasi(id_edukasi) {
-      const ask = await Swal.fire({
-        title: "Anda yakin ingin menghapus?",
-        showConfirmButton: false,
-        showDenyButton: true,
-        showCancelButton: true,
-        denyButtonText: "Hapus",
-      });
-      if (ask.isDenied) {
-        const response = await axios.delete(
-          `${this.urlServer}/api/edukasi?id_edukasi=${id_edukasi}`,
-          {
-            headers: {
-              Authorization: localStorage.getItem("tokenAuth"),
-            },
-          }
-        );
-        if (response.data.success) {
-          Swal.fire({
-            toast: true,
-            position: "top",
-            iconColor: "white",
-            color: "white",
-            background: "rgb(var(--v-theme-success))",
-            showConfirmButton: false,
-            timerProgressBar: true,
-            timer: 1500,
-            icon: "success",
-            title: response.data.success.message,
-          });
-          this.fetchData();
-        }
-      }
-    },
-
     async changeAvatar(file, indexEdukasi) {
       const files = file.target.files[0];
       if (files) {
