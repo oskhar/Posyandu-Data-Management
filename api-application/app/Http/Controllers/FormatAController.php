@@ -37,7 +37,6 @@ class FormatAController extends Controller
             'bayi.tanggal_meninggal as tanggal_meninggal_bayi',
             'orang_tua.tanggal_meninggal_ibu',
             'format_a.keterangan',
-            'format_a.created_at as tanggal',
             'bayi.berat_lahir',
             'orang_tua.rt_rw',
             'orang_tua.memiliki_kms',
