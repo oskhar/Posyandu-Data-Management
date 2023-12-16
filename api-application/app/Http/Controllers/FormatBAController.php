@@ -158,7 +158,6 @@ class FormatBAController extends Controller
             'bayi.id as id_bayi',
             'bayi.nama as nama_bayi',
             'bayi.jenis_kelamin',
-            'format_b.keterangan',
             'penimbangan.berat_badan',
             'penimbangan.ntob',
             'penimbangan.asi_ekslusif',
@@ -248,6 +247,7 @@ class FormatBAController extends Controller
          */
         return response()->json([
             "jumlah_data" => $count,
+            'judul_format' => $this->judulFormat,
             "format_ba" => $formatBA
         ])->setStatusCode(200);
     }
@@ -259,13 +259,17 @@ class FormatBAController extends Controller
          */
         $data = $request->validated();
 
+        $tahunBulan = explode(' ', explode(' - ', $data['judul'])[1]);
+        $tahunPenimbangan = $tahunBulan[0];
+        $bulanPenimbangan = array_search($tahunBulan[1], $this->namaBulan);
+
         /**
          * Memeriksa apakah data sudah ada sebelumnya
          * 
          */
         $dataAlready = PenimbanganModel::where('id_bayi', '=', $data['id_bayi'])
-            ->where('tahun_penimbangan', '=', $data['tahun_penimbangan'])
-            ->where('bulan_penimbangan', '=', $data['bulan_penimbangan'])
+            ->where('tahun_penimbangan', '=', $tahunPenimbangan)
+            ->where('bulan_penimbangan', '=', $bulanPenimbangan)
             ->first();
 
         if ($dataAlready) {

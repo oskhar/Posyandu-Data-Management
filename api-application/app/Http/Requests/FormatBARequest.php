@@ -16,14 +16,10 @@ class FormatBARequest extends CoreRequest
             case 'POST':
                 return [
                     'id_bayi' => 'nullable',
-                    'judul' => 'nullable',
+                    'judul' => 'required',
                     'berat_badan' => 'nullable',
                     'ntob' => 'nullable',
                     'asi_ekslusif' => 'nullable',
-                ];
-            case 'DELETE':
-                return [
-                    "id_format_a" => "required|integer",
                 ];
             case 'GET':
                 return [

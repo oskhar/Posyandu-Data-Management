@@ -140,7 +140,7 @@ class FormatAController extends Controller
 
         $formatA = $formatA->map(function ($item) {
             $tanggalLahir = Carbon::parse($item->tanggal_lahir);
-            $item->tanggal_lahir = $tanggalLahir->format("d M Y");
+            $item->tanggal_lahir_format = $tanggalLahir->format("d M Y");
             return $item;
         });
 
