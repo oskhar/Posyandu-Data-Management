@@ -60,10 +60,6 @@ const router = createRouter({
           path: "edukasi-guest",
           component: () => import("../pages/edukasi-guest.vue"),
         },
-        {
-          path: "berita-acara",
-          component: () => import("../pages/berita-acara.vue"),
-        },
       ],
     },
     {
@@ -78,6 +74,10 @@ const router = createRouter({
         {
           path: "account-settings",
           component: () => import("../pages/account-settings.vue"),
+        },
+        {
+          path: "berita-acara",
+          component: () => import("../pages/berita-acara.vue"),
         },
         {
           path: "edukasi",
