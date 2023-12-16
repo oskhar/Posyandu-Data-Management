@@ -6,10 +6,17 @@ import langit from "@images/pages/2.png";
   <div class="container">
     <img
       class="mt-5"
-      style="width: 100%; height: 500px; object-fit: cover"
+      style="width: 100%; height: 400px; object-fit: cover"
       :src="langit"
       alt=""
     />
+    <Strong style="font-size: 40px">JUDUL</Strong>
+    <p><sup>Tanggal</sup></p>
+    <p>Paragraf</p>
+    <p>Penulis</p>
+    <router-link to="./">
+      <VBtn block type="submit" class="mt-5"> Back </VBtn>
+    </router-link>
   </div>
 </template>
 
