@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Berita>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\GambarModel>
  */
-class BeritaFactory extends Factory
+class GambarModelFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,8 @@ class BeritaFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'id_admin' => 1,
+            'gambar' => $this->faker->name . '.png',
         ];
     }
 }

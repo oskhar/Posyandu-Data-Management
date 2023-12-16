@@ -26,8 +26,8 @@ class FormatARequest extends CoreRequest
                     'keterangan' => 'nullable',
                     'berat_lahir' => 'nullable',
                     'rt_rw' => 'nullable',
-                    'memiliki_kms' => 'nullable',
-                    'memiliki_kia' => 'nullable',
+                    'memiliki_kms' => 'nullable|boolean',
+                    'memiliki_kia' => 'nullable|boolean',
                 ];
             case 'PUT':
                 return [
@@ -42,8 +42,8 @@ class FormatARequest extends CoreRequest
                     'keterangan' => 'nullable',
                     'berat_lahir' => 'nullable',
                     'rt_rw' => 'nullable',
-                    'memiliki_kms' => 'nullable',
-                    'memiliki_kia' => 'nullable',
+                    'memiliki_kms' => 'nullable|boolean',
+                    'memiliki_kia' => 'nullable|boolean',
                 ];
             case 'DELETE':
                 return [

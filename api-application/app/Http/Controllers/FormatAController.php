@@ -37,7 +37,6 @@ class FormatAController extends Controller
             'bayi.tanggal_meninggal as tanggal_meninggal_bayi',
             'orang_tua.tanggal_meninggal_ibu',
             'format_a.keterangan',
-            'format_a.created_at as tanggal',
             'bayi.berat_lahir',
             'orang_tua.rt_rw',
             'orang_tua.memiliki_kms',
@@ -54,6 +53,7 @@ class FormatAController extends Controller
         $queryMenghitung = BayiModel::select(
             'bayi.id'
         )->join('orang_tua', 'orang_tua.id', 'bayi.id_orang_tua');
+
 
         /**
          * Memfilter data berdasarkan tahun
@@ -141,7 +141,7 @@ class FormatAController extends Controller
 
         $formatA = $formatA->map(function ($item) {
             $tanggalLahir = Carbon::parse($item->tanggal_lahir);
-            $item->tanggal_lahir = $tanggalLahir->format("d M Y");
+            $item->tanggal_lahir_format = $tanggalLahir->format("d M Y");
             return $item;
         });
 
@@ -192,6 +192,22 @@ class FormatAController extends Controller
             'jumlah_data' => $count,
             'format_a' => $formatA,
         ])->setStatusCode(200);
+    }
+    public function getTahun(): JsonResponse
+    {
+        /**
+         * Mendapatkan seluruh tahun lahir yang bisa dipilih
+         * 
+         */
+        $listTahunLahir = BayiModel::selectRaw('YEAR(tanggal_lahir) as tahun_lahir')
+            ->orderByDesc('tanggal_lahir')
+            ->distinct()
+            ->pluck('tahun_lahir');
+
+        $listTahunLahir = $listTahunLahir->toArray();
+        return response()->json(
+            $listTahunLahir,
+        )->setStatusCode(200);
     }
     public function post(FormatARequest $request): JsonResponse
     {

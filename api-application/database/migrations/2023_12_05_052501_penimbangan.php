@@ -12,9 +12,11 @@ return new class extends Migration {
     {
         Schema::create('penimbangan', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_bayi')->unsigned();
+            $table->bigInteger('id_bayi')->unsigned()->nullable();
             $table->foreign('id_bayi')->references('id')->on('bayi')->onDelete('cascade')->onUpdate('cascade');
-            $table->integer('berat_badan');
+            $table->integer('tahun_penimbangan');
+            $table->integer('bulan_penimbangan');
+            $table->integer('berat_badan')->nullable();
             $table->string('ntob')->nullable();
             $table->string('asi_ekslusif')->nullable();
             $table->timestamps();

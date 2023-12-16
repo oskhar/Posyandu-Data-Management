@@ -1533,45 +1533,30 @@ paths:
               schema:
                 type: object
                 properties:
-                  nama_posyandu:
-                    type: string
-                  kota:
-                    type: string
-                  judul_format:
-                    type: string
-                  jumlah_lahir:
-                    type: integer
-                  jumlah_meninggal:
-                    type: integer
-                  jumlah_bayi_meninggal:
-                    type: integer
-                  jumlah_ibu_meninggal:
-                    type: integer
                   jumlah_data:
                     type: integer
-                  format_a:
+                  format_ba:
                     type: array
                     items:
                       type: object
                       properties:
-                        id_format_a:
+                        id_bayi:
                           type: integer
-                        nama_ayah:
-                          type: string
-                        nama_ibu:
-                          type: string
                         nama_bayi:
                           type: string
                         jenis_kelamin:
                           type: string
+                        berat_badan:
+                          type: number
+                        ntob:
+                          type: string
+                        asi_ekslusif:
+                          type: string
                         tanggal_lahir:
                           type: string
-                        tanggal_meninggal_bayi:
-                          type: string
-                        tanggal_meninggal_ibu:
-                          type: string
-                        keterangan:
-                          type: string
+                          format: date
+                        umur:
+                          type: integer
         400:
           description: BAD REQUEST
           content:
@@ -1614,21 +1599,15 @@ paths:
             schema:
               type: object
               properties:
-                nama_ayah:
+                id_bayi:
+                  type: integer
+                judul:
                   type: string
-                nama_ibu:
+                berat_badan:
+                  type: integer
+                ntob:
                   type: string
-                nama_bayi:
-                  type: string
-                jenis_kelamin:
-                  type: string
-                tanggal_lahir:
-                  type: string
-                tanggal_meninggal_bayi:
-                  type: string
-                tanggal_meninggal_ibu:
-                  type: string
-                keterangan:
+                asi_ekslusif:
                   type: string
       responses:
         201:
@@ -1661,127 +1640,6 @@ paths:
               example:
                 errors:
                   message: "Data ... tidak valid"
-    put:
-      tags:
-        - Data Format 2 A
-      summary: MENGUBAH data format-ba
-      requestBody:
-        description: Data Format 2 A untuk mengubah data format-ba
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                id_format_a:
-                  type: integer
-                nama_ayah:
-                  type: string
-                nama_ibu:
-                  type: string
-                nama_bayi:
-                  type: string
-                jenis_kelamin:
-                  type: string
-                tanggal_lahir:
-                  type: string
-                tanggal_meninggal_bayi:
-                  type: string
-                tanggal_meninggal_ibu:
-                  type: string
-                keterangan:
-                  type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-              example:
-                success:
-                  message: "Data ... berhasil diubah"
-        400:
-          description: BAD REQUEST
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-              example:
-                errors:
-                  message: "Data ... tidak valid"
-        404:
-          description: NOT FOUND
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-              example:
-                errors:
-                  message: "Data dengan id ... tidak ditemukan"
-    delete:
-      tags:
-        - Data Format 2 A
-      summary: MENGHAPUS data format-ba
-      requestBody:
-        description: Data Format 2 A untuk menghapus data format-ba
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                id_format_a:
-                  type: integer
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-              example:
-                success:
-                  message: "Data ... berhasil dihapus"
-        404:
-          description: NOT FOUND
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-              example:
-                errors:
-                  message: "Data dengan id ... tidak ditemukan"
 
   # ==================================================================
 

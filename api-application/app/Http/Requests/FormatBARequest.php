@@ -15,39 +15,20 @@ class FormatBARequest extends CoreRequest
         switch ($this->getMethod()) {
             case 'POST':
                 return [
-                    'id_bayi' => 'nullable|integer',
-                    'nama_ayah' => 'nullable|string',
-                    'nama_ibu' => 'nullable|string',
-                    'nama_bayi' => 'nullable|string',
-                    'jenis_kelamin' => 'nullable|string|in:L,P',
-                    'tanggal_lahir' => 'nullable',
-                    'tanggal_meninggal_bayi' => 'nullable',
-                    'tanggal_meninggal_ibu' => 'nullable',
-                    'keterangan' => 'nullable',
-                ];
-            case 'PUT':
-                return [
-                    "id_format_a" => "required|integer",
-                    'nama_ayah' => 'nullable|string',
-                    'nama_ibu' => 'nullable|string',
-                    'nama_bayi' => 'nullable|string',
-                    'jenis_kelamin' => 'nullable|string|in:L,P',
-                    'tanggal_lahir' => 'nullable',
-                    'tanggal_meninggal_bayi' => 'nullable',
-                    'tanggal_meninggal_ibu' => 'nullable',
-                    'keterangan' => 'nullable',
-                ];
-            case 'DELETE':
-                return [
-                    "id_format_a" => "required|integer",
+                    'id_bayi' => 'nullable',
+                    'judul' => 'required',
+                    'berat_badan' => 'nullable',
+                    'ntob' => 'nullable',
+                    'asi_ekslusif' => 'nullable',
                 ];
             case 'GET':
                 return [
-                    'id_format_a' => 'nullable|integer',
+                    'id_bayi' => 'nullable|integer',
                     'tahun' => 'nullable',
+                    'bulan' => 'nullable',
                     'search' => 'nullable',
                     'start' => 'nullable|integer',
-                    'length' => 'nullable|integer'
+                    'length' => 'nullable|integer',
                 ];
             default:
                 return [];

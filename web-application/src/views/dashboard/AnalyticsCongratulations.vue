@@ -21,9 +21,7 @@ const illustrationJohn = computed(() =>
 
         <VCardText>
           <span>
-            Ini merupakan situs web Posyandu Melati
-            <br />
-            Semoga dapat memudahkan masyarakat
+            Ini merupakan situs web Posyandu Melati Semoga dapat memudahkan masyarakat
           </span>
           <br />
           <VBtn variant="tonal" class="mt-4" size="small" to="/tentang">
@@ -33,12 +31,8 @@ const illustrationJohn = computed(() =>
       </VCol>
 
       <VCol cols="12" sm="4" order="1" order-sm="2" class="text-center">
-        <img
-          :src="illustrationJohn"
-          :height="$vuetify.display.xs ? '150' : '175'"
-          :class="$vuetify.display.xs ? 'mt-6 mb-n2' : 'position-absolute'"
-          class="john-illustration flip-in-rtl"
-        />
+        <img :src="illustrationJohn" :height="$vuetify.display.xs ? '150' : '175'"
+          :class="$vuetify.display.xs ? 'mt-6 mb-n2' : 'position-absolute'" class="john-illustration flip-in-rtl" />
       </VCol>
     </VRow>
   </VCard>

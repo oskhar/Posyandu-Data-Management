@@ -71,38 +71,22 @@ const isPasswordVisible = ref(false);
           <VRow>
             <!-- email -->
             <VCol cols="12">
-              <VTextField
-                v-model="form.email"
-                autofocus
-                placeholder="posyandu@email.com"
-                label="Email"
-                type="email"
-              />
+              <VTextField v-model="form.email" autofocus placeholder="posyandu@email.com" label="Email" type="email" />
             </VCol>
 
             <!-- password -->
             <VCol cols="12">
-              <VTextField
-                class="mb-5"
-                v-model="form.password"
-                label="Password"
-                placeholder="············"
+              <VTextField class="mb-5" v-model="form.password" label="Password" placeholder="············"
                 :type="isPasswordVisible ? 'text' : 'password'"
                 :append-inner-icon="isPasswordVisible ? 'bx-hide' : 'bx-show'"
-                @click:append-inner="isPasswordVisible = !isPasswordVisible"
-              />
+                @click:append-inner="isPasswordVisible = !isPasswordVisible" />
 
               <!-- remember me checkbox -->
-              <!-- <div
-                class="d-flex align-center justify-space-between flex-wrap mt-1 mb-4"
-              >
-                <RouterLink
-                  class="text-primary ms-2 mb-1"
-                  to="javascript:void(0)"
-                >
+              <div class="mt-1 mb-4">
+                <RouterLink class="text-primary ms-2 mb-1" to="javascript:void(0)">
                   Lupa Password?
                 </RouterLink>
-              </div> -->
+              </div>
 
               <!-- login button -->
 
@@ -110,14 +94,9 @@ const isPasswordVisible = ref(false);
                 <VProgressCircular v-if="isLoading" indeterminate color="white">
                 </VProgressCircular>
 
-                <font v-else>Submit</font>
+                <font v-else>masuk</font>
               </VBtn>
-
-              <router-link to="./">
-                <VBtn block type="submit" class="mt-5"> Back </VBtn>
-              </router-link>
             </VCol>
-
             <!-- auth providers -->
             <VCol cols="12" class="text-center">
               <!-- <AuthProvider /> -->
@@ -125,6 +104,13 @@ const isPasswordVisible = ref(false);
           </VRow>
         </VForm>
       </VCardText>
+
+      <RouterLink to="./">
+        <div>
+          <v-icon>bx-chevron-left</v-icon>
+          Halaman Depan
+        </div>
+      </RouterLink>
     </VCard>
   </div>
 </template>

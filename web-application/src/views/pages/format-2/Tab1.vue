@@ -1,6 +1,6 @@
 <template>
   <VRow>
-    <VCol cols="12" md="8" sm="12">
+    <VCol cols="12">
       <VCard>
         <VProgressCircular
           v-if="isLoading"
@@ -13,40 +13,9 @@
         <VCardItem v-else style="min-height: 170px">
           <h2>{{ judulFormatA }}</h2>
           <h3 class="text-secondary mt-5">{{ namaPosyandu }} - {{ kota }}</h3>
-          <h4 class="mt-5">
-            <font
-              >Lahir: <font class="text-primary">{{ jumlahLahiran }}</font>
-            </font>
-            <font class="float-right"
-              >Meninggal: <font class="text-error">{{ jumlahMeninggal }}</font>
-            </font>
-          </h4>
         </VCardItem>
-      </VCard>
-      <VCard class="mt-5">
         <VCardItem>
           <VSelect v-model="tahun" :items="listTahunLahir" />
-        </VCardItem>
-      </VCard>
-    </VCol>
-    <VCol cols="12" md="4" sm="12">
-      <VCard>
-        <VCardItem>
-          <VProgressCircular
-            v-if="isLoading"
-            indeterminate
-            color="primary"
-            class="mt-5 float-center"
-            size="50"
-          >
-          </VProgressCircular>
-          <VueApexCharts
-            v-else
-            class="float-center"
-            width="400"
-            :options="chartOptions"
-            :series="series"
-          />
         </VCardItem>
       </VCard>
     </VCol>
@@ -57,13 +26,6 @@
           <div class="d-flex justify-end">
             <VTextField v-model="dataSearch" append-inner-icon="bx-search">
             </VTextField>
-            <VBtn
-              class="ml-4"
-              href="/data/format-1-create"
-              prepend-icon="bx-plus"
-            >
-              Tambah
-            </VBtn>
             <VBtn class="ml-4" @click="exportExcel" prepend-icon="bx-download">
               Download
             </VBtn>
@@ -72,7 +34,7 @@
             <thead>
               <tr>
                 <th>No</th>
-                <th>Nama Bayi</th>
+                <th>Nama Anak</th>
                 <th>Tanggal Lahir</th>
                 <th>Nama Ayah</th>
                 <th>Nama Ibu</th>
@@ -111,196 +73,8 @@
                   {{ item.nama_ibu }}
                 </td>
                 <td class="text-center">
-                  <v-dialog
-                    v-model="dialog[item.id_format_a]"
-                    persistent
-                    width="1024"
-                  >
-                    <template v-slot:activator="{ props }">
-                      <v-btn color="primary" class="ml-2" v-bind="props">
-                        <v-icon>mdi-edit</v-icon>
-                      </v-btn>
-                    </template>
-                    <v-card>
-                      <v-card-title>
-                        <span class="text-h5">Ubah Data</span>
-                      </v-card-title>
-                      <v-card-text>
-                        <v-container>
-                          <v-row>
-                            <VCol cols="12">
-                              <VRow no-gutters>
-                                <!-- 👉 First Name -->
-                                <VCol cols="12" md="3">
-                                  <label for="ayah">Nama Ayah</label>
-                                </VCol>
-
-                                <VCol cols="12" md="9">
-                                  <VTextField
-                                    id="ayah"
-                                    v-model="item.nama_ayah"
-                                    placeholder="Masukkan Nama Ayah"
-                                    persistent-placeholder
-                                  />
-                                  <sup class="text-error">*Wajib diisi</sup>
-                                </VCol>
-                              </VRow>
-                            </VCol>
-                            <VCol cols="12">
-                              <VRow no-gutters>
-                                <!-- 👉 First Name -->
-                                <VCol cols="12" md="3">
-                                  <label for="ibu">Nama Ibu</label>
-                                </VCol>
-
-                                <VCol cols="12" md="9">
-                                  <VTextField
-                                    v-model="item.nama_ibu"
-                                    id="ibu"
-                                    placeholder="Masukkan Nama Ibu"
-                                    persistent-placeholder
-                                  />
-                                  <sup class="text-error">*Wajib diisi</sup>
-                                </VCol>
-                              </VRow>
-                            </VCol>
-                            <VCol cols="12">
-                              <VRow no-gutters>
-                                <!-- 👉 First Name -->
-                                <VCol cols="12" md="3">
-                                  <label for="bayi">Nama Bayi</label>
-                                </VCol>
-
-                                <VCol cols="12" md="9">
-                                  <VTextField
-                                    v-model="item.nama_bayi"
-                                    id="bayi"
-                                    placeholder="Masukkan Nama Bayi"
-                                    persistent-placeholder
-                                  />
-                                  <sup class="text-error">*Wajib diisi</sup>
-                                </VCol>
-                              </VRow>
-                            </VCol>
-                            <VCol cols="12">
-                              <VRow no-gutters>
-                                <!-- 👉 First Name -->
-                                <VCol cols="12" md="3">
-                                  <label for="kelamin">Jenis Kelamin</label>
-                                </VCol>
-
-                                <VCol cols="12" md="9">
-                                  <VSelect
-                                    v-model="item.jenis_kelamin"
-                                    :items="['L', 'P']"
-                                  />
-                                  <sup class="text-error">*Wajib diisi</sup>
-                                </VCol>
-                              </VRow>
-                            </VCol>
-                            <VCol cols="12">
-                              <VRow no-gutters>
-                                <!-- 👉 First Name -->
-                                <VCol cols="12" md="3">
-                                  <label for="tanggal-lahir"
-                                    >Tanggal Lahir</label
-                                  >
-                                </VCol>
-
-                                <VCol cols="12" md="9">
-                                  <VTextField
-                                    placeholder=""
-                                    type="date"
-                                    v-model="item.tanggal_lahir"
-                                  />
-                                  <sup class="text-error">*Wajib diisi</sup>
-                                </VCol>
-                              </VRow>
-                            </VCol>
-                            <VCol cols="12">
-                              <VRow no-gutters>
-                                <!-- 👉 First Name -->
-                                <VCol cols="12" md="3">
-                                  <label for="tanggal-meninggal-bayi"
-                                    >Tanggal Meninggal Bayi</label
-                                  >
-                                </VCol>
-
-                                <VCol cols="12" md="9">
-                                  <VTextField
-                                    placeholder=""
-                                    type="date"
-                                    v-model="item.tanggal_meninggal_bayi"
-                                  />
-                                </VCol>
-                              </VRow>
-                            </VCol>
-                            <VCol cols="12">
-                              <VRow no-gutters>
-                                <!-- 👉 First Name -->
-                                <VCol cols="12" md="3">
-                                  <label for="tanggal-meninggal-ibu"
-                                    >Tanggal Meninggal Ibu</label
-                                  >
-                                </VCol>
-
-                                <VCol cols="12" md="9">
-                                  <VTextField
-                                    placeholder=""
-                                    type="date"
-                                    v-model="item.tanggal_meninggal_ibu"
-                                  />
-                                </VCol>
-                              </VRow>
-                            </VCol>
-                            <VCol cols="12">
-                              <VRow no-gutters>
-                                <!-- 👉 First Name -->
-                                <VCol cols="12" md="3">
-                                  <label for="keterangan">Keterangan</label>
-                                </VCol>
-
-                                <VCol cols="12" md="9">
-                                  <VTextField
-                                    v-model="item.keterangan"
-                                    placeholder="Masukkan Keterangan"
-                                    persistent-placeholder
-                                  />
-                                </VCol>
-                              </VRow>
-                            </VCol>
-                          </v-row>
-                        </v-container>
-                      </v-card-text>
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn
-                          color="blue-darken-1"
-                          variant="text"
-                          @click="dialog[item.id_format_a] = false"
-                        >
-                          Close
-                        </v-btn>
-                        <v-btn
-                          color="blue-darken-1"
-                          variant="text"
-                          @click="
-                            putData(index);
-                            dialog[item.id_format_a] = false;
-                          "
-                        >
-                          Save
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
-                  <!-- <VBtn> </VBtn> -->
-                  <VBtn
-                    class="ml-2"
-                    color="error"
-                    @click="deleteData(item.id_format_a)"
-                  >
-                    <v-icon>mdi-delete</v-icon>
+                  <VBtn color="primary" class="ml-2" href="/data/format-2-edit">
+                    <v-icon>mdi-edit</v-icon>
                   </VBtn>
                 </td>
               </tr>
@@ -533,11 +307,6 @@ export default {
       this.dataFormatA = response.data.format_a;
       this.jumlahLahiran = response.data.jumlah_lahir;
       this.jumlahMeninggal = response.data.jumlah_meninggal;
-      // this.series = [
-      //   response.data.jumlah_lahir,
-      //   response.data.jumlah_bayi_meninggal,
-      //   response.data.jumlah_ibu_meninggal,
-      // ];
       this.series = [
         {
           data: [

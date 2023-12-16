@@ -2,17 +2,18 @@
 
 namespace Database\Seeders;
 
-use App\Models\BeritaModel;
+use App\Models\PenimbanganModel;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class BeritaSeeder extends Seeder
+class PenimbanganSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        BeritaModel::factory(30)->create();
+        //
+        PenimbanganModel::factory(100)->create();
     }
 }
