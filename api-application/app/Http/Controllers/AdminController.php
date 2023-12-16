@@ -271,10 +271,10 @@ class AdminController extends Controller
              * baru adalah password yang sama
              * 
              */
-            if (strlen($data['password']['baru_a']) < 8) {
+            if (strlen($data['password']['baru_a']) < 6) {
                 throw new HttpResponseException(response()->json([
                     'errors' => [
-                        'message' => 'Password minimal harus 8 karakter!'
+                        'message' => 'Password minimal harus 6 karakter!'
                     ]
                 ]));
             }

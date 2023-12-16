@@ -119,7 +119,10 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
  * Endpoint public
  * 
  */
+Route::post('/lupa-password', [AuthController::class, 'forgetPassword']);
+Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 Route::post('/login', [AuthController::class, 'login']);
+
 Route::get('/edukasi', [EdukasiController::class, 'get']);
 Route::get('/berita', [BeritaController::class, 'get']);
 Route::get('/gambar', [GambarController::class, 'get']);

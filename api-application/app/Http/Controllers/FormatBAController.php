@@ -266,31 +266,17 @@ class FormatBAController extends Controller
         unset($data['judul']);
 
         /**
-         * Memeriksa apakah data sudah ada sebelumnya
+         * Menggunakan updateOrCreate untuk menyimpan atau memperbarui data
          * 
          */
-        $dataAlready = PenimbanganModel::where('id_bayi', '=', $data['id_bayi'])
-            ->where('tahun_penimbangan', '=', $tahunPenimbangan)
-            ->where('bulan_penimbangan', '=', $bulanPenimbangan . '')
-            ->first();
-
-        if ($dataAlready) {
-
-            /**
-             * Melakukan ubah data jika data sudah ada
-             * 
-             */
-            $dataAlready->update($data);
-
-        } else {
-
-            /**
-             * Melakukan penambahan data jika data belum ada
-             * 
-             */
-            PenimbanganModel::create($data);
-
-        }
+        PenimbanganModel::updateOrCreate(
+            [
+                'id_bayi' => $data['id_bayi'],
+                'tahun_penimbangan' => $tahunPenimbangan,
+                'bulan_penimbangan' => $bulanPenimbangan,
+            ],
+            $data
+        );
 
         /**
          * Mengembalikan response setelah
@@ -304,27 +290,3 @@ class FormatBAController extends Controller
         ])->setStatusCode(201);
     }
 }
-
-// "waktu": [
-//     "2022 Desember": [
-//         "berat_badan": 10,
-//         "ntob": "nt"
-//     ],
-//     "2023 Januari": [
-//         "berat_badan": 10,
-//         "ntob": "nt"
-//     ],
-//     "2023 Februari": [
-//         "berat_badan": 10,
-//         "ntob": "nt"
-//     ],
-//     "2023 Maret": [
-//         "berat_badan": 10,
-//         "ntob": "nt"
-//     ],
-//     "2023 April": [
-//         "berat_badan": 10,
-//         "ntob": "nt"
-//     ],
-//     "2023 Mei"
-// ],
