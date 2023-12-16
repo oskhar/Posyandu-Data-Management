@@ -1,3 +1,9 @@
+<style>
+#gambar:hover {
+  filter: brightness(0.7);
+}
+</style>
+
 <template>
   <div class="text-center" style="margin-top: 200px">
     <strong style="font-size: 35px">GALERI</strong>
@@ -23,21 +29,18 @@
       </div>
     </VCol>
   </VRow>
-  <VRow>
+
+  <VRow no-gutters>
     <VCol cols="12" md="3" sm="6" v-for="data in dataGambar">
-      <v-hover style="box-shadow: 10px black">
-        <VCard>
-          <VImg
-            style="width: 100%; height: 200px"
-            cover
-            :color="isHovering ? 'primary' : undefined"
-            :src="data.gambar"
-            alt="image"
-            @click="lihatGambar(data.gambar, data.nama_lengkap, data.id_gambar)"
-          />
-          <!-- <h1>{{ data.id_gambar }}</h1> -->
-        </VCard>
-      </v-hover>
+      <VImg
+        id="gambar"
+        style="width: 100%; height: 200px"
+        cover
+        :src="data.gambar"
+        alt="image"
+        @click="lihatGambar(data.gambar, data.nama_lengkap, data.id_gambar)"
+      />
+      <!-- <h1>{{ data.id_gambar }}</h1> -->
     </VCol>
   </VRow>
   <VRow>
