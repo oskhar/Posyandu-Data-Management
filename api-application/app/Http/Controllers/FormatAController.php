@@ -54,6 +54,22 @@ class FormatAController extends Controller
             'bayi.id'
         )->join('orang_tua', 'orang_tua.id', 'bayi.id_orang_tua');
 
+
+        /**
+         * Memfilter data berdasarkan tahun
+         * 
+         */
+        if (!empty($data['tahun'])) {
+
+            /**
+             * Melakukan filtering pada query
+             * 
+             */
+            $query = $query->whereYear('bayi.tanggal_lahir', '=', $data['tahun']);
+            $queryMenghitung = $queryMenghitung->whereYear('bayi.tanggal_lahir', '=', $data['tahun']);
+
+        }
+
         /**
          * Melakukan filtering atau penyaringan
          * data pada kondisi tertentu
@@ -68,21 +84,6 @@ class FormatAController extends Controller
             $query = $query->where('bayi.nama', 'LIKE', '%' . $data['search'] . '%')
                 ->orWhere('orang_tua.nama_ibu', 'LIKE', '%' . $data['search'] . '%')
                 ->orWhere('orang_tua.nama_ayah', 'LIKE', '%' . $data['search'] . '%');
-
-        }
-
-        /**
-         * Memfilter data berdasarkan tahun
-         * 
-         */
-        if (!empty($data['tahun'])) {
-
-            /**
-             * Melakukan filtering pada query
-             * 
-             */
-            $query = $query->whereYear('bayi.tanggal_lahir', '=', $data['tahun']);
-            $queryMenghitung = $queryMenghitung->whereYear('bayi.tanggal_lahir', '=', $data['tahun']);
 
         }
 
