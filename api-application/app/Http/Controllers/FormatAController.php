@@ -55,21 +55,6 @@ class FormatAController extends Controller
         )->join('orang_tua', 'orang_tua.id', 'bayi.id_orang_tua');
 
         /**
-         * Memfilter data berdasarkan tahun
-         * 
-         */
-        if (!empty($data['tahun'])) {
-
-            /**
-             * Melakukan filtering pada query
-             * 
-             */
-            $query = $query->whereYear('bayi.tanggal_lahir', '=', $data['tahun']);
-            $queryMenghitung = $queryMenghitung->whereYear('bayi.tanggal_lahir', '=', $data['tahun']);
-
-        }
-
-        /**
          * Melakukan filtering atau penyaringan
          * data pada kondisi tertentu
          * 
@@ -83,6 +68,21 @@ class FormatAController extends Controller
             $query = $query->where('bayi.nama', 'LIKE', '%' . $data['search'] . '%')
                 ->orWhere('orang_tua.nama_ibu', 'LIKE', '%' . $data['search'] . '%')
                 ->orWhere('orang_tua.nama_ayah', 'LIKE', '%' . $data['search'] . '%');
+
+        }
+
+        /**
+         * Memfilter data berdasarkan tahun
+         * 
+         */
+        if (!empty($data['tahun'])) {
+
+            /**
+             * Melakukan filtering pada query
+             * 
+             */
+            $query = $query->whereYear('bayi.tanggal_lahir', '=', $data['tahun']);
+            $queryMenghitung = $queryMenghitung->whereYear('bayi.tanggal_lahir', '=', $data['tahun']);
 
         }
 
@@ -191,6 +191,22 @@ class FormatAController extends Controller
             'jumlah_data' => $count,
             'format_a' => $formatA,
         ])->setStatusCode(200);
+    }
+    public function getTahun(): JsonResponse
+    {
+        /**
+         * Mendapatkan seluruh tahun lahir yang bisa dipilih
+         * 
+         */
+        $listTahunLahir = BayiModel::selectRaw('YEAR(tanggal_lahir) as tahun_lahir')
+            ->orderByDesc('tanggal_lahir')
+            ->distinct()
+            ->pluck('tahun_lahir');
+
+        $listTahunLahir = $listTahunLahir->toArray();
+        return response()->json(
+            $listTahunLahir,
+        )->setStatusCode(200);
     }
     public function post(FormatARequest $request): JsonResponse
     {
