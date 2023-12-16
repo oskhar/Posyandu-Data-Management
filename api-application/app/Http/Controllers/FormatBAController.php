@@ -263,13 +263,15 @@ class FormatBAController extends Controller
         $tahunPenimbangan = $tahunBulan[0];
         $bulanPenimbangan = array_search($tahunBulan[1], $this->namaBulan);
 
+        unset($data['judul']);
+
         /**
          * Memeriksa apakah data sudah ada sebelumnya
          * 
          */
         $dataAlready = PenimbanganModel::where('id_bayi', '=', $data['id_bayi'])
             ->where('tahun_penimbangan', '=', $tahunPenimbangan)
-            ->where('bulan_penimbangan', '=', $bulanPenimbangan)
+            ->where('bulan_penimbangan', '=', $bulanPenimbangan . '')
             ->first();
 
         if ($dataAlready) {
