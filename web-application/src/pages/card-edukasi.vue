@@ -1,11 +1,11 @@
 <template>
   <div class="text-center" style="margin-top: 200px">
-    <strong style="font-size: 35px">EDUKASI</strong>
+    <strong style="font-size: 35px" class="grey-darken-4">EDUKASI</strong>
   </div>
 
-  <RouterLink to="./berita-acara-guest">
-    <V-row class="mt-5">
-      <VCol v-for="(data, index) in dataEdukasi" cols="5" md="3" sm="5">
+  <V-row class="mt-5">
+    <VCol v-for="(data, index) in dataEdukasi" cols="12" md="3" sm="12">
+      <RouterLink to="./edukasi-guest">
         <VCard>
           <VImg :src="data.gambar" cover style="height: 200px">
             <h2
@@ -34,7 +34,7 @@
                 persistent
                 width="1024"
               >
-                <template v-slot:activator="{ props }">
+                <!-- <template v-slot:activator="{ props }">
                   <VRow class="mt-3">
                     <VCol>
                       <VBtn color="primary" class="mx-3" v-bind="props">
@@ -42,27 +42,27 @@
                       </VBtn>
                     </VCol>
                   </VRow>
-                </template>
+                </template> -->
               </v-dialog>
             </v-row>
           </VCardText>
         </VCard>
-      </VCol>
-    </V-row>
+      </RouterLink>
+    </VCol>
+  </V-row>
 
-    <VRow>
-      <VCol>
-        <div class="text-center my-3 float-right">
-          <v-pagination
-            v-model="page"
-            :length="banyakPage"
-            :total-visible="5"
-            @click="fetchData"
-          ></v-pagination>
-        </div>
-      </VCol>
-    </VRow>
-  </RouterLink>
+  <VRow>
+    <VCol>
+      <div class="text-center my-3 float-right">
+        <v-pagination
+          v-model="page"
+          :length="banyakPage"
+          :total-visible="5"
+          @click="fetchData"
+        ></v-pagination>
+      </div>
+    </VCol>
+  </VRow>
 </template>
 
 <script>

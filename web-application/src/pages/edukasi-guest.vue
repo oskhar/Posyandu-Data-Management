@@ -1,5 +1,6 @@
 <script setup>
 import langit from "@images/pages/2.png";
+import cardEdukasi from "./card-edukasi.vue";
 </script>
 
 <template>
@@ -18,6 +19,8 @@ import langit from "@images/pages/2.png";
       <VBtn block type="submit" class="mt-5"> Back </VBtn>
     </router-link>
   </div>
+
+  <cardEdukasi />
 </template>
 
 <style scope>

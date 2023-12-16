@@ -25,14 +25,19 @@
   </VRow>
   <VRow>
     <VCol cols="12" md="3" sm="6" v-for="data in dataGambar">
-      <VImg
-        style="width: 100%; height: 200px"
-        cover
-        :src="data.gambar"
-        alt="image"
-        @click="lihatGambar(data.gambar, data.nama_lengkap, data.id_gambar)"
-      />
-      <!-- <h1>{{ data.id_gambar }}</h1> -->
+      <v-hover style="box-shadow: 10px black">
+        <VCard>
+          <VImg
+            style="width: 100%; height: 200px"
+            cover
+            :color="isHovering ? 'primary' : undefined"
+            :src="data.gambar"
+            alt="image"
+            @click="lihatGambar(data.gambar, data.nama_lengkap, data.id_gambar)"
+          />
+          <!-- <h1>{{ data.id_gambar }}</h1> -->
+        </VCard>
+      </v-hover>
     </VCol>
   </VRow>
   <VRow>
@@ -92,7 +97,7 @@ export default {
     async lihatGambar(gambar, judul, id_gambar) {
       const ask = await Swal.fire({
         imageUrl: gambar,
-        html: judul,
+        // html: judul,
         imageAlt: "Ini gambar",
         // showConfirmButton: false,
         // showDenyButton: true,
