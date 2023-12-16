@@ -51,7 +51,7 @@
       </VCard>
     </VCol>
     <VCol cols="12">
-      <VCard title="Format 1">
+      <VCard>
         <!-- <VCardText> </VCardText> -->
         <VCardItem>
           <div class="d-flex justify-end">
@@ -72,7 +72,7 @@
             <thead>
               <tr>
                 <th>No</th>
-                <th>Nama Anak</th>
+                <th>Nama Bayi</th>
                 <th>Tanggal Lahir</th>
                 <th>Nama Ayah</th>
                 <th>Nama Ibu</th>
