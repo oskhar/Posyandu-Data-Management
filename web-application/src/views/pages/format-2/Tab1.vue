@@ -17,6 +17,9 @@
         <VCardItem>
           <VSelect v-model="tahun" :items="listTahunLahir" />
         </VCardItem>
+        <VCardItem>
+          <VSelect v-model="tahun" :items="listBulanLahir" />
+        </VCardItem>
       </VCard>
     </VCol>
     <VCol cols="12">
@@ -127,6 +130,7 @@ export default {
       jumlahMeninggal: "",
       tahun: d.getFullYear(),
       listTahunLahir: [d.getFullYear()],
+      listBulanLahir: [d.getFullYear()],
       isLoading: false,
       series: [
         {

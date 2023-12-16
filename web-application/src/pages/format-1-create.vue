@@ -2,8 +2,7 @@
   <VRow>
     <VCol cols="12" md="12">
       <!-- 👉 Horizontal Form -->
-      <h1>Format-1</h1>
-      <VCard title="Tambah Data ">
+      <VCard title="Tambah Data Bayi">
         <VCardText>
           <VForm @submit="submitData">
             <VRow>
@@ -123,6 +122,54 @@
                       placeholder=""
                       type="date"
                       v-model="tanggal_meninggal_ibu"
+                    />
+                  </VCol>
+                </VRow>
+              </VCol>
+              <VCol cols="12">
+                <VRow no-gutters>
+                  <!-- 👉 First Name -->
+                  <VCol cols="12" md="3">
+                    <label>Memiliki KIA</label>
+                  </VCol>
+
+                  <VCol cols="12" md="9">
+                    <VTextField
+                      v-model="memiliki_kia"
+                      placeholder="Masukkan KIA"
+                      persistent-placeholder
+                    />
+                  </VCol>
+                </VRow>
+              </VCol>
+              <VCol cols="12">
+                <VRow no-gutters>
+                  <!-- 👉 First Name -->
+                  <VCol cols="12" md="3">
+                    <label>Memiliki KMS</label>
+                  </VCol>
+
+                  <VCol cols="12" md="9">
+                    <VTextField
+                      v-model="memiliki_kms"
+                      placeholder="Masukkan KMS"
+                      persistent-placeholder
+                    />
+                  </VCol>
+                </VRow>
+              </VCol>
+              <VCol cols="12">
+                <VRow no-gutters>
+                  <!-- 👉 First Name -->
+                  <VCol cols="12" md="3">
+                    <label>RT/RW</label>
+                  </VCol>
+
+                  <VCol cols="12" md="9">
+                    <VTextField
+                      v-model="rt_rw"
+                      placeholder="Masukkan RT/RW"
+                      persistent-placeholder
                     />
                   </VCol>
                 </VRow>
