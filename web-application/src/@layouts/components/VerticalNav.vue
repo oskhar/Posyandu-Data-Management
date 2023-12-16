@@ -39,32 +39,21 @@ const handleNavScroll = evt => {
 </script>
 
 <template>
-  <Component
-    :is="props.tag"
-    ref="refNav"
-    class="layout-vertical-nav"
-    :class="[
-      {
-        'visible': isOverlayNavActive,
-        'scrolled': isVerticalNavScrolled,
-        'overlay-nav': mdAndDown,
-      },
-    ]"
-  >
+  <Component :is="props.tag" ref="refNav" class="layout-vertical-nav" :class="[
+    {
+      'visible': isOverlayNavActive,
+      'scrolled': isVerticalNavScrolled,
+      'overlay-nav': mdAndDown,
+    },
+  ]">
     <!-- 👉 Header -->
     <div class="nav-header">
       <slot name="nav-header">
-        <RouterLink
-          to="/"
-          class="app-logo d-flex align-center gap-x-3 app-title-wrapper"
-        >
-          <div
-            class="d-flex"
-            v-html="logo"
-          />
+        <RouterLink to="/" class="app-logo d-flex align-center gap-x-3 app-title-wrapper">
+          <div class="d-flex" v-html="logo" />
 
           <h1 class="leading-normal">
-            Posyandu
+            <font style="color: #008cb5;">Melati</font>
           </h1>
         </RouterLink>
       </slot>
@@ -72,16 +61,8 @@ const handleNavScroll = evt => {
     <slot name="before-nav-items">
       <div class="vertical-nav-items-shadow" />
     </slot>
-    <slot
-      name="nav-items"
-      :update-is-vertical-nav-scrolled="updateIsVerticalNavScrolled"
-    >
-      <PerfectScrollbar
-        tag="ul"
-        class="nav-items"
-        :options="{ wheelPropagation: false }"
-        @ps-scroll-y="handleNavScroll"
-      >
+    <slot name="nav-items" :update-is-vertical-nav-scrolled="updateIsVerticalNavScrolled">
+      <PerfectScrollbar tag="ul" class="nav-items" :options="{ wheelPropagation: false }" @ps-scroll-y="handleNavScroll">
         <slot />
       </PerfectScrollbar>
     </slot>

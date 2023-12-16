@@ -2,17 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\BeritaModel;
+use App\Models\GambarModel;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class BeritaSeeder extends Seeder
+class GambarSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        BeritaModel::factory(30)->create();
+        GambarModel::factory(10)->create();
     }
 }

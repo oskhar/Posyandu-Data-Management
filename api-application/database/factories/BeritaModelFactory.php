@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\EdukasiModel>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\BeritaModel>
  */
-class EdukasiFactory extends Factory
+class BeritaModelFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,7 +19,8 @@ class EdukasiFactory extends Factory
         return [
             'id_admin' => 1,
             'judul' => $this->faker->sentence,
-            'materi' => $this->faker->paragraph,
+            'deskripsi' => $this->faker->paragraph,
+            'tanggal_pelaksanaan' => $this->faker->date,
             'gambar' => '/images/upload/default.png',
         ];
     }

@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\FormatARequest;
 use App\Http\Requests\FormatBARequest;
 use App\Models\BayiModel;
-use App\Models\FormatBModel;
 use App\Models\OrangTuaModel;
-use App\Models\PosyanduModel;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -25,26 +22,125 @@ class FormatBAController extends Controller
         $data = $request->validated();
 
         /**
+         * Memeriksa apakah data id_bayi ada
+         * 
+         */
+        if (!empty($data['id_bayi'])) {
+            $bayi = BayiModel::select(
+                'bayi.id as id_bayi',
+                'bayi.nama as nama_bayi',
+                'bayi.jenis_kelamin',
+                'format_b.keterangan',
+                'penimbangan.berat_badan',
+                'penimbangan.ntob',
+                'penimbangan.asi_ekslusif',
+                'bayi.tanggal_lahir'
+            )
+                ->selectRaw('(' . $data['tahun'] . ' - YEAR(bayi.tanggal_lahir)) * 12 + ' . $data['bulan'] . ' - MONTH(bayi.tanggal_lahir) as umur')
+                ->leftJoin('format_b', function ($join) {
+                    $join->on('bayi.id', '=', 'format_b.id_bayi');
+                })
+                ->leftJoin('penimbangan', function ($join) use ($data) {
+                    $join->on('bayi.id', '=', 'penimbangan.id_bayi')
+                        ->whereRaw($data['bulan'] . ' - MONTH(bayi.tanggal_lahir) BETWEEN 0 AND 5');
+                })
+                ->whereRaw('(' . $data['tahun'] . ' - YEAR(bayi.tanggal_lahir)) * 12 + ' . $data['bulan'] . ' - MONTH(bayi.tanggal_lahir) BETWEEN 0 AND 5')
+                ->whereNull('bayi.tanggal_meninggal')
+                ->first();
+        }
+
+        /**
          * Membuat query utama
          * 
          */
-        $query = FormatBModel::select(
-            'format_a.id as id_format_a',
+        $query = BayiModel::select(
+            'bayi.id as id_bayi',
             'bayi.nama as nama_bayi',
             'bayi.jenis_kelamin',
-            'bayi.tanggal_lahir',
-            'bayi.berat_lahir',
-            'orang_tua.nama_ibu',
-            'orang_tua.nama_ayah',
-            'orang_tua.rt_rw',
-            'orang_tua.memiliki_kms',
-            'orang_tua.memiliki_kia',
-            'format_a.keterangan',
-            'format_a.created_at as tanggal'
+            'format_b.keterangan',
+            'penimbangan.berat_badan',
+            'penimbangan.ntob',
+            'penimbangan.asi_ekslusif',
+            'bayi.tanggal_lahir'
         )
-            ->join('bayi', 'bayi.id', 'format_a.id_bayi')
-            ->join('orang_tua', 'orang_tua.id', 'bayi.id_orang_tua')
-            ->orderBy('bayi.tanggal_lahir', 'ASC');
+            ->selectRaw('(' . $data['tahun'] . ' - YEAR(bayi.tanggal_lahir)) * 12 + ' . $data['bulan'] . ' - MONTH(bayi.tanggal_lahir) as umur')
+            ->leftJoin('format_b', function ($join) {
+                $join->on('bayi.id', '=', 'format_b.id_bayi');
+            })
+            ->leftJoin('penimbangan', function ($join) use ($data) {
+                $join->on('bayi.id', '=', 'penimbangan.id_bayi')
+                    ->whereRaw($data['bulan'] . ' - MONTH(bayi.tanggal_lahir) BETWEEN 0 AND 5');
+            })
+            ->whereRaw('(' . $data['tahun'] . ' - YEAR(bayi.tanggal_lahir)) * 12 + ' . $data['bulan'] . ' - MONTH(bayi.tanggal_lahir) BETWEEN 0 AND 5')
+            ->whereNull('bayi.tanggal_meninggal');
+
+        /**
+         * Melakukan filtering atau penyaringan
+         * data pada kondisi tertentu
+         * 
+         */
+        if (!empty($data['search'])) {
+
+            /**
+             * Memfilter data sesuai request search
+             * 
+             */
+            $query = $query->where('bayi.nama', 'LIKE', '%' . $data['search'] . '%');
+
+        }
+
+        /**
+         * Mengambil banyaknya data yang diambil
+         * 
+         */
+        $count = $query->count();
+
+        /**
+         * Memeriksa apakah data ingin difilter
+         * 
+         */
+        if (isset($data['start']) && isset($data['length'])) {
+
+            /**
+             * Mengambil data gambar dari
+             * query yang sudah difilter
+             * 
+             */
+            $query = $query
+                ->offset(($data['start'] - 1) * $data['length'])
+                ->limit($data['length']);
+
+        }
+
+        /**
+         * Mengambil data dari query dan
+         * akan dijadikan response
+         * 
+         */
+        $formatBA = $query->get();
+
+        /**
+         * Memeriksa apakah id_format_a ada
+         * 
+         */
+        if (!empty($data['id_format_a'])) {
+
+            /**
+             * Mengambil query data sesuai id
+             * 
+             */
+            $query = $query->where('format_a.id', $data['id_format_a']);
+
+            /**
+             * Mengambil data dari query dan
+             * akan dijadikan response
+             * 
+             */
+            $count = $query->count();
+            $formatBA = $query->first();
+
+        }
+
 
         /**
          * Memasukan data penimbangan
@@ -55,175 +151,8 @@ class FormatBAController extends Controller
          * 
          */
         return response()->json([
-        ])->setStatusCode(200);
-    }
-    public function post(FormatBARequest $request): JsonResponse
-    {
-
-        /**
-         * Memeriksa apakah request sesuai
-         * dengan ketentuan berlaku
-         * 
-         */
-        $data = $request->validated();
-
-        if (empty($data['id_bayi'])) {
-
-            /**
-             * Memeriksa apakah data yang
-             * dibutuhkan sudah tersedia
-             * 
-             */
-            if (empty($data['nama_ibu']) || empty($data['nama_bayi'])) {
-                throw new HttpResponseException(response()->json([
-                    'errors' => [
-                        'message' => 'Data nama_ibu atau nama_bayi tidak boleh kosong'
-                    ]
-                ])->setStatusCode(400));
-            }
-
-            /**
-             * Melakukan penambahan data orang_tua
-             * 
-             */
-            $orangTua = OrangTuaModel::create([
-                'nama_ayah' => $data['nama_ayah'],
-                'nama_ibu' => $data['nama_ibu'],
-                'tanggal_meninggal_ibu' => $data['tanggal_meninggal_ibu'],
-            ]);
-
-            /**
-             * Melakukan penambahan data bayi
-             * 
-             */
-            $bayi = BayiModel::create([
-                'id_orang_tua' => $orangTua->id,
-                'nama' => $data['nama_bayi'],
-                'jenis_kelamin' => $data['jenis_kelamin'],
-                'tanggal_lahir' => $data['tanggal_lahir'],
-                'tanggal_meninggal' => $data['tanggal_meninggal_bayi'],
-            ]);
-        }
-
-        /**
-         * Melakukan penambahan data format_a
-         * 
-         */
-        FormatBModel::create([
-            'id_bayi' => $data['id_bayi'] ?? $bayi->id,
-            'keterangan' => $data['keterangan'],
-        ]);
-
-        /**
-         * Mengembalikan response setelah
-         * melakukan penambahan data
-         * 
-         */
-        return response()->json([
-            'success' => [
-                'message' => "Data berhasil ditambahkan"
-            ]
-        ])->setStatusCode(201);
-    }
-    public function put(FormatBARequest $request): JsonResponse
-    {
-
-        /**
-         * Memeriksa apakah request sesuai
-         * dengan ketentuan berlaku
-         * 
-         */
-        $data = $request->validated();
-
-        /**
-         * Membuat query utama
-         * 
-         */
-        $formatA = FormatBModel::select(
-            'format_a.id_bayi',
-            'orang_tua.nama_ayah',
-            'orang_tua.nama_ibu',
-            'bayi.nama as nama_bayi',
-            'bayi.jenis_kelamin',
-            'bayi.tanggal_lahir',
-            'bayi.tanggal_meninggal as tanggal_meninggal_bayi',
-            'orang_tua.tanggal_meninggal_ibu',
-            'format_a.keterangan'
-        )
-            ->join('bayi', 'bayi.id', 'format_a.id_bayi')
-            ->join('orang_tua', 'orang_tua.id', 'bayi.id_orang_tua')
-            ->where('format_a.id', $data['id_format_a'])
-            ->first();
-
-        /**
-         * Melakukan pengubahan data format_a
-         * 
-         */
-        FormatBModel::where('id', $data['id_format_a'])->update([
-            'id_bayi' => $formatA->id_bayi,
-            'keterangan' => $data['keterangan'] ?? $formatA->keterangan,
-        ]);
-
-        /**
-         * Melakukan pengubahan data bayi
-         * 
-         */
-        $bayi = BayiModel::where('id', $formatA->id_bayi);
-        $bayi->update([
-            'nama' => $data['nama_bayi'] ?? $formatA->nama_bayi,
-            'jenis_kelamin' => $data['jenis_kelamin'] ?? $formatA->jenis_kelamin,
-            'tanggal_lahir' => $data['tanggal_lahir'] ?? $formatA->tanggal_lahir,
-            'tanggal_meninggal' => $data['tanggal_meninggal_bayi'] ?? $formatA->tanggal_meninggal_bayi,
-        ]);
-        $bayi = $bayi->select('id_orang_tua')->first();
-
-        /**
-         * Melakukan pengubahan data orang_tua
-         * 
-         */
-        OrangTuaModel::where('id', $bayi->id_orang_tua)->update([
-            'nama_ayah' => $data['nama_ayah'] ?? $formatA->nama_ayah,
-            'nama_ibu' => $data['nama_ibu'] ?? $formatA->nama_ibu,
-            'tanggal_meninggal_ibu' => $data['tanggal_meninggal_ibu'] ?? $formatA->tanggal_meninggal_ibu,
-        ]);
-
-        /**
-         * Mengembalikan response setelah
-         * melakukan pengubahan data
-         * 
-         */
-        return response()->json([
-            'success' => [
-                'message' => "Data berhasil diubah"
-            ]
-        ])->setStatusCode(201);
-    }
-    public function delete(FormatBARequest $request): JsonResponse
-    {
-        /**
-         * Memeriksa apakah request
-         * yang diberikan sesuai
-         * 
-         */
-        $data = $request->validated();
-
-        /**
-         * Mendapatkan data yang dituju menggunakan
-         * request id dan mlakukan penghapusan data
-         * 
-         */
-        FormatBModel::where('id', $data['id_format_a'])
-            ->delete();
-
-        /**
-         * Mengembalikan response setelah
-         * melakukan delete data
-         * 
-         */
-        return response()->json([
-            'success' => [
-                'message' => "Data edukasi berhasil dihapus"
-            ]
+            "jumlah_data" => $count,
+            "format_ba" => $formatBA
         ])->setStatusCode(200);
     }
 }

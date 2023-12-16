@@ -6,6 +6,7 @@ use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\EdukasiController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\FormatAController;
+use App\Http\Controllers\FormatBAController;
 use App\Http\Controllers\GambarController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\PosyanduController;
@@ -83,6 +84,15 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
     Route::post('/format-a', [FormatAController::class, 'post']);
     Route::put('/format-a', [FormatAController::class, 'put']);
     Route::delete('/format-a', [FormatAController::class, 'delete']);
+
+    /**
+     * Endpoint untuk format-a
+     * 
+     */
+    Route::get('/format-ba', [FormatBAController::class, 'get']);
+    Route::post('/format-ba', [FormatBAController::class, 'post']);
+    Route::put('/format-ba', [FormatBAController::class, 'put']);
+    Route::delete('/format-ba', [FormatBAController::class, 'delete']);
 
     /**
      * Endpoint untuk export file excel
