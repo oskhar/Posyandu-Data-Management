@@ -1,151 +1,157 @@
 <template>
   <VRow>
     <VCol cols="12" md="12">
-      <!-- 👉 Horizontal Form -->
-      <h1>Format-1</h1>
-      <VCard title="Tambah Data ">
+      <VCard title="Tambah Data Bayi">
         <VCardText>
           <VForm @submit="submitData">
             <VRow>
               <VCol cols="12">
-                <VRow no-gutters>
-                  <!-- 👉 First Name -->
-                  <VCol cols="12" md="3">
-                    <label for="ayah">Nama Ayah</label>
-                  </VCol>
-
-                  <VCol cols="12" md="9">
+                <h4 class="my-5">Umur 0 Bulan</h4>
+                <VRow>
+                  <VCol cols="12" sm="4">
                     <VTextField
-                      id="ayah"
-                      v-model="nama_ayah"
-                      placeholder="Masukkan Nama Ayah"
-                      persistent-placeholder
+                      v-model="a"
+                      label="Berat Badan"
+                      placeholder="John"
                     />
-                    <sup class="text-error">*Wajib diisi</sup>
                   </VCol>
-                </VRow>
-              </VCol>
-              <VCol cols="12">
-                <VRow no-gutters>
-                  <!-- 👉 First Name -->
-                  <VCol cols="12" md="3">
-                    <label for="ibu">Nama Ibu</label>
-                  </VCol>
-
-                  <VCol cols="12" md="9">
+                  <VCol cols="12" sm="4">
                     <VTextField
-                      v-model="nama_ibu"
-                      id="ibu"
-                      placeholder="Masukkan Nama Ibu"
-                      persistent-placeholder
+                      v-model="b"
+                      label="N/T/O/B & BGM"
+                      placeholder="John"
                     />
-                    <sup class="text-error">*Wajib diisi</sup>
                   </VCol>
-                </VRow>
-              </VCol>
-              <VCol cols="12">
-                <VRow no-gutters>
-                  <!-- 👉 First Name -->
-                  <VCol cols="12" md="3">
-                    <label for="bayi">Nama Bayi</label>
-                  </VCol>
-
-                  <VCol cols="12" md="9">
+                  <VCol cols="12" sm="4">
                     <VTextField
-                      v-model="nama_bayi"
-                      id="bayi"
-                      placeholder="Masukkan Nama Bayi"
-                      persistent-placeholder
-                    />
-                    <sup class="text-error">*Wajib diisi</sup>
-                  </VCol>
-                </VRow>
-              </VCol>
-              <VCol cols="12">
-                <VRow no-gutters>
-                  <!-- 👉 First Name -->
-                  <VCol cols="12" md="3">
-                    <label for="kelamin">Jenis Kelamin</label>
-                  </VCol>
-
-                  <VCol cols="12" md="9">
-                    <VSelect v-model="jenis_kelamin" :items="['L', 'P']" />
-                    <sup class="text-error">*Wajib diisi</sup>
-                  </VCol>
-                </VRow>
-              </VCol>
-              <VCol cols="12">
-                <VRow no-gutters>
-                  <!-- 👉 First Name -->
-                  <VCol cols="12" md="3">
-                    <label for="tanggal-lahir">Tanggal Lahir</label>
-                  </VCol>
-
-                  <VCol cols="12" md="9">
-                    <VTextField
-                      placeholder=""
-                      type="date"
-                      v-model="tanggal_lahir"
-                    />
-                    <sup class="text-error">*Wajib diisi</sup>
-                  </VCol>
-                </VRow>
-              </VCol>
-              <VCol cols="12">
-                <VRow no-gutters>
-                  <!-- 👉 First Name -->
-                  <VCol cols="12" md="3">
-                    <label for="tanggal-meninggal-bayi"
-                      >Tanggal Meninggal Bayi</label
-                    >
-                  </VCol>
-
-                  <VCol cols="12" md="9">
-                    <VTextField
-                      placeholder=""
-                      type="date"
-                      v-model="tanggal_meninggal_bayi"
+                      v-model="c"
+                      label="Asi Ekskulusif"
+                      placeholder="John"
                     />
                   </VCol>
                 </VRow>
-              </VCol>
-              <VCol cols="12">
-                <VRow no-gutters>
-                  <!-- 👉 First Name -->
-                  <VCol cols="12" md="3">
-                    <label for="tanggal-meninggal-ibu"
-                      >Tanggal Meninggal Ibu</label
-                    >
-                  </VCol>
-
-                  <VCol cols="12" md="9">
+                <h4 class="my-5">Umur 0 Bulan</h4>
+                <VRow>
+                  <VCol cols="12" sm="4">
                     <VTextField
-                      placeholder=""
-                      type="date"
-                      v-model="tanggal_meninggal_ibu"
+                      v-model="a"
+                      label="Berat Badan"
+                      placeholder="John"
+                    />
+                  </VCol>
+                  <VCol cols="12" sm="4">
+                    <VTextField
+                      v-model="b"
+                      label="N/T/O/B & BGM"
+                      placeholder="John"
+                    />
+                  </VCol>
+                  <VCol cols="12" sm="4">
+                    <VTextField
+                      v-model="c"
+                      label="Asi Ekskulusif"
+                      placeholder="John"
+                    />
+                  </VCol>
+                </VRow>
+                <h4 class="my-5">Umur 0 Bulan</h4>
+                <VRow>
+                  <VCol cols="12" sm="4">
+                    <VTextField
+                      v-model="a"
+                      label="Berat Badan"
+                      placeholder="John"
+                    />
+                  </VCol>
+                  <VCol cols="12" sm="4">
+                    <VTextField
+                      v-model="b"
+                      label="N/T/O/B & BGM"
+                      placeholder="John"
+                    />
+                  </VCol>
+                  <VCol cols="12" sm="4">
+                    <VTextField
+                      v-model="c"
+                      label="Asi Ekskulusif"
+                      placeholder="John"
+                    />
+                  </VCol>
+                </VRow>
+                <h4 class="my-5">Umur 0 Bulan</h4>
+                <VRow>
+                  <VCol cols="12" sm="4">
+                    <VTextField
+                      v-model="a"
+                      label="Berat Badan"
+                      placeholder="John"
+                    />
+                  </VCol>
+                  <VCol cols="12" sm="4">
+                    <VTextField
+                      v-model="b"
+                      label="N/T/O/B & BGM"
+                      placeholder="John"
+                    />
+                  </VCol>
+                  <VCol cols="12" sm="4">
+                    <VTextField
+                      v-model="c"
+                      label="Asi Ekskulusif"
+                      placeholder="John"
+                    />
+                  </VCol>
+                </VRow>
+                <h4 class="my-5">Umur 0 Bulan</h4>
+                <VRow>
+                  <VCol cols="12" sm="4">
+                    <VTextField
+                      v-model="a"
+                      label="Berat Badan"
+                      placeholder="John"
+                    />
+                  </VCol>
+                  <VCol cols="12" sm="4">
+                    <VTextField
+                      v-model="b"
+                      label="N/T/O/B & BGM"
+                      placeholder="John"
+                    />
+                  </VCol>
+                  <VCol cols="12" sm="4">
+                    <VTextField
+                      v-model="c"
+                      label="Asi Ekskulusif"
+                      placeholder="John"
+                    />
+                  </VCol>
+                </VRow>
+                <h4 class="my-5">Umur 0 Bulan</h4>
+                <VRow>
+                  <VCol cols="12" sm="4">
+                    <VTextField
+                      v-model="a"
+                      label="Berat Badan"
+                      placeholder="John"
+                    />
+                  </VCol>
+                  <VCol cols="12" sm="4">
+                    <VTextField
+                      v-model="b"
+                      label="N/T/O/B & BGM"
+                      placeholder="John"
+                    />
+                  </VCol>
+                  <VCol cols="12" sm="4">
+                    <VTextField
+                      v-model="c"
+                      label="Asi Ekskulusif"
+                      placeholder="John"
                     />
                   </VCol>
                 </VRow>
               </VCol>
-              <VCol cols="12">
-                <VRow no-gutters>
-                  <!-- 👉 First Name -->
-                  <VCol cols="12" md="3">
-                    <label for="keterangan">Keterangan</label>
-                  </VCol>
-
-                  <VCol cols="12" md="9">
-                    <VTextField
-                      v-model="keterangan"
-                      placeholder="Masukkan Keterangan"
-                      persistent-placeholder
-                    />
-                  </VCol>
-                </VRow>
-              </VCol>
-
-              <!-- 👉 submit and reset button -->
-              <VCol offset-md="3" cols="12" md="9" class="d-flex gap-4">
+              <VCol cols="12" md="9" class="d-flex gap-4">
                 <VBtn type="submit"> Submit </VBtn>
               </VCol>
             </VRow>

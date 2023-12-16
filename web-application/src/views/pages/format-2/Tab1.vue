@@ -14,8 +14,6 @@
           <h2>{{ judulFormatA }}</h2>
           <h3 class="text-secondary mt-5">{{ namaPosyandu }} - {{ kota }}</h3>
         </VCardItem>
-      </VCard>
-      <VCard class="mt-5">
         <VCardItem>
           <VSelect v-model="tahun" :items="listTahunLahir" />
         </VCardItem>
