@@ -3,7 +3,7 @@
     class="bg-indigo-lighten-1 text-center d-flex flex-column bg-primary"
     style="margin-top: 100px"
   >
-    <div class="">
+    <!-- <div class="">
       <v-btn
         v-for="icon in icons"
         :key="icon"
@@ -12,7 +12,7 @@
         variant="text"
         color="ffffff"
       ></v-btn>
-    </div>
+    </div> -->
 
     <div class="pt-0">
       Alamat Posyandu
@@ -27,10 +27,10 @@
     </div>
   </v-footer>
 </template>
-<script>
+<!-- <script>
 export default {
   data: () => ({
     icons: ["mdi-facebook", "mdi-twitter", "mdi-linkedin", "mdi-instagram"],
   }),
 };
-</script>
+</script> -->
