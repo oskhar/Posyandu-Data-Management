@@ -43,7 +43,6 @@
           <VueApexCharts
             v-else
             class="float-center"
-            width="400"
             :options="chartOptions"
             :series="series"
           />
@@ -102,7 +101,7 @@
                   {{ item.nama_bayi }}
                 </td>
                 <td>
-                  {{ item.tanggal_lahir }}
+                  {{ item.tanggal_lahir_format }}
                 </td>
                 <td class="text-center">
                   {{ item.nama_ayah }}
@@ -257,7 +256,55 @@
                               <VRow no-gutters>
                                 <!-- 👉 First Name -->
                                 <VCol cols="12" md="3">
-                                  <label for="keterangan">Keterangan</label>
+                                  <label>Memiliki KIA</label>
+                                </VCol>
+
+                                <VCol cols="12" md="9">
+                                  <VTextField
+                                    v-model="item.memiliki_kia"
+                                    placeholder="Masukkan KIA"
+                                    persistent-placeholder
+                                  />
+                                </VCol>
+                              </VRow>
+                            </VCol>
+                            <VCol cols="12">
+                              <VRow no-gutters>
+                                <!-- 👉 First Name -->
+                                <VCol cols="12" md="3">
+                                  <label>Memiliki KMS</label>
+                                </VCol>
+
+                                <VCol cols="12" md="9">
+                                  <VTextField
+                                    v-model="item.memiliki_kms"
+                                    placeholder="Masukkan KMS"
+                                    persistent-placeholder
+                                  />
+                                </VCol>
+                              </VRow>
+                            </VCol>
+                            <VCol cols="12">
+                              <VRow no-gutters>
+                                <!-- 👉 First Name -->
+                                <VCol cols="12" md="3">
+                                  <label>RT/RW</label>
+                                </VCol>
+
+                                <VCol cols="12" md="9">
+                                  <VTextField
+                                    v-model="item.rt_rw"
+                                    placeholder="Masukkan RT/RW"
+                                    persistent-placeholder
+                                  />
+                                </VCol>
+                              </VRow>
+                            </VCol>
+                            <VCol cols="12">
+                              <VRow no-gutters>
+                                <!-- 👉 First Name -->
+                                <VCol cols="12" md="3">
+                                  <label>Keterangan</label>
                                 </VCol>
 
                                 <VCol cols="12" md="9">
@@ -479,6 +526,9 @@ export default {
         const data = {
           id_format_a: this.dataFormatA[indexFormatA].id_format_a,
           nama_ayah: this.dataFormatA[indexFormatA].nama_ayah,
+          memiliki_kia: this.dataFormatA[indexFormatA].memiliki_kia,
+          memiliki_kms: this.dataFormatA[indexFormatA].memiliki_kms,
+          rt_rw: this.dataFormatA[indexFormatA].rt_rw,
           nama_ibu: this.dataFormatA[indexFormatA].nama_ibu,
           nama_bayi: this.dataFormatA[indexFormatA].nama_bayi,
           jenis_kelamin: this.dataFormatA[indexFormatA].jenis_kelamin,
@@ -527,6 +577,7 @@ export default {
           },
         }
       );
+      console.log(response.data);
 
       this.isLoading = false;
 
