@@ -57,7 +57,7 @@ const router = createRouter({
           component: () => import("../pages/guest.vue"),
         },
         {
-          path: "berita-acara-guest",
+          path: "edukasi-guest",
           component: () => import("../pages/edukasi-guest.vue"),
         },
         {

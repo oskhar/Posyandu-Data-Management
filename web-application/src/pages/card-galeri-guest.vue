@@ -1,3 +1,9 @@
+<style>
+#gambar:hover {
+  filter: brightness(0.7);
+}
+</style>
+
 <template>
   <div class="text-center" style="margin-top: 200px">
     <strong style="font-size: 35px">GALERI</strong>
@@ -23,9 +29,11 @@
       </div>
     </VCol>
   </VRow>
-  <VRow>
+
+  <VRow no-gutters>
     <VCol cols="12" md="3" sm="6" v-for="data in dataGambar">
       <VImg
+        id="gambar"
         style="width: 100%; height: 200px"
         cover
         :src="data.gambar"
@@ -92,7 +100,7 @@ export default {
     async lihatGambar(gambar, judul, id_gambar) {
       const ask = await Swal.fire({
         imageUrl: gambar,
-        html: judul,
+        // html: judul,
         imageAlt: "Ini gambar",
         // showConfirmButton: false,
         // showDenyButton: true,
