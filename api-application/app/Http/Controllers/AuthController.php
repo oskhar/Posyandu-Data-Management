@@ -136,13 +136,13 @@ class AuthController extends Controller
          */
         $data = $request->validated();
 
-        $id_jabatan = JabatanModel::select('jabatan.level')->join('admin', 'admin.id', Auth::user()->id)->first()->level;
+        $level_jabatan = JabatanModel::select('jabatan.level')->join('admin', 'admin.id', Auth::user()->id)->first()->level;
 
         /**
          * Memeriksa apakah dia diijikan dengan jabatannya
          * 
          */
-        if ($id_jabatan < 3) {
+        if ($level_jabatan < 3) {
             throw new HttpResponseException(response()->json([
                 'errors' => [
                     'message' => 'Anda tidak memiliki wewenang yang sah!'

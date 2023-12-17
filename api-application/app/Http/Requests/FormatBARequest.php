@@ -15,7 +15,7 @@ class FormatBARequest extends CoreRequest
         switch ($this->getMethod()) {
             case 'POST':
                 return [
-                    'id_bayi' => 'nullable',
+                    'id_bayi' => 'required',
                     'judul' => 'required',
                     'berat_badan' => 'nullable',
                     'ntob' => 'nullable',

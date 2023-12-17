@@ -274,8 +274,10 @@ class FormatBAController extends Controller
         $tahunBulan = explode(' ', explode(' - ', $data['judul'])[1]);
         $tahunPenimbangan = $tahunBulan[0];
         $bulanPenimbangan = array_search($tahunBulan[1], $this->namaBulan);
-
         unset($data['judul']);
+
+        $data['tahun_penimbangan'] = $tahunPenimbangan;
+        $data['bulan_penimbangan'] = $bulanPenimbangan;
 
         /**
          * Menggunakan updateOrCreate untuk menyimpan atau memperbarui data

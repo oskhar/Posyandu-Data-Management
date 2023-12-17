@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
      */
     Route::post('/auth', [AuthController::class, 'authData']);
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::put('/reset-password', [AuthController::class, 'resetPassword']);
 
     /**
      * Endpoint untuk edukasi
@@ -119,7 +120,6 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
  * Endpoint public
  * 
  */
-Route::put('/reset-password', [AuthController::class, 'resetPassword']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/edukasi', [EdukasiController::class, 'get']);
