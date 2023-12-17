@@ -2,7 +2,13 @@
   <VRow>
     <VCol cols="12">
       <VCard>
-        <VProgressCircular v-if="isLoading" indeterminate color="primary" class="mt-5 float-center" size="50">
+        <VProgressCircular
+          v-if="isLoading"
+          indeterminate
+          color="primary"
+          class="mt-5 float-center"
+          size="50"
+        >
         </VProgressCircular>
         <VCardItem v-else style="min-height: 170px">
           <h2>Info Bayi</h2>
@@ -16,6 +22,7 @@
         </VCardItem>
       </VCard>
     </VCol>
+
     <VCol cols="12">
       <VCard>
         <!-- <VCardText> </VCardText> -->
@@ -43,7 +50,13 @@
             </thead>
 
             <tbody>
-              <VProgressCircular v-if="isLoading" indeterminate color="primary" class="mt-5 float-center" size="50">
+              <VProgressCircular
+                v-if="isLoading"
+                indeterminate
+                color="primary"
+                class="mt-5 float-center"
+                size="50"
+              >
               </VProgressCircular>
 
               <tr
@@ -68,13 +81,17 @@
                   {{ item.berat_badan }}
                 </td>
                 <td class="text-center">
+                  {{ item.asi_eksklusif }}
+                </td>
+                <td class="text-center">
                   {{ item.ntob }}
                 </td>
                 <td class="text-center">
-                  {{ item.asi_ekslusif }}
-                </td>
-                <td class="text-center">
-                  <VBtn color="primary" class="ml-2" href="/data/format-2-edit">
+                  <VBtn
+                    color="primary"
+                    class="ml-2"
+                    :href="`/data/format-2-edit?id_bayi=${item.id_bayi}`"
+                  >
                     <v-icon>bx-edit</v-icon>
                   </VBtn>
                 </td>
@@ -87,10 +104,16 @@
   </VRow>
   <VRow>
     <VCol>
-      <font>Jumlah data: <font class="text-primary">{{ jumlahData }}</font>
+      <font
+        >Jumlah data: <font class="text-primary">{{ jumlahData }}</font>
       </font>
-      <v-pagination class="float-right" v-model="page" :length="banyakPage" :total-visible="4"
-        @click="fetchData"></v-pagination>
+      <v-pagination
+        class="float-right"
+        v-model="page"
+        :length="banyakPage"
+        :total-visible="4"
+        @click="fetchData"
+      ></v-pagination>
     </VCol>
   </VRow>
 </template>
