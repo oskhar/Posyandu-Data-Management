@@ -28,6 +28,6 @@ class PenimbanganModel extends Model
         'bulan_penimbangan',
         'berat_badan',
         'ntob',
-        'asi_ekslusif',
+        'asi_eksklusif',
     ];
 }
