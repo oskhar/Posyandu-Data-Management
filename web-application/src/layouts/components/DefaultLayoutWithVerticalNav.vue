@@ -97,6 +97,10 @@ const upgradeBanner = computed(() => {
         title: 'Data',
         children: [
           {
+            title: 'Data Admin',
+            to: '/data/admin',
+          },
+          {
             title: 'Data Bayi',
             to: '/data/format-1',
           },

@@ -6,6 +6,7 @@ use App\Http\Requests\FormatBARequest;
 use App\Models\BayiModel;
 use App\Models\OrangTuaModel;
 use App\Models\PenimbanganModel;
+use App\Models\PosyanduModel;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -242,10 +243,21 @@ class FormatBAController extends Controller
         }
 
         /**
+         * Mengambil data posyandu
+         * 
+         */
+        $posyandu = PosyanduModel::select(
+            'nama_posyandu',
+            'kota'
+        )->first();
+
+        /**
          * Mengembalikan response sesuai request
          * 
          */
         return response()->json([
+            'nama_posyandu' => $posyandu->nama_posyandu,
+            'kota' => $posyandu->kota,
             "jumlah_data" => $count,
             'judul_format' => $this->judulFormat,
             "format_ba" => $formatBA

@@ -8,22 +8,14 @@
                     <div class="d-flex justify-end">
                         <VTextField v-model="dataSearch" append-inner-icon="bx-search">
                         </VTextField>
-                        <VBtn class="ml-4" href="/data/format-1-create" prepend-icon="bx-plus">
-                            Tambah
-                        </VBtn>
-                        <VBtn class="ml-4" @click="exportExcel" prepend-icon="bx-download">
-                            Download
-                        </VBtn>
                     </div>
                     <VTable>
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Bayi</th>
-                                <th>Tanggal Lahir</th>
-                                <th>Nama Ayah</th>
-                                <th>Nama Ibu</th>
-                                <th style="width: 220px">Aksi</th>
+                                <th>Email Admin</th>
+                                <th>Nama Lengkap</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
 
@@ -37,198 +29,59 @@
                                     {{ (page - 1) * 20 + (index + 1) }}
                                 </td>
                                 <td>
-                                    {{ item.nama_bayi }}
+                                    {{ item.email_admin }}
                                 </td>
                                 <td>
-                                    {{ item.tanggal_lahir_format }}
+                                    {{ item.nama_lengkap }}
                                 </td>
                                 <td class="text-center">
-                                    {{ item.nama_ayah }}
-                                </td>
-                                <td class="text-center">
-                                    {{ item.nama_ibu }}
-                                </td>
-                                <td class="text-center">
-                                    <v-dialog v-model="dialog[item.id_format_a]" persistent width="1024">
+                                    <v-dialog v-model="dialog[item.id_bayi]" persistent width="1024">
                                         <template v-slot:activator="{ props }">
-                                            <v-btn color="primary" class="ml-2" v-bind="props">
-                                                <v-icon>bx-edit</v-icon>
-                                            </v-btn>
+                                            <VBtn color="primary" class="ml-2" v-bind="props" prepend-icon="bx-key">
+                                                password
+                                            </VBtn>
                                         </template>
                                         <v-card>
                                             <v-card-title>
-                                                <span class="text-h5">Ubah Data</span>
+                                                <span class="text-h5">Ubah Password</span>
                                             </v-card-title>
                                             <v-card-text>
                                                 <v-container>
-                                                    <v-row>
+                                                    <VRow>
                                                         <VCol cols="12">
-                                                            <VRow no-gutters>
-                                                                <!-- 👉 First Name -->
-                                                                <VCol cols="12" md="3">
-                                                                    <label for="ayah">Nama Ayah</label>
-                                                                </VCol>
+                                                            <!-- 👉 First Name -->
 
-                                                                <VCol cols="12" md="9">
-                                                                    <VTextField id="ayah" v-model="item.nama_ayah"
-                                                                        placeholder="Masukkan Nama Ayah"
-                                                                        persistent-placeholder />
-                                                                    <sup class="text-error">*Wajib diisi</sup>
-                                                                </VCol>
-                                                            </VRow>
+                                                            <!-- 👉 new password -->
+                                                            <VTextField v-model="newPassword"
+                                                                :type="isNewPasswordVisible ? 'text' : 'password'"
+                                                                :append-inner-icon="isNewPasswordVisible ? 'bx-hide' : 'bx-show'
+                                                                    " label="Password Baru" placeholder="············"
+                                                                @click:append-inner="
+                                                                    isNewPasswordVisible = !isNewPasswordVisible
+                                                                    " />
                                                         </VCol>
+
                                                         <VCol cols="12">
-                                                            <VRow no-gutters>
-                                                                <!-- 👉 First Name -->
-                                                                <VCol cols="12" md="3">
-                                                                    <label for="ibu">Nama Ibu</label>
-                                                                </VCol>
-
-                                                                <VCol cols="12" md="9">
-                                                                    <VTextField v-model="item.nama_ibu" id="ibu"
-                                                                        placeholder="Masukkan Nama Ibu"
-                                                                        persistent-placeholder />
-                                                                    <sup class="text-error">*Wajib diisi</sup>
-                                                                </VCol>
-                                                            </VRow>
+                                                            <!-- 👉 confirm password -->
+                                                            <VTextField v-model="confirmPassword"
+                                                                :type="isConfirmPasswordVisible ? 'text' : 'password'"
+                                                                :append-inner-icon="isConfirmPasswordVisible ? 'bx-hide' : 'bx-show'
+                                                                    " label="Konfirmasi Password Baru"
+                                                                placeholder="············" @click:append-inner="
+                                                                    isConfirmPasswordVisible = !isConfirmPasswordVisible
+                                                                    " />
                                                         </VCol>
-                                                        <VCol cols="12">
-                                                            <VRow no-gutters>
-                                                                <!-- 👉 First Name -->
-                                                                <VCol cols="12" md="3">
-                                                                    <label for="bayi">Nama Bayi</label>
-                                                                </VCol>
-
-                                                                <VCol cols="12" md="9">
-                                                                    <VTextField v-model="item.nama_bayi" id="bayi"
-                                                                        placeholder="Masukkan Nama Bayi"
-                                                                        persistent-placeholder />
-                                                                    <sup class="text-error">*Wajib diisi</sup>
-                                                                </VCol>
-                                                            </VRow>
-                                                        </VCol>
-                                                        <VCol cols="12">
-                                                            <VRow no-gutters>
-                                                                <!-- 👉 First Name -->
-                                                                <VCol cols="12" md="3">
-                                                                    <label for="kelamin">Jenis Kelamin</label>
-                                                                </VCol>
-
-                                                                <VCol cols="12" md="9">
-                                                                    <VSelect v-model="item.jenis_kelamin"
-                                                                        :items="['L', 'P']" />
-                                                                    <sup class="text-error">*Wajib diisi</sup>
-                                                                </VCol>
-                                                            </VRow>
-                                                        </VCol>
-                                                        <VCol cols="12">
-                                                            <VRow no-gutters>
-                                                                <!-- 👉 First Name -->
-                                                                <VCol cols="12" md="3">
-                                                                    <label for="tanggal-lahir">Tanggal Lahir</label>
-                                                                </VCol>
-
-                                                                <VCol cols="12" md="9">
-                                                                    <VTextField placeholder="" type="date"
-                                                                        v-model="item.tanggal_lahir" />
-                                                                    <sup class="text-error">*Wajib diisi</sup>
-                                                                </VCol>
-                                                            </VRow>
-                                                        </VCol>
-                                                        <VCol cols="12">
-                                                            <VRow no-gutters>
-                                                                <!-- 👉 First Name -->
-                                                                <VCol cols="12" md="3">
-                                                                    <label for="tanggal-meninggal-bayi">Tanggal Meninggal
-                                                                        Bayi</label>
-                                                                </VCol>
-
-                                                                <VCol cols="12" md="9">
-                                                                    <VTextField placeholder="" type="date"
-                                                                        v-model="item.tanggal_meninggal_bayi" />
-                                                                </VCol>
-                                                            </VRow>
-                                                        </VCol>
-                                                        <VCol cols="12">
-                                                            <VRow no-gutters>
-                                                                <!-- 👉 First Name -->
-                                                                <VCol cols="12" md="3">
-                                                                    <label for="tanggal-meninggal-ibu">Tanggal Meninggal
-                                                                        Ibu</label>
-                                                                </VCol>
-
-                                                                <VCol cols="12" md="9">
-                                                                    <VTextField placeholder="" type="date"
-                                                                        v-model="item.tanggal_meninggal_ibu" />
-                                                                </VCol>
-                                                            </VRow>
-                                                        </VCol>
-                                                        <VCol cols="12">
-                                                            <VRow no-gutters>
-                                                                <!-- 👉 First Name -->
-                                                                <VCol cols="12" md="3">
-                                                                    <label>Memiliki KIA</label>
-                                                                </VCol>
-
-                                                                <VCol cols="12" md="9">
-                                                                    <VTextField v-model="item.memiliki_kia"
-                                                                        placeholder="Masukkan KIA" persistent-placeholder />
-                                                                </VCol>
-                                                            </VRow>
-                                                        </VCol>
-                                                        <VCol cols="12">
-                                                            <VRow no-gutters>
-                                                                <!-- 👉 First Name -->
-                                                                <VCol cols="12" md="3">
-                                                                    <label>Memiliki KMS</label>
-                                                                </VCol>
-
-                                                                <VCol cols="12" md="9">
-                                                                    <VTextField v-model="item.memiliki_kms"
-                                                                        placeholder="Masukkan KMS" persistent-placeholder />
-                                                                </VCol>
-                                                            </VRow>
-                                                        </VCol>
-                                                        <VCol cols="12">
-                                                            <VRow no-gutters>
-                                                                <!-- 👉 First Name -->
-                                                                <VCol cols="12" md="3">
-                                                                    <label>RT/RW</label>
-                                                                </VCol>
-
-                                                                <VCol cols="12" md="9">
-                                                                    <VTextField v-model="item.rt_rw"
-                                                                        placeholder="Masukkan RT/RW"
-                                                                        persistent-placeholder />
-                                                                </VCol>
-                                                            </VRow>
-                                                        </VCol>
-                                                        <VCol cols="12">
-                                                            <VRow no-gutters>
-                                                                <!-- 👉 First Name -->
-                                                                <VCol cols="12" md="3">
-                                                                    <label>Keterangan</label>
-                                                                </VCol>
-
-                                                                <VCol cols="12" md="9">
-                                                                    <VTextField v-model="item.keterangan"
-                                                                        placeholder="Masukkan Keterangan"
-                                                                        persistent-placeholder />
-                                                                </VCol>
-                                                            </VRow>
-                                                        </VCol>
-                                                    </v-row>
+                                                    </VRow>
                                                 </v-container>
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
                                                 <v-btn color="blue-darken-1" variant="text"
-                                                    @click="dialog[item.id_format_a] = false">
+                                                    @click="dialog[item.id_bayi] = false">
                                                     Close
                                                 </v-btn>
                                                 <v-btn color="blue-darken-1" variant="text" @click="
                                                     putData(index);
-                                                dialog[item.id_format_a] = false;
                                                 ">
                                                     Save
                                                 </v-btn>
@@ -236,8 +89,8 @@
                                         </v-card>
                                     </v-dialog>
                                     <!-- <VBtn> </VBtn> -->
-                                    <VBtn class="ml-2" color="error" @click="deleteData(item.id_format_a)">
-                                        <v-icon>bx-delete</v-icon>
+                                    <VBtn class="ml-2" color="error" @click="deleteData(item.id_bayi)">
+                                        <v-icon>bx-trash</v-icon>
                                     </VBtn>
                                 </td>
                             </tr>
@@ -251,18 +104,118 @@
 <script>
 import axios from 'axios';
 import config from "@/@core/config.vue";
+import Swal from "sweetalert2";
 
 export default {
     data() {
         return {
             dialog: [],
-            data: [],
+            dataAdmin: [],
+            page: 1,
+            isNewPasswordVisible: false,
+            isConfirmPasswordVisible: false,
+            newPassword: null,
+            confirmPassword: null,
         }
     },
     methods: {
         async fetchData() {
-            const response = await axios.get(`${config.urlServer}/api/admin`);
-        }
+            const response = await axios.get(
+                `${config.urlServer}/api/admin`,
+                {
+                    headers: {
+                        Authorization: localStorage.getItem("tokenAuth"),
+                    },
+                }
+            );
+            this.dataAdmin = response.data.admin;
+        },
+        async putData(indexAdmin) {
+            try {
+                const data = {
+                    id_admin: this.dataAdmin[indexAdmin].id_admin,
+                    new_password: this.newPassword,
+                    confirm_password: this.confirmPassword,
+                };
+
+                const response = await axios.put(
+                    `${config.urlServer}/api/reset-password`,
+                    data,
+                    {
+                        headers: {
+                            Authorization: localStorage.getItem("tokenAuth"),
+                        },
+                    }
+                );
+                if (response.data.success) {
+                    Swal.fire({
+                        toast: true,
+                        position: "top",
+                        iconColor: "white",
+                        color: "white",
+                        background: "rgb(var(--v-theme-success))",
+                        showConfirmButton: false,
+                        timerProgressBar: true,
+                        timer: 1500,
+                        icon: "success",
+                        title: response.data.success.message,
+                    });
+                }
+                dialog[this.dataAdmin[indexAdmin].id_admin] = false;
+            } catch (get) {
+                const errorMessage = Object.values(get.response.data.errors).join(" - ");
+                await Swal.fire({
+                    toast: true,
+                    position: "top",
+                    iconColor: "white",
+                    color: "white",
+                    background: "rgb(var(--v-theme-error))",
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 1500,
+                    icon: "error",
+                    title: errorMessage,
+                });
+            }
+        },
+
+        async deleteData(id_admin) {
+            const ask = await Swal.fire({
+                title: "Anda yakin ingin menghapus?",
+                showConfirmButton: false,
+                showDenyButton: true,
+                showCancelButton: true,
+                denyButtonText: "Hapus",
+            });
+            if (ask.isDenied) {
+                const response = await axios.delete(
+                    `${config.urlServer}/api/admin?id_admin=${id_admin}`,
+                    {
+                        headers: {
+                            Authorization: localStorage.getItem("tokenAuth"),
+                        },
+                    }
+                );
+                if (response.data.success) {
+                    Swal.fire({
+                        toast: true,
+                        position: "top",
+                        iconColor: "white",
+                        color: "white",
+                        background: "rgb(var(--v-theme-success))",
+                        showConfirmButton: false,
+                        timerProgressBar: true,
+                        timer: 1500,
+                        icon: "success",
+                        title: response.data.success.message,
+                    });
+                    this.fetchData();
+                }
+            }
+        },
+    },
+    mounted() {
+        this.fetchData();
     }
 }
 </script>
