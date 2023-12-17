@@ -276,8 +276,11 @@ class FormatBAController extends Controller
         $bulanPenimbangan = array_search($tahunBulan[1], $this->namaBulan);
         unset($data['judul']);
 
-        $data['tahun_penimbangan'] = $tahunPenimbangan;
-        $data['bulan_penimbangan'] = $bulanPenimbangan;
+        $data['tahun_penimbangan'] = intval($tahunPenimbangan);
+        $data['bulan_penimbangan'] = intval($bulanPenimbangan);
+        return response()->json(
+            $data
+        )->setStatusCode(201);
 
         /**
          * Menggunakan updateOrCreate untuk menyimpan atau memperbarui data
@@ -286,8 +289,8 @@ class FormatBAController extends Controller
         PenimbanganModel::updateOrCreate(
             [
                 'id_bayi' => $data['id_bayi'],
-                'tahun_penimbangan' => $tahunPenimbangan,
-                'bulan_penimbangan' => $bulanPenimbangan,
+                'tahun_penimbangan' => '' . $tahunPenimbangan,
+                'bulan_penimbangan' => '' . $bulanPenimbangan,
             ],
             $data
         );
