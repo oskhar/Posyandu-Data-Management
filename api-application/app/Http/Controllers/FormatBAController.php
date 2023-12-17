@@ -278,9 +278,6 @@ class FormatBAController extends Controller
 
         $data['tahun_penimbangan'] = intval($tahunPenimbangan);
         $data['bulan_penimbangan'] = intval($bulanPenimbangan);
-        return response()->json(
-            $data
-        )->setStatusCode(201);
 
         /**
          * Menggunakan updateOrCreate untuk menyimpan atau memperbarui data

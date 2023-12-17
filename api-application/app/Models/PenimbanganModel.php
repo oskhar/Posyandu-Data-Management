@@ -24,5 +24,10 @@ class PenimbanganModel extends Model
     protected $fillable = [
         'id_bayi',
         'keterangan',
+        'tahun_penimbangan',
+        'bulan_penimbangan',
+        'berat_badan',
+        'ntob',
+        'asi_ekslusif',
     ];
 }
