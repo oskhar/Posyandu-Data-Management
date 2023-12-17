@@ -91,6 +91,10 @@ const router = createRouter({
           path: "data/",
           children: [
             {
+              path: "admin",
+              component: () => import("../pages/admin.vue"),
+            },
+            {
               path: "format-1",
               component: () => import("../pages/format-1.vue"),
             },

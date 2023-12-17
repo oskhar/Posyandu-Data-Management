@@ -60,10 +60,7 @@ const upgradeBanner = computed(() => {
         </IconBtn> -->
         <VRow>
           <VCol>
-            <IconBtn
-              class="ms-n3 d-lg-none"
-              @click="toggleVerticalOverlayNavActive(true)"
-            >
+            <IconBtn class="ms-n3 d-lg-none" @click="toggleVerticalOverlayNavActive(true)">
               <VIcon icon="bx-menu" />
             </IconBtn>
           </VCol>
@@ -76,63 +73,53 @@ const upgradeBanner = computed(() => {
     </template>
 
     <template #vertical-nav-content>
-      <VerticalNavLink
-        :item="{
-          title: 'Dashboard',
-          icon: 'bx-home',
-          to: '/dashboard',
-        }"
-      />
-      <VerticalNavLink
-        :item="{
-          title: 'Berita Acara',
-          icon: 'bx-news',
-          to: '/berita-acara',
-        }"
-      />
-      <VerticalNavLink
-        :item="{
-          title: 'Edukasi',
-          icon: 'bx-book',
-          to: '/edukasi',
-        }"
-      />
-      <VerticalNavLink
-        :item="{
-          title: 'Gambar',
-          icon: 'bx-image',
-          to: '/galeri',
-        }"
-      />
-      <VerticalNavLinkTree
-        :item="{
-          title: 'Data',
-          children: [
-            {
-              title: 'Data Bayi',
-              to: '/data/format-1',
-            },
-            {
-              title: 'Registrasi Bayi',
-              to: '/data/format-2',
-            },
-          ],
-        }"
-      />
-      <VerticalNavLink
-        :item="{
-          title: 'Tentang',
-          icon: 'bx-info-circle',
-          to: '/tentang',
-        }"
-      />
-      <VerticalNavLink
-        :item="{
-          title: 'Pengaturan Akun',
-          icon: 'mdi-account-cog-outline',
-          to: '/account-settings',
-        }"
-      />
+      <VerticalNavLink :item="{
+        title: 'Dashboard',
+        icon: 'bx-home',
+        to: '/dashboard',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Berita Acara',
+        icon: 'bx-news',
+        to: '/berita-acara',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Edukasi',
+        icon: 'bx-book',
+        to: '/edukasi',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Gambar',
+        icon: 'bx-image',
+        to: '/galeri',
+      }" />
+      <VerticalNavLinkTree :item="{
+        title: 'Data',
+        children: [
+          {
+            title: 'Data Admin',
+            to: '/data/admin',
+          },
+          {
+            title: 'Data Bayi',
+            to: '/data/format-1',
+          },
+          {
+            title: 'Registrasi Bayi',
+            to: '/data/format-2',
+          },
+        ],
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Tentang',
+        icon: 'bx-info-circle',
+        to: '/tentang',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Pengaturan Akun',
+        icon: 'bx-user',
+        to: '/account-settings',
+      }" />
     </template>
 
     <!-- 👉 Pages -->

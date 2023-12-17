@@ -41,12 +41,8 @@
                     <VBtn color="primary" class="mx-3" v-bind="props">
                       Edit & Lihat
                     </VBtn>
-                    <VBtn
-                      color="error"
-                      @click="deleteEdukasi(data.id_edukasi)"
-                      class="float-right"
-                    >
-                      <v-icon>mdi-trash</v-icon>
+                    <VBtn color="error" @click="deleteEdukasi(data.id_edukasi)" class="float-right">
+                      <v-icon>bx-trash</v-icon>
                     </VBtn>
                   </VCol>
                 </VRow>

@@ -12,16 +12,16 @@ class ResetPasswordRequest extends CoreRequest
     public function rules(): array
     {
         return [
-            'token' => 'required',
-            'password_a' => 'required',
-            'password_b' => 'required',
+            'id_admin' => 'required',
+            'new_password' => 'required',
+            'confirm_password' => 'required',
         ];
     }
     public function messages(): array
     {
         return [
-            'password_a.required' => 'Dua password harus diisi',
-            'password_b.required' => 'Dua password harus diisi',
+            'new_password.required' => 'Dua password harus diisi',
+            'confirm_password.required' => 'Dua password harus diisi',
         ];
     }
 }
