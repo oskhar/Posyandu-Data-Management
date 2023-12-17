@@ -118,7 +118,7 @@
 
               <!-- 👉 submit and reset button -->
               <VCol offset-md="3" cols="12" md="9" class="d-flex gap-4">
-                <VBtn type="submit">
+                <VBtn type="submit" :disabled="isLoading">
                   <VProgressCircular
                     v-if="isLoading"
                     indeterminate
@@ -221,7 +221,18 @@ export default {
 
         window.location.href = "/berita-acara";
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+          toast: true,
+          position: "top",
+          iconColor: "white",
+          color: "white",
+          background: "rgb(var(--v-theme-error))",
+          showConfirmButton: false,
+          timerProgressBar: true,
+          timer: 4000,
+          icon: "error",
+          title: "Judul dan Tanggal Pelaksanaan Tidak Boleh Kosong",
+        });
       }
       isLoading.value = false;
     };

@@ -260,10 +260,10 @@
                                 </VCol>
 
                                 <VCol cols="12" md="9">
-                                  <VTextField
+                                  <VCheckbox
                                     v-model="item.memiliki_kia"
-                                    placeholder="Masukkan KIA"
-                                    persistent-placeholder
+                                    :value="1"
+                                    :label="`Ya`"
                                   />
                                 </VCol>
                               </VRow>
@@ -276,10 +276,10 @@
                                 </VCol>
 
                                 <VCol cols="12" md="9">
-                                  <VTextField
+                                  <VCheckbox
                                     v-model="item.memiliki_kms"
-                                    placeholder="Masukkan KMS"
-                                    persistent-placeholder
+                                    :value="1"
+                                    :label="`Ya`"
                                   />
                                 </VCol>
                               </VRow>
@@ -295,6 +295,22 @@
                                   <VTextField
                                     v-model="item.rt_rw"
                                     placeholder="Masukkan RT/RW"
+                                    persistent-placeholder
+                                  />
+                                </VCol>
+                              </VRow>
+                            </VCol>
+                            <VCol cols="12">
+                              <VRow no-gutters>
+                                <!-- 👉 First Name -->
+                                <VCol cols="12" md="3">
+                                  <label>Berat Lahir</label>
+                                </VCol>
+
+                                <VCol cols="12" md="9">
+                                  <VTextField
+                                    v-model="item.berat_lahir"
+                                    placeholder="Masukkan Berat Lahir"
                                     persistent-placeholder
                                   />
                                 </VCol>
@@ -395,6 +411,8 @@ export default {
       judulFormatA: "",
       namaPosyandu: "",
       kota: "",
+      memiliki_kia: false,
+      memiliki_kms: false,
       jumlahData: 0,
       jumlahLahiran: "",
       jumlahMeninggal: "",
@@ -529,6 +547,7 @@ export default {
           memiliki_kia: this.dataFormatA[indexFormatA].memiliki_kia,
           memiliki_kms: this.dataFormatA[indexFormatA].memiliki_kms,
           rt_rw: this.dataFormatA[indexFormatA].rt_rw,
+          berat_lahir: this.dataFormatA[indexFormatA].berat_lahir,
           nama_ibu: this.dataFormatA[indexFormatA].nama_ibu,
           nama_bayi: this.dataFormatA[indexFormatA].nama_bayi,
           jenis_kelamin: this.dataFormatA[indexFormatA].jenis_kelamin,
@@ -564,7 +583,18 @@ export default {
           });
         }
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+          toast: true,
+          position: "top",
+          iconColor: "white",
+          color: "white",
+          background: "rgb(var(--v-theme-error))",
+          showConfirmButton: false,
+          timerProgressBar: true,
+          timer: 4000,
+          icon: "error",
+          title: "Data Tidak Lengkap",
+        });
       }
     },
     async fetchData() {
@@ -578,6 +608,10 @@ export default {
         }
       );
       console.log(response.data);
+
+      // if (response.data.memiliki_kia == 1) {
+      //   this.memiliki_kia = true;
+      // }
 
       this.isLoading = false;
 
