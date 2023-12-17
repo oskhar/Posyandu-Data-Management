@@ -40,7 +40,9 @@ class AdminRequest extends CoreRequest
             case 'GET':
                 return [
                     'id_admin' => 'nullable|integer',
-                    'search' => 'nullable'
+                    'start' => 'nullable|integer',
+                    'length' => 'nullable|integer',
+                    'search' => 'nullable',
                 ];
             default:
                 return [];

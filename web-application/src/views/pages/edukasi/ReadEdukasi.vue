@@ -33,7 +33,7 @@
                       Edit & Lihat
                     </VBtn>
                     <VBtn color="error" @click="deleteEdukasi(data.id_edukasi)" class="float-right">
-                      <v-icon>mdi-trash</v-icon>
+                      <v-icon>bx-trash</v-icon>
                     </VBtn>
                   </VCol>
                 </VRow>
