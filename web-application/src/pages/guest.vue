@@ -6,6 +6,7 @@ import cardGaleri from "./card-galeri-guest.vue";
 import tentangGuest from "./tentang-guest.vue";
 import footerGuest from "./footer-guest.vue";
 import logo from "@images/logo.svg?raw";
+import Sambutan from "./tentang-guest-atas.vue";
 
 import iconTentangPosyandu from "@images/cards/icon-tentang-posyandu.png";
 import iconEdukasi from "@images/cards/icon-edukasi-guest.png";
@@ -45,26 +46,37 @@ onMounted(() => {
 
 <template>
   <RouterView />
-  <div class="container">
-    <div class="container-dua d-flex" style="justify-content: space-between">
-      <div>
-        <router-link to="/"
-          ><div class="d-flex text-primary" v-html="logo"
-        /></router-link>
-      </div>
-      <router-link to="./login">
-        <VBtn> Log in </VBtn>
-      </router-link>
-    </div>
-
-    <img
-      class="mt-5"
-      style="width: 100%; height: 500px; object-fit: cover"
-      :src="langit"
-      alt=""
-    />
-
-    <!-- CARD 3 -->
+  <img
+    id="gambarPosyandu"
+    style="
+      width: 100%;
+      height: 610px;
+      object-fit: cover;
+      position: absolute;
+      margin: 0px auto;
+    "
+    :src="langit"
+    alt=""
+  />
+  <div
+    class="container-dua d-flex"
+    style="justify-content: space-between; z-index: 1000; margin: 40px"
+  >
+    <router-link to="/">
+      <div class="d-flex text-primary" v-html="logo"
+    /></router-link>
+    <router-link to="./login">
+      <VBtn> Log in </VBtn>
+    </router-link>
+  </div>
+  <div style="z-index: 100; margin-top: 80px">
+    <center>
+      <h4 style="color: white; font-size: 3vw">SELAMAT DATANG DI</h4>
+      <strong style="color: white; font-size: 6vw">POSYANDU MELATI</strong>
+    </center>
+  </div>
+  <!-- CARD 3 -->
+  <div class="container" style="margin-top: 350px">
     <div class="card">
       <div class="text-center" style="margin-top: 200px">
         <strong style="font-size: 35px">KATEGORI - KATEGORI</strong>
@@ -119,7 +131,7 @@ onMounted(() => {
           </VCol> -->
       </VRow>
     </VCol>
-
+    <Sambutan />
     <cardEdukasi />
     <cardBeritaAcara />
     <cardGaleri />
@@ -134,6 +146,11 @@ onMounted(() => {
 .container {
   padding: 0 10px;
   margin: 30px;
+}
+
+#gambarPosyandu:hover {
+  filter: brightness(0.7);
+  text-shadow: 2px 2px 4px #000000;
 }
 
 /* card 3 */

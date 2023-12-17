@@ -7,15 +7,15 @@ export default {
     dialog: false,
     posyandu: posyandu,
     langit: langit,
-    // profil: "Belum ada",
-    visi: "Belum ada ",
-    misi: "Belum ada",
+    profil: "Ketua Posyandu Melati",
+    // visi: "Belum ada ",
+    // misi: "Belum ada",
   }),
   methods: {
     save() {
-      // this.profil = profil;
-      this.visi = visi;
-      this.misi = misi;
+      this.profil = profil;
+      //   this.visi = visi;
+      //   this.misi = misi;
     },
   },
 };
@@ -23,9 +23,9 @@ export default {
 
 <template>
   <VRow>
-    <div class="w-100 align-content-center" style="margin-top: 150px">
+    <div class="w-100 align-content-center" style="margin-top: 250px">
       <div class="text-center">
-        <h1 class="text-black">VISI & MISI</h1>
+        <h1 class="text-black">SAMBUTAN KETUA POSYANDU</h1>
       </div>
       <VRow class="mx-1 mt-5">
         <VCol cols="12">
@@ -36,14 +36,14 @@ export default {
                 <v-card-text>
                   <v-container>
                     <v-row>
-                      <!-- <v-col cols="12">
+                      <v-col cols="12">
                         <VTextarea
                           label="Profil"
                           v-model="profil"
                           required
                         ></VTextarea>
-                      </v-col> -->
-                      <v-col cols="12">
+                      </v-col>
+                      <!-- <v-col cols="12">
                         <VTextarea
                           label="Visi"
                           v-model="visi"
@@ -56,7 +56,7 @@ export default {
                           v-model="misi"
                           required
                         ></VTextarea>
-                      </v-col>
+                      </v-col> -->
                     </v-row>
                   </v-container>
                   <small>*indicates required field</small>
@@ -85,20 +85,13 @@ export default {
       </VRow>
     </div>
 
-    <!-- <VCol md="3" sm="12">
-      <img
-        style="width: 100%; height: 250px; object-fit: cover"
-        :src="posyandu"
-        alt=""
-      />
-    </VCol>
     <VCol md="9" sm="12">
       <VCard class="text-center text-sm-start">
         <VRow no-gutters>
           <VCol cols="12">
             <VCardItem>
               <VCardTitle class="text-md-h5 text-primary">
-                PROFIL POSYANDU
+                IBU ATAU BAPAK (NAMA LENGKAP)
               </VCardTitle>
             </VCardItem>
 
@@ -107,15 +100,29 @@ export default {
                 {{ profil }}
                 <br />
                 <br />
-                Belum ada
+
+                Assalamu’alaikum Warahmatullahi Wabarakaatuh.
+                <br />
+                Salam sejahtera untuk kita semua. Selamat datang di website
+                Posyandu Melati. Website ini dibangun sebagai sarana atau media
+                informasi dan komunikasi masyarakat, karena sejalan dengan
+                perkembangan teknologi industri 4.0 yang berguna untuk
+                memudahkan mencari informasi tentang POSYANDU MELATI.
               </span>
               <br />
             </VCardText>
           </VCol>
         </VRow>
       </VCard>
-    </VCol> -->
-    <VCol cols="12">
+    </VCol>
+    <VCol md="3" sm="12">
+      <img
+        style="width: 100%; height: 250px; object-fit: cover"
+        :src="posyandu"
+        alt=""
+      />
+    </VCol>
+    <!-- <VCol cols="12">
       <VCard class="text-center text-sm-start">
         <VRow no-gutters>
           <VCol cols="12">
@@ -150,6 +157,6 @@ export default {
           </VCol>
         </VRow>
       </VCard>
-    </VCol>
+    </VCol> -->
   </VRow>
 </template>

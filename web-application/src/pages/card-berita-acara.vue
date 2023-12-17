@@ -157,7 +157,10 @@
   </VRow>
   <VRow>
     <VCol>
-      <div class="text-center my-3 float-right">
+      <div
+        class="text-center my-3 float-right"
+        style="display: flex; justify-content: center"
+      >
         <v-pagination
           v-model="page"
           :length="banyakPage"
