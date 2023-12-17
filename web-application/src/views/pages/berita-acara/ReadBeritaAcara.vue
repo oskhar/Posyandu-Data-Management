@@ -158,7 +158,18 @@ export default {
         }
         console.log(response);
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+          toast: true,
+          position: "top",
+          iconColor: "white",
+          color: "white",
+          background: "rgb(var(--v-theme-error))",
+          showConfirmButton: false,
+          timerProgressBar: true,
+          timer: 4000,
+          icon: "error",
+          title: "Judul dan Tanggal Pelaksanaan Tidak Boleh Kosong",
+        });
       }
     },
 

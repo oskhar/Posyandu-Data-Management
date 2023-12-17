@@ -134,11 +134,7 @@
                   </VCol>
 
                   <VCol cols="12" md="9">
-                    <VTextField
-                      v-model="memiliki_kia"
-                      placeholder="Masukkan KIA"
-                      persistent-placeholder
-                    />
+                    <VCheckbox v-model="memiliki_kia" :label="`Ya`" />
                   </VCol>
                 </VRow>
               </VCol>
@@ -150,9 +146,21 @@
                   </VCol>
 
                   <VCol cols="12" md="9">
+                    <VCheckbox v-model="memiliki_kms" :label="`Ya`" />
+                  </VCol>
+                </VRow>
+              </VCol>
+              <VCol cols="12">
+                <VRow no-gutters>
+                  <!-- 👉 First Name -->
+                  <VCol cols="12" md="3">
+                    <label>Berat Lahir</label>
+                  </VCol>
+
+                  <VCol cols="12" md="9">
                     <VTextField
-                      v-model="memiliki_kms"
-                      placeholder="Masukkan KMS"
+                      v-model="berat_lahir"
+                      placeholder="Masukkan Berat Lahir"
                       persistent-placeholder
                     />
                   </VCol>
@@ -193,7 +201,16 @@
 
               <!-- 👉 submit and reset button -->
               <VCol offset-md="3" cols="12" md="9" class="d-flex gap-4">
-                <VBtn type="submit"> Submit </VBtn>
+                <VBtn type="submit" :disabled="isLoading">
+                  <VProgressCircular
+                    v-if="isLoading"
+                    indeterminate
+                    color="white"
+                  >
+                  </VProgressCircular>
+
+                  <font v-else>Submit</font>
+                </VBtn>
               </VCol>
             </VRow>
           </VForm>
@@ -212,6 +229,7 @@ import { ref } from "vue";
 export default {
   data() {
     return {
+      isLoading: false,
       nama_ayah: ref(""),
       nama_ibu: ref(""),
       nama_bayi: ref(""),
@@ -220,10 +238,15 @@ export default {
       tanggal_meninggal_bayi: ref(""),
       tanggal_meninggal_ibu: ref(""),
       keterangan: ref(""),
+      rt_rw: ref(""),
+      memiliki_kia: ref(""),
+      memiliki_kms: ref(""),
+      berat_lahir: ref(""),
     };
   },
   methods: {
     async submitData(formData) {
+      this.isLoading = true;
       try {
         formData.preventDefault();
 
@@ -236,6 +259,10 @@ export default {
           tanggal_meninggal_bayi: this.tanggal_meninggal_bayi,
           tanggal_meninggal_ibu: this.tanggal_meninggal_ibu,
           keterangan: this.keterangan,
+          rt_rw: this.rt_rw,
+          memiliki_kia: this.memiliki_kia,
+          memiliki_kms: this.memiliki_kms,
+          berat_lahir: this.berat_lahir,
         };
         console.log(data);
         const response = await axios.post(
@@ -263,8 +290,20 @@ export default {
           this.resetData();
         }
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+          toast: true,
+          position: "top",
+          iconColor: "white",
+          color: "white",
+          background: "rgb(var(--v-theme-error))",
+          showConfirmButton: false,
+          timerProgressBar: true,
+          timer: 4000,
+          icon: "error",
+          title: "Data Tidak Lengkap",
+        });
       }
+      this.isLoading = false;
     },
     resetData() {
       this.nama_ayah = ref("");
@@ -275,6 +314,10 @@ export default {
       this.tanggal_meninggal_bayi = ref("");
       this.tanggal_meninggal_ibu = ref("");
       this.keterangan = ref("");
+      this.rt_rw = ref("");
+      this.memiliki_kia = ref("");
+      this.memiliki_kms = ref("");
+      this.berat_lahir = ref("");
     },
   },
 };
