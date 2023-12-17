@@ -100,7 +100,7 @@ class FormatBAController extends Controller
                 'bulan_penimbangan',
                 'berat_badan',
                 'ntob',
-                'asi_ekslusif',
+                'asi_eksklusif',
             )->where('id_bayi', '=', $data['id_bayi'])
                 ->orderBy('tahun_penimbangan', 'asc')
                 ->orderBy('bulan_penimbangan', 'asc')
@@ -113,16 +113,16 @@ class FormatBAController extends Controller
                     'judul' => 'Umur ' . $i . ' Bulan - ' . $list_waktu[$i],
                     'berat_badan' => null,
                     'ntob' => null,
-                    'asi_ekslusif' => null,
+                    'asi_eksklusif' => null,
                 ];
 
                 foreach ($penimbangan as $dataPenimbangan) {
                     if ($dataPenimbangan->tahun_penimbangan . ' ' . $this->namaBulan[$dataPenimbangan->bulan_penimbangan] == $list_waktu[$i]) {
-                        $list_penimbangan[$list_waktu[$i]] = [
+                        $list_penimbangan[$i] = [
                             'judul' => 'Umur ' . $i . ' Bulan - ' . $list_waktu[$i],
                             'berat_badan' => $dataPenimbangan->berat_badan,
                             'ntob' => $dataPenimbangan->ntob,
-                            'asi_ekslusif' => $dataPenimbangan->asi_ekslusif,
+                            'asi_eksklusif' => $dataPenimbangan->asi_eksklusif,
                         ];
                     }
                 }
@@ -161,7 +161,7 @@ class FormatBAController extends Controller
             'bayi.jenis_kelamin',
             'penimbangan.berat_badan',
             'penimbangan.ntob',
-            'penimbangan.asi_ekslusif',
+            'penimbangan.asi_eksklusif',
             'bayi.tanggal_lahir'
         )
             ->selectRaw('(' . $data['tahun'] . ' - YEAR(bayi.tanggal_lahir)) * 12 + ' . $data['bulan'] . ' - MONTH(bayi.tanggal_lahir) as umur')
@@ -271,11 +271,24 @@ class FormatBAController extends Controller
          */
         $data = $request->validated();
 
+        /**
+         * Mengambil tahun dan bulan dari data judul
+         * 
+         */
         $tahunBulan = explode(' ', explode(' - ', $data['judul'])[1]);
         $tahunPenimbangan = $tahunBulan[0];
         $bulanPenimbangan = array_search($tahunBulan[1], $this->namaBulan);
+
+        /**
+         * Menghabpus data judul
+         * 
+         */
         unset($data['judul']);
 
+        /**
+         * Menambahkan tahun dan bulan ke dalam data
+         * 
+         */
         $data['tahun_penimbangan'] = intval($tahunPenimbangan);
         $data['bulan_penimbangan'] = intval($bulanPenimbangan);
 
