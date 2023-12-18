@@ -1,163 +1,82 @@
 <template>
   <VRow>
     <VCol cols="12" md="12">
-      <VCard title="Tambah Data Bayi">
-        <VCardText>
-          <VForm @submit="submitData">
+      <VCol cols="12">
+        <VCard>
+          <VCardItem>
+            <h4 class="mb-4">
+              Nama: <font class="float-right">{{ dataEdit.bayi.nama }}</font>
+            </h4>
+            <h4 class="mb-4">
+              Tanggal Lahir:
+              <font class="float-right">{{ dataEdit.bayi.tanggal_lahir }}</font>
+            </h4>
+            <h4 class="mb-4">
+              Jenis Kelamin:<font class="float-right">
+                {{ dataEdit.bayi.jenis_kelamin }}
+              </font>
+            </h4>
+            <h4 class="mb-4">
+              BB Saat Lahir :<font class="float-right">
+                {{
+                  dataEdit.bayi.berat_lahir
+                    ? dataEdit.bayi.berat_lahir + " KG"
+                    : "-"
+                }}
+              </font>
+            </h4>
+          </VCardItem>
+        </VCard>
+      </VCol>
+      <VCol cols="12">
+        <VCard title="Tambah Data Bayi">
+          <VCardText>
             <VRow>
-              <VCol cols="12">
-                <h4 class="my-5">Umur 0 Bulan</h4>
+              <VCol cols="12" v-for="(item, index) in dataEdit.penimbangan">
+                <h4 class="my-5">{{ item.judul }}</h4>
                 <VRow>
-                  <VCol cols="12" sm="4">
+                  <VCol cols="12" sm="3">
                     <VTextField
-                      v-model="a"
+                      v-model="dataEdit.penimbangan[index].berat_badan"
                       label="Berat Badan"
-                      placeholder="John"
+                      placeholder="Masukkan Berat Badan"
                     />
                   </VCol>
-                  <VCol cols="12" sm="4">
+                  <VCol cols="12" sm="3">
                     <VTextField
-                      v-model="b"
-                      label="N/T/O/B & BGM"
-                      placeholder="John"
-                    />
-                  </VCol>
-                  <VCol cols="12" sm="4">
-                    <VTextField
-                      v-model="c"
+                      v-model="dataEdit.penimbangan[index].asi_eksklusif"
                       label="Asi Ekskulusif"
-                      placeholder="John"
+                      placeholder="Masukkan "
                     />
+                  </VCol>
+                  <VCol cols="12" sm="3">
+                    <VTextField
+                      v-model="dataEdit.penimbangan[index].ntob"
+                      label="N/T/O/B & BGM"
+                      disabled
+                    />
+                  </VCol>
+                  <VCol cols="12" md="9" class="d-flex gap-4">
+                    <VBtn
+                      type="submit"
+                      @click="
+                        submitData(
+                          dataEdit.penimbangan[index].berat_badan,
+                          dataEdit.penimbangan[index].asi_eksklusif,
+                          dataEdit.penimbangan[index].ntob,
+                          dataEdit.penimbangan[index].judul
+                        )
+                      "
+                    >
+                      Submit
+                    </VBtn>
                   </VCol>
                 </VRow>
-                <h4 class="my-5">Umur 0 Bulan</h4>
-                <VRow>
-                  <VCol cols="12" sm="4">
-                    <VTextField
-                      v-model="a"
-                      label="Berat Badan"
-                      placeholder="John"
-                    />
-                  </VCol>
-                  <VCol cols="12" sm="4">
-                    <VTextField
-                      v-model="b"
-                      label="N/T/O/B & BGM"
-                      placeholder="John"
-                    />
-                  </VCol>
-                  <VCol cols="12" sm="4">
-                    <VTextField
-                      v-model="c"
-                      label="Asi Ekskulusif"
-                      placeholder="John"
-                    />
-                  </VCol>
-                </VRow>
-                <h4 class="my-5">Umur 0 Bulan</h4>
-                <VRow>
-                  <VCol cols="12" sm="4">
-                    <VTextField
-                      v-model="a"
-                      label="Berat Badan"
-                      placeholder="John"
-                    />
-                  </VCol>
-                  <VCol cols="12" sm="4">
-                    <VTextField
-                      v-model="b"
-                      label="N/T/O/B & BGM"
-                      placeholder="John"
-                    />
-                  </VCol>
-                  <VCol cols="12" sm="4">
-                    <VTextField
-                      v-model="c"
-                      label="Asi Ekskulusif"
-                      placeholder="John"
-                    />
-                  </VCol>
-                </VRow>
-                <h4 class="my-5">Umur 0 Bulan</h4>
-                <VRow>
-                  <VCol cols="12" sm="4">
-                    <VTextField
-                      v-model="a"
-                      label="Berat Badan"
-                      placeholder="John"
-                    />
-                  </VCol>
-                  <VCol cols="12" sm="4">
-                    <VTextField
-                      v-model="b"
-                      label="N/T/O/B & BGM"
-                      placeholder="John"
-                    />
-                  </VCol>
-                  <VCol cols="12" sm="4">
-                    <VTextField
-                      v-model="c"
-                      label="Asi Ekskulusif"
-                      placeholder="John"
-                    />
-                  </VCol>
-                </VRow>
-                <h4 class="my-5">Umur 0 Bulan</h4>
-                <VRow>
-                  <VCol cols="12" sm="4">
-                    <VTextField
-                      v-model="a"
-                      label="Berat Badan"
-                      placeholder="John"
-                    />
-                  </VCol>
-                  <VCol cols="12" sm="4">
-                    <VTextField
-                      v-model="b"
-                      label="N/T/O/B & BGM"
-                      placeholder="John"
-                    />
-                  </VCol>
-                  <VCol cols="12" sm="4">
-                    <VTextField
-                      v-model="c"
-                      label="Asi Ekskulusif"
-                      placeholder="John"
-                    />
-                  </VCol>
-                </VRow>
-                <h4 class="my-5">Umur 0 Bulan</h4>
-                <VRow>
-                  <VCol cols="12" sm="4">
-                    <VTextField
-                      v-model="a"
-                      label="Berat Badan"
-                      placeholder="John"
-                    />
-                  </VCol>
-                  <VCol cols="12" sm="4">
-                    <VTextField
-                      v-model="b"
-                      label="N/T/O/B & BGM"
-                      placeholder="John"
-                    />
-                  </VCol>
-                  <VCol cols="12" sm="4">
-                    <VTextField
-                      v-model="c"
-                      label="Asi Ekskulusif"
-                      placeholder="John"
-                    />
-                  </VCol>
-                </VRow>
-              </VCol>
-              <VCol cols="12" md="9" class="d-flex gap-4">
-                <VBtn type="submit"> Submit </VBtn>
               </VCol>
             </VRow>
-          </VForm>
-        </VCardText>
-      </VCard>
+          </VCardText>
+        </VCard>
+      </VCol>
     </VCol>
   </VRow>
 </template>
@@ -171,34 +90,63 @@ import { ref } from "vue";
 export default {
   data() {
     return {
-      nama_ayah: ref(""),
-      nama_ibu: ref(""),
-      nama_bayi: ref(""),
-      jenis_kelamin: ref("L"),
-      tanggal_lahir: ref(""),
-      tanggal_meninggal_bayi: ref(""),
-      tanggal_meninggal_ibu: ref(""),
-      keterangan: ref(""),
+      dataEdit: {
+        bayi: {
+          nama: "",
+          tanggal_lahir: "",
+          jenis_kelamin: "",
+          berat_lahir: null,
+          keterangan: null,
+        },
+        penimbangan: [],
+      },
     };
   },
+  mounted() {
+    this.fetchData();
+  },
   methods: {
-    async submitData(formData) {
-      try {
-        formData.preventDefault();
+    async fetchData() {
+      // this.isLoading = true;
+      // Membuat objek URLSearchParams dari query string
+      const queryString = window.location.search;
+      const queryParams = new URLSearchParams(queryString);
 
+      // Mendapatkan nilai dari parameter tertentu
+      if (queryParams.get("id_bayi")) {
+        const idBayi = queryParams.get("id_bayi");
+        const response = await axios.get(
+          `${config.urlServer}/api/format-ba?id_bayi=${idBayi}`,
+          {
+            headers: {
+              Authorization: localStorage.getItem("tokenAuth"),
+            },
+          }
+        );
+        console.log(idBayi);
+        this.dataEdit = response.data;
+        console.log(this.dataEdit);
+      } else {
+        window.location.href = "/dashboard";
+      }
+
+      // this.isLoading = false;
+    },
+    async submitData(berat_badan, asi_eksklusif, ntob, judul) {
+      try {
+        const queryString = window.location.search;
+        const queryParams = new URLSearchParams(queryString);
+        const idBayi = queryParams.get("id_bayi");
         const data = {
-          nama_ayah: this.nama_ayah,
-          nama_ibu: this.nama_ibu,
-          nama_bayi: this.nama_bayi,
-          jenis_kelamin: this.jenis_kelamin,
-          tanggal_lahir: this.tanggal_lahir,
-          tanggal_meninggal_bayi: this.tanggal_meninggal_bayi,
-          tanggal_meninggal_ibu: this.tanggal_meninggal_ibu,
-          keterangan: this.keterangan,
+          berat_badan: berat_badan,
+          asi_eksklusif: asi_eksklusif,
+          ntob: ntob,
+          judul: judul,
+          id_bayi: idBayi,
         };
         console.log(data);
         const response = await axios.post(
-          `${config.urlServer}/api/format-a`,
+          `${config.urlServer}/api/format-ba`,
           data,
           {
             headers: {
@@ -219,21 +167,10 @@ export default {
             icon: "success",
             title: response.data.success.message,
           });
-          this.resetData();
         }
       } catch (error) {
         console.log(error);
       }
-    },
-    resetData() {
-      this.nama_ayah = ref("");
-      this.nama_ibu = ref("");
-      this.nama_bayi = ref("");
-      this.jenis_kelamin = ref("L");
-      this.tanggal_lahir = ref("");
-      this.tanggal_meninggal_bayi = ref("");
-      this.tanggal_meninggal_ibu = ref("");
-      this.keterangan = ref("");
     },
   },
 };

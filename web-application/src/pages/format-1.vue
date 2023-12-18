@@ -43,7 +43,6 @@
           <VueApexCharts
             v-else
             class="float-center"
-            width="400"
             :options="chartOptions"
             :series="series"
           />
@@ -102,7 +101,7 @@
                   {{ item.nama_bayi }}
                 </td>
                 <td>
-                  {{ item.tanggal_lahir }}
+                  {{ item.tanggal_lahir_format }}
                 </td>
                 <td class="text-center">
                   {{ item.nama_ayah }}
@@ -118,7 +117,7 @@
                   >
                     <template v-slot:activator="{ props }">
                       <v-btn color="primary" class="ml-2" v-bind="props">
-                        <v-icon>mdi-edit</v-icon>
+                        <v-icon>bx-edit</v-icon>
                       </v-btn>
                     </template>
                     <v-card>
@@ -257,7 +256,71 @@
                               <VRow no-gutters>
                                 <!-- 👉 First Name -->
                                 <VCol cols="12" md="3">
-                                  <label for="keterangan">Keterangan</label>
+                                  <label>Memiliki KIA</label>
+                                </VCol>
+
+                                <VCol cols="12" md="9">
+                                  <VCheckbox
+                                    v-model="item.memiliki_kia"
+                                    :value="1"
+                                    :label="`Ya`"
+                                  />
+                                </VCol>
+                              </VRow>
+                            </VCol>
+                            <VCol cols="12">
+                              <VRow no-gutters>
+                                <!-- 👉 First Name -->
+                                <VCol cols="12" md="3">
+                                  <label>Memiliki KMS</label>
+                                </VCol>
+
+                                <VCol cols="12" md="9">
+                                  <VCheckbox
+                                    v-model="item.memiliki_kms"
+                                    :value="1"
+                                    :label="`Ya`"
+                                  />
+                                </VCol>
+                              </VRow>
+                            </VCol>
+                            <VCol cols="12">
+                              <VRow no-gutters>
+                                <!-- 👉 First Name -->
+                                <VCol cols="12" md="3">
+                                  <label>RT/RW</label>
+                                </VCol>
+
+                                <VCol cols="12" md="9">
+                                  <VTextField
+                                    v-model="item.rt_rw"
+                                    placeholder="Masukkan RT/RW"
+                                    persistent-placeholder
+                                  />
+                                </VCol>
+                              </VRow>
+                            </VCol>
+                            <VCol cols="12">
+                              <VRow no-gutters>
+                                <!-- 👉 First Name -->
+                                <VCol cols="12" md="3">
+                                  <label>Berat Lahir</label>
+                                </VCol>
+
+                                <VCol cols="12" md="9">
+                                  <VTextField
+                                    v-model="item.berat_lahir"
+                                    placeholder="Masukkan Berat Lahir"
+                                    persistent-placeholder
+                                  />
+                                </VCol>
+                              </VRow>
+                            </VCol>
+                            <VCol cols="12">
+                              <VRow no-gutters>
+                                <!-- 👉 First Name -->
+                                <VCol cols="12" md="3">
+                                  <label>Keterangan</label>
                                 </VCol>
 
                                 <VCol cols="12" md="9">
@@ -300,7 +363,7 @@
                     color="error"
                     @click="deleteData(item.id_format_a)"
                   >
-                    <v-icon>mdi-delete</v-icon>
+                    <v-icon>bx-trash</v-icon>
                   </VBtn>
                 </td>
               </tr>
@@ -348,6 +411,8 @@ export default {
       judulFormatA: "",
       namaPosyandu: "",
       kota: "",
+      memiliki_kia: false,
+      memiliki_kms: false,
       jumlahData: 0,
       jumlahLahiran: "",
       jumlahMeninggal: "",
@@ -479,6 +544,10 @@ export default {
         const data = {
           id_format_a: this.dataFormatA[indexFormatA].id_format_a,
           nama_ayah: this.dataFormatA[indexFormatA].nama_ayah,
+          memiliki_kia: this.dataFormatA[indexFormatA].memiliki_kia,
+          memiliki_kms: this.dataFormatA[indexFormatA].memiliki_kms,
+          rt_rw: this.dataFormatA[indexFormatA].rt_rw,
+          berat_lahir: this.dataFormatA[indexFormatA].berat_lahir,
           nama_ibu: this.dataFormatA[indexFormatA].nama_ibu,
           nama_bayi: this.dataFormatA[indexFormatA].nama_bayi,
           jenis_kelamin: this.dataFormatA[indexFormatA].jenis_kelamin,
@@ -514,7 +583,18 @@ export default {
           });
         }
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+          toast: true,
+          position: "top",
+          iconColor: "white",
+          color: "white",
+          background: "rgb(var(--v-theme-error))",
+          showConfirmButton: false,
+          timerProgressBar: true,
+          timer: 4000,
+          icon: "error",
+          title: "Data Tidak Lengkap atau Salah",
+        });
       }
     },
     async fetchData() {
@@ -527,6 +607,10 @@ export default {
           },
         }
       );
+
+      // if (response.data.memiliki_kia == 1) {
+      //   this.memiliki_kia = true;
+      // }
 
       this.isLoading = false;
 
@@ -596,7 +680,6 @@ export default {
     this.namaPosyandu = response.data.nama_posyandu;
     this.kota = response.data.kota;
     this.listTahunLahir = response.data.list_tahun_lahir;
-    console.log(this.listTahunLahir);
   },
 };
 </script>

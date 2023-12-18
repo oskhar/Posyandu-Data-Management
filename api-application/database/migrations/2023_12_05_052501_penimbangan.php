@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->integer('bulan_penimbangan');
             $table->integer('berat_badan')->nullable();
             $table->string('ntob')->nullable();
-            $table->string('asi_ekslusif')->nullable();
+            $table->string('asi_eksklusif')->nullable();
             $table->timestamps();
         });
     }
