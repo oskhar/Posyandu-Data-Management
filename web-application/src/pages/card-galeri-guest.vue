@@ -6,7 +6,7 @@
 
 <template>
   <div class="text-center" style="margin-top: 200px">
-    <strong style="font-size: 35px">GALERI</strong>
+    <h1 class="text-black">GALERI</h1>
   </div>
 
   <VRow>

@@ -1,10 +1,10 @@
 <template>
   <div class="text-center" style="margin-top: 200px">
-    <strong style="font-size: 35px" class="grey-darken-4">EDUKASI</strong>
+    <h1 class="text-black">EDUKASI</h1>
   </div>
 
   <V-row class="mt-5">
-    <VCol v-for="(data, index) in dataEdukasi" cols="12" md="3" sm="12">
+    <VCol v-for="(data, index) in dataEdukasi" cols="3" md="4" sm="3">
       <RouterLink to="./edukasi-guest">
         <VCard>
           <VImg :src="data.gambar" cover style="height: 200px">
@@ -126,7 +126,7 @@ export default {
     },
 
     async fetchData() {
-      const banyakDataTampil = 4;
+      const banyakDataTampil = 3;
       const response = await axios.get(
         `${this.urlServer}/api/edukasi?start=${this.page}&length=${banyakDataTampil}`
       );

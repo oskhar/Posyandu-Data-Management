@@ -1,6 +1,6 @@
 <script setup>
 import langit from "@images/pages/2.png";
-import cardEdukasi from "./card-edukasi.vue";
+import cardBeritaAcara from "./card-berita-acara.vue";
 </script>
 
 <template>
@@ -13,14 +13,8 @@ import cardEdukasi from "./card-edukasi.vue";
     />
     <Strong style="font-size: 40px">JUDUL</Strong>
     <p><sup>Tanggal</sup></p>
-    <p>
-      PARAGRAF Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-      Necessitatibus est incidunt soluta id ullam dolorem similique, qui sunt
-      explicabo a voluptas eum facilis veritatis consequatur iusto saepe hic
-      accusamus earum. Laborum reiciendis quae vero tenetur libero voluptas
-      velit earum hic. Dolorum aliquid quia laboriosam quidem consequuntur
-      possimus odio ipsam sint?
-    </p>
+    <p>Paragraf</p>
+    <p>Penulis</p>
     <br />
     <RouterLink to="./">
       <div>
@@ -30,7 +24,7 @@ import cardEdukasi from "./card-edukasi.vue";
     </RouterLink>
   </div>
 
-  <cardEdukasi />
+  <cardBeritaAcara />
 </template>
 
 <style scope>

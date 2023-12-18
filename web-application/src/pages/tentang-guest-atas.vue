@@ -1,13 +1,13 @@
 <script>
 // 👉 Images
 import posyandu from "@images/pages/3.png";
-import langit from "@images/pages/2.png";
+// import langit from "@images/pages/2.png";
 export default {
   data: () => ({
     dialog: false,
     posyandu: posyandu,
-    langit: langit,
-    profil: "Ketua Posyandu Melati",
+    // langit: langit,
+    profil: "Bapak / Ibu (Nama Lengkap)",
     // visi: "Belum ada ",
     // misi: "Belum ada",
   }),
@@ -23,10 +23,7 @@ export default {
 
 <template>
   <VRow>
-    <div class="w-100 align-content-center" style="margin-top: 250px">
-      <div class="text-center">
-        <h1 class="text-black">SAMBUTAN KETUA POSYANDU</h1>
-      </div>
+    <div class="w-100 align-content-center" style="margin-top: 150px">
       <VRow class="mx-1 mt-5">
         <VCol cols="12">
           <v-row justify="center">
@@ -36,13 +33,15 @@ export default {
                 <v-card-text>
                   <v-container>
                     <v-row>
-                      <v-col cols="12">
-                        <VTextarea
-                          label="Profil"
-                          v-model="profil"
-                          required
-                        ></VTextarea>
-                      </v-col>
+                      <!-- <VCard>
+                        <v-col cols="12">
+                          <VTextarea
+                            label="Profil"
+                            v-model="profil"
+                            required
+                          ></VTextarea>
+                        </v-col>
+                      </VCard> -->
                       <!-- <v-col cols="12">
                         <VTextarea
                           label="Visi"
@@ -59,7 +58,6 @@ export default {
                       </v-col> -->
                     </v-row>
                   </v-container>
-                  <small>*indicates required field</small>
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
@@ -86,41 +84,43 @@ export default {
     </div>
 
     <VCol md="9" sm="12">
-      <VCard class="text-center text-sm-start">
-        <VRow no-gutters>
-          <VCol cols="12">
-            <VCardItem>
-              <VCardTitle class="text-md-h5 text-primary">
-                IBU ATAU BAPAK (NAMA LENGKAP)
-              </VCardTitle>
-            </VCardItem>
+      <VRow no-gutters>
+        <VCol cols="12">
+          <VCardItem>
+            <VCardTitle class="text-md-h5 text-primary">
+              Sambutan Ketua Posyandu
+            </VCardTitle>
+          </VCardItem>
 
-            <VCardText>
-              <span>
-                {{ profil }}
-                <br />
-                <br />
-
-                Assalamu’alaikum Warahmatullahi Wabarakaatuh.
-                <br />
-                Salam sejahtera untuk kita semua. Selamat datang di website
-                Posyandu Melati. Website ini dibangun sebagai sarana atau media
-                informasi dan komunikasi masyarakat, karena sejalan dengan
-                perkembangan teknologi industri 4.0 yang berguna untuk
-                memudahkan mencari informasi tentang POSYANDU MELATI.
-              </span>
+          <VCardText>
+            <span>
+              {{ profil }}
               <br />
-            </VCardText>
-          </VCol>
-        </VRow>
-      </VCard>
+              <br />
+
+              Assalamu’alaikum Warahmatullahi Wabarakaatuh.
+              <br />
+              Salam sejahtera untuk kita semua. Selamat datang di website
+              Posyandu Melati. Website ini dibangun sebagai sarana atau media
+              informasi dan komunikasi masyarakat, karena sejalan dengan
+              perkembangan teknologi industri 4.0 yang berguna untuk memudahkan
+              mencari informasi tentang POSYANDU MELATI.
+            </span>
+            <br />
+            <br />
+            <VBtn color="primary" v-bind="props"> Selengkapnya </VBtn>
+          </VCardText>
+        </VCol>
+      </VRow>
     </VCol>
     <VCol md="3" sm="12">
-      <img
-        style="width: 100%; height: 250px; object-fit: cover"
-        :src="posyandu"
-        alt=""
-      />
+      <VCard>
+        <img
+          style="width: 100%; height: 250px; object-fit: cover"
+          :src="posyandu"
+          alt=""
+        />
+      </VCard>
     </VCol>
     <!-- <VCol cols="12">
       <VCard class="text-center text-sm-start">

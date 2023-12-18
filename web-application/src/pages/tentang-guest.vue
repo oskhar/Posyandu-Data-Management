@@ -23,10 +23,7 @@ export default {
 
 <template>
   <VRow>
-    <div class="w-100 align-content-center" style="margin-top: 150px">
-      <div class="text-center">
-        <h1 class="text-black">VISI & MISI</h1>
-      </div>
+    <div class="w-100 align-content-center" style="margin-top: 100px">
       <VRow class="mx-1 mt-5">
         <VCol cols="12">
           <v-row justify="center">

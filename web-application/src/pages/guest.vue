@@ -65,6 +65,22 @@ onMounted(() => {
     <router-link to="/">
       <div class="d-flex text-primary" v-html="logo"
     /></router-link>
+    <div>
+      <ul
+        style="
+          color: aliceblue;
+          display: flex;
+          list-style: none;
+          min-width: 5px;
+          margin: 5px auto;
+        "
+      >
+        <li class="listNavbar" style="margin: 10px">Home</li>
+        <li class="listNavbar" style="margin: 10px">Edukasi</li>
+        <li class="listNavbar" style="margin: 10px">Berita</li>
+        <li class="listNavbar" style="margin: 10px">Tentang</li>
+      </ul>
+    </div>
     <router-link to="./login">
       <VBtn> Log in </VBtn>
     </router-link>
@@ -77,11 +93,6 @@ onMounted(() => {
   </div>
   <!-- CARD 3 -->
   <div class="container" style="margin-top: 350px">
-    <div class="card">
-      <div class="text-center" style="margin-top: 200px">
-        <strong style="font-size: 35px">KATEGORI - KATEGORI</strong>
-      </div>
-    </div>
     <VCol cols="12" sm="12">
       <VRow>
         <!-- 👉 Profit -->
@@ -134,8 +145,8 @@ onMounted(() => {
     <Sambutan />
     <cardEdukasi />
     <cardBeritaAcara />
-    <cardGaleri />
     <tentangGuest />
+    <cardGaleri />
   </div>
   <footerGuest />
 </template>
@@ -146,6 +157,11 @@ onMounted(() => {
 .container {
   padding: 0 10px;
   margin: 30px;
+}
+
+.listNavbar:hover {
+  cursor: pointer;
+  color: #5468ff;
 }
 
 #gambarPosyandu:hover {
