@@ -60,6 +60,10 @@ const router = createRouter({
           path: "edukasi-guest",
           component: () => import("../pages/edukasi-guest.vue"),
         },
+        {
+          path: "berita-acara-guest",
+          component: () => import("../pages/berita-acara-guest.vue"),
+        },
       ],
     },
     {

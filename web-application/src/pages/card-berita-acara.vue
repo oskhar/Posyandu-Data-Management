@@ -1,12 +1,12 @@
 <template>
   <div class="text-center" style="margin-top: 200px">
-    <strong style="font-size: 35px">BERITA & ACARA</strong>
+    <h1 class="text-black">BERITA & ACARA</h1>
   </div>
 
   <VRow>
     <!-- 👉 Popular Uses Of The Internet -->
-    <VCol v-for="(data, index) in dataBerita" cols="12" md="3" sm="12">
-      <RouterLink to="./">
+    <VCol v-for="(data, index) in dataBerita" cols="3" md="4" sm="3">
+      <RouterLink to="./berita-acara-guest">
         <VCard>
           <VImg :src="data.gambar" cover style="height: 280px">
             <h2
@@ -157,7 +157,10 @@
   </VRow>
   <VRow>
     <VCol>
-      <div class="text-center my-3 float-right">
+      <div
+        class="text-center my-3 float-right"
+        style="display: flex; justify-content: center"
+      >
         <v-pagination
           v-model="page"
           :length="banyakPage"
@@ -228,7 +231,7 @@ export default {
     },
 
     async fetchData() {
-      const banyakDataTampil = 4;
+      const banyakDataTampil = 3;
       const response = await axios.get(
         `${this.urlServer}/api/berita?start=${this.page}&length=${banyakDataTampil}`
       );
