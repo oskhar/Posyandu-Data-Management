@@ -58,17 +58,28 @@
                   </VCol>
                   <VCol cols="12" md="9" class="d-flex gap-4">
                     <VBtn
+                      :disabled="isLoading[index]"
                       type="submit"
+                      :id="index"
                       @click="
                         submitData(
                           dataEdit.penimbangan[index].berat_badan,
                           dataEdit.penimbangan[index].asi_eksklusif,
                           dataEdit.penimbangan[index].ntob,
-                          dataEdit.penimbangan[index].judul
+                          dataEdit.penimbangan[index].judul,
+                          index
                         )
                       "
                     >
-                      Submit
+                      <VProgressCircular
+                        v-if="isLoading[index]"
+                        indeterminate
+                        color="white"
+                        :for="index"
+                      >
+                      </VProgressCircular>
+
+                      <font v-else>Submit</font>
                     </VBtn>
                   </VCol>
                 </VRow>
@@ -90,6 +101,7 @@ import { ref } from "vue";
 export default {
   data() {
     return {
+      isLoading: [],
       dataEdit: {
         bayi: {
           nama: "",
@@ -107,7 +119,6 @@ export default {
   },
   methods: {
     async fetchData() {
-      // this.isLoading = true;
       // Membuat objek URLSearchParams dari query string
       const queryString = window.location.search;
       const queryParams = new URLSearchParams(queryString);
@@ -125,14 +136,16 @@ export default {
         );
         console.log(idBayi);
         this.dataEdit = response.data;
+        for (let i = 0; i < this.dataEdit.length; i++) {
+          this.isLoading[i] = false;
+        }
         console.log(this.dataEdit);
       } else {
         window.location.href = "/dashboard";
       }
-
-      // this.isLoading = false;
     },
-    async submitData(berat_badan, asi_eksklusif, ntob, judul) {
+    async submitData(berat_badan, asi_eksklusif, ntob, judul, index) {
+      this.isLoading[index] = true;
       try {
         const queryString = window.location.search;
         const queryParams = new URLSearchParams(queryString);
@@ -169,8 +182,20 @@ export default {
           });
         }
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+          toast: true,
+          position: "top",
+          iconColor: "white",
+          color: "white",
+          background: "rgb(var(--v-theme-error))",
+          showConfirmButton: false,
+          timerProgressBar: true,
+          timer: 4000,
+          icon: "error",
+          title: "Format Salah",
+        });
       }
+      this.isLoading[index] = false;
     },
   },
 };

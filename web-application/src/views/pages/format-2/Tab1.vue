@@ -222,11 +222,17 @@ export default {
           },
         }
       );
+      const response2 = await axios.get(`${config.urlServer}/api/get-tahun`, {
+        headers: {
+          Authorization: localStorage.getItem("tokenAuth"),
+        },
+      });
 
-      this.isLoading = false;
+      this.listTahunLahir = response2.data;
 
       this.dataFormatBA = response.data.format_ba;
       console.log(this.dataFormatBA);
+      this.isLoading = false;
       return response;
     },
   },
