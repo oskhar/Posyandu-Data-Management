@@ -12,11 +12,6 @@
   <VRow>
     <VCol>
       <div class="d-flex flex-wrap gap-2 float-right">
-        <!-- <VBtn id="gambar" color="primary" @click="inputGambar">
-          <VIcon icon="bx-cloud-upload" class="d-sm-none" />
-          <span class="d-none d-sm-block">Upload new photo</span>
-        </VBtn> -->
-
         <input
           id="inputGambar"
           ref="refInputEl"
@@ -133,42 +128,6 @@ export default {
         }
       }
     },
-
-    // async changeAvatar(file) {
-    //   const files = file.target.files[0];
-    //   if (files) {
-    //     const fileReader = new FileReader();
-    //     // Validasi tipe file sebelum menampilkan gambarnya
-    //     if (
-    //       files.type === "image/jpeg" ||
-    //       files.type === "image/png" ||
-    //       files.type === "image/jpg"
-    //     ) {
-    //       fileReader.readAsDataURL(files);
-    //       fileReader.onload = async () => {
-    //         if (typeof fileReader.result === "string") {
-    //           const response = await axios.post(
-    //             `${this.urlServer}/api/gambar`,
-    //             {
-    //               id_admin: localStorage.getItem("id_admin"),
-    //               gambar: fileReader.result,
-    //             },
-    //             {
-    //               headers: {
-    //                 Authorization: localStorage.getItem("tokenAuth"),
-    //               },
-    //             }
-    //           );
-    //           window.location.href = "/galeri";
-    //         }
-    //       };
-    //     } else {
-    //       // Tindakan jika tipe file tidak valid
-    //       alert("File harus berupa gambar dengan tipe jpeg, png, atau jpg.");
-    //       resetAvatar();
-    //     }
-    //   }
-    // },
   },
 
   mounted() {

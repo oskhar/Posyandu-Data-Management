@@ -1,11 +1,26 @@
 <template>
-  <div class="text-center" style="margin-top: 200px">
-    <h1 class="text-black">BERITA & ACARA</h1>
-  </div>
+  <v-row class="text-xs-left" style="margin-top: 150px">
+    <v-col>
+      <strong
+        ><span
+          class="caption"
+          style="font-size: 30px; color: rgba(0, 0, 0, 0.781)"
+          >BERITA & ACARA</span
+        ></strong
+      >
+
+      <p class="text-secondary">
+        <strong
+          >Informasi seputar BERITA & ACARA POSYANDU MELATI akan di tampilkan di
+          sini</strong
+        >
+      </p>
+    </v-col>
+  </v-row>
 
   <VRow>
     <!-- 👉 Popular Uses Of The Internet -->
-    <VCol v-for="(data, index) in dataBerita" cols="3" md="4" sm="3">
+    <VCol v-for="(data, index) in dataBerita" cols="12" sm="6" md="4">
       <RouterLink to="./berita-acara-guest">
         <VCard>
           <VImg :src="data.gambar" cover style="height: 280px">
@@ -34,31 +49,12 @@
                 persistent
                 width="1024"
               >
-                <!-- <template v-slot:activator="{ props }">
-                <VRow class="mt-3">
-                  <VCol> -->
-                <!-- <VBtn> Lihat </VBtn> -->
-                <!-- 
-                    <VBtn color="primary" class="mx-3" v-bind="props">
-                      Edit & Lihat
-                    </VBtn>
-                    <VBtn
-                      color="error"
-                      @click="deleteBerita(data.id_berita)"
-                      class="float-right"
-                    >
-                      Hapus
-                    </VBtn>
-                  </VCol>
-                </VRow>
-              </template> -->
                 <v-card>
                   <v-card-title>
                     <div class="text-h5">Edit</div>
                   </v-card-title>
                   <v-card-text>
                     <v-container>
-                      <!-- <p class="">Perubahan Otomatis Tersimpan</p> -->
                       <v-row>
                         <v-col cols="12">
                           <VTextField
@@ -85,9 +81,7 @@
                             persistent-placeholder
                           />
                         </VCol>
-                        <v-col cols="12">
-                          <!-- <VImg :src="urlServer + data.gambar" :width="110" /> -->
-                        </v-col>
+                        <v-col cols="12"> </v-col>
                         <VCol cols="12" md="9">
                           <div class="d-flex flex-column justify-center gap-5">
                             <div class="d-flex flex-wrap gap-2">
@@ -127,26 +121,6 @@
                       </v-row>
                     </v-container>
                   </v-card-text>
-                  <!-- <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn
-                    color="blue-darken-1"
-                    variant="text"
-                    @click="dialog[data.id_berita] = false"
-                  >
-                    Tutup
-                  </v-btn>
-                  <v-btn
-                    color="blue-darken-1"
-                    variant="text"
-                    @click="
-                      putData(index);
-                      dialog[data.id_berita] = false;
-                    "
-                  >
-                    Simpan
-                  </v-btn>
-                </v-card-actions> -->
                 </v-card>
               </v-dialog>
             </v-row>
@@ -155,25 +129,17 @@
       </RouterLink>
     </VCol>
   </VRow>
-  <VRow>
-    <VCol>
-      <div
-        class="text-center my-3 float-right"
-        style="display: flex; justify-content: center"
-      >
-        <v-pagination
-          v-model="page"
-          :length="banyakPage"
-          :total-visible="5"
-          @click="fetchData"
-        ></v-pagination>
-      </div>
-    </VCol>
-  </VRow>
+  <div class="mt-1 mb-4">
+    <RouterLink
+      class="text-primary my-3 float-right"
+      to="selengkapnya-card-beritaacara"
+    >
+      Selengkapnya
+    </RouterLink>
+  </div>
 </template>
 
 <script>
-//import EditBerita from "./EditBerita.vue";
 import axios from "axios";
 import config from "@/@core/config.vue";
 import { ref } from "vue";
