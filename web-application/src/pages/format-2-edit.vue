@@ -81,29 +81,16 @@
                           index
                         )
                       "
-                    />
-                    <VProgressCircular
-                      v-if="isLoading[index]"
-                      indeterminate
-                      color="white"
-                      :for="index"
                     >
-                    </VProgressCircular>
+                      <VProgressCircular
+                        v-if="isLoading[index]"
+                        indeterminate
+                        color="white"
+                        :for="index"
+                      >
+                      </VProgressCircular>
 
-                    <font v-else>Submit</font>
-
-                    <VBtn
-                      type="submit"
-                      @click="
-                        submitData(
-                          dataEdit.penimbangan[index].berat_badan,
-                          dataEdit.penimbangan[index].asi_eksklusif,
-                          dataEdit.penimbangan[index].ntob,
-                          dataEdit.penimbangan[index].judul
-                        )
-                      "
-                    >
-                      Submit
+                      <font v-else>Submit</font>
                     </VBtn>
                   </VCol>
                 </VRow>
