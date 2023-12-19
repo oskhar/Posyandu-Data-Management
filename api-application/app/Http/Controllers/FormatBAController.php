@@ -269,6 +269,7 @@ class FormatBAController extends Controller
          * 
          */
         $data = $request->validated();
+        $data['berat_badan'] = intval($data['berat_badan']);
 
         /**
          * Mengambil tahun dan bulan dari data judul
@@ -279,6 +280,19 @@ class FormatBAController extends Controller
         $tahunBulan = explode(' ', $dataJudul[1]);
         $tahunPenimbangan = $tahunBulan[0];
         $bulanPenimbangan = array_search($tahunBulan[1], $this->namaBulan);
+
+        /**
+         * Menghabpus data judul
+         * 
+         */
+        unset($data['judul']);
+
+        /**
+         * Menambahkan tahun dan bulan ke dalam data
+         * 
+         */
+        $data['tahun_penimbangan'] = intval($tahunPenimbangan);
+        $data['bulan_penimbangan'] = intval($bulanPenimbangan);
 
         /**
          * Mengambil jenis kelamin bayi
@@ -298,22 +312,51 @@ class FormatBAController extends Controller
         )->where('id_berat_untuk_umur', [1, 2][$jenisKelamin == 'L'])
             ->where('umur_bulan', $umurBayi)->first();
 
-        return response()->json(
-            $dataWHO
-        )->setStatusCode(201);
+        $beratBadanBulanLalu = PenimbanganModel::select('berat_badan')
+            ->where('id_bayi', $data['id_bayi'])
+            ->where('tahun_penimbangan', $data['tahun_penimbangan'])
+            ->where('bulan_penimbangan', $data['bulan_penimbangan'] - 1)
+            ->first();
 
-        /**
-         * Menghabpus data judul
-         * 
-         */
-        unset($data['judul']);
+        if ($beratBadanBulanLalu) {
+            $beratBadanBulanLalu = $beratBadanBulanLalu->berat_badan;
+        }
 
-        /**
-         * Menambahkan tahun dan bulan ke dalam data
-         * 
-         */
-        $data['tahun_penimbangan'] = intval($tahunPenimbangan);
-        $data['bulan_penimbangan'] = intval($bulanPenimbangan);
+        if ($umurBayi == 0) {
+            $data['ntob'] = "B (Baru pertama kali menimbang)";
+        } else if (empty($beratBadanBulanLalu)) {
+            $data['ntob'] = "O (Tidak menimbang bulan lalu)";
+        } else {
+
+            $dataWHOBulanLalu = \DB::table('standar_deviasi')->select(
+                'sangat_kurus',
+                'kurus',
+                'normal_kurus',
+                'baik',
+                'normal_gemuk',
+                'gemuk',
+                'sangat_gemuk'
+            )->where('id_berat_untuk_umur', [1, 2][$jenisKelamin == 'L'])
+                ->where('umur_bulan', $umurBayi - 1)->first();
+
+
+            // Periksa pita berat badan bulan lalu
+            $pitaBulanLalu = $this->getPitaBeratBadan($beratBadanBulanLalu, $dataWHOBulanLalu);
+
+            // Periksa pita berat badan bulan ini
+            $pitaBulanIni = $this->getPitaBeratBadan($data['berat_badan'], $dataWHO);
+
+            // Periksa apakah terjadi kenaikan atau penurunan pita
+            if ($pitaBulanIni == 0) {
+                $data['ntob'] = "BGM (Bayi butuh penanganan khusus)";
+            } else if ($data['berat_badan'] > $beratBadanBulanLalu && $pitaBulanIni > $pitaBulanLalu) {
+                $data['ntob'] = "N1 (Naik, Masuk pita diatasnya)";
+            } elseif ($pitaBulanIni < $pitaBulanLalu) {
+                $data['ntob'] = "T" . ($data['berat_badan'] > $beratBadanBulanLalu ? "1 (Naik, Namun masuk ke pita bawahnya)" : ($data['berat_badan'] == $beratBadanBulanLalu ? "2 (Tetap, Namun tidak mengalami pertumbuah)" : "3 (Turun, Tumbuh negatif)"));
+            } else {
+                $data['ntob'] = "N2, Naik, Tetap pada pita yang sama"; // Jika tetap pada pita yang sama
+            }
+        }
 
         /**
          * Menggunakan updateOrCreate untuk menyimpan atau memperbarui data
@@ -322,8 +365,8 @@ class FormatBAController extends Controller
         PenimbanganModel::updateOrCreate(
             [
                 'id_bayi' => $data['id_bayi'],
-                'tahun_penimbangan' => '' . $tahunPenimbangan,
-                'bulan_penimbangan' => '' . $bulanPenimbangan,
+                'tahun_penimbangan' => $tahunPenimbangan,
+                'bulan_penimbangan' => $bulanPenimbangan,
             ],
             $data
         );
@@ -335,8 +378,28 @@ class FormatBAController extends Controller
          */
         return response()->json([
             'success' => [
-                'message' => 'Berhasil'
+                'message' => 'Berhasil',
             ]
         ])->setStatusCode(201);
+    }
+    private function getPitaBeratBadan($beratBadan, $dataWHO)
+    {
+        if ($beratBadan > $dataWHO->sangat_gemuk) {
+            return 7;
+        } elseif ($beratBadan > $dataWHO->gemuk) {
+            return 6;
+        } elseif ($beratBadan > $dataWHO->normal_gemuk) {
+            return 5;
+        } elseif ($beratBadan > $dataWHO->baik) {
+            return 4;
+        } elseif ($beratBadan > $dataWHO->normal_kurus) {
+            return 3;
+        } elseif ($beratBadan > $dataWHO->kurus) {
+            return 2;
+        } elseif ($beratBadan > $dataWHO->sangat_kurus) {
+            return 1;
+        } else {
+            return 0; // Jika berat badan kurang dari sangat kurus
+        }
     }
 }

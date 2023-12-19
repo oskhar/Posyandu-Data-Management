@@ -134,7 +134,7 @@ class FormatAController extends Controller
              * akan dijadikan response
              * 
              */
-            $count = $query->count();
+            $count = 1;
             $formatA = $query->first();
 
         }
@@ -163,7 +163,7 @@ class FormatAController extends Controller
         $jumlahIbuMeninggal = $queryMenghitung->whereNotNull('orang_tua.tanggal_meninggal_ibu')->count();
 
         $jumlahMeninggal = $jumlahBayiMeninggal + $jumlahIbuMeninggal;
-        $jumlahLahir = $count - $jumlahBayiMeninggal;
+        $jumlahLahir = BayiModel::count() - $jumlahBayiMeninggal;
 
         /**
          * Mendapatkan seluruh tahun lahir yang bisa dipilih
