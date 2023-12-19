@@ -136,7 +136,7 @@ class FormatBAController extends Controller
                 'normal_gemuk',
                 'gemuk',
                 'sangat_gemuk'
-            )->where('id_berat_untuk_umur', [1, 2][$bayi->jenis_kelamin == 'L'])
+            )->where('id_berat_untuk_umur', $bayi->jenis_kelamin ? 1 : 2)
                 ->limit(6)->get();
 
             $series = [
@@ -375,7 +375,7 @@ class FormatBAController extends Controller
             'normal_gemuk',
             'gemuk',
             'sangat_gemuk'
-        )->where('id_berat_untuk_umur', [1, 2][$jenisKelamin == 'L'])
+        )->where('id_berat_untuk_umur', $jenisKelamin == 'L' ? 1 : 2)
             ->where('umur_bulan', $umurBayi)->first();
 
         $beratBadanBulanLalu = PenimbanganModel::select('berat_badan')
@@ -402,7 +402,7 @@ class FormatBAController extends Controller
                 'normal_gemuk',
                 'gemuk',
                 'sangat_gemuk'
-            )->where('id_berat_untuk_umur', [1, 2][$jenisKelamin == 'L'])
+            )->where('id_berat_untuk_umur', $jenisKelamin == 'L' ? 1 : 2)
                 ->where('umur_bulan', $umurBayi - 1)->first();
 
 
