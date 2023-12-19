@@ -136,7 +136,7 @@ class FormatBAController extends Controller
                 'normal_gemuk',
                 'gemuk',
                 'sangat_gemuk'
-            )->where('id_berat_untuk_umur', $bayi->jenis_kelamin ? 1 : 2)
+            )->where('id_berat_untuk_umur', $bayi->jenis_kelamin == 'L' ? 1 : 2)
                 ->limit(6)->get();
 
             $series = [
