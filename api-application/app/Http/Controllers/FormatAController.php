@@ -44,7 +44,7 @@ class FormatAController extends Controller
         )
             ->join('bayi', 'bayi.id', 'format_a.id_bayi')
             ->join('orang_tua', 'orang_tua.id', 'bayi.id_orang_tua')
-            ->orderBy('bayi.tanggal_lahir', 'ASC');
+            ->orderBy('bayi.tanggal_lahir', 'DESC');
 
         /**
          * Membuat query untuk perhitaungan
@@ -199,12 +199,17 @@ class FormatAController extends Controller
          * Mendapatkan seluruh tahun lahir yang bisa dipilih
          * 
          */
+        $today = now(); // Mengambil tanggal hari ini
+        $limaBulanLalu = $today->subMonths(5); // Mengurangkan 5 bulan dari tanggal hari ini
+
         $listTahunLahir = BayiModel::selectRaw('YEAR(tanggal_lahir) as tahun_lahir')
+            ->where('tanggal_lahir', '>=', $limaBulanLalu)
             ->orderByDesc('tanggal_lahir')
             ->distinct()
             ->pluck('tahun_lahir');
 
         $listTahunLahir = $listTahunLahir->toArray();
+
         return response()->json(
             $listTahunLahir,
         )->setStatusCode(200);

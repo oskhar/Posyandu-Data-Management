@@ -30,49 +30,12 @@ export default {
             <v-dialog v-model="dialog" persistent width="1024">
               <template v-slot:activator="{ props }"> </template>
               <v-card>
-                <v-card-text>
-                  <v-container>
-                    <v-row>
-                      <!-- <VCard>
-                        <v-col cols="12">
-                          <VTextarea
-                            label="Profil"
-                            v-model="profil"
-                            required
-                          ></VTextarea>
-                        </v-col>
-                      </VCard> -->
-                      <!-- <v-col cols="12">
-                        <VTextarea
-                          label="Visi"
-                          v-model="visi"
-                          required
-                        ></VTextarea>
-                      </v-col>
-                      <v-col cols="12">
-                        <VTextarea
-                          label="Misi"
-                          v-model="misi"
-                          required
-                        ></VTextarea>
-                      </v-col> -->
-                    </v-row>
-                  </v-container>
-                </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn
-                    color="blue-darken-1"
-                    variant="text"
-                    @click="dialog = false"
-                  >
+                  <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
                     Close
                   </v-btn>
-                  <v-btn
-                    color="blue-darken-1"
-                    variant="text"
-                    @click="dialog = false"
-                  >
+                  <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
                     Save
                   </v-btn>
                 </v-card-actions>
@@ -83,80 +46,43 @@ export default {
       </VRow>
     </div>
 
-    <VCol md="9" sm="12">
-      <VRow no-gutters>
-        <VCol cols="12">
-          <VCardItem>
-            <VCardTitle class="text-md-h5 text-primary">
-              Sambutan Ketua Posyandu
-            </VCardTitle>
-          </VCardItem>
+    <VCol md="8" sm="12">
+      <VCol cols="12">
+        <VCardItem>
+          <VCardTitle class="text-md-h5 text-primary">
+            Sambutan Ketua Posyandu
+          </VCardTitle>
+        </VCardItem>
 
-          <VCardText>
-            <span>
-              {{ profil }}
-              <br />
-              <br />
-
-              Assalamu’alaikum Warahmatullahi Wabarakaatuh.
-              <br />
-              Salam sejahtera untuk kita semua. Selamat datang di website
-              Posyandu Melati. Website ini dibangun sebagai sarana atau media
-              informasi dan komunikasi masyarakat, karena sejalan dengan
-              perkembangan teknologi industri 4.0 yang berguna untuk memudahkan
-              mencari informasi tentang POSYANDU MELATI.
-            </span>
+        <VCardText>
+          <span>
+            {{ profil }}
             <br />
             <br />
-            <VBtn color="primary" v-bind="props"> Selengkapnya </VBtn>
-          </VCardText>
-        </VCol>
-      </VRow>
-    </VCol>
-    <VCol md="3" sm="12">
-      <VCard>
-        <img
-          style="width: 100%; height: 250px; object-fit: cover"
-          :src="posyandu"
-          alt=""
-        />
-      </VCard>
-    </VCol>
-    <!-- <VCol cols="12">
-      <VCard class="text-center text-sm-start">
-        <VRow no-gutters>
-          <VCol cols="12">
-            <VCardItem>
-              <VCardTitle class="text-md-h5 text-primary"> VISI </VCardTitle>
-            </VCardItem>
 
-            <VCardText>
-              <span>
-                {{ visi }}
-              </span>
-              <br />
-            </VCardText>
-          </VCol>
-        </VRow>
+            Assalamu’alaikum Warahmatullahi Wabarakaatuh.
+            <br />
+            Salam sejahtera untuk kita semua. Selamat datang di website
+            Posyandu Melati. Website ini dibangun sebagai sarana atau media
+            informasi dan komunikasi masyarakat, karena sejalan dengan
+            perkembangan teknologi industri 4.0 yang berguna untuk memudahkan
+            mencari informasi tentang POSYANDU MELATI.
+          </span>
+          <br />
+          <br />
+          <VBtn color="primary" v-bind="props"> Selengkapnya </VBtn>
+        </VCardText>
+      </VCol>
+    </VCol>
+    <VCol md="4" sm="12">
+      <VCard class="pt-5">
+        <img style="width: 250px; height: 250px; object-fit: cover; border-radius: 4px;" class="mx-auto d-block"
+          :src="posyandu" alt="" />
+        <div class="text-center mt-3">
+          <h2 style="line-height: 0.8rem;">Nama Ketua</h2>
+          <p>Jabatan</p>
+        </div>
       </VCard>
     </VCol>
-    <VCol cols="12">
-      <VCard class="text-center text-sm-start">
-        <VRow no-gutters>
-          <VCol cols="12">
-            <VCardItem>
-              <VCardTitle class="text-md-h5 text-primary"> MISI </VCardTitle>
-            </VCardItem>
-
-            <VCardText>
-              <span>
-                {{ misi }}
-              </span>
-              <br />
-            </VCardText>
-          </VCol>
-        </VRow>
-      </VCard>
-    </VCol> -->
   </VRow>
 </template>
