@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app>
+    <v-app-bar class="navbarGuest">
       <!-- Logo di sebelah pojok kiri -->
       <v-app-bar-nav-icon
         @click="toggleDrawer"
@@ -120,6 +120,11 @@ export default {
 </script>
 
 <style scoped>
+.navbarGuest {
+  background-color: rgba(0, 0, 0, 0.2);
+  position: fixed;
+}
+
 @media screen and (min-width: 800px) {
   .humburger {
     display: none;
