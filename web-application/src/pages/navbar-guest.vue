@@ -85,10 +85,10 @@ export default {
         { text: "Tentang", route: "/" },
       ],
       mobileMenu: [
-        { text: "Home", route: "/home" },
-        { text: "Edukasi", route: "/edukasi" },
-        { text: "Berita", route: "/berita" },
-        { text: "Tentang", route: "/tentang" },
+        { text: "Home", route: "/" },
+        { text: "Edukasi", route: "/selengkapnya-card-edukasi" },
+        { text: "Berita", route: "/selengkapnya-card-beritaacara" },
+        { text: "Tentang", route: "/" },
       ],
     };
   },
