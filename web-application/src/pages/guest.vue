@@ -3,7 +3,6 @@ import cardEdukasi from "./card-edukasi.vue";
 import cardBeritaAcara from "./card-berita-acara.vue";
 import cardGaleri from "./card-galeri-guest.vue";
 import footerGuest from "./footer-guest.vue";
-
 import Sambutan from "./tentang-guest-atas.vue";
 import navbarGuest from "./navbar-guest.vue";
 
@@ -22,17 +21,17 @@ let statBerita = ref(0);
 const statGambar = ref(0);
 
 const fetchEdukasi = async () => {
-  const response = await axios.get(${urlServer}/api/edukasi?start=0&length=0);
+  const response = await axios.get(`${urlServer}/api/edukasi?start=0&length=0`);
   statEdukasi.value = response.data.jumlah_data;
 };
 
 const fetchBerita = async () => {
-  const response = await axios.get(${urlServer}/api/berita?start=0&length=0);
+  const response = await axios.get(`${urlServer}/api/berita?start=0&length=0`);
   statBerita.value = response.data.jumlah_data;
 };
 
 const fetchGambar = async () => {
-  const response = await axios.get(${urlServer}/api/gambar?start=0&length=0);
+  const response = await axios.get(`${urlServer}/api/gambar?start=0&length=0`);
   statGambar.value = response.data.jumlah_data;
 };
 
