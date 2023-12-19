@@ -128,12 +128,78 @@ class FormatBAController extends Controller
                 }
             }
 
+            $dataWHO = \DB::table('standar_deviasi')->select(
+                'sangat_kurus',
+                'kurus',
+                'normal_kurus',
+                'baik',
+                'normal_gemuk',
+                'gemuk',
+                'sangat_gemuk'
+            )->where('id_berat_untuk_umur', $bayi->jenis_kelamin == 'L' ? 1 : 2)
+                ->limit(6)->get();
+
+            $series = [
+                [
+                    "name" => "Terlalu Kurus, butuh penanganan",
+                    "data" => $dataWHO->map(function ($item) {
+                        return $item->sangat_kurus;
+                    }),
+                ],
+                [
+                    "name" => "Berat Kurus",
+                    "data" => $dataWHO->map(function ($item) {
+                        return $item->kurus;
+                    }),
+                ],
+                [
+                    "name" => "Berat Normal",
+                    "data" => $dataWHO->map(function ($item) {
+                        return $item->normal_kurus;
+                    }),
+                ],
+                [
+                    "name" => "Berat Baik",
+                    "data" => $dataWHO->map(function ($item) {
+                        return $item->baik;
+                    }),
+                ],
+                [
+                    "name" => "Berat Normal",
+                    "data" => $dataWHO->map(function ($item) {
+                        return $item->normal_gemuk;
+                    }),
+                ],
+                [
+                    "name" => "Berat Gemuk",
+                    "data" => $dataWHO->map(function ($item) {
+                        return $item->gemuk;
+                    }),
+                ],
+                [
+                    "name" => "Terlalu Gemuk, butuh penanganan",
+                    "data" => $dataWHO->map(function ($item) {
+                        return $item->sangat_gemuk;
+                    }),
+                ],
+            ];
+            $category = [
+                "0",
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+            ];
+
             /**
              * Mengembalikan response sesuai request
              * 
              */
             return response()->json([
                 "bayi" => $bayi,
+                "series" => $series,
+                "category" => $category,
                 "penimbangan" => $list_penimbangan,
             ])->setStatusCode(200);
         }
@@ -161,8 +227,7 @@ class FormatBAController extends Controller
             'bayi.jenis_kelamin',
             'penimbangan.berat_badan',
             'penimbangan.ntob',
-            'penimbangan.asi_eksklusif',
-            'bayi.tanggal_lahir'
+            'penimbangan.asi_eksklusif'
         )
             ->selectRaw('(' . $data['tahun'] . ' - YEAR(bayi.tanggal_lahir)) * 12 + ' . $data['bulan'] . ' - MONTH(bayi.tanggal_lahir) as umur')
             ->leftJoin('format_b', function ($join) {
@@ -270,12 +335,15 @@ class FormatBAController extends Controller
          * 
          */
         $data = $request->validated();
+        $data['berat_badan'] = floatval($data['berat_badan']);
 
         /**
          * Mengambil tahun dan bulan dari data judul
          * 
          */
-        $tahunBulan = explode(' ', explode(' - ', $data['judul'])[1]);
+        $dataJudul = explode(' - ', $data['judul']);
+        $umurBayi = explode(' ', $dataJudul[0])[1];
+        $tahunBulan = explode(' ', $dataJudul[1]);
         $tahunPenimbangan = $tahunBulan[0];
         $bulanPenimbangan = array_search($tahunBulan[1], $this->namaBulan);
 
@@ -293,14 +361,78 @@ class FormatBAController extends Controller
         $data['bulan_penimbangan'] = intval($bulanPenimbangan);
 
         /**
+         * Mengambil jenis kelamin bayi
+         * 
+         */
+        $jenisKelamin = BayiModel::select('jenis_kelamin')
+            ->where('id', $data['id_bayi'])->first()->jenis_kelamin;
+
+        $dataWHO = \DB::table('standar_deviasi')->select(
+            'sangat_kurus',
+            'kurus',
+            'normal_kurus',
+            'baik',
+            'normal_gemuk',
+            'gemuk',
+            'sangat_gemuk'
+        )->where('id_berat_untuk_umur', $jenisKelamin == 'L' ? 1 : 2)
+            ->where('umur_bulan', $umurBayi)->first();
+
+        $beratBadanBulanLalu = PenimbanganModel::select('berat_badan')
+            ->where('id_bayi', $data['id_bayi'])
+            ->where('tahun_penimbangan', $data['tahun_penimbangan'])
+            ->where('bulan_penimbangan', $data['bulan_penimbangan'] - 1)
+            ->first();
+
+        if ($beratBadanBulanLalu) {
+            $beratBadanBulanLalu = $beratBadanBulanLalu->berat_badan;
+        }
+
+        if ($umurBayi == 0) {
+            $data['ntob'] = "B (Baru pertama kali menimbang)";
+        } else if (empty($beratBadanBulanLalu)) {
+            $data['ntob'] = "O (Tidak menimbang bulan lalu)";
+        } else {
+
+            $dataWHOBulanLalu = \DB::table('standar_deviasi')->select(
+                'sangat_kurus',
+                'kurus',
+                'normal_kurus',
+                'baik',
+                'normal_gemuk',
+                'gemuk',
+                'sangat_gemuk'
+            )->where('id_berat_untuk_umur', $jenisKelamin == 'L' ? 1 : 2)
+                ->where('umur_bulan', $umurBayi - 1)->first();
+
+
+            // Periksa pita berat badan bulan lalu
+            $pitaBulanLalu = $this->getPitaBeratBadan($beratBadanBulanLalu, $dataWHOBulanLalu);
+
+            // Periksa pita berat badan bulan ini
+            $pitaBulanIni = $this->getPitaBeratBadan($data['berat_badan'], $dataWHO);
+
+            // Periksa apakah terjadi kenaikan atau penurunan pita
+            if ($pitaBulanIni == 0) {
+                $data['ntob'] = "BGM (Bayi butuh penanganan khusus)";
+            } else if ($data['berat_badan'] > $beratBadanBulanLalu && $pitaBulanIni > $pitaBulanLalu) {
+                $data['ntob'] = "N1 (Naik, Masuk pita diatasnya)";
+            } elseif ($pitaBulanIni < $pitaBulanLalu) {
+                $data['ntob'] = "T" . ($data['berat_badan'] > $beratBadanBulanLalu ? "1 (Naik, Namun masuk ke pita bawahnya)" : ($data['berat_badan'] == $beratBadanBulanLalu ? "2 (Tetap, Namun tidak mengalami pertumbuah)" : "3 (Turun, Tumbuh negatif)"));
+            } else {
+                $data['ntob'] = "N2, Naik, Tetap pada pita yang sama"; // Jika tetap pada pita yang sama
+            }
+        }
+
+        /**
          * Menggunakan updateOrCreate untuk menyimpan atau memperbarui data
          * 
          */
         PenimbanganModel::updateOrCreate(
             [
                 'id_bayi' => $data['id_bayi'],
-                'tahun_penimbangan' => '' . $tahunPenimbangan,
-                'bulan_penimbangan' => '' . $bulanPenimbangan,
+                'tahun_penimbangan' => $tahunPenimbangan,
+                'bulan_penimbangan' => $bulanPenimbangan,
             ],
             $data
         );
@@ -312,8 +444,28 @@ class FormatBAController extends Controller
          */
         return response()->json([
             'success' => [
-                'message' => 'Berhasil'
+                'message' => 'Berhasil',
             ]
         ])->setStatusCode(201);
+    }
+    private function getPitaBeratBadan($beratBadan, $dataWHO)
+    {
+        if ($beratBadan > $dataWHO->sangat_gemuk) {
+            return 7;
+        } elseif ($beratBadan > $dataWHO->gemuk) {
+            return 6;
+        } elseif ($beratBadan > $dataWHO->normal_gemuk) {
+            return 5;
+        } elseif ($beratBadan > $dataWHO->baik) {
+            return 4;
+        } elseif ($beratBadan > $dataWHO->normal_kurus) {
+            return 3;
+        } elseif ($beratBadan > $dataWHO->kurus) {
+            return 2;
+        } elseif ($beratBadan > $dataWHO->sangat_kurus) {
+            return 1;
+        } else {
+            return 0; // Jika berat badan kurang dari sangat kurus
+        }
     }
 }

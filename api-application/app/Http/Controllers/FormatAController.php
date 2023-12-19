@@ -44,7 +44,7 @@ class FormatAController extends Controller
         )
             ->join('bayi', 'bayi.id', 'format_a.id_bayi')
             ->join('orang_tua', 'orang_tua.id', 'bayi.id_orang_tua')
-            ->orderBy('bayi.tanggal_lahir', 'ASC');
+            ->orderBy('bayi.tanggal_lahir', 'DESC');
 
         /**
          * Membuat query untuk perhitaungan
@@ -134,7 +134,7 @@ class FormatAController extends Controller
              * akan dijadikan response
              * 
              */
-            $count = $query->count();
+            $count = 1;
             $formatA = $query->first();
 
         }
@@ -163,7 +163,7 @@ class FormatAController extends Controller
         $jumlahIbuMeninggal = $queryMenghitung->whereNotNull('orang_tua.tanggal_meninggal_ibu')->count();
 
         $jumlahMeninggal = $jumlahBayiMeninggal + $jumlahIbuMeninggal;
-        $jumlahLahir = $count - $jumlahBayiMeninggal;
+        $jumlahLahir = BayiModel::count() - $jumlahBayiMeninggal;
 
         /**
          * Mendapatkan seluruh tahun lahir yang bisa dipilih
@@ -193,7 +193,7 @@ class FormatAController extends Controller
             'format_a' => $formatA,
         ])->setStatusCode(200);
     }
-    public function getTahun(): JsonResponse
+    public function getListTahun(): JsonResponse
     {
         /**
          * Mendapatkan seluruh tahun lahir yang bisa dipilih

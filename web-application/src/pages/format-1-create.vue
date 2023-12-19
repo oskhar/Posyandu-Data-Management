@@ -160,9 +160,13 @@
                   <VCol cols="12" md="9">
                     <VTextField
                       v-model="berat_lahir"
+                      type="number"
                       placeholder="Masukkan Berat Lahir"
                       persistent-placeholder
                     />
+                    <sup class="text-error"
+                      >*Gunakan "." bukan "," jika desimal</sup
+                    >
                   </VCol>
                 </VRow>
               </VCol>

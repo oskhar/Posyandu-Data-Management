@@ -1,4 +1,5 @@
 <script>
+//import EditEdukasi from "./EditEdukasi.vue";
 import wallet from "@/assets/images/pages/1.png";
 import axios from "axios";
 import config from "@/@core/config.vue";
@@ -17,6 +18,7 @@ export default {
       wallet,
       isLoading: false,
       isLoadingPage: false,
+      isDelete: false,
     };
   },
 
@@ -52,6 +54,7 @@ export default {
         denyButtonText: "Hapus",
       });
       if (ask.isDenied) {
+        this.isDelete = true;
         const response = await axios.delete(
           `${this.urlServer}/api/gambar?id_gambar=${id_gambar}`,
           {
@@ -60,6 +63,7 @@ export default {
             },
           }
         );
+        this.isDelete = false;
         if (response.data.success) {
           Swal.fire({
             toast: true,
@@ -140,6 +144,23 @@ export default {
 
 <template>
   <VRow
+    v-if="isDelete"
+    style="
+      position: fixed;
+      z-index: 1;
+      right: 50px;
+      bottom: 50px;
+      background-color: azure;
+      padding: 1rem;
+      padding-block: 5px;
+      border-radius: 5px;
+    "
+  >
+    <font>Menghapus... </font>
+    <VProgressCircular indeterminate color="primary" class="ml-3 float-center">
+    </VProgressCircular>
+  </VRow>
+  <VRow
     v-if="isLoading"
     style="
       position: fixed;
@@ -197,6 +218,7 @@ export default {
         alt="image"
         @click="lihatGambar(data.gambar, data.nama_lengkap, data.id_gambar)"
       />
+      <!-- <h1>{{ data.id_gambar }}</h1> -->
     </VCol>
   </VRow>
   <VRow>

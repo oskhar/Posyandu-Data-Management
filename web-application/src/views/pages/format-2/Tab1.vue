@@ -39,7 +39,6 @@
               <tr>
                 <th>No</th>
                 <th>Nama Anak</th>
-                <th>Tanggal Lahir</th>
                 <th>Umur</th>
                 <th>Kelamin</th>
                 <th>Berat Badan</th>
@@ -69,9 +68,6 @@
                 </td>
                 <td>
                   {{ item.nama_bayi }}
-                </td>
-                <td>
-                  {{ item.tanggal_lahir }}
                 </td>
                 <td class="text-center">{{ item.umur }} Bulan</td>
                 <td class="text-center">
@@ -222,11 +218,9 @@ export default {
           },
         }
       );
-
-      this.isLoading = false;
-
+      this.jumlahData = response.data.jumlah_data;
       this.dataFormatBA = response.data.format_ba;
-      console.log(this.dataFormatBA);
+      this.isLoading = false;
       return response;
     },
   },
@@ -240,8 +234,12 @@ export default {
     this.judulFormatA = response.data.judul_format;
     this.namaPosyandu = response.data.nama_posyandu;
     this.kota = response.data.kota;
-    this.listTahunLahir = response.data.list_tahun_lahir;
-    console.log(this.listTahunLahir);
+    const response2 = await axios.get(`${config.urlServer}/api/listtahun`, {
+      headers: {
+        Authorization: localStorage.getItem("tokenAuth"),
+      },
+    });
+    this.listTahunLahir = response2.data;
   },
 };
 </script>

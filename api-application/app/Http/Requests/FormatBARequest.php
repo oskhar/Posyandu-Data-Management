@@ -19,7 +19,7 @@ class FormatBARequest extends CoreRequest
                     'judul' => 'required',
                     'berat_badan' => 'nullable',
                     'ntob' => 'nullable',
-                    'asi_eksklusif' => 'nullable',
+                    'asi_eksklusif' => 'nullable:in:Ya,Tidak,Alpa',
                 ];
             case 'GET':
                 return [
