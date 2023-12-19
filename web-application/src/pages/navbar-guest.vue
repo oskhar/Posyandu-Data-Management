@@ -52,7 +52,6 @@
           </center>
         </div>
         <img
-          id="gambarPosyandu"
           style="
             width: 100%;
             height: 690px;

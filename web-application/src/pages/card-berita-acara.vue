@@ -1,7 +1,22 @@
 <template>
-  <div class="text-center" style="margin-top: 200px">
-    <h1 class="text-black">BERITA & ACARA</h1>
-  </div>
+  <v-row class="text-xs-left" style="margin-top: 150px">
+    <v-col>
+      <strong
+        ><span
+          class="caption"
+          style="font-size: 30px; color: rgba(0, 0, 0, 0.781)"
+          >BERITA & ACARA</span
+        ></strong
+      >
+
+      <p class="text-secondary">
+        <strong
+          >Informasi seputar BERITA & ACARA POSYANDU MELATI akan di tampilkan di
+          sini</strong
+        >
+      </p>
+    </v-col>
+  </v-row>
 
   <VRow>
     <!-- 👉 Popular Uses Of The Internet -->
@@ -170,7 +185,14 @@
       </div>
     </VCol>
   </VRow> -->
-  <VBtn color="primary my-3 float-right" v-bind="props"> Selengkapnya </VBtn>
+  <div class="mt-1 mb-4">
+    <RouterLink
+      class="text-primary my-3 float-right"
+      to="selengkapnya-card-beritaacara"
+    >
+      Selengkapnya
+    </RouterLink>
+  </div>
 </template>
 
 <script>

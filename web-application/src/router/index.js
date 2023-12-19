@@ -57,6 +57,14 @@ const router = createRouter({
           component: () => import("../pages/guest.vue"),
         },
         {
+          path: "selengkapnya-card-edukasi",
+          component: () => import("../pages/lengkap-card-edukasi.vue"),
+        },
+        {
+          path: "selengkapnya-card-beritaacara",
+          component: () => import("../pages/lengkap-card-beritaacara.vue"),
+        },
+        {
           path: "edukasi-guest",
           component: () => import("../pages/edukasi-guest.vue"),
         },

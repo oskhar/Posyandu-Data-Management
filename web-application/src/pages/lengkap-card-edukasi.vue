@@ -1,94 +1,92 @@
 <template>
-  <!-- Teks berada di pojok kiri -->
-  <v-row class="text-xs-left" style="margin-top: 150px">
-    <v-col>
-      <strong
-        ><span
-          class="caption"
-          style="font-size: 30px; color: rgba(0, 0, 0, 0.781)"
-          >EDUKASI</span
-        ></strong
-      >
-
-      <p class="text-secondary">
+  <div class="container">
+    <v-row class="text-xs-left" style="margin-top: 20px">
+      <v-col>
         <strong
-          >Informasi seputar EDUKASI POSYANDU MELATI akan di tampilkan di
-          sini</strong
+          ><span
+            class="caption"
+            style="font-size: 30px; color: rgba(0, 0, 0, 0.781)"
+            >EDUKASI</span
+          ></strong
         >
-      </p>
-    </v-col>
-  </v-row>
 
-  <V-row class="mt-5">
-    <VCol v-for="(data, index) in dataEdukasi" cols="12" sm="6" md="4">
-      <RouterLink to="./edukasi-guest">
-        <VCard>
-          <VImg :src="data.gambar" cover style="height: 200px">
-            <h2
-              v-if="data.gambar == urlServer + null"
-              class="text-center text-secondary"
-              style="margin-top: 25%"
-            >
-              Tidak Ada Foto
-            </h2>
-          </VImg>
+        <p class="text-secondary">
+          <strong
+            >Informasi seputar EDUKASI POSYANDU MELATI akan di tampilkan di
+            sini</strong
+          >
+        </p>
+      </v-col>
+    </v-row>
 
-          <VCardItem>
-            <VCardTitle>{{ data.judul }}</VCardTitle>
-            <sup>{{ data.tanggal }}</sup>
-          </VCardItem>
-
-          <VCardText>
-            <p class="mb-4">
-              {{ data.overview }}
-            </p>
-            <p>penulis: {{ data.nama_lengkap }}</p>
-
-            <v-row justify="center">
-              <v-dialog
-                v-model="dialog[data.id_edukasi]"
-                persistent
-                width="1024"
+    <V-row class="mt-5">
+      <VCol v-for="(data, index) in dataEdukasi" cols="12" sm="6" md="4">
+        <RouterLink to="./edukasi-guest">
+          <VCard>
+            <VImg :src="data.gambar" cover style="height: 200px">
+              <h2
+                v-if="data.gambar == urlServer + null"
+                class="text-center text-secondary"
+                style="margin-top: 25%"
               >
-                <!-- <template v-slot:activator="{ props }">
-                  <VRow class="mt-3">
-                    <VCol>
-                      <VBtn color="primary" class="mx-3" v-bind="props">
-                        Selengkapnya
-                      </VBtn>
-                    </VCol>
-                  </VRow>
-                </template> -->
-              </v-dialog>
-            </v-row>
-          </VCardText>
-        </VCard>
-      </RouterLink>
-    </VCol>
-  </V-row>
+                Tidak Ada Foto
+              </h2>
+            </VImg>
 
-  <!-- <VRow>
-    <VCol>
-      <div class="text-center my-3 float-right">
-        <v-pagination
-          v-model="page"
-          :length="banyakPage"
-          :total-visible="5"
-          @click="fetchData"
-        ></v-pagination>
-      </div>
-    </VCol>
-  </VRow> -->
+            <VCardItem>
+              <VCardTitle>{{ data.judul }}</VCardTitle>
+              <sup>{{ data.tanggal }}</sup>
+            </VCardItem>
 
-  <!-- <VBtn color="primary my-3 float-right" v-bind="props"> Selengkapnya </VBtn> -->
-  <div class="mt-1 mb-4">
-    <RouterLink
-      class="text-primary my-3 float-right"
-      to="selengkapnya-card-edukasi"
-    >
-      Selengkapnya
-    </RouterLink>
+            <VCardText>
+              <p class="mb-4">
+                {{ data.overview }}
+              </p>
+              <p>penulis: {{ data.nama_lengkap }}</p>
+
+              <v-row justify="center">
+                <v-dialog
+                  v-model="dialog[data.id_edukasi]"
+                  persistent
+                  width="1024"
+                >
+                  <!-- <template v-slot:activator="{ props }">
+                    <VRow class="mt-3">
+                      <VCol>
+                        <VBtn color="primary" class="mx-3" v-bind="props">
+                          Selengkapnya
+                        </VBtn>
+                      </VCol>
+                    </VRow>
+                  </template> -->
+                </v-dialog>
+              </v-row>
+            </VCardText>
+          </VCard>
+        </RouterLink>
+      </VCol>
+    </V-row>
+
+    <VRow>
+      <VCol>
+        <div class="text-center my-3 float-right">
+          <v-pagination
+            v-model="page"
+            :length="banyakPage"
+            :total-visible="5"
+            @click="fetchData"
+          ></v-pagination>
+        </div>
+        <RouterLink to="./">
+          <div>
+            <v-icon>bx-chevron-left</v-icon>
+            Kembali
+          </div>
+        </RouterLink>
+      </VCol>
+    </VRow>
   </div>
+  <!-- <VBtn color="primary my-3 float-right" v-bind="props"> Selengkapnya </VBtn> -->
 </template>
 
 <script>
@@ -152,7 +150,7 @@ export default {
     },
 
     async fetchData() {
-      const banyakDataTampil = 3;
+      const banyakDataTampil = 9;
       const response = await axios.get(
         `${this.urlServer}/api/edukasi?start=${this.page}&length=${banyakDataTampil}`
       );
@@ -211,6 +209,10 @@ export default {
 </script>
 
 <style scope>
+.container {
+  padding: 0 10px;
+  margin: 30px;
+}
 .card-tiga {
   display: flex;
   justify-content: space-between;
