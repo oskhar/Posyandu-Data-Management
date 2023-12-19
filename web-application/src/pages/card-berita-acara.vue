@@ -5,7 +5,7 @@
 
   <VRow>
     <!-- 👉 Popular Uses Of The Internet -->
-    <VCol v-for="(data, index) in dataBerita" cols="3" md="4" sm="3">
+    <VCol v-for="(data, index) in dataBerita" cols="12" sm="6" md="4">
       <RouterLink to="./berita-acara-guest">
         <VCard>
           <VImg :src="data.gambar" cover style="height: 280px">
@@ -155,7 +155,7 @@
       </RouterLink>
     </VCol>
   </VRow>
-  <VRow>
+  <!-- <VRow>
     <VCol>
       <div
         class="text-center my-3 float-right"
@@ -169,7 +169,8 @@
         ></v-pagination>
       </div>
     </VCol>
-  </VRow>
+  </VRow> -->
+  <VBtn color="primary my-3 float-right" v-bind="props"> Selengkapnya </VBtn>
 </template>
 
 <script>

@@ -1,12 +1,12 @@
 <script setup>
-import langit from "@images/pages/2.png";
 import cardEdukasi from "./card-edukasi.vue";
 import cardBeritaAcara from "./card-berita-acara.vue";
 import cardGaleri from "./card-galeri-guest.vue";
-import tentangGuest from "./tentang-guest.vue";
+// import tentangGuest from "./tentang-guest.vue";
 import footerGuest from "./footer-guest.vue";
-import logo from "@images/logo.svg?raw";
+
 import Sambutan from "./tentang-guest-atas.vue";
+import navbarGuest from "./navbar-guest.vue";
 
 import iconTentangPosyandu from "@images/cards/icon-tentang-posyandu.png";
 import iconEdukasi from "@images/cards/icon-edukasi-guest.png";
@@ -46,33 +46,30 @@ onMounted(() => {
 
 <template>
   <RouterView />
-  <img
-    id="gambarPosyandu"
+
+  <navbarGuest />
+
+  <!-- <div
+    class="container-dua d-flex"
     style="
       width: 100%;
-      height: 610px;
-      object-fit: cover;
-      position: absolute;
-      margin: 0px auto;
+      justify-content: space-between;
+      z-index: 1000;
+      background-color: rgba(255, 255, 255, 0.356);
+      position: fixed;
     "
-    :src="langit"
-    alt=""
-  />
-  <div
-    class="container-dua d-flex"
-    style="justify-content: space-between; z-index: 1000; margin: 40px"
   >
-    <router-link to="/">
+    <router-link to="/" style="margin: 10px">
       <div class="d-flex text-primary" v-html="logo"
     /></router-link>
     <div>
       <ul
         style="
-          color: aliceblue;
+          color: rgb(36, 36, 36);
           display: flex;
           list-style: none;
           min-width: 5px;
-          margin: 5px auto;
+          margin: 20px auto;
         "
       >
         <li class="listNavbar" style="margin: 10px">Home</li>
@@ -81,18 +78,13 @@ onMounted(() => {
         <li class="listNavbar" style="margin: 10px">Tentang</li>
       </ul>
     </div>
-    <router-link to="./login">
+    <router-link to="./login" style="margin: 20px">
       <VBtn> Log in </VBtn>
     </router-link>
-  </div>
-  <div style="z-index: 100; margin-top: 80px">
-    <center>
-      <h4 style="color: white; font-size: 3vw">SELAMAT DATANG DI</h4>
-      <strong style="color: white; font-size: 6vw">POSYANDU MELATI</strong>
-    </center>
-  </div>
+  </div> -->
+
   <!-- CARD 3 -->
-  <div class="container" style="margin-top: 350px">
+  <div class="container" style="margin-top: 200px">
     <VCol cols="12" sm="12">
       <VRow>
         <!-- 👉 Profit -->
@@ -145,13 +137,11 @@ onMounted(() => {
     <Sambutan />
     <cardEdukasi />
     <cardBeritaAcara />
-    <tentangGuest />
+    <!-- <tentangGuest /> -->
     <cardGaleri />
   </div>
   <footerGuest />
 </template>
-
-<script></script>
 
 <style scope>
 .container {
