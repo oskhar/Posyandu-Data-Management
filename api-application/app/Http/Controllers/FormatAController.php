@@ -203,7 +203,7 @@ class FormatAController extends Controller
         $limaBulanLalu = $today->subMonths(5); // Mengurangkan 5 bulan dari tanggal hari ini
 
         $listTahunLahir = BayiModel::selectRaw('YEAR(tanggal_lahir) as tahun_lahir')
-            ->where('tanggal_lahir', '>=', $limaBulanLalu)
+            ->where('tanggal_lahir', '<=', $limaBulanLalu)
             ->orderByDesc('tanggal_lahir')
             ->distinct()
             ->pluck('tahun_lahir');

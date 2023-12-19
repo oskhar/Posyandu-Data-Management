@@ -275,9 +275,33 @@ class FormatBAController extends Controller
          * Mengambil tahun dan bulan dari data judul
          * 
          */
-        $tahunBulan = explode(' ', explode(' - ', $data['judul'])[1]);
+        $dataJudul = explode(' - ', $data['judul']);
+        $umurBayi = explode(' ', $dataJudul[0])[1];
+        $tahunBulan = explode(' ', $dataJudul[1]);
         $tahunPenimbangan = $tahunBulan[0];
         $bulanPenimbangan = array_search($tahunBulan[1], $this->namaBulan);
+
+        /**
+         * Mengambil jenis kelamin bayi
+         * 
+         */
+        $jenisKelamin = BayiModel::select('jenis_kelamin')
+            ->where('id', $data['id_bayi'])->first()->jenis_kelamin;
+
+        $dataWHO = \DB::table('standar_deviasi')->select(
+            'sangat_kurus',
+            'kurus',
+            'normal_kurus',
+            'baik',
+            'normal_gemuk',
+            'gemuk',
+            'sangat_gemuk'
+        )->where('id_berat_untuk_umur', [1, 2][$jenisKelamin == 'L'])
+            ->where('umur_bulan', $umurBayi)->first();
+
+        return response()->json(
+            $dataWHO
+        )->setStatusCode(201);
 
         /**
          * Menghabpus data judul
