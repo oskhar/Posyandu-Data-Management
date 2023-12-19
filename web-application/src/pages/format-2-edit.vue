@@ -4,7 +4,12 @@
       <VCol cols="12">
         <VCard>
           <VCardItem>
-            <VueApexCharts type="line" height="450" :options="chartOptions" :series="series" />
+            <VueApexCharts
+              type="line"
+              height="530"
+              :options="chartOptions"
+              :series="series"
+            />
           </VCardItem>
         </VCard>
       </VCol>
@@ -32,8 +37,8 @@
                   BB Saat Lahir :<font class="float-right">
                     {{
                       dataEdit.bayi.berat_lahir
-                      ? dataEdit.bayi.berat_lahir + " KG"
-                      : "-"
+                        ? dataEdit.bayi.berat_lahir + " KG"
+                        : "-"
                     }}
                   </font>
                 </p>
@@ -41,28 +46,50 @@
               <VCol cols="12" v-for="(item, index) in dataEdit.penimbangan">
                 <h4 class="my-5">{{ item.judul }}</h4>
                 <VRow>
-                  <VCol cols="12" sm="3">
-                    <VTextField v-model="dataEdit.penimbangan[index].berat_badan" type="number" label="Berat Badan"
-                      placeholder="Masukkan Berat Badan" />
+                  <VCol cols="12" sm="6" md="3">
+                    <VTextField
+                      v-model="dataEdit.penimbangan[index].berat_badan"
+                      type="number"
+                      label="Berat Badan"
+                      placeholder="Masukkan Berat Badan"
+                    />
                   </VCol>
-                  <VCol cols="12" sm="3">
-                    <VTextField v-model="dataEdit.penimbangan[index].asi_eksklusif" label="Asi Ekskulusif"
-                      placeholder="Masukkan " />
+                  <VCol cols="12" sm="6" md="3">
+                    <VSelect
+                      v-model="dataEdit.penimbangan[index].asi_eksklusif"
+                      label="Asi Eksklusif"
+                      placeholder="Masukkan Asi Ekslusif"
+                      :items="['Ya', 'Tidak', 'Alpa']"
+                    />
                   </VCol>
-                  <VCol cols="12" sm="3">
-                    <VTextField v-model="dataEdit.penimbangan[index].ntob" label="N/T/O/B & BGM" disabled />
+                  <VCol cols="12" sm="12" md="6">
+                    <VTextField
+                      v-model="dataEdit.penimbangan[index].ntob"
+                      label="N/T/O/B & BGM"
+                      disabled
+                    />
                   </VCol>
                   <VCol cols="12" md="9" class="d-flex gap-4">
-                    <VBtn :disabled="isLoading[index]" type="submit" :id="index" @click="
-                      submitData(
-                        dataEdit.penimbangan[index].berat_badan,
-                        dataEdit.penimbangan[index].asi_eksklusif,
-                        dataEdit.penimbangan[index].ntob,
-                        dataEdit.penimbangan[index].judul,
-                        index
-                      )
-                      ">
-                      <VProgressCircular v-if="isLoading[index]" indeterminate color="white" :for="index">
+                    <VBtn
+                      :disabled="isLoading[index]"
+                      type="submit"
+                      :id="index"
+                      @click="
+                        submitData(
+                          dataEdit.penimbangan[index].berat_badan,
+                          dataEdit.penimbangan[index].asi_eksklusif,
+                          dataEdit.penimbangan[index].ntob,
+                          dataEdit.penimbangan[index].judul,
+                          index
+                        )
+                      "
+                    >
+                      <VProgressCircular
+                        v-if="isLoading[index]"
+                        indeterminate
+                        color="white"
+                        :for="index"
+                      >
                       </VProgressCircular>
 
                       <font v-else>Submit</font>
@@ -92,50 +119,7 @@ export default {
   data() {
     return {
       isLoading: [],
-      series: [
-        {
-          name: "Terlalu Gemuk, butuh penanganan",
-          data: [
-            5.0, 6.6, 8.0, 9.0, 9.7, 10.4
-          ],
-        },
-        {
-          name: "Berat Gemuk",
-          data: [
-            4.4, 5.8, 7.1, 8.0, 8.7, 9.3
-          ],
-        },
-        {
-          name: "Berat Normal, butuh penanganan",
-          data: [
-            2.9, 3.9, 4.9, 5.7, 6.2, 6.7
-          ],
-        },
-        {
-          name: "Berat Baik, butuh penanganan",
-          data: [
-            3.3, 4.5, 5.6, 6.4, 7.0, 7.5
-          ],
-        },
-        {
-          name: "Berat Normal, butuh penanganan",
-          data: [
-            3.9, 5.1, 6.3, 7.2, 7.8, 8.4
-          ],
-        },
-        {
-          name: "Berat Kurus",
-          data: [
-            2.5, 3.4, 4.3, 5.0, 5.6, 6.0
-          ],
-        },
-        {
-          name: "Terlalu Kurus, butuh penanganan",
-          data: [
-            2.1, 2.9, 3.8, 4.4, 4.9, 5.3
-          ],
-        },
-      ],
+      series: [],
       chartOptions: {
         chart: {
           height: 350,
@@ -164,14 +148,7 @@ export default {
           size: 1,
         },
         xaxis: {
-          categories: [
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-          ],
+          categories: ["0", "1", "2", "3", "4", "5"],
           title: {
             text: "Bulan",
           },
@@ -224,6 +201,7 @@ export default {
           }
         );
         console.log(idBayi);
+        this.series = response.data.series;
         this.dataEdit = response.data;
         for (let i = 0; i < this.dataEdit.length; i++) {
           this.isLoading[i] = false;
