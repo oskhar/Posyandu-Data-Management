@@ -18,6 +18,7 @@ export default {
       posyandu: ref([]),
       langit: langit,
       isUpload: false,
+      isLoading: false,
     };
   },
   methods: {
@@ -103,6 +104,7 @@ export default {
       }
     },
     async fetchData() {
+      this.isLoading = true;
       const response = await axios.get(`${config.urlServer}/api/posyandu`, {
         headers: {
           Authorization: localStorage.getItem("tokenAuth"),
@@ -111,6 +113,7 @@ export default {
       this.posyandu = response.data;
       this.posyandu.gambar_gedung =
         config.imagePath + this.posyandu.gambar_gedung;
+      this.isLoading = false;
     },
   },
   mounted() {
@@ -137,7 +140,13 @@ export default {
     <VProgressCircular indeterminate color="primary" class="ml-3 float-center">
     </VProgressCircular>
   </VRow>
-  <VRow>
+  <VRow cols="12" md="12" sm="12" v-if="isLoading" class="text-center">
+    <VCol>
+      <VProgressCircular indeterminate color="primary" class="mt-5" size="50">
+      </VProgressCircular>
+    </VCol>
+  </VRow>
+  <VRow v-else>
     <div class="d-flex w-100 align-content-center">
       <VRow class="mx-1">
         <VCol cols="12">
@@ -153,7 +162,7 @@ export default {
               </template>
               <v-card>
                 <v-card-title>
-                  <span class="text-h5">User Profile</span>
+                  <span class="text-h5">Edit Halaman</span>
                 </v-card-title>
                 <v-card-text>
                   <v-container>
@@ -259,7 +268,7 @@ export default {
           <VCol cols="12">
             <VCardItem>
               <VCardTitle class="text-md-h5 text-primary">
-                PROFIL POSYANDU
+                PENYAMPAIAN KETUA
               </VCardTitle>
             </VCardItem>
 
