@@ -9,9 +9,11 @@ const isConfirmPasswordVisible = ref(false);
 const currentPassword = ref("");
 const newPassword = ref("");
 const confirmPassword = ref("");
+const isLoading = ref(false);
 
 const submitkan = async (formData) => {
   formData.preventDefault();
+  isLoading.value = true;
   try {
     const response = await axios.put(
       `${config.urlServer}/api/admin`,
@@ -25,36 +27,34 @@ const submitkan = async (formData) => {
       },
       { headers: { Authorization: localStorage.getItem("tokenAuth") } }
     );
-    if (response.data.success) {
-      Swal.fire({
-        toast: true,
-        position: "top",
-        iconColor: "white",
-        color: "white",
-        background: "rgb(var(--v-theme-success))",
-        showConfirmButton: false,
-        timerProgressBar: true,
-        timer: 2000,
-        icon: "success",
-        title: response.data.success.message,
-      });
-    } else {
-      console.log(response);
-      Swal.fire({
-        toast: true,
-        position: "top",
-        iconColor: "white",
-        color: "white",
-        background: "rgb(var(--v-theme-error))",
-        showConfirmButton: false,
-        timerProgressBar: true,
-        timer: 2000,
-        icon: "error",
-        title: response.data.errors.message,
-      });
-    }
+    isLoading.value = false;
+    Swal.fire({
+      toast: true,
+      position: "top",
+      iconColor: "white",
+      color: "white",
+      background: "rgb(var(--v-theme-success))",
+      showConfirmButton: false,
+      timerProgressBar: true,
+      timer: 2000,
+      icon: "success",
+      title: response.data.success.message,
+    });
   } catch (error) {
     console.log(error);
+    isLoading.value = false;
+    Swal.fire({
+      toast: true,
+      position: "top",
+      iconColor: "white",
+      color: "white",
+      background: "rgb(var(--v-theme-error))",
+      showConfirmButton: false,
+      timerProgressBar: true,
+      timer: 4000,
+      icon: "error",
+      title: "Error. Tidak Dapat Mengubah Password",
+    });
   }
 };
 
@@ -70,7 +70,7 @@ const passwordRequirements = ["Minimal 8 karakter"];
           <VCardText>
             <!-- 👉 Current Password -->
             <VRow>
-              <VCol cols="12" md="6">
+              <VCol cols="12" sm="4">
                 <!-- 👉 current password -->
                 <VTextField
                   v-model="currentPassword"
@@ -85,11 +85,7 @@ const passwordRequirements = ["Minimal 8 karakter"];
                   "
                 />
               </VCol>
-            </VRow>
-
-            <!-- 👉 New Password -->
-            <VRow>
-              <VCol cols="12" md="6">
+              <VCol cols="12" sm="4">
                 <!-- 👉 new password -->
                 <VTextField
                   v-model="newPassword"
@@ -105,7 +101,7 @@ const passwordRequirements = ["Minimal 8 karakter"];
                 />
               </VCol>
 
-              <VCol cols="12" md="6">
+              <VCol cols="12" sm="4">
                 <!-- 👉 confirm password -->
                 <VTextField
                   v-model="confirmPassword"
@@ -121,6 +117,8 @@ const passwordRequirements = ["Minimal 8 karakter"];
                 />
               </VCol>
             </VRow>
+
+            <!-- 👉 New Password -->
           </VCardText>
 
           <!-- 👉 Password Requirements -->

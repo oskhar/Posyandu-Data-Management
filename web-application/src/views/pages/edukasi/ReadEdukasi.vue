@@ -1,4 +1,21 @@
 <template>
+  <VRow
+    v-if="isUpload"
+    style="
+      position: fixed;
+      z-index: 1;
+      right: 50px;
+      bottom: 50px;
+      background-color: azure;
+      padding: 1rem;
+      padding-block: 5px;
+      border-radius: 5px;
+    "
+  >
+    <font>Menyimpan... </font>
+    <VProgressCircular indeterminate color="primary" class="ml-3 float-center">
+    </VProgressCircular>
+  </VRow>
   <VRow>
     <VCol cols="12" md="12" sm="12" v-if="isLoading" class="text-center">
       <VProgressCircular
@@ -41,7 +58,11 @@
                     <VBtn color="primary" class="mx-3" v-bind="props">
                       Edit & Lihat
                     </VBtn>
-                    <VBtn color="error" @click="deleteEdukasi(data.id_edukasi)" class="float-right">
+                    <VBtn
+                      color="error"
+                      @click="deleteEdukasi(data.id_edukasi)"
+                      class="float-right"
+                    >
                       <v-icon>bx-trash</v-icon>
                     </VBtn>
                   </VCol>
@@ -168,11 +189,13 @@ export default {
       page: 1,
       banyakPage: 0,
       isLoading: false,
+      isUpload: false,
     };
   },
 
   methods: {
     async putData(indexEdukasi) {
+      this.isUpload = true;
       try {
         const data = {
           id_edukasi: this.dataEdukasi[indexEdukasi].id_edukasi,
@@ -189,6 +212,7 @@ export default {
             },
           }
         );
+        this.isUpload = false;
         if (response.data.success) {
           Swal.fire({
             toast: true,
@@ -217,6 +241,7 @@ export default {
           title: "Judul Tidak Boleh Kosong",
         });
       }
+      this.isUpload = false;
     },
 
     inputGambar() {

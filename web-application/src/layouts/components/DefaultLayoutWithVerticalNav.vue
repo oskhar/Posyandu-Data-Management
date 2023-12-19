@@ -100,7 +100,7 @@ const upgradeBanner = computed(() => {
       />
       <VerticalNavLink
         :item="{
-          title: 'Pengaturan Akun',
+          title: 'Profil',
           icon: 'bx-user',
           to: '/account-settings',
         }"
