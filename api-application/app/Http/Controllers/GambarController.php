@@ -201,7 +201,7 @@ class GambarController extends Controller
          */
         return response()->json([
             'success' => [
-                'message' => "Data edukasi berhasil ditambahkan"
+                'message' => "Data gambar berhasil ditambahkan"
             ]
         ])->setStatusCode(201);
     }
@@ -219,13 +219,13 @@ class GambarController extends Controller
          * menggunakan request id
          * 
          */
-        $edukasi = GambarModel::where('id', $data['id_gambar']);
+        $gambar = GambarModel::where('id', $data['id_gambar']);
 
         /**
          * Melakukan penghapusan data
          * 
          */
-        $edukasi->delete();
+        $gambar->delete();
 
         /**
          * Mengembalikan response setelah
@@ -234,7 +234,7 @@ class GambarController extends Controller
          */
         return response()->json([
             'success' => [
-                'message' => "Data edukasi berhasil dihapus"
+                'message' => "Data gambar berhasil dihapus"
             ]
         ])->setStatusCode(200);
     }

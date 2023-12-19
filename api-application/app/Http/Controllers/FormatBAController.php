@@ -6,6 +6,7 @@ use App\Http\Requests\FormatBARequest;
 use App\Models\BayiModel;
 use App\Models\OrangTuaModel;
 use App\Models\PenimbanganModel;
+use App\Models\PosyanduModel;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -99,7 +100,7 @@ class FormatBAController extends Controller
                 'bulan_penimbangan',
                 'berat_badan',
                 'ntob',
-                'asi_ekslusif',
+                'asi_eksklusif',
             )->where('id_bayi', '=', $data['id_bayi'])
                 ->orderBy('tahun_penimbangan', 'asc')
                 ->orderBy('bulan_penimbangan', 'asc')
@@ -112,16 +113,16 @@ class FormatBAController extends Controller
                     'judul' => 'Umur ' . $i . ' Bulan - ' . $list_waktu[$i],
                     'berat_badan' => null,
                     'ntob' => null,
-                    'asi_ekslusif' => null,
+                    'asi_eksklusif' => null,
                 ];
 
                 foreach ($penimbangan as $dataPenimbangan) {
                     if ($dataPenimbangan->tahun_penimbangan . ' ' . $this->namaBulan[$dataPenimbangan->bulan_penimbangan] == $list_waktu[$i]) {
-                        $list_penimbangan[$list_waktu[$i]] = [
+                        $list_penimbangan[$i] = [
                             'judul' => 'Umur ' . $i . ' Bulan - ' . $list_waktu[$i],
                             'berat_badan' => $dataPenimbangan->berat_badan,
                             'ntob' => $dataPenimbangan->ntob,
-                            'asi_ekslusif' => $dataPenimbangan->asi_ekslusif,
+                            'asi_eksklusif' => $dataPenimbangan->asi_eksklusif,
                         ];
                     }
                 }
@@ -160,7 +161,7 @@ class FormatBAController extends Controller
             'bayi.jenis_kelamin',
             'penimbangan.berat_badan',
             'penimbangan.ntob',
-            'penimbangan.asi_ekslusif',
+            'penimbangan.asi_eksklusif',
             'bayi.tanggal_lahir'
         )
             ->selectRaw('(' . $data['tahun'] . ' - YEAR(bayi.tanggal_lahir)) * 12 + ' . $data['bulan'] . ' - MONTH(bayi.tanggal_lahir) as umur')
@@ -242,10 +243,21 @@ class FormatBAController extends Controller
         }
 
         /**
+         * Mengambil data posyandu
+         * 
+         */
+        $posyandu = PosyanduModel::select(
+            'nama_posyandu',
+            'kota'
+        )->first();
+
+        /**
          * Mengembalikan response sesuai request
          * 
          */
         return response()->json([
+            'nama_posyandu' => $posyandu->nama_posyandu,
+            'kota' => $posyandu->kota,
             "jumlah_data" => $count,
             'judul_format' => $this->judulFormat,
             "format_ba" => $formatBA
@@ -259,38 +271,39 @@ class FormatBAController extends Controller
          */
         $data = $request->validated();
 
+        /**
+         * Mengambil tahun dan bulan dari data judul
+         * 
+         */
         $tahunBulan = explode(' ', explode(' - ', $data['judul'])[1]);
         $tahunPenimbangan = $tahunBulan[0];
         $bulanPenimbangan = array_search($tahunBulan[1], $this->namaBulan);
 
+        /**
+         * Menghabpus data judul
+         * 
+         */
         unset($data['judul']);
 
         /**
-         * Memeriksa apakah data sudah ada sebelumnya
+         * Menambahkan tahun dan bulan ke dalam data
          * 
          */
-        $dataAlready = PenimbanganModel::where('id_bayi', '=', $data['id_bayi'])
-            ->where('tahun_penimbangan', '=', $tahunPenimbangan)
-            ->where('bulan_penimbangan', '=', $bulanPenimbangan . '')
-            ->first();
+        $data['tahun_penimbangan'] = intval($tahunPenimbangan);
+        $data['bulan_penimbangan'] = intval($bulanPenimbangan);
 
-        if ($dataAlready) {
-
-            /**
-             * Melakukan ubah data jika data sudah ada
-             * 
-             */
-            $dataAlready->update($data);
-
-        } else {
-
-            /**
-             * Melakukan penambahan data jika data belum ada
-             * 
-             */
-            PenimbanganModel::create($data);
-
-        }
+        /**
+         * Menggunakan updateOrCreate untuk menyimpan atau memperbarui data
+         * 
+         */
+        PenimbanganModel::updateOrCreate(
+            [
+                'id_bayi' => $data['id_bayi'],
+                'tahun_penimbangan' => '' . $tahunPenimbangan,
+                'bulan_penimbangan' => '' . $bulanPenimbangan,
+            ],
+            $data
+        );
 
         /**
          * Mengembalikan response setelah
@@ -304,27 +317,3 @@ class FormatBAController extends Controller
         ])->setStatusCode(201);
     }
 }
-
-// "waktu": [
-//     "2022 Desember": [
-//         "berat_badan": 10,
-//         "ntob": "nt"
-//     ],
-//     "2023 Januari": [
-//         "berat_badan": 10,
-//         "ntob": "nt"
-//     ],
-//     "2023 Februari": [
-//         "berat_badan": 10,
-//         "ntob": "nt"
-//     ],
-//     "2023 Maret": [
-//         "berat_badan": 10,
-//         "ntob": "nt"
-//     ],
-//     "2023 April": [
-//         "berat_badan": 10,
-//         "ntob": "nt"
-//     ],
-//     "2023 Mei"
-// ],

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AdminRequest;
 use App\Models\AdminModel;
+use App\Models\JabatanModel;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -135,69 +136,7 @@ class AdminController extends Controller
          */
         $data = $request->validated();
 
-        /**
-         * Memeriksa apakah data foto_profile ada
-         * 
-         */
-        if (!empty($data['foto_profile'])) {
-
-            /**
-             * 'upload' adalah subfolder tempat foto_profile akan disimpan
-             * di sistem penyimpanan yang Anda konfigurasi
-             * 
-             */
-            $base64Parts = explode(",", $data['foto_profile']);
-            $base64Image = end($base64Parts);
-
-            $decodedImage = base64_decode($base64Image);
-
-            /**
-             * Membuat instance Intervention Image
-             * 
-             */
-            $img = Image::make($decodedImage);
-
-            /**
-             * Tentukan ekstensi yang diinginkan
-             * (jpg, jpeg, atau png)
-             * 
-             */
-            $extension = 'jpg';
-
-            /**
-             * Mengidentifikasi tipe MIME foto_profile
-             * 
-             */
-            $mime = finfo_buffer(finfo_open(), $decodedImage, FILEINFO_MIME_TYPE);
-
-            /**
-             * Jika tipe MIME adalah foto_profile JPEG, 
-             * maka set ekstensi menjadi 'jpg'
-             * 
-             */
-            if ($mime === 'image/jpeg') {
-                $extension = 'jpeg';
-            }
-
-            /**
-             * Jika tipe MIME adalah foto_profile PNG,
-             * maka set ekstensi menjadi 'png'
-             * 
-             */
-            if ($mime === 'image/png') {
-                $extension = 'png';
-            }
-
-            $namaFile = $data['id_admin'] . Carbon::now()->format('Y-m-d') . '_' . time() . '.' . $extension;
-
-            /**
-             * Simpan foto_profile ke folder
-             * 
-             */
-            $path = 'images/upload/' . $namaFile;
-            $img->save(public_path($path), 80);
-            $data['foto_profile'] = '/' . $path;
-        }
+        $data['password'] = Hash::make($data['password']);
 
         /**
          * Melakukan penambahan data
@@ -250,7 +189,7 @@ class AdminController extends Controller
                     'errors' => [
                         'message' => 'Anda memasukan password yang salah'
                     ]
-                ]));
+                ])->setStatusCode(400));
             }
 
             /**
@@ -263,7 +202,7 @@ class AdminController extends Controller
                     'errors' => [
                         'message' => 'Password baru harus sama!'
                     ]
-                ]));
+                ])->setStatusCode(400));
             }
 
             /**
@@ -271,12 +210,12 @@ class AdminController extends Controller
              * baru adalah password yang sama
              * 
              */
-            if (strlen($data['password']['baru_a']) < 8) {
+            if (strlen($data['password']['baru_a']) < 6) {
                 throw new HttpResponseException(response()->json([
                     'errors' => [
-                        'message' => 'Password minimal harus 8 karakter!'
+                        'message' => 'Password minimal harus 6 karakter!'
                     ]
-                ]));
+                ])->setStatusCode(400));
             }
 
             /**
@@ -400,5 +339,13 @@ class AdminController extends Controller
                 'message' => 'Data admin berhasil dihapus'
             ]
         ])->setStatusCode(200);
+    }
+    public function jabatan(): JsonResponse
+    {
+        $jabatan = JabatanModel::select(
+            'id as value',
+            'nama as title',
+        )->get();
+        return response()->json($jabatan)->setStatusCode(200);
     }
 }

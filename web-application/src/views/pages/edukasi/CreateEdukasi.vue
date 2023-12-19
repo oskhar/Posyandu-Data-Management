@@ -200,7 +200,18 @@ export default {
 
         window.location.href = "/edukasi";
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+          toast: true,
+          position: "top",
+          iconColor: "white",
+          color: "white",
+          background: "rgb(var(--v-theme-error))",
+          showConfirmButton: false,
+          timerProgressBar: true,
+          timer: 4000,
+          icon: "error",
+          title: "Judul Tidak Boleh Kosong",
+        });
       }
       isLoading.value = false;
     };

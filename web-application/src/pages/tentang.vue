@@ -228,7 +228,7 @@ export default {
     </VCol>
     <VCol md="3" sm="12">
       <img
-        style="width: 100%; height: 250px; object-fit: cover"
+        style="width: 250px; height: 250px; object-fit: cover"
         :src="imagePath + posyandu.foto_profile_ketua"
         alt=""
       />

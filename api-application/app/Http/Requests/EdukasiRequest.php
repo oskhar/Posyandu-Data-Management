@@ -36,7 +36,7 @@ class EdukasiRequest extends CoreRequest
                     'id_edukasi' => 'nullable|integer',
                     'start' => 'nullable|integer',
                     'length' => 'nullable|integer',
-                    'search' => 'nullable'
+                    'search' => 'nullable',
                 ];
             default:
                 return [];

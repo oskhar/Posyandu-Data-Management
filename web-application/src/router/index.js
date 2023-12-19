@@ -64,10 +64,6 @@ const router = createRouter({
           path: "berita-acara-guest",
           component: () => import("../pages/berita-acara-guest.vue"),
         },
-        {
-          path: "berita-acara",
-          component: () => import("../pages/berita-acara.vue"),
-        },
       ],
     },
     {
@@ -84,6 +80,10 @@ const router = createRouter({
           component: () => import("../pages/account-settings.vue"),
         },
         {
+          path: "berita-acara",
+          component: () => import("../pages/berita-acara.vue"),
+        },
+        {
           path: "edukasi",
           component: () => import("../pages/edukasi.vue"),
         },
@@ -94,6 +94,10 @@ const router = createRouter({
         {
           path: "data/",
           children: [
+            {
+              path: "admin",
+              component: () => import("../pages/admin.vue"),
+            },
             {
               path: "format-1",
               component: () => import("../pages/format-1.vue"),
