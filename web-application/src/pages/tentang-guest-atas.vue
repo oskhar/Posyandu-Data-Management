@@ -6,16 +6,11 @@ export default {
   data: () => ({
     dialog: false,
     posyandu: posyandu,
-    // langit: langit,
     profil: "Bapak / Ibu (Nama Lengkap)",
-    // visi: "Belum ada ",
-    // misi: "Belum ada",
   }),
   methods: {
     save() {
       this.profil = profil;
-      //   this.visi = visi;
-      //   this.misi = misi;
     },
   },
 };
@@ -32,31 +27,7 @@ export default {
               <v-card>
                 <v-card-text>
                   <v-container>
-                    <v-row>
-                      <!-- <VCard>
-                        <v-col cols="12">
-                          <VTextarea
-                            label="Profil"
-                            v-model="profil"
-                            required
-                          ></VTextarea>
-                        </v-col>
-                      </VCard> -->
-                      <!-- <v-col cols="12">
-                        <VTextarea
-                          label="Visi"
-                          v-model="visi"
-                          required
-                        ></VTextarea>
-                      </v-col>
-                      <v-col cols="12">
-                        <VTextarea
-                          label="Misi"
-                          v-model="misi"
-                          required
-                        ></VTextarea>
-                      </v-col> -->
-                    </v-row>
+                    <v-row> </v-row>
                   </v-container>
                 </v-card-text>
                 <v-card-actions>
@@ -122,41 +93,5 @@ export default {
         />
       </VCard>
     </VCol>
-    <!-- <VCol cols="12">
-      <VCard class="text-center text-sm-start">
-        <VRow no-gutters>
-          <VCol cols="12">
-            <VCardItem>
-              <VCardTitle class="text-md-h5 text-primary"> VISI </VCardTitle>
-            </VCardItem>
-
-            <VCardText>
-              <span>
-                {{ visi }}
-              </span>
-              <br />
-            </VCardText>
-          </VCol>
-        </VRow>
-      </VCard>
-    </VCol>
-    <VCol cols="12">
-      <VCard class="text-center text-sm-start">
-        <VRow no-gutters>
-          <VCol cols="12">
-            <VCardItem>
-              <VCardTitle class="text-md-h5 text-primary"> MISI </VCardTitle>
-            </VCardItem>
-
-            <VCardText>
-              <span>
-                {{ misi }}
-              </span>
-              <br />
-            </VCardText>
-          </VCol>
-        </VRow>
-      </VCard>
-    </VCol> -->
   </VRow>
 </template>

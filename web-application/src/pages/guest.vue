@@ -2,7 +2,6 @@
 import cardEdukasi from "./card-edukasi.vue";
 import cardBeritaAcara from "./card-berita-acara.vue";
 import cardGaleri from "./card-galeri-guest.vue";
-// import tentangGuest from "./tentang-guest.vue";
 import footerGuest from "./footer-guest.vue";
 
 import Sambutan from "./tentang-guest-atas.vue";
@@ -49,40 +48,6 @@ onMounted(() => {
 
   <navbarGuest />
 
-  <!-- <div
-    class="container-dua d-flex"
-    style="
-      width: 100%;
-      justify-content: space-between;
-      z-index: 1000;
-      background-color: rgba(255, 255, 255, 0.356);
-      position: fixed;
-    "
-  >
-    <router-link to="/" style="margin: 10px">
-      <div class="d-flex text-primary" v-html="logo"
-    /></router-link>
-    <div>
-      <ul
-        style="
-          color: rgb(36, 36, 36);
-          display: flex;
-          list-style: none;
-          min-width: 5px;
-          margin: 20px auto;
-        "
-      >
-        <li class="listNavbar" style="margin: 10px">Home</li>
-        <li class="listNavbar" style="margin: 10px">Edukasi</li>
-        <li class="listNavbar" style="margin: 10px">Berita</li>
-        <li class="listNavbar" style="margin: 10px">Tentang</li>
-      </ul>
-    </div>
-    <router-link to="./login" style="margin: 20px">
-      <VBtn> Log in </VBtn>
-    </router-link>
-  </div> -->
-
   <!-- CARD 3 -->
   <div class="container" style="margin-top: 200px">
     <VCol cols="12" sm="12">
@@ -120,18 +85,6 @@ onMounted(() => {
             }"
           />
         </VCol>
-        <!-- 👉 Profit -->
-
-        <!-- 👉 Sales -->
-        <!-- <VCol cols="12" md="4">
-          <CardStatisticsVertical
-          v-bind="{
-              title: 'Jumlah Gambar',
-              image: info,
-              stats: jumlahPengurus,
-            }"
-            />
-          </VCol> -->
       </VRow>
     </VCol>
     <Sambutan />

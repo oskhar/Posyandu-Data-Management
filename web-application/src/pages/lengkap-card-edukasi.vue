@@ -50,15 +50,6 @@
                   persistent
                   width="1024"
                 >
-                  <!-- <template v-slot:activator="{ props }">
-                    <VRow class="mt-3">
-                      <VCol>
-                        <VBtn color="primary" class="mx-3" v-bind="props">
-                          Selengkapnya
-                        </VBtn>
-                      </VCol>
-                    </VRow>
-                  </template> -->
                 </v-dialog>
               </v-row>
             </VCardText>
@@ -86,11 +77,9 @@
       </VCol>
     </VRow>
   </div>
-  <!-- <VBtn color="primary my-3 float-right" v-bind="props"> Selengkapnya </VBtn> -->
 </template>
 
 <script>
-//import EditEdukasi from "./EditEdukasi.vue";
 import axios from "axios";
 import config from "@/@core/config.vue";
 import { ref } from "vue";

@@ -2,7 +2,6 @@
 import { useRoute } from "vue-router";
 import ReadBeritaAcara from "@/views/pages/berita-acara/ReadBeritaAcara.vue";
 import CreateBeritaAcara from "@/views/pages/berita-acara/CreateBeritaAcara.vue";
-// import AccountSettingsSecurity from "@/views/pages/";
 
 const route = useRoute();
 const activeTab = ref(route.params.tab);

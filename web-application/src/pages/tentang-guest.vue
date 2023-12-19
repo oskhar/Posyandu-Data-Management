@@ -7,13 +7,11 @@ export default {
     dialog: false,
     posyandu: posyandu,
     langit: langit,
-    // profil: "Belum ada",
     visi: "Belum ada ",
     misi: "Belum ada",
   }),
   methods: {
     save() {
-      // this.profil = profil;
       this.visi = visi;
       this.misi = misi;
     },
@@ -33,13 +31,6 @@ export default {
                 <v-card-text>
                   <v-container>
                     <v-row>
-                      <!-- <v-col cols="12">
-                        <VTextarea
-                          label="Profil"
-                          v-model="profil"
-                          required
-                        ></VTextarea>
-                      </v-col> -->
                       <v-col cols="12">
                         <VTextarea
                           label="Visi"
@@ -81,37 +72,6 @@ export default {
         </VCol>
       </VRow>
     </div>
-
-    <!-- <VCol md="3" sm="12">
-      <img
-        style="width: 100%; height: 250px; object-fit: cover"
-        :src="posyandu"
-        alt=""
-      />
-    </VCol>
-    <VCol md="9" sm="12">
-      <VCard class="text-center text-sm-start">
-        <VRow no-gutters>
-          <VCol cols="12">
-            <VCardItem>
-              <VCardTitle class="text-md-h5 text-primary">
-                PROFIL POSYANDU
-              </VCardTitle>
-            </VCardItem>
-
-            <VCardText>
-              <span>
-                {{ profil }}
-                <br />
-                <br />
-                Belum ada
-              </span>
-              <br />
-            </VCardText>
-          </VCol>
-        </VRow>
-      </VCard>
-    </VCol> -->
     <VCol cols="12">
       <VCard class="text-center text-sm-start">
         <VRow no-gutters>

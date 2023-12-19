@@ -50,15 +50,6 @@
                 persistent
                 width="1024"
               >
-                <!-- <template v-slot:activator="{ props }">
-                  <VRow class="mt-3">
-                    <VCol>
-                      <VBtn color="primary" class="mx-3" v-bind="props">
-                        Selengkapnya
-                      </VBtn>
-                    </VCol>
-                  </VRow>
-                </template> -->
               </v-dialog>
             </v-row>
           </VCardText>
@@ -66,21 +57,6 @@
       </RouterLink>
     </VCol>
   </V-row>
-
-  <!-- <VRow>
-    <VCol>
-      <div class="text-center my-3 float-right">
-        <v-pagination
-          v-model="page"
-          :length="banyakPage"
-          :total-visible="5"
-          @click="fetchData"
-        ></v-pagination>
-      </div>
-    </VCol>
-  </VRow> -->
-
-  <!-- <VBtn color="primary my-3 float-right" v-bind="props"> Selengkapnya </VBtn> -->
   <div class="mt-1 mb-4">
     <RouterLink
       class="text-primary my-3 float-right"

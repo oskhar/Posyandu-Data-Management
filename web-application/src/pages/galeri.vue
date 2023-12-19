@@ -1,5 +1,4 @@
 <script>
-//import EditEdukasi from "./EditEdukasi.vue";
 import wallet from "@/assets/images/pages/1.png";
 import axios from "axios";
 import config from "@/@core/config.vue";
@@ -140,7 +139,9 @@ export default {
 </script>
 
 <template>
-  <VRow v-if="isLoading" style="
+  <VRow
+    v-if="isLoading"
+    style="
       position: fixed;
       z-index: 1;
       right: 50px;
@@ -149,7 +150,8 @@ export default {
       padding: 1rem;
       padding-block: 5px;
       border-radius: 5px;
-    ">
+    "
+  >
     <font>Mengunggah... </font>
     <VProgressCircular indeterminate color="primary" class="ml-3 float-center">
     </VProgressCircular>
@@ -157,29 +159,55 @@ export default {
   <VRow>
     <VCol>
       <div class="d-flex flex-wrap gap-2 float-right">
-        <VBtn id="gambar" color="primary" prepend-icon="bx-cloud-upload" @click="inputGambar">
+        <VBtn
+          id="gambar"
+          color="primary"
+          prepend-icon="bx-cloud-upload"
+          @click="inputGambar"
+        >
           <span class="d-none d-sm-block">Tambah Gambar</span>
         </VBtn>
 
-        <input id="inputGambar" ref="refInputEl" type="file" name="file" accept=".jpeg,.png,.jpg" hidden
-          @change="changeAvatar" />
+        <input
+          id="inputGambar"
+          ref="refInputEl"
+          type="file"
+          name="file"
+          accept=".jpeg,.png,.jpg"
+          hidden
+          @change="changeAvatar"
+        />
       </div>
     </VCol>
   </VRow>
   <VRow>
     <VCol cols="12" md="12" sm="12" v-if="isLoadingPage" class="text-center">
-      <VProgressCircular indeterminate color="primary" class="mt-5" size="50"></VProgressCircular>
+      <VProgressCircular
+        indeterminate
+        color="primary"
+        class="mt-5"
+        size="50"
+      ></VProgressCircular>
     </VCol>
     <VCol v-else cols="6" md="3" sm="6" v-for="data in dataGambar">
-      <VImg style="width: 100%; height: 200px" cover :src="data.gambar" alt="image"
-        @click="lihatGambar(data.gambar, data.nama_lengkap, data.id_gambar)" />
-      <!-- <h1>{{ data.id_gambar }}</h1> -->
+      <VImg
+        style="width: 100%; height: 200px"
+        cover
+        :src="data.gambar"
+        alt="image"
+        @click="lihatGambar(data.gambar, data.nama_lengkap, data.id_gambar)"
+      />
     </VCol>
   </VRow>
   <VRow>
     <VCol>
       <div class="text-center my-3 float-right">
-        <v-pagination v-model="page" :length="banyakPage" :total-visible="5" @click="fetchData"></v-pagination>
+        <v-pagination
+          v-model="page"
+          :length="banyakPage"
+          :total-visible="5"
+          @click="fetchData"
+        ></v-pagination>
       </div>
     </VCol>
   </VRow>
