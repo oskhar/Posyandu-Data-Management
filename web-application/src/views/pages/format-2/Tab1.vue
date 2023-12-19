@@ -39,7 +39,6 @@
               <tr>
                 <th>No</th>
                 <th>Nama Anak</th>
-                <th>Tanggal Lahir</th>
                 <th>Umur</th>
                 <th>Kelamin</th>
                 <th>Berat Badan</th>
@@ -69,9 +68,6 @@
                 </td>
                 <td>
                   {{ item.nama_bayi }}
-                </td>
-                <td>
-                  {{ item.tanggal_lahir }}
                 </td>
                 <td class="text-center">{{ item.umur }} Bulan</td>
                 <td class="text-center">
@@ -231,7 +227,8 @@ export default {
       this.listTahunLahir = response2.data;
 
       this.dataFormatBA = response.data.format_ba;
-      console.log(this.dataFormatBA);
+      // console.log(this.dataFormatBA);
+      console.log(this.listTahunLahir);
       this.isLoading = false;
       return response;
     },
