@@ -46,35 +46,25 @@ onMounted(() => {
 
 <template>
   <RouterView />
-  <img
-    id="gambarPosyandu"
-    style="
+  <img id="gambarPosyandu" style="
       width: 100%;
       height: 610px;
       object-fit: cover;
       position: absolute;
       margin: 0px auto;
-    "
-    :src="langit"
-    alt=""
-  />
-  <div
-    class="container-dua d-flex"
-    style="justify-content: space-between; z-index: 1000; margin: 40px"
-  >
+    " :src="langit" alt="" />
+  <div class="container-dua d-flex" style="justify-content: space-between; z-index: 1000; margin: 40px">
     <router-link to="/">
-      <div class="d-flex text-primary" v-html="logo"
-    /></router-link>
+      <div class="d-flex text-primary" v-html="logo" />
+    </router-link>
     <div>
-      <ul
-        style="
+      <ul style="
           color: aliceblue;
           display: flex;
           list-style: none;
           min-width: 5px;
           margin: 5px auto;
-        "
-      >
+        ">
         <li class="listNavbar" style="margin: 10px">Home</li>
         <li class="listNavbar" style="margin: 10px">Edukasi</li>
         <li class="listNavbar" style="margin: 10px">Berita</li>
@@ -87,8 +77,8 @@ onMounted(() => {
   </div>
   <div style="z-index: 100; margin-top: 80px">
     <center>
-      <h4 style="color: white; font-size: 3vw">SELAMAT DATANG DI</h4>
-      <strong style="color: white; font-size: 6vw">POSYANDU MELATI</strong>
+      <p class="text-white">Selamat Datang Di</p>
+      <h1 class="text-white">POSYANDU MELATI</h1>
     </center>
   </div>
   <!-- CARD 3 -->
@@ -97,49 +87,28 @@ onMounted(() => {
       <VRow>
         <!-- 👉 Profit -->
         <VCol cols="12" md="4">
-          <CardStatisticsVertical
-            href=""
-            v-bind="{
-              title: 'Jumlah Berita',
-              image: iconBeritaAcara,
-              stats: statBerita,
-            }"
-          />
+          <CardStatisticsVertical href="" v-bind="{
+            title: 'Jumlah Berita',
+            image: iconBeritaAcara,
+            stats: statBerita,
+          }" />
         </VCol>
 
         <!-- 👉 Sales -->
         <VCol cols="12" md="4">
-          <CardStatisticsVertical
-            href=""
-            v-bind="{
-              title: 'Jumlah Edukasi',
-              image: iconEdukasi,
-              stats: statEdukasi,
-            }"
-          />
+          <CardStatisticsVertical href="" v-bind="{
+            title: 'Jumlah Edukasi',
+            image: iconEdukasi,
+            stats: statEdukasi,
+          }" />
         </VCol>
         <VCol cols="12" md="4">
-          <CardStatisticsVertical
-            href=""
-            v-bind="{
-              title: 'Jumlah Galeri',
-              image: iconTentangPosyandu,
-              stats: statGambar,
-            }"
-          />
+          <CardStatisticsVertical href="" v-bind="{
+            title: 'Jumlah Galeri',
+            image: iconTentangPosyandu,
+            stats: statGambar,
+          }" />
         </VCol>
-        <!-- 👉 Profit -->
-
-        <!-- 👉 Sales -->
-        <!-- <VCol cols="12" md="4">
-          <CardStatisticsVertical
-          v-bind="{
-              title: 'Jumlah Gambar',
-              image: info,
-              stats: jumlahPengurus,
-            }"
-            />
-          </VCol> -->
       </VRow>
     </VCol>
     <Sambutan />
@@ -164,9 +133,8 @@ onMounted(() => {
   color: #5468ff;
 }
 
-#gambarPosyandu:hover {
-  filter: brightness(0.7);
-  text-shadow: 2px 2px 4px #000000;
+#gambarPosyandu {
+  filter: brightness(0.8);
 }
 
 /* card 3 */

@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->foreign('id_bayi')->references('id')->on('bayi')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('tahun_penimbangan');
             $table->integer('bulan_penimbangan');
-            $table->integer('berat_badan')->nullable();
+            $table->float('berat_badan')->nullable();
             $table->string('ntob')->nullable();
             $table->string('asi_eksklusif')->nullable();
             $table->timestamps();

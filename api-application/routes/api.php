@@ -81,6 +81,7 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
      * Endpoint untuk format-a
      * 
      */
+    Route::get('/get-tahun', [FormatAController::class, 'getTahun']);
     Route::get('/format-a', [FormatAController::class, 'get']);
     Route::post('/format-a', [FormatAController::class, 'post']);
     Route::put('/format-a', [FormatAController::class, 'put']);
