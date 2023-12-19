@@ -128,12 +128,78 @@ class FormatBAController extends Controller
                 }
             }
 
+            $dataWHO = \DB::table('standar_deviasi')->select(
+                'sangat_kurus',
+                'kurus',
+                'normal_kurus',
+                'baik',
+                'normal_gemuk',
+                'gemuk',
+                'sangat_gemuk'
+            )->where('id_berat_untuk_umur', [1, 2][$bayi->jenis_kelamin == 'L'])
+                ->limit(6)->get();
+
+            $series = [
+                [
+                    "name" => "Terlalu Kurus, butuh penanganan",
+                    "data" => $dataWHO->map(function ($item) {
+                        return $item->sangat_kurus;
+                    }),
+                ],
+                [
+                    "name" => "Berat Kurus",
+                    "data" => $dataWHO->map(function ($item) {
+                        return $item->kurus;
+                    }),
+                ],
+                [
+                    "name" => "Berat Normal",
+                    "data" => $dataWHO->map(function ($item) {
+                        return $item->normal_kurus;
+                    }),
+                ],
+                [
+                    "name" => "Berat Baik",
+                    "data" => $dataWHO->map(function ($item) {
+                        return $item->baik;
+                    }),
+                ],
+                [
+                    "name" => "Berat Normal",
+                    "data" => $dataWHO->map(function ($item) {
+                        return $item->normal_gemuk;
+                    }),
+                ],
+                [
+                    "name" => "Berat Gemuk",
+                    "data" => $dataWHO->map(function ($item) {
+                        return $item->gemuk;
+                    }),
+                ],
+                [
+                    "name" => "Terlalu Gemuk, butuh penanganan",
+                    "data" => $dataWHO->map(function ($item) {
+                        return $item->sangat_gemuk;
+                    }),
+                ],
+            ];
+            $category = [
+                "0",
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+            ];
+
             /**
              * Mengembalikan response sesuai request
              * 
              */
             return response()->json([
                 "bayi" => $bayi,
+                "series" => $series,
+                "category" => $category,
                 "penimbangan" => $list_penimbangan,
             ])->setStatusCode(200);
         }
@@ -269,7 +335,7 @@ class FormatBAController extends Controller
          * 
          */
         $data = $request->validated();
-        $data['berat_badan'] = intval($data['berat_badan']);
+        $data['berat_badan'] = floatval($data['berat_badan']);
 
         /**
          * Mengambil tahun dan bulan dari data judul
