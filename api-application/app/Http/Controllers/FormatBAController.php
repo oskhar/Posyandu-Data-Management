@@ -161,8 +161,7 @@ class FormatBAController extends Controller
             'bayi.jenis_kelamin',
             'penimbangan.berat_badan',
             'penimbangan.ntob',
-            'penimbangan.asi_eksklusif',
-            'bayi.tanggal_lahir'
+            'penimbangan.asi_eksklusif'
         )
             ->selectRaw('(' . $data['tahun'] . ' - YEAR(bayi.tanggal_lahir)) * 12 + ' . $data['bulan'] . ' - MONTH(bayi.tanggal_lahir) as umur')
             ->leftJoin('format_b', function ($join) {

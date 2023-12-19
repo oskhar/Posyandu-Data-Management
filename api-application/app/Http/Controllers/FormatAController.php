@@ -193,23 +193,18 @@ class FormatAController extends Controller
             'format_a' => $formatA,
         ])->setStatusCode(200);
     }
-    public function getTahun(): JsonResponse
+    public function getListTahun(): JsonResponse
     {
         /**
          * Mendapatkan seluruh tahun lahir yang bisa dipilih
          * 
          */
-        $today = now(); // Mengambil tanggal hari ini
-        $limaBulanLalu = $today->subMonths(5); // Mengurangkan 5 bulan dari tanggal hari ini
-
         $listTahunLahir = BayiModel::selectRaw('YEAR(tanggal_lahir) as tahun_lahir')
-            ->where('tanggal_lahir', '<=', $limaBulanLalu)
             ->orderByDesc('tanggal_lahir')
             ->distinct()
             ->pluck('tahun_lahir');
 
         $listTahunLahir = $listTahunLahir->toArray();
-
         return response()->json(
             $listTahunLahir,
         )->setStatusCode(200);
