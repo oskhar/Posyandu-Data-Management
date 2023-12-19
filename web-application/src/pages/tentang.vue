@@ -17,6 +17,7 @@ export default {
       posyanduImg: posyanduImg,
       posyandu: ref([]),
       langit: langit,
+      isUpload: false,
     };
   },
   methods: {
@@ -60,6 +61,7 @@ export default {
     },
     async putData() {
       try {
+        this.isUpload = true;
         const data = {
           nama_posyandu: this.posyandu.nama_posyandu,
           kota: this.posyandu.kota,
@@ -81,6 +83,7 @@ export default {
             },
           }
         );
+        this.isUpload = false;
         if (response.data.success) {
           Swal.fire({
             toast: true,
@@ -117,6 +120,23 @@ export default {
 </script>
 
 <template>
+  <VRow
+    v-if="isUpload"
+    style="
+      position: fixed;
+      z-index: 1;
+      right: 50px;
+      bottom: 50px;
+      background-color: azure;
+      padding: 1rem;
+      padding-block: 5px;
+      border-radius: 5px;
+    "
+  >
+    <font>Menyimpan... </font>
+    <VProgressCircular indeterminate color="primary" class="ml-3 float-center">
+    </VProgressCircular>
+  </VRow>
   <VRow>
     <div class="d-flex w-100 align-content-center">
       <VRow class="mx-1">

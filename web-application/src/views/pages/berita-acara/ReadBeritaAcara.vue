@@ -16,6 +16,23 @@
     <VProgressCircular indeterminate color="primary" class="ml-3 float-center">
     </VProgressCircular>
   </VRow>
+  <VRow
+    v-if="isDelete"
+    style="
+      position: fixed;
+      z-index: 1;
+      right: 50px;
+      bottom: 50px;
+      background-color: azure;
+      padding: 1rem;
+      padding-block: 5px;
+      border-radius: 5px;
+    "
+  >
+    <font>Menghapus... </font>
+    <VProgressCircular indeterminate color="primary" class="ml-3 float-center">
+    </VProgressCircular>
+  </VRow>
   <VRow>
     <VCol cols="12" md="12" sm="12" v-if="isLoading" class="text-center">
       <VProgressCircular
@@ -200,6 +217,7 @@ export default {
       banyakPage: 0,
       isLoading: false,
       isUpload: false,
+      isDelete: false,
     };
   },
 
@@ -287,6 +305,7 @@ export default {
         denyButtonText: "Hapus",
       });
       if (ask.isDenied) {
+        this.isDelete = true;
         const response = await axios.delete(
           `${this.urlServer}/api/berita?id_berita=${id_berita}`,
           {
@@ -295,6 +314,7 @@ export default {
             },
           }
         );
+        this.isDelete = false;
         if (response.data.success) {
           Swal.fire({
             toast: true,
