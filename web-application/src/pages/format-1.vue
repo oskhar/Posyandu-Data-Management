@@ -312,6 +312,7 @@
                                     v-model="item.berat_lahir"
                                     placeholder="Masukkan Berat Lahir"
                                     persistent-placeholder
+                                    type="number"
                                   />
                                 </VCol>
                               </VRow>

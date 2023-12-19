@@ -218,17 +218,8 @@ export default {
           },
         }
       );
-      const response2 = await axios.get(`${config.urlServer}/api/get-tahun`, {
-        headers: {
-          Authorization: localStorage.getItem("tokenAuth"),
-        },
-      });
-
-      this.listTahunLahir = response2.data;
-
+      this.jumlahData = response.data.jumlah_data;
       this.dataFormatBA = response.data.format_ba;
-      // console.log(this.dataFormatBA);
-      console.log(this.listTahunLahir);
       this.isLoading = false;
       return response;
     },
@@ -243,8 +234,12 @@ export default {
     this.judulFormatA = response.data.judul_format;
     this.namaPosyandu = response.data.nama_posyandu;
     this.kota = response.data.kota;
-    this.listTahunLahir = response.data.list_tahun_lahir;
-    console.log(this.listTahunLahir);
+    const response2 = await axios.get(`${config.urlServer}/api/listtahun`, {
+      headers: {
+        Authorization: localStorage.getItem("tokenAuth"),
+      },
+    });
+    this.listTahunLahir = response2.data;
   },
 };
 </script>

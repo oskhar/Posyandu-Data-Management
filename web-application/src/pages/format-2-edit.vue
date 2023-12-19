@@ -49,6 +49,7 @@
                   <VCol cols="12" sm="3">
                     <VTextField
                       v-model="dataEdit.penimbangan[index].berat_badan"
+                      type="number"
                       label="Berat Badan"
                       placeholder="Masukkan Berat Badan"
                     />
@@ -378,6 +379,7 @@ export default {
           icon: "error",
           title: "Format Salah",
         });
+        console.log(error);
       }
       this.isLoading[index] = false;
     },

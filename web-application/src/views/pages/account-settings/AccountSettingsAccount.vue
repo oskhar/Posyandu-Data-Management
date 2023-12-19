@@ -199,6 +199,7 @@ export default {
                 <VTextField
                   v-model="dataAdmin.no_telp"
                   label="Nomor Telepon"
+                  type="number"
                   placeholder="858 8888 5555"
                   prefix="+62"
                 />
@@ -220,23 +221,6 @@ export default {
                   label="Tanggal Lahir"
                   placeholder=""
                   type="date"
-                />
-              </VCol>
-              <VCol cols="12" md="6">
-                <VSelect
-                  v-model="dataAdmin.id_jabatan"
-                  label="Jabatan"
-                  :items="[
-                    { title: 'PELINDUNG', value: 1 },
-                    { title: 'PENANGGUNG JAWAB', value: 2 },
-                    { title: 'SEKRETARIS', value: 3 },
-                    { title: 'BENDAHARA', value: 4 },
-                    { title: 'PENDAFTARAN', value: 5 },
-                    { title: 'PENIMBANGAN', value: 6 },
-                    { title: 'PENCATATAN', value: 7 },
-                    { title: 'PENYULUHAN', value: 8 },
-                  ]"
-                  placeholder="Select Country"
                 />
               </VCol>
 
