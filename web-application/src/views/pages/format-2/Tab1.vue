@@ -2,16 +2,10 @@
   <VRow>
     <VCol cols="12">
       <VCard>
-        <VProgressCircular
-          v-if="isLoading"
-          indeterminate
-          color="primary"
-          class="mt-5 float-center"
-          size="50"
-        >
+        <VProgressCircular v-if="isLoading" indeterminate color="primary" class="mt-5 float-center" size="50">
         </VProgressCircular>
         <VCardItem v-else style="min-height: 170px">
-          <h2>Info Bayi</h2>
+          <h2>{{ judulFormatBA }}</h2>
           <h3 class="text-secondary mt-5">{{ namaPosyandu }} - {{ kota }}</h3>
         </VCardItem>
         <VCardItem>
@@ -49,20 +43,10 @@
             </thead>
 
             <tbody>
-              <VProgressCircular
-                v-if="isLoading"
-                indeterminate
-                color="primary"
-                class="mt-5 float-center"
-                size="50"
-              >
+              <VProgressCircular v-if="isLoading" indeterminate color="primary" class="mt-5 float-center" size="50">
               </VProgressCircular>
 
-              <tr
-                v-else
-                v-for="(item, index) in dataFormatBA"
-                :key="item.dessert"
-              >
+              <tr v-else v-for="(item, index) in dataFormatBA" :key="item.dessert">
                 <td>
                   {{ (page - 1) * 20 + (index + 1) }}
                 </td>
@@ -83,11 +67,7 @@
                   {{ item.ntob }}
                 </td>
                 <td class="text-center">
-                  <VBtn
-                    color="primary"
-                    class="ml-2"
-                    :href="`/data/format-2-edit?id_bayi=${item.id_bayi}`"
-                  >
+                  <VBtn color="primary" class="ml-2" :href="`/data/format-2-edit?id_bayi=${item.id_bayi}`">
                     <v-icon>bx-edit</v-icon>
                   </VBtn>
                 </td>
@@ -100,16 +80,10 @@
   </VRow>
   <VRow>
     <VCol>
-      <font
-        >Jumlah data: <font class="text-primary">{{ jumlahData }}</font>
+      <font>Jumlah data: <font class="text-primary">{{ jumlahData }}</font>
       </font>
-      <v-pagination
-        class="float-right"
-        v-model="page"
-        :length="banyakPage"
-        :total-visible="4"
-        @click="fetchData"
-      ></v-pagination>
+      <v-pagination class="float-right" v-model="page" :length="banyakPage" :total-visible="4"
+        @click="fetchData"></v-pagination>
     </VCol>
   </VRow>
 </template>
@@ -133,14 +107,14 @@ export default {
       page: 1,
       banyakPage: 5,
       dataFormatBA: [],
-      judulFormatA: "",
+      judulFormatBA: "",
       namaPosyandu: "",
       kota: "",
       jumlahData: 0,
       jumlahLahiran: "",
       jumlahMeninggal: "",
       tahun: d.getFullYear(),
-      bulan: d.getMonth(),
+      bulan: d.getMonth() + 1,
       listTahunLahir: [d.getFullYear()],
       listBulanLahir: [
         { title: "Januari", value: 1 },
@@ -211,7 +185,7 @@ export default {
     async fetchData() {
       this.isLoading = true;
       const response = await axios.get(
-        `${config.urlServer}/api/format-ba?length=20&start=${this.page}&bulan=${this.bulan}&tahun=${this.tahun}&search=${this.dataSearch}`,
+        `${config.urlServer}/api/format-ba?length=20&start=${this.page}&bulan=${this.bulan}&tahun=${this.tahun}&search=${this.dataSearch}&tab=1`,
         {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
@@ -231,10 +205,10 @@ export default {
   async mounted() {
     const response = await this.fetchData();
     this.banyakPage = Math.ceil(response.data.jumlah_data / 20);
-    this.judulFormatA = response.data.judul_format;
+    this.judulFormatBA = response.data.judul_format;
     this.namaPosyandu = response.data.nama_posyandu;
     this.kota = response.data.kota;
-    const response2 = await axios.get(`${config.urlServer}/api/listtahun`, {
+    const response2 = await axios.get(`${config.urlServer}/api/listtahun?tab=1`, {
       headers: {
         Authorization: localStorage.getItem("tokenAuth"),
       },

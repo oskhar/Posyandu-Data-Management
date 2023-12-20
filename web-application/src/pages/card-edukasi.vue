@@ -2,19 +2,11 @@
   <!-- Teks berada di pojok kiri -->
   <v-row class="text-xs-left" style="margin-top: 150px">
     <v-col>
-      <strong
-        ><span
-          class="caption"
-          style="font-size: 30px; color: rgba(0, 0, 0, 0.781)"
-          >EDUKASI</span
-        ></strong
-      >
+      <strong><span class="caption" style="font-size: 30px; color: rgba(0, 0, 0, 0.781)">EDUKASI</span></strong>
 
       <p class="text-secondary">
-        <strong
-          >Informasi seputar EDUKASI POSYANDU MELATI akan di tampilkan di
-          sini</strong
-        >
+      <p>Informasi seputar EDUKASI POSYANDU MELATI akan di tampilkan di
+        sini</p>
       </p>
     </v-col>
   </v-row>
@@ -24,11 +16,7 @@
       <RouterLink to="./edukasi-guest">
         <VCard>
           <VImg :src="data.gambar" cover style="height: 200px">
-            <h2
-              v-if="data.gambar == urlServer + null"
-              class="text-center text-secondary"
-              style="margin-top: 25%"
-            >
+            <h2 v-if="data.gambar == urlServer + null" class="text-center text-secondary" style="margin-top: 25%">
               Tidak Ada Foto
             </h2>
           </VImg>
@@ -45,11 +33,7 @@
             <p>penulis: {{ data.nama_lengkap }}</p>
 
             <v-row justify="center">
-              <v-dialog
-                v-model="dialog[data.id_edukasi]"
-                persistent
-                width="1024"
-              >
+              <v-dialog v-model="dialog[data.id_edukasi]" persistent width="1024">
               </v-dialog>
             </v-row>
           </VCardText>
@@ -58,10 +42,7 @@
     </VCol>
   </V-row>
   <div class="mt-1 mb-4">
-    <RouterLink
-      class="text-primary my-3 float-right"
-      to="selengkapnya-card-edukasi"
-    >
+    <RouterLink class="text-primary my-3 float-right" to="selengkapnya-card-edukasi">
       Selengkapnya
     </RouterLink>
   </div>

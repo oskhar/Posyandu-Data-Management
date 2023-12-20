@@ -4,12 +4,7 @@
       <VCol cols="12">
         <VCard>
           <VCardItem>
-            <VueApexCharts
-              type="line"
-              height="530"
-              :options="chartOptions"
-              :series="series"
-            />
+            <VueApexCharts type="line" height="530" :options="chartOptions" :series="series" />
           </VCardItem>
         </VCard>
       </VCol>
@@ -37,8 +32,8 @@
                   BB Saat Lahir :<font class="float-right">
                     {{
                       dataEdit.bayi.berat_lahir
-                        ? dataEdit.bayi.berat_lahir + " KG"
-                        : "-"
+                      ? dataEdit.bayi.berat_lahir + " KG"
+                      : "-"
                     }}
                   </font>
                 </p>
@@ -47,49 +42,27 @@
                 <h4 class="my-5">{{ item.judul }}</h4>
                 <VRow>
                   <VCol cols="12" sm="6" md="3">
-                    <VTextField
-                      v-model="dataEdit.penimbangan[index].berat_badan"
-                      type="number"
-                      label="Berat Badan"
-                      placeholder="Masukkan Berat Badan"
-                    />
+                    <VTextField v-model="dataEdit.penimbangan[index].berat_badan" type="number" label="Berat Badan"
+                      placeholder="Masukkan Berat Badan" />
                   </VCol>
-                  <VCol cols="12" sm="6" md="3">
-                    <VSelect
-                      v-model="dataEdit.penimbangan[index].asi_eksklusif"
-                      label="Asi Eksklusif"
-                      placeholder="Masukkan Asi Ekslusif"
-                      :items="['Ya', 'Tidak', 'Alpa']"
-                    />
+                  <VCol v-if="index < 23" cols="12" sm="6" md="3">
+                    <VSelect v-model="dataEdit.penimbangan[index].asi_eksklusif" label="Asi Eksklusif"
+                      placeholder="Masukkan Asi Ekslusif" :items="['Ya', 'Tidak', 'Alpa']" />
                   </VCol>
                   <VCol cols="12" sm="12" md="6">
-                    <VTextField
-                      v-model="dataEdit.penimbangan[index].ntob"
-                      label="N/T/O/B & BGM"
-                      disabled
-                    />
+                    <VBtn class="text-none text-subtitle-1" color="black">{{ dataEdit.penimbangan[index].ntob }}</VBtn>
                   </VCol>
                   <VCol cols="12" md="9" class="d-flex gap-4">
-                    <VBtn
-                      :disabled="isLoading[index]"
-                      type="submit"
-                      :id="index"
-                      @click="
-                        submitData(
-                          dataEdit.penimbangan[index].berat_badan,
-                          dataEdit.penimbangan[index].asi_eksklusif,
-                          dataEdit.penimbangan[index].ntob,
-                          dataEdit.penimbangan[index].judul,
-                          index
-                        )
-                      "
-                    >
-                      <VProgressCircular
-                        v-if="isLoading[index]"
-                        indeterminate
-                        color="white"
-                        :for="index"
-                      >
+                    <VBtn :disabled="isLoading[index]" type="submit" :id="index" @click="
+                      submitData(
+                        dataEdit.penimbangan[index].berat_badan,
+                        dataEdit.penimbangan[index].asi_eksklusif,
+                        dataEdit.penimbangan[index].ntob,
+                        dataEdit.penimbangan[index].judul,
+                        index
+                      )
+                      ">
+                      <VProgressCircular v-if="isLoading[index]" indeterminate color="white" :for="index">
                       </VProgressCircular>
 
                       <font v-else>Submit</font>
@@ -110,7 +83,6 @@ import VueApexCharts from "vue3-apexcharts";
 import axios from "axios";
 import config from "@/@core/config.vue";
 import Swal from "sweetalert2";
-import { ref } from "vue";
 
 export default {
   components: {
@@ -124,8 +96,8 @@ export default {
         chart: {
           height: 350,
           type: "line",
-          toolbar: {
-            show: false,
+          zoom: {
+            enabled: false
           },
         },
         colors: [
@@ -136,36 +108,32 @@ export default {
           "#4CAF50", // rgb(var(--v-theme-success))
           "#FFC107", // rgb(var(--v-theme-warning))
           "#FF5252", // rgb(var(--v-theme-error))
+          "#696CFF",
         ],
-        grid: {
-          borderColor: "#e7e7e7",
-          row: {
-            colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
-            opacity: 0.5,
-          },
-        },
         markers: {
           size: 1,
         },
         xaxis: {
-          categories: ["0", "1", "2", "3", "4", "5"],
           title: {
-            text: "Bulan",
+            text: "Umur Bayi (bulan)",
           },
+          categories: this.categories,
+          labels: {
+            formatter: (value) => {
+              return `${value - 1}`
+            },
+          }
+        },
+        markers: {
+          size: 6,
         },
         yaxis: {
           title: {
-            text: "Berat Badan",
+            text: "Berat Badan (Kg)",
           },
           min: 0,
-          max: 11,
         },
         legend: {
-          position: "top",
-          horizontalAlign: "right",
-          floating: true,
-          offsetY: -25,
-          offsetX: -5,
         },
       },
       dataEdit: {
@@ -248,6 +216,7 @@ export default {
             title: response.data.success.message,
           });
         }
+        this.fetchData();
       } catch (error) {
         Swal.fire({
           toast: true,

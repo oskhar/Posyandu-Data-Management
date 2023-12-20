@@ -1,19 +1,12 @@
 <template>
   <v-row class="text-xs-left" style="margin-top: 150px">
     <v-col>
-      <strong
-        ><span
-          class="caption"
-          style="font-size: 30px; color: rgba(0, 0, 0, 0.781)"
-          >BERITA & ACARA</span
-        ></strong
-      >
+      <strong><span class="caption" style="font-size: 30px; color: rgba(0, 0, 0, 0.781)">BERITA &
+          ACARA</span></strong>
 
       <p class="text-secondary">
-        <strong
-          >Informasi seputar BERITA & ACARA POSYANDU MELATI akan di tampilkan di
-          sini</strong
-        >
+      <p>Informasi seputar BERITA & ACARA POSYANDU MELATI akan di tampilkan di
+        sini</p>
       </p>
     </v-col>
   </v-row>
@@ -24,11 +17,7 @@
       <RouterLink to="./berita-acara-guest">
         <VCard>
           <VImg :src="data.gambar" cover style="height: 280px">
-            <h2
-              v-if="data.gambar == urlServer + null"
-              class="text-center text-secondary"
-              style="margin-top: 25%"
-            >
+            <h2 v-if="data.gambar == urlServer + null" class="text-center text-secondary" style="margin-top: 25%">
               Tidak Ada Foto
             </h2>
           </VImg>
@@ -44,11 +33,7 @@
             </p>
 
             <v-row justify="center">
-              <v-dialog
-                v-model="dialog[data.id_berita]"
-                persistent
-                width="1024"
-              >
+              <v-dialog v-model="dialog[data.id_berita]" persistent width="1024">
                 <v-card>
                   <v-card-title>
                     <div class="text-h5">Edit</div>
@@ -57,66 +42,32 @@
                     <v-container>
                       <v-row>
                         <v-col cols="12">
-                          <VTextField
-                            id="judul"
-                            v-model="data.judul"
-                            placeholder="Masukkan Judul"
-                            persistent-placeholder
-                          />
+                          <VTextField id="judul" v-model="data.judul" placeholder="Masukkan Judul"
+                            persistent-placeholder />
                         </v-col>
                         <v-col cols="12">
-                          <VTextarea
-                            id="deskripsi"
-                            v-model="data.deskripsi"
-                            placeholder="Masukkan Isi Materi"
-                            persistent-placeholder
-                          />
+                          <VTextarea id="deskripsi" v-model="data.deskripsi" placeholder="Masukkan Isi Materi"
+                            persistent-placeholder />
                         </v-col>
                         <VCol cols="12">
-                          <VTextField
-                            type="date"
-                            id="tanggal"
-                            v-model="data.tanggal_pelaksanaan"
-                            placeholder="Masukkan tanggal"
-                            persistent-placeholder
-                          />
+                          <VTextField type="date" id="tanggal" v-model="data.tanggal_pelaksanaan"
+                            placeholder="Masukkan tanggal" persistent-placeholder />
                         </VCol>
                         <v-col cols="12"> </v-col>
                         <VCol cols="12" md="9">
                           <div class="d-flex flex-column justify-center gap-5">
                             <div class="d-flex flex-wrap gap-2">
-                              <VBtn
-                                id="gambar"
-                                color="primary"
-                                @click="inputGambar"
-                              >
-                                <VIcon
-                                  icon="bx-cloud-upload"
-                                  class="d-sm-none"
-                                />
-                                <span class="d-none d-sm-block"
-                                  >Upload foto baru</span
-                                >
+                              <VBtn id="gambar" color="primary" @click="inputGambar">
+                                <VIcon icon="bx-cloud-upload" class="d-sm-none" />
+                                <span class="d-none d-sm-block">Upload foto baru</span>
                               </VBtn>
 
-                              <input
-                                id="inputGambar"
-                                :ref="data.refInput"
-                                type="file"
-                                name="file"
-                                accept=".jpeg,.png,.jpg"
-                                hidden
-                                @change="changeAvatar($event, index)"
-                              />
+                              <input id="inputGambar" :ref="data.refInput" type="file" name="file"
+                                accept=".jpeg,.png,.jpg" hidden @change="changeAvatar($event, index)" />
                             </div>
                           </div>
-                          <VAvatar
-                            rounded="lg"
-                            size="200"
-                            class="me-1 mt-3"
-                            :image="data.gambar"
-                            v-show="data.gambar !== ''"
-                          />
+                          <VAvatar rounded="lg" size="200" class="me-1 mt-3" :image="data.gambar"
+                            v-show="data.gambar !== ''" />
                         </VCol>
                       </v-row>
                     </v-container>
@@ -130,10 +81,7 @@
     </VCol>
   </VRow>
   <div class="mt-1 mb-4">
-    <RouterLink
-      class="text-primary my-3 float-right"
-      to="selengkapnya-card-beritaacara"
-    >
+    <RouterLink class="text-primary my-3 float-right" to="selengkapnya-card-beritaacara">
       Selengkapnya
     </RouterLink>
   </div>

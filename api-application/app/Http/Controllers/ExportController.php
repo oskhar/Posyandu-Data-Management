@@ -40,4 +40,19 @@ class ExportController extends Controller
          */
         return Excel::download(new FormatAExport($request->tahun), $namaFileExcel);
     }
+    public function exportFormatBAExcel(Request $request)
+    {
+
+        /**
+         * Mengatur nama file excel yang akan diexport
+         * 
+         */
+        $namaFileExcel = 'Format-1.' . $this->currentTime . '.xlsx';
+
+        /**
+         * Menggunakan Excel::download untuk menghasilkan response
+         * 
+         */
+        return Excel::download(new FormatAExport($request->tahun), $namaFileExcel);
+    }
 }

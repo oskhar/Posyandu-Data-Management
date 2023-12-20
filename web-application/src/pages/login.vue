@@ -26,6 +26,9 @@ const login = async (formLogin) => {
       "foto_profile",
       config.imagePath + response.data.foto_profile
     );
+    localStorage.setItem("nama_lengkap", response.data.nama_lengkap);
+    localStorage.setItem("jabatan", response.data.jabatan);
+
 
     window.location.href = "/dashboard";
   } catch (error) {
@@ -71,33 +74,19 @@ const isPasswordVisible = ref(false);
           <VRow>
             <!-- email -->
             <VCol cols="12">
-              <VTextField
-                v-model="form.email"
-                autofocus
-                placeholder="posyandu@email.com"
-                label="Email"
-                type="email"
-              />
+              <VTextField v-model="form.email" autofocus placeholder="posyandu@email.com" label="Email" type="email" />
             </VCol>
 
             <!-- password -->
             <VCol cols="12">
-              <VTextField
-                class="mb-5"
-                v-model="form.password"
-                label="Password"
-                placeholder="············"
+              <VTextField class="mb-5" v-model="form.password" label="Password" placeholder="············"
                 :type="isPasswordVisible ? 'text' : 'password'"
                 :append-inner-icon="isPasswordVisible ? 'bx-hide' : 'bx-show'"
-                @click:append-inner="isPasswordVisible = !isPasswordVisible"
-              />
+                @click:append-inner="isPasswordVisible = !isPasswordVisible" />
 
               <!-- remember me checkbox -->
               <div class="mt-1 mb-4">
-                <RouterLink
-                  class="text-primary ms-2 mb-1"
-                  to="javascript:void(0)"
-                >
+                <RouterLink class="text-primary ms-2 mb-1" to="javascript:void(0)">
                   Lupa Password?
                 </RouterLink>
               </div>

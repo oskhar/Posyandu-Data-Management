@@ -78,6 +78,11 @@ class AuthController extends Controller
          */
         $token = $admin->createToken('personal_access_tokens', ['server:update'], null)->plainTextToken;
 
+        $admin = AdminModel::select('admin.id', 'jabatan.nama as nama_jabatan', 'admin.foto_profile', 'admin.nama_lengkap')
+            ->join('jabatan', 'jabatan.id', 'admin.id_jabatan')
+            ->where('email_admin', $data['email_admin'])
+            ->first();
+
         /**
          * Kembalikan response yang sesuai
          * 
@@ -88,6 +93,8 @@ class AuthController extends Controller
             ],
             'id_admin' => $admin->id,
             'foto_profile' => $admin->foto_profile,
+            'nama_lengkap' => $admin->nama_lengkap,
+            'jabatan' => $admin->nama_jabatan,
             'token' => $token
         ])->setStatusCode(200);
     }
@@ -136,13 +143,17 @@ class AuthController extends Controller
          */
         $data = $request->validated();
 
-        $level_jabatan = JabatanModel::select('jabatan.level')->join('admin', 'admin.id', Auth::user()->id)->first()->level;
+        $level_jabatan = AdminModel::select('jabatan.level')
+            ->where('admin.id', Auth::user()->id)
+            ->join('jabatan', 'admin.id_jabatan', 'jabatan.id')
+            ->first()
+            ->level;
 
         /**
          * Memeriksa apakah dia diijikan dengan jabatannya
          * 
          */
-        if ($level_jabatan < 3) {
+        if ($level_jabatan > 3) {
             throw new HttpResponseException(response()->json([
                 'errors' => [
                     'message' => 'Anda tidak memiliki wewenang yang sah!'

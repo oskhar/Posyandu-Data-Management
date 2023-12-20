@@ -26,6 +26,7 @@ class FormatBARequest extends CoreRequest
                     'id_bayi' => 'nullable|integer',
                     'tahun' => 'nullable',
                     'bulan' => 'nullable',
+                    'tab' => 'nullable',
                     'search' => 'nullable',
                     'start' => 'nullable|integer',
                     'length' => 'nullable|integer',

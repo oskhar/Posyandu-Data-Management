@@ -1,8 +1,5 @@
 <template>
-  <v-footer
-    class="bg-indigo-lighten-1 text-center d-flex flex-column bg-primary"
-    style="margin-top: 100px"
-  >
+  <v-footer class="bg-indigo-lighten-1 text-center d-flex flex-column bg-primary mt-5">
     <div class="pt-0">
       Alamat Posyandu
       <p>

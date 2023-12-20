@@ -48,49 +48,43 @@ onMounted(() => {
   <navbarGuest />
 
   <!-- CARD 3 -->
-  <div class="container" style="margin-top: 200px">
+  <div class="container">
     <VCol cols="12" sm="12">
       <VRow>
         <!-- 👉 Profit -->
         <VCol cols="12" md="4">
-          <CardStatisticsVertical
-            href=""
-            v-bind="{
-              title: 'Jumlah Berita',
-              image: iconBeritaAcara,
-              stats: statBerita,
-            }"
-          />
+          <CardStatisticsVertical href="" v-bind="{
+            title: 'Jumlah Berita',
+            image: iconBeritaAcara,
+            stats: statBerita,
+          }" />
         </VCol>
 
         <!-- 👉 Sales -->
         <VCol cols="12" md="4">
-          <CardStatisticsVertical
-            href=""
-            v-bind="{
-              title: 'Jumlah Edukasi',
-              image: iconEdukasi,
-              stats: statEdukasi,
-            }"
-          />
+          <CardStatisticsVertical href="" v-bind="{
+            title: 'Jumlah Edukasi',
+            image: iconEdukasi,
+            stats: statEdukasi,
+          }" />
         </VCol>
         <VCol cols="12" md="4">
-          <CardStatisticsVertical
-            href=""
-            v-bind="{
-              title: 'Jumlah Galeri',
-              image: iconTentangPosyandu,
-              stats: statGambar,
-            }"
-          />
+          <CardStatisticsVertical href="" v-bind="{
+            title: 'Jumlah Galeri',
+            image: iconTentangPosyandu,
+            stats: statGambar,
+          }" />
         </VCol>
       </VRow>
     </VCol>
-    <Sambutan />
-    <cardEdukasi />
-    <cardBeritaAcara />
-    <!-- <tentangGuest /> -->
-    <cardGaleri />
+    <Sambutan class="mb-5" />
+    <VCard>
+      <VCardItem>
+        <cardEdukasi />
+        <cardBeritaAcara />
+        <cardGaleri />
+      </VCardItem>
+    </VCard>
   </div>
   <footerGuest />
 </template>

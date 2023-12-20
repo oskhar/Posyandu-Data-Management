@@ -1,82 +1,65 @@
 <template>
-  <div class="container">
-    <v-row class="text-xs-left" style="margin-top: 20px">
-      <v-col>
-        <strong
-          ><span
-            class="caption"
-            style="font-size: 30px; color: rgba(0, 0, 0, 0.781)"
-            >EDUKASI</span
-          ></strong
-        >
+  <VCard>
+    <VCardItem>
+      <div class="container">
+        <v-row class="text-xs-left" style="margin-top: 20px">
+          <v-col>
+            <strong><span class="caption" style="font-size: 30px; color: rgba(0, 0, 0, 0.781)">EDUKASI</span></strong>
 
-        <p class="text-secondary">
-          <strong
-            >Informasi seputar EDUKASI POSYANDU MELATI akan di tampilkan di
-            sini</strong
-          >
-        </p>
-      </v-col>
-    </v-row>
+            <p class="text-secondary">
+            <p>Informasi seputar EDUKASI POSYANDU MELATI akan di tampilkan di
+              sini</p>
+            </p>
+          </v-col>
+        </v-row>
 
-    <V-row class="mt-5">
-      <VCol v-for="(data, index) in dataEdukasi" cols="12" sm="6" md="4">
-        <RouterLink to="./edukasi-guest">
-          <VCard>
-            <VImg :src="data.gambar" cover style="height: 200px">
-              <h2
-                v-if="data.gambar == urlServer + null"
-                class="text-center text-secondary"
-                style="margin-top: 25%"
-              >
-                Tidak Ada Foto
-              </h2>
-            </VImg>
+        <V-row class="mt-5">
+          <VCol v-for="(data, index) in dataEdukasi" cols="12" sm="6" md="4">
+            <RouterLink to="./edukasi-guest">
+              <VCard>
+                <VImg :src="data.gambar" cover style="height: 200px">
+                  <h2 v-if="data.gambar == urlServer + null" class="text-center text-secondary" style="margin-top: 25%">
+                    Tidak Ada Foto
+                  </h2>
+                </VImg>
 
-            <VCardItem>
-              <VCardTitle>{{ data.judul }}</VCardTitle>
-              <sup>{{ data.tanggal }}</sup>
-            </VCardItem>
+                <VCardItem>
+                  <VCardTitle>{{ data.judul }}</VCardTitle>
+                  <sup>{{ data.tanggal }}</sup>
+                </VCardItem>
 
-            <VCardText>
-              <p class="mb-4">
-                {{ data.overview }}
-              </p>
-              <p>penulis: {{ data.nama_lengkap }}</p>
+                <VCardText>
+                  <p class="mb-4">
+                    {{ data.overview }}
+                  </p>
+                  <p>penulis: {{ data.nama_lengkap }}</p>
 
-              <v-row justify="center">
-                <v-dialog
-                  v-model="dialog[data.id_edukasi]"
-                  persistent
-                  width="1024"
-                >
-                </v-dialog>
-              </v-row>
-            </VCardText>
-          </VCard>
-        </RouterLink>
-      </VCol>
-    </V-row>
+                  <v-row justify="center">
+                    <v-dialog v-model="dialog[data.id_edukasi]" persistent width="1024">
+                    </v-dialog>
+                  </v-row>
+                </VCardText>
+              </VCard>
+            </RouterLink>
+          </VCol>
+        </V-row>
 
-    <VRow>
-      <VCol>
-        <div class="text-center my-3 float-right">
-          <v-pagination
-            v-model="page"
-            :length="banyakPage"
-            :total-visible="5"
-            @click="fetchData"
-          ></v-pagination>
-        </div>
-        <RouterLink to="./">
-          <div>
-            <v-icon>bx-chevron-left</v-icon>
-            Kembali
-          </div>
-        </RouterLink>
-      </VCol>
-    </VRow>
-  </div>
+        <VRow>
+          <VCol>
+            <div class="text-center my-3 float-right">
+              <v-pagination v-model="page" :length="banyakPage" :total-visible="5" @click="fetchData"></v-pagination>
+            </div>
+            <RouterLink to="./">
+              <div>
+                <v-icon>bx-chevron-left</v-icon>
+                Kembali
+              </div>
+            </RouterLink>
+          </VCol>
+        </VRow>
+      </div>
+    </VCardItem>
+  </VCard>
 </template>
 
 <script>
@@ -202,6 +185,7 @@ export default {
   padding: 0 10px;
   margin: 30px;
 }
+
 .card-tiga {
   display: flex;
   justify-content: space-between;
