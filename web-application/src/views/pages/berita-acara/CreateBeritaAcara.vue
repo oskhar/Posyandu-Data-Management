@@ -14,7 +14,12 @@
                   </VCol>
 
                   <VCol cols="12" md="9">
-                    <VTextField id="judul" v-model="judul" placeholder="Masukkan Judul" persistent-placeholder />
+                    <VTextField
+                      id="judul"
+                      v-model="judul"
+                      placeholder="Masukkan Judul"
+                      persistent-placeholder
+                    />
                     <sup class="text-error">*wajib diisi</sup>
                     <br />
                     <sup class="text-error">*harus unik</sup>
@@ -30,8 +35,12 @@
                   </VCol>
 
                   <VCol cols="12" md="9">
-                    <VTextarea id="deskripsi" v-model="deskripsi" placeholder="Masukkan Isi Deskripsi"
-                      persistent-placeholder />
+                    <VTextarea
+                      id="deskripsi"
+                      v-model="deskripsi"
+                      placeholder="Masukkan Isi Deskripsi"
+                      persistent-placeholder
+                    />
                   </VCol>
                 </VRow>
               </VCol>
@@ -44,8 +53,13 @@
                   </VCol>
 
                   <VCol cols="12" md="9">
-                    <VTextField type="date" id="tanggalPelaksanaan" v-model="tanggal_pelaksanaan"
-                      placeholder="Masukkan tanggal" persistent-placeholder />
+                    <VTextField
+                      type="date"
+                      id="tanggalPelaksanaan"
+                      v-model="tanggal_pelaksanaan"
+                      placeholder="Masukkan tanggal"
+                      persistent-placeholder
+                    />
                     <sup class="text-error">*wajib diisi</sup>
                   </VCol>
                 </VRow>
@@ -59,22 +73,44 @@
                   <VCol cols="12" md="9">
                     <div class="d-flex flex-column justify-center gap-5">
                       <div class="d-flex flex-wrap gap-2">
-                        <VBtn id="gambar" color="primary" @click="refInputEl?.click()">
+                        <VBtn
+                          id="gambar"
+                          color="primary"
+                          @click="refInputEl?.click()"
+                        >
                           <VIcon icon="bx-cloud-upload" class="d-sm-none" />
-                          <span class="d-none d-sm-block">Upload new photo</span>
+                          <span class="d-none d-sm-block"
+                            >Upload new photo</span
+                          >
                         </VBtn>
 
-                        <input ref="refInputEl" type="file" name="file" accept=".jpeg,.png,.jpg" hidden
-                          @change="changeAvatar" />
+                        <input
+                          ref="refInputEl"
+                          type="file"
+                          name="file"
+                          accept=".jpeg,.png,.jpg"
+                          hidden
+                          @change="changeAvatar"
+                        />
 
-                        <VBtn type="reset" color="error" variant="tonal" @click="resetAvatar">
+                        <VBtn
+                          type="reset"
+                          color="error"
+                          variant="tonal"
+                          @click="resetAvatar"
+                        >
                           <span class="d-none d-sm-block">Reset</span>
                           <VIcon icon="bx-refresh" class="d-sm-none" />
                         </VBtn>
                       </div>
                     </div>
-                    <VAvatar rounded="lg" size="200" class="me-1 mt-3" :image="projectImageLocal.imageValue"
-                      v-show="projectImageLocal.imageValue !== ''" />
+                    <VAvatar
+                      rounded="lg"
+                      size="200"
+                      class="me-1 mt-3"
+                      :image="projectImageLocal.imageValue"
+                      v-show="projectImageLocal.imageValue !== ''"
+                    />
                   </VCol>
                 </VRow>
                 <!-- 👉 Upload Photo -->
@@ -83,7 +119,11 @@
               <!-- 👉 submit and reset button -->
               <VCol offset-md="3" cols="12" md="9" class="d-flex gap-4">
                 <VBtn type="submit" :disabled="isLoading">
-                  <VProgressCircular v-if="isLoading" indeterminate color="white">
+                  <VProgressCircular
+                    v-if="isLoading"
+                    indeterminate
+                    color="white"
+                  >
                   </VProgressCircular>
 
                   <font v-else>Submit</font>
@@ -189,9 +229,10 @@ export default {
           background: "rgb(var(--v-theme-error))",
           showConfirmButton: false,
           timerProgressBar: true,
-          timer: 4000,
+          timer: 5000,
           icon: "error",
-          title: "Judul dan Tanggal Pelaksanaan Tidak Boleh Kosong",
+          title:
+            "Judul dan Tanggal Pelaksanaan Tidak Boleh Kosong atau Judul Sama Seperti Yang Sudah Ada",
         });
       }
       isLoading.value = false;

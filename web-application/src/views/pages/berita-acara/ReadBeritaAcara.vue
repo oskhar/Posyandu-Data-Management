@@ -262,9 +262,10 @@ export default {
           background: "rgb(var(--v-theme-error))",
           showConfirmButton: false,
           timerProgressBar: true,
-          timer: 4000,
+          timer: 5000,
           icon: "error",
-          title: "Judul dan Tanggal Pelaksanaan Tidak Boleh Kosong",
+          title:
+            "Judul dan Tanggal Pelaksanaan Tidak Boleh Kosong atau Judul Sama Seperti Yang Sudah Ada",
         });
       }
       this.isUpload = false;
