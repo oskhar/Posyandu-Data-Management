@@ -124,6 +124,7 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/edukasi', [EdukasiController::class, 'get']);
+Route::get('/jumlah-bayi', [FormatAController::class, 'jumlah_bayi']);
 Route::get('/berita', [BeritaController::class, 'get']);
 Route::get('/gambar', [GambarController::class, 'get']);
 Route::get('/posyandu', [PosyanduController::class, 'get']);

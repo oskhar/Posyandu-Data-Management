@@ -50,6 +50,15 @@ const logout = async () => {
             <VDivider class="my-2" />
 
             <!-- 👉 Profile -->
+            <VListItem link to="/dashboard">
+              <template #prepend>
+                <VIcon class="me-2" icon="bx-home" size="22" />
+              </template>
+
+              <VListItemTitle>Dashboard</VListItemTitle>
+            </VListItem>
+
+            <!-- 👉 Profile -->
             <VListItem link to="/account-settings">
               <template #prepend>
                 <VIcon class="me-2" icon="bx-user" size="22" />
@@ -57,6 +66,9 @@ const logout = async () => {
 
               <VListItemTitle>Profile</VListItemTitle>
             </VListItem>
+
+            <!-- Divider -->
+            <VDivider class="my-2" />
 
             <!-- 👉 Logout -->
             <VListItem @click="logout">

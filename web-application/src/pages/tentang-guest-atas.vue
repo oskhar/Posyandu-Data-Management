@@ -17,7 +17,7 @@ export default {
 
 <template>
   <VRow>
-    <div class="w-100 align-content-center" style="margin-top: 150px">
+    <div class="w-100 align-content-center mt-5">
       <VRow class="mx-1">
         <VCol cols="12">
           <v-row justify="center">
@@ -68,7 +68,7 @@ export default {
         </VCardText>
       </VCol>
     </VCol>
-    <VCol md="4" sm="12">
+    <VCol cols="12" md="4" sm="12">
       <VCard class="pt-5">
         <img style="width: 250px; height: 250px; object-fit: cover; border-radius: 4px;" class="mx-auto d-block"
           :src="posyandu" alt="" />

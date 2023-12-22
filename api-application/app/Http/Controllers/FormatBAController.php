@@ -56,6 +56,7 @@ class FormatBAController extends Controller
                 'bayi.berat_lahir',
                 'format_b.keterangan',
             )
+                ->selectRaw('bayi.tanggal_lahir')
                 ->leftJoin('format_b', function ($join) {
                     $join->on('bayi.id', '=', 'format_b.id_bayi');
                 })
@@ -66,10 +67,8 @@ class FormatBAController extends Controller
 
                 $tanggal_lahir = Carbon::parse($bayi->tanggal_lahir);
 
-                // Mendapatkan tahun dan bulan bayi berumur 0 - 5 bulan
                 $tahun_bulan_bayi = [];
 
-                // Loop dari umur 0 hingga 5 bulan
                 for ($i = 0; $i < 60; $i++) {
                     $umur_bayi = $tanggal_lahir->copy()->addMonths($i);
                     $tahun_bulan_bayi[] = [
@@ -78,7 +77,6 @@ class FormatBAController extends Controller
                     ];
                 }
 
-                // Konversi hasil ke dalam format yang diinginkan
                 $list_waktu = [];
                 foreach ($tahun_bulan_bayi as $tahun_bulan) {
                     $list_waktu[] = $tahun_bulan['tahun'] . ' ' . $this->namaBulan[$tahun_bulan['bulan']];
@@ -92,6 +90,9 @@ class FormatBAController extends Controller
                     ]
                 ])->setStatusCode(400));
             }
+
+            $tanggal_lahir = explode('-', $bayi->tanggal_lahir);
+            $bayi->tanggal_lahir = $tanggal_lahir[2] . ' ' . $this->namaBulan[intval($tanggal_lahir[1])] . ' ' . $tanggal_lahir[0];
 
             /**
              * Mendapatkan data penimbangan
@@ -452,6 +453,7 @@ class FormatBAController extends Controller
          * 
          */
         $dataWHO = DB::table('standar_deviasi')->select(
+            'id',
             'sangat_kurus',
             'kurus',
             'normal_kurus',
@@ -461,6 +463,8 @@ class FormatBAController extends Controller
             'sangat_gemuk'
         )->where('id_berat_untuk_umur', $jenisKelamin == 'L' ? 1 : 2)
             ->where('umur_bulan', $umurBayi)->first();
+
+        $data['id_standar_deviasi'] = $dataWHO->id;
 
         /**
          * Mengambil standar deviasi dari WHO

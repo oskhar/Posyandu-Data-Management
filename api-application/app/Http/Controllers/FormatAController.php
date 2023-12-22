@@ -370,4 +370,16 @@ class FormatAController extends Controller
             ]
         ])->setStatusCode(200);
     }
+    public function jumlah_bayi(Request $request): JsonResponse
+    {
+        $jumlahBayi = BayiModel::count();
+
+        /**
+         * Mengembalikan response
+         * 
+         */
+        return response()->json(
+            $jumlahBayi
+        )->setStatusCode(200);
+    }
 }

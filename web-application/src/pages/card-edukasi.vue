@@ -1,18 +1,22 @@
 <template>
-  <!-- Teks berada di pojok kiri -->
   <v-row class="text-xs-left" style="margin-top: 150px">
     <v-col>
-      <strong><span class="caption" style="font-size: 30px; color: rgba(0, 0, 0, 0.781)">EDUKASI</span></strong>
-
+      <h2 class="caption">Penyuluhan <font class="text-primary">Edukasi</font>
+      </h2>
       <p class="text-secondary">
-      <p>Informasi seputar EDUKASI POSYANDU MELATI akan di tampilkan di
-        sini</p>
+        Informasi seputar EDUKASI POSYANDU MELATI akan di tampilkan di
+        sini
       </p>
     </v-col>
   </v-row>
 
   <V-row class="mt-5">
-    <VCol v-for="(data, index) in dataEdukasi" cols="12" sm="6" md="4">
+    <VCol v-if="dataEdukasi.length == 0" cols="12">
+      <center>
+        <h3 class="text-secondary">Belum ada edukasi..</h3>
+      </center>
+    </VCol>
+    <VCol v-else v-for="(data, index) in dataEdukasi" cols="12" md="4" lg="4">
       <RouterLink to="./edukasi-guest">
         <VCard>
           <VImg :src="data.gambar" cover style="height: 200px">
@@ -23,12 +27,17 @@
 
           <VCardItem>
             <VCardTitle>{{ data.judul }}</VCardTitle>
-            <sup>{{ data.tanggal }}</sup>
+            <sup>
+              <VIcon class="text-primary">bx-calendar</VIcon> {{ data.tanggal }}
+            </sup>
           </VCardItem>
 
           <VCardText>
-            <p class="mb-4">
+            <p v-if="data.overview" class="mb-4">
               {{ data.overview }}
+            </p>
+            <p v-else class="text-secodary">
+              ..
             </p>
             <p>penulis: {{ data.nama_lengkap }}</p>
 
@@ -41,11 +50,6 @@
       </RouterLink>
     </VCol>
   </V-row>
-  <div class="mt-1 mb-4">
-    <RouterLink class="text-primary my-3 float-right" to="selengkapnya-card-edukasi">
-      Selengkapnya
-    </RouterLink>
-  </div>
 </template>
 
 <script>

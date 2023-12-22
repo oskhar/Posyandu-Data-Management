@@ -64,7 +64,7 @@ class EdukasiController extends Controller
              * 
              */
             $edukasi->tanggal = explode(' ', $edukasi->tanggal)[0];
-            $edukasi->overview = strlen($edukasi->materi) > 45 ? substr($edukasi->materi, 0, 45) . "..." : $edukasi->materi;
+            $edukasi->overview = strlen($edukasi->materi) > 35 ? substr($edukasi->materi, 0, 35) . ".." : $edukasi->materi;
 
             /**
              * Mengembalikan nilai yang diminta
@@ -125,7 +125,7 @@ class EdukasiController extends Controller
              * 
              */
             $result->tanggal = explode(' ', $result->tanggal)[0];
-            $result->overview = strlen($result->materi) > 45 ? substr($result->materi, 0, 45) . "..." : $result->materi;
+            $result->overview = strlen($result->materi) > 35 ? substr($result->materi, 0, 35) . ".." : $result->materi;
             return $result;
 
         });

@@ -35,10 +35,18 @@ class PosyanduController extends Controller
          * Mengambil foto_profile ketua
          * 
          */
-        $posyandu->foto_profile_ketua = AdminModel::select('foto_profile', 'nama_lengkap', 'id_jabatan')
-            ->orderBy('id_jabatan')
-            ->first()
-            ->foto_profile;
+        $admin = AdminModel::select(
+            'admin.foto_profile',
+            'admin.nama_lengkap',
+            'jabatan.nama as nama_jabatan'
+        )
+            ->join('jabatan', 'jabatan.id', 'admin.id_jabatan')
+            ->orderBy('jabatan.level')
+            ->first();
+
+        $posyandu->foto_profile_ketua = $admin->foto_profile;
+        $posyandu->nama_lengkap_ketua = $admin->nama_lengkap;
+        $posyandu->jabatan_ketua = $admin->nama_jabatan;
 
         /**
          * Memeberikan data yang diminta

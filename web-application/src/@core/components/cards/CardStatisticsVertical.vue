@@ -30,11 +30,6 @@ const props = defineProps({
       <h5 class="text-h5 text-no-wrap mb-3">
         {{ props.stats }}
       </h5>
-      <span
-        :class="isPositive ? 'text-success' : 'text-error'"
-        class="d-flex align-center gap-1 text-sm"
-      >
-      </span>
     </VCardText>
   </VCard>
 </template>

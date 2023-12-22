@@ -65,7 +65,7 @@ class BeritaController extends Controller
              * 
              */
             $berita->tanggal = explode(' ', $berita->tanggal)[0];
-            $berita->overview = strlen($berita->deskripsi) > 45 ? substr($berita->deskripsi, 0, 45) . "..." : $berita->deskripsi;
+            $berita->overview = strlen($berita->deskripsi) > 35 ? substr($berita->deskripsi, 0, 35) . ".." : $berita->deskripsi;
 
             /**
              * Mengembalikan nilai yang diminta
@@ -127,7 +127,7 @@ class BeritaController extends Controller
              * 
              */
             $result->tanggal = explode(' ', $result->tanggal)[0];
-            $result->overview = strlen($result->deskripsi) > 45 ? substr($result->deskripsi, 0, 45) . "..." : $result->deskripsi;
+            $result->overview = strlen($result->deskripsi) > 35 ? substr($result->deskripsi, 0, 35) . ".." : $result->deskripsi;
             return $result;
 
         });

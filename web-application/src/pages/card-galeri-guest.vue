@@ -5,48 +5,34 @@
 </style>
 
 <template>
-  <div class="text-center" style="margin-top: 200px">
-    <h1 class="text-black">GALERI</h1>
+  <div class="text-center mt-5">
+    <h1 class="mt-5">Galeri</h1>
+    <p class="text-secondary">
+      Kisah yang diabadikan dalam bentuk FOTO akan di tampilkan di
+      sini
+    </p>
   </div>
 
   <VRow>
     <VCol>
       <div class="d-flex flex-wrap gap-2 float-right">
-        <input
-          id="inputGambar"
-          ref="refInputEl"
-          type="file"
-          name="file"
-          accept=".jpeg,.png,.jpg"
-          hidden
-          @change="changeAvatar"
-        />
+        <input id="inputGambar" ref="refInputEl" type="file" name="file" accept=".jpeg,.png,.jpg" hidden
+          @change="changeAvatar" />
       </div>
     </VCol>
   </VRow>
 
   <VRow no-gutters>
     <VCol cols="12" md="3" sm="6" v-for="data in dataGambar">
-      <VImg
-        id="gambar"
-        style="width: 100%; height: 200px"
-        cover
-        :src="data.gambar"
-        alt="image"
-        @click="lihatGambar(data.gambar, data.nama_lengkap, data.id_gambar)"
-      />
+      <VImg id="gambar" style="width: 100%; height: 200px" cover :src="data.gambar" alt="image"
+        @click="lihatGambar(data.gambar, data.nama_lengkap, data.id_gambar)" />
       <!-- <h1>{{ data.id_gambar }}</h1> -->
     </VCol>
   </VRow>
   <VRow>
     <VCol>
       <div class="text-center my-3 float-right">
-        <v-pagination
-          v-model="page"
-          :length="banyakPage"
-          :total-visible="5"
-          @click="fetchData"
-        ></v-pagination>
+        <v-pagination v-model="page" :length="banyakPage" :total-visible="5" @click="fetchData"></v-pagination>
       </div>
     </VCol>
   </VRow>
@@ -79,7 +65,7 @@ export default {
     },
 
     async fetchData() {
-      const banyakDataTampil = 12;
+      const banyakDataTampil = 8;
       const response = await axios.get(
         `${this.urlServer}/api/gambar?start=${this.page}&length=${banyakDataTampil}`
       );

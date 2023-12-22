@@ -65,6 +65,10 @@ const router = createRouter({
           component: () => import("../pages/lengkap-card-beritaacara.vue"),
         },
         {
+          path: "tentang-guest",
+          component: () => import("../pages/tentang-guest.vue"),
+        },
+        {
           path: "edukasi-guest",
           component: () => import("../pages/edukasi-guest.vue"),
         },
