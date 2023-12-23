@@ -141,6 +141,12 @@ export default {
       const response = await axios.get(`${this.urlServer}/api/jumlah-bayi`);
       this.statBayi = response.data;
     },
+
+    async fetchPosyandu() {
+      const responsePosyandu = await axios.get(`${config.urlServer}/api/posyandu`);
+      this.posyandu = responsePosyandu.data;
+    },
+
   },
   mounted() {
     this.fetchBerita();

@@ -1,7 +1,5 @@
 <template>
-  <VRow
-    v-if="isUpload"
-    style="
+  <VRow v-if="isUpload" style="
       position: fixed;
       z-index: 1;
       right: 50px;
@@ -10,15 +8,12 @@
       padding: 1rem;
       padding-block: 5px;
       border-radius: 5px;
-    "
-  >
+    ">
     <font>Menyimpan... </font>
     <VProgressCircular indeterminate color="primary" class="ml-3 float-center">
     </VProgressCircular>
   </VRow>
-  <VRow
-    v-if="isDelete"
-    style="
+  <VRow v-if="isDelete" style="
       position: fixed;
       z-index: 1;
       right: 50px;
@@ -27,30 +22,20 @@
       padding: 1rem;
       padding-block: 5px;
       border-radius: 5px;
-    "
-  >
+    ">
     <font>Menghapus... </font>
     <VProgressCircular indeterminate color="primary" class="ml-3 float-center">
     </VProgressCircular>
   </VRow>
   <VRow>
     <VCol cols="12" md="12" sm="12" v-if="isLoading" class="text-center">
-      <VProgressCircular
-        indeterminate
-        color="primary"
-        class="mt-5"
-        size="50"
-      ></VProgressCircular>
+      <VProgressCircular indeterminate color="primary" class="mt-5" size="50"></VProgressCircular>
     </VCol>
     <!-- 👉 Popular Uses Of The Internet -->
     <VCol v-else v-for="(data, index) in dataBerita" cols="12" md="4" sm="12">
       <VCard>
         <VImg :src="data.gambar" cover style="height: 280px">
-          <h2
-            v-if="data.gambar == urlServer + null"
-            class="text-center text-secondary"
-            style="margin-top: 25%"
-          >
+          <h2 v-if="data.gambar == imagePath + null" class="text-center text-secondary" style="margin-top: 25%">
             Tidak Ada Foto
           </h2>
         </VImg>
@@ -76,11 +61,7 @@
                     <VBtn color="primary" class="mx-3" v-bind="props">
                       Edit & Lihat
                     </VBtn>
-                    <VBtn
-                      color="error"
-                      @click="deleteBerita(data.id_berita)"
-                      class="float-right"
-                    >
+                    <VBtn color="error" @click="deleteBerita(data.id_berita)" class="float-right">
                       <v-icon>bx-trash</v-icon>
                     </VBtn>
                   </VCol>
@@ -95,29 +76,15 @@
                     <!-- <p class="">Perubahan Otomatis Tersimpan</p> -->
                     <v-row>
                       <v-col cols="12">
-                        <VTextField
-                          id="judul"
-                          v-model="data.judul"
-                          placeholder="Masukkan Judul"
-                          persistent-placeholder
-                        />
+                        <VTextField id="judul" v-model="data.judul" placeholder="Masukkan Judul" persistent-placeholder />
                       </v-col>
                       <v-col cols="12">
-                        <VTextarea
-                          id="deskripsi"
-                          v-model="data.deskripsi"
-                          placeholder="Masukkan Isi Materi"
-                          persistent-placeholder
-                        />
+                        <VTextarea id="deskripsi" v-model="data.deskripsi" placeholder="Masukkan Isi Materi"
+                          persistent-placeholder />
                       </v-col>
                       <VCol cols="12">
-                        <VTextField
-                          type="date"
-                          id="tanggal"
-                          v-model="data.tanggal_pelaksanaan"
-                          placeholder="Masukkan tanggal"
-                          persistent-placeholder
-                        />
+                        <VTextField type="date" id="tanggal" v-model="data.tanggal_pelaksanaan"
+                          placeholder="Masukkan tanggal" persistent-placeholder />
                       </VCol>
                       <v-col cols="12">
                         <!-- <VImg :src="urlServer + data.gambar" :width="110" /> -->
@@ -125,56 +92,30 @@
                       <VCol cols="12" md="9">
                         <div class="d-flex flex-column justify-center gap-5">
                           <div class="d-flex flex-wrap gap-2">
-                            <VBtn
-                              id="gambar"
-                              color="primary"
-                              @click="inputGambar"
-                            >
+                            <VBtn id="gambar" color="primary" @click="inputGambar">
                               <VIcon icon="bx-cloud-upload" class="d-sm-none" />
-                              <span class="d-none d-sm-block"
-                                >Upload foto baru</span
-                              >
+                              <span class="d-none d-sm-block">Upload foto baru</span>
                             </VBtn>
 
-                            <input
-                              id="inputGambar"
-                              :ref="data.refInput"
-                              type="file"
-                              name="file"
-                              accept=".jpeg,.png,.jpg"
-                              hidden
-                              @change="changeAvatar($event, index)"
-                            />
+                            <input id="inputGambar" type="file" name="file" accept=".jpeg,.png,.jpg" hidden
+                              @change="changeAvatar($event, index)" />
                           </div>
                         </div>
-                        <VAvatar
-                          rounded="lg"
-                          size="200"
-                          class="me-1 mt-3"
-                          :image="data.gambar"
-                          v-show="data.gambar !== ''"
-                        />
+                        <VAvatar rounded="lg" size="200" class="me-1 mt-3" :image="data.gambar"
+                          v-show="data.gambar !== ''" />
                       </VCol>
                     </v-row>
                   </v-container>
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn
-                    color="blue-darken-1"
-                    variant="text"
-                    @click="dialog[data.id_berita] = false"
-                  >
+                  <v-btn color="blue-darken-1" variant="text" @click="dialog[data.id_berita] = false">
                     Tutup
                   </v-btn>
-                  <v-btn
-                    color="blue-darken-1"
-                    variant="text"
-                    @click="
-                      putData(index);
-                      dialog[data.id_berita] = false;
-                    "
-                  >
+                  <v-btn color="blue-darken-1" variant="text" @click="
+                    putData(index);
+                  dialog[data.id_berita] = false;
+                  ">
                     Simpan
                   </v-btn>
                 </v-card-actions>
@@ -188,31 +129,24 @@
   <VRow>
     <VCol>
       <div class="text-center my-3 float-right">
-        <v-pagination
-          v-model="page"
-          :length="banyakPage"
-          :total-visible="5"
-          @click="fetchData"
-        ></v-pagination>
+        <v-pagination v-model="page" :length="banyakPage" :total-visible="5" @click="fetchData"></v-pagination>
       </div>
     </VCol>
   </VRow>
 </template>
 
 <script>
-//import EditBerita from "./EditBerita.vue";
 import axios from "axios";
 import config from "@/@core/config.vue";
-import { ref } from "vue";
 import Swal from "sweetalert2";
 
 export default {
   data() {
     return {
-      dialog: ref([]),
-      dataBerita: ref([]),
+      dialog: [],
+      dataBerita: [],
       urlServer: config.urlServer,
-      refInput: ref(),
+      imagePath: config.imagePath,
       page: 1,
       banyakPage: 0,
       isLoading: false,
@@ -252,7 +186,6 @@ export default {
             title: response.data.success.message,
           });
         }
-        console.log(response);
       } catch (error) {
         Swal.fire({
           toast: true,
@@ -286,12 +219,7 @@ export default {
       this.isLoading = false;
 
       this.dataBerita = response.data.berita.map((item) => {
-        item.id_berita = ref(item.id_berita);
-        item.judul = ref(item.judul);
-        item.tanggal_pelaksanaan = ref(item.tanggal_pelaksanaan);
-        item.deskripsi = ref(item.deskripsi);
-        item.gambar = ref(config.imagePath + item.gambar);
-        item.refInput = ref();
+        item.gambar = this.imagePath + item.gambar;
         return item;
       });
       this.banyakPage = Math.ceil(response.data.jumlah_data / banyakDataTampil);

@@ -41,7 +41,6 @@ const submitkan = async (formData) => {
       title: response.data.success.message,
     });
   } catch (error) {
-    console.log(error);
     isLoading.value = false;
     Swal.fire({
       toast: true,
@@ -72,49 +71,27 @@ const passwordRequirements = ["Minimal 8 karakter"];
             <VRow>
               <VCol cols="12" sm="4">
                 <!-- 👉 current password -->
-                <VTextField
-                  v-model="currentPassword"
-                  :type="isCurrentPasswordVisible ? 'text' : 'password'"
-                  :append-inner-icon="
-                    isCurrentPasswordVisible ? 'bx-hide' : 'bx-show'
-                  "
-                  label="Password Saat Ini"
-                  placeholder="············"
-                  @click:append-inner="
-                    isCurrentPasswordVisible = !isCurrentPasswordVisible
-                  "
-                />
+                <VTextField v-model="currentPassword" :type="isCurrentPasswordVisible ? 'text' : 'password'"
+                  :append-inner-icon="isCurrentPasswordVisible ? 'bx-hide' : 'bx-show'
+                    " label="Password Saat Ini" placeholder="············" @click:append-inner="
+    isCurrentPasswordVisible = !isCurrentPasswordVisible
+    " />
               </VCol>
               <VCol cols="12" sm="4">
                 <!-- 👉 new password -->
-                <VTextField
-                  v-model="newPassword"
-                  :type="isNewPasswordVisible ? 'text' : 'password'"
-                  :append-inner-icon="
-                    isNewPasswordVisible ? 'bx-hide' : 'bx-show'
-                  "
-                  label="Password Baru"
-                  placeholder="············"
-                  @click:append-inner="
-                    isNewPasswordVisible = !isNewPasswordVisible
-                  "
-                />
+                <VTextField v-model="newPassword" :type="isNewPasswordVisible ? 'text' : 'password'" :append-inner-icon="isNewPasswordVisible ? 'bx-hide' : 'bx-show'
+                  " label="Password Baru" placeholder="············" @click:append-inner="
+    isNewPasswordVisible = !isNewPasswordVisible
+    " />
               </VCol>
 
               <VCol cols="12" sm="4">
                 <!-- 👉 confirm password -->
-                <VTextField
-                  v-model="confirmPassword"
-                  :type="isConfirmPasswordVisible ? 'text' : 'password'"
-                  :append-inner-icon="
-                    isConfirmPasswordVisible ? 'bx-hide' : 'bx-show'
-                  "
-                  label="Konfirmasi Password Baru"
-                  placeholder="············"
-                  @click:append-inner="
-                    isConfirmPasswordVisible = !isConfirmPasswordVisible
-                  "
-                />
+                <VTextField v-model="confirmPassword" :type="isConfirmPasswordVisible ? 'text' : 'password'"
+                  :append-inner-icon="isConfirmPasswordVisible ? 'bx-hide' : 'bx-show'
+                    " label="Konfirmasi Password Baru" placeholder="············" @click:append-inner="
+    isConfirmPasswordVisible = !isConfirmPasswordVisible
+    " />
               </VCol>
             </VRow>
 
@@ -126,11 +103,7 @@ const passwordRequirements = ["Minimal 8 karakter"];
             <p class="text-base font-weight-medium mt-2">Syarat Password:</p>
 
             <ul class="d-flex flex-column gap-y-3">
-              <li
-                v-for="item in passwordRequirements"
-                :key="item"
-                class="d-flex"
-              >
+              <li v-for="item in passwordRequirements" :key="item" class="d-flex">
                 <div>
                   <VIcon size="7" icon="bxs-circle" class="me-3" />
                 </div>

@@ -23,7 +23,6 @@ export default {
   },
   methods: {
     inputGambar() {
-      // console.log(this.posyandu.refInput);
       document.getElementById("inputGambar").click();
     },
     async changeAvatar(file) {
@@ -73,7 +72,6 @@ export default {
           visi: this.posyandu.visi,
           misi: this.posyandu.misi,
         };
-        console.log(data);
 
         const response = await axios.put(
           `${config.urlServer}/api/posyandu`,
@@ -100,7 +98,18 @@ export default {
           });
         }
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+          toast: true,
+          position: "top",
+          iconColor: "white",
+          color: "white",
+          background: "rgb(var(--v-theme-error))",
+          showConfirmButton: false,
+          timerProgressBar: true,
+          timer: 1500,
+          icon: "error",
+          title: error.response.data.error.message,
+        });
       }
     },
     async fetchData() {

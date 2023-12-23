@@ -109,8 +109,6 @@ import config from '@/@core/config.vue';
 export default {
   data() {
     return {
-      dialog: false,
-      profil: "Bapak / Ibu (Nama Lengkap)",
       strukurAdmin: [],
       imagePath: config.imagePath,
       posyandu: {},
@@ -125,10 +123,6 @@ export default {
       const responseStruktur = await axios.get(`${config.urlServer}/api/struktur-admin`);
       this.strukurAdmin = responseStruktur.data;
 
-    },
-
-    save() {
-      this.profil = profil;
     },
   },
   mounted() {

@@ -107,7 +107,6 @@ export default {
                 `${config.urlServer}/api/jabatan`,
             );
             this.listJabatan = response.data;
-            console.log(response.data);
         },
         async submitData(formData) {
             try {
