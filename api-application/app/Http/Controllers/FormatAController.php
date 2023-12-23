@@ -65,8 +65,17 @@ class FormatAController extends Controller
              * Melakukan filtering pada query
              * 
              */
-            $query = $query->whereYear('bayi.tanggal_lahir', '=', $data['tahun']);
-            $queryMenghitung = $queryMenghitung->whereYear('bayi.tanggal_lahir', '=', $data['tahun']);
+            $query = $query->whereRaw('YEAR(bayi.tanggal_lahir) = ' . $data['tahun']);
+            $queryMenghitung = $queryMenghitung->whereRaw('YEAR(bayi.tanggal_lahir) = ' . $data['tahun']);
+
+            /**
+             * Mendapatkan data jumlah kematian
+             * dan jumlah kelahiran bayi
+             * 
+             */
+            $jumlahBayiMeninggal = $queryMenghitung->whereRaw('bayi.tanggal_meninggal IS NOT NULL')->count();
+            $jumlahIbuMeninggal = $queryMenghitung->whereRaw('orang_tua.tanggal_meninggal_ibu IS NOT NULL')->count();
+            $jumlahLahir = $query->count();
 
         }
 
@@ -81,9 +90,8 @@ class FormatAController extends Controller
              * Memfilter data sesuai request search
              * 
              */
-            $query = $query->where('bayi.nama', 'LIKE', '%' . $data['search'] . '%')
-                ->orWhere('orang_tua.nama_ibu', 'LIKE', '%' . $data['search'] . '%')
-                ->orWhere('orang_tua.nama_ayah', 'LIKE', '%' . $data['search'] . '%');
+            $query = $query->whereRaw('bayi.nama LIKE "%' . $data['search'] . '%" OR orang_tua.nama_ibu LIKE "%' . $data['search'] . '%" OR orang_tua.nama_ayah LIKE "%' . $data['search'] . '%"');
+
 
         }
 
@@ -92,6 +100,8 @@ class FormatAController extends Controller
          * 
          */
         $count = $query->count();
+        $jumlahMeninggal = $jumlahBayiMeninggal + $jumlahIbuMeninggal;
+        $jumlahLahir -= $jumlahBayiMeninggal;
 
         /**
          * Memeriksa apakah data ingin difilter
@@ -153,17 +163,6 @@ class FormatAController extends Controller
             'nama_posyandu',
             'kota'
         )->first();
-
-        /**
-         * Mendapatkan data jumlah kematian
-         * dan jumlah kelahiran bayi
-         * 
-         */
-        $jumlahBayiMeninggal = $queryMenghitung->whereNotNull('bayi.tanggal_meninggal')->count();
-        $jumlahIbuMeninggal = $queryMenghitung->whereNotNull('orang_tua.tanggal_meninggal_ibu')->count();
-
-        $jumlahMeninggal = $jumlahBayiMeninggal + $jumlahIbuMeninggal;
-        $jumlahLahir = BayiModel::count() - $jumlahBayiMeninggal;
 
         /**
          * Mendapatkan seluruh tahun lahir yang bisa dipilih
@@ -352,11 +351,18 @@ class FormatAController extends Controller
         $data = $request->validated();
 
         /**
-         * Mendapatkan data yang dituju menggunakan
-         * request id dan mlakukan penghapusan data
+         * Mendapatkan id_orang tua
          * 
          */
-        FormatAModel::where('id', $data['id_format_a'])
+        $idOrangTua = FormatAModel::select('bayi.id_orang_tua')
+            ->where('format_a.id', $data['id_format_a'])
+            ->join('bayi', 'bayi.id', 'format_a.id_bayi')
+            ->value('id_orang_tua');
+
+        /**
+         * Menghapus data orang tua berdasarkan id_format_a
+         */
+        OrangTuaModel::where('id', $idOrangTua)
             ->delete();
 
         /**

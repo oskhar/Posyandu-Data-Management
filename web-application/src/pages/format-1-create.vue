@@ -14,12 +14,7 @@
                   </VCol>
 
                   <VCol cols="12" md="9">
-                    <VTextField
-                      id="ayah"
-                      v-model="nama_ayah"
-                      placeholder="Masukkan Nama Ayah"
-                      persistent-placeholder
-                    />
+                    <VTextField id="ayah" v-model="nama_ayah" placeholder="Masukkan Nama Ayah" persistent-placeholder />
                     <sup class="text-error">*Wajib diisi</sup>
                   </VCol>
                 </VRow>
@@ -32,12 +27,7 @@
                   </VCol>
 
                   <VCol cols="12" md="9">
-                    <VTextField
-                      v-model="nama_ibu"
-                      id="ibu"
-                      placeholder="Masukkan Nama Ibu"
-                      persistent-placeholder
-                    />
+                    <VTextField v-model="nama_ibu" id="ibu" placeholder="Masukkan Nama Ibu" persistent-placeholder />
                     <sup class="text-error">*Wajib diisi</sup>
                   </VCol>
                 </VRow>
@@ -50,12 +40,7 @@
                   </VCol>
 
                   <VCol cols="12" md="9">
-                    <VTextField
-                      v-model="nama_bayi"
-                      id="bayi"
-                      placeholder="Masukkan Nama Bayi"
-                      persistent-placeholder
-                    />
+                    <VTextField v-model="nama_bayi" id="bayi" placeholder="Masukkan Nama Bayi" persistent-placeholder />
                     <sup class="text-error">*Wajib diisi</sup>
                   </VCol>
                 </VRow>
@@ -81,11 +66,7 @@
                   </VCol>
 
                   <VCol cols="12" md="9">
-                    <VTextField
-                      placeholder=""
-                      type="date"
-                      v-model="tanggal_lahir"
-                    />
+                    <VTextField placeholder="" type="date" v-model="tanggal_lahir" />
                     <sup class="text-error">*Wajib diisi</sup>
                   </VCol>
                 </VRow>
@@ -94,17 +75,11 @@
                 <VRow no-gutters>
                   <!-- 👉 First Name -->
                   <VCol cols="12" md="3">
-                    <label for="tanggal-meninggal-bayi"
-                      >Tanggal Meninggal Bayi</label
-                    >
+                    <label for="tanggal-meninggal-bayi">Tanggal Meninggal Bayi</label>
                   </VCol>
 
                   <VCol cols="12" md="9">
-                    <VTextField
-                      placeholder=""
-                      type="date"
-                      v-model="tanggal_meninggal_bayi"
-                    />
+                    <VTextField placeholder="" type="date" v-model="tanggal_meninggal_bayi" />
                   </VCol>
                 </VRow>
               </VCol>
@@ -112,17 +87,11 @@
                 <VRow no-gutters>
                   <!-- 👉 First Name -->
                   <VCol cols="12" md="3">
-                    <label for="tanggal-meninggal-ibu"
-                      >Tanggal Meninggal Ibu</label
-                    >
+                    <label for="tanggal-meninggal-ibu">Tanggal Meninggal Ibu</label>
                   </VCol>
 
                   <VCol cols="12" md="9">
-                    <VTextField
-                      placeholder=""
-                      type="date"
-                      v-model="tanggal_meninggal_ibu"
-                    />
+                    <VTextField placeholder="" type="date" v-model="tanggal_meninggal_ibu" />
                   </VCol>
                 </VRow>
               </VCol>
@@ -158,15 +127,9 @@
                   </VCol>
 
                   <VCol cols="12" md="9">
-                    <VTextField
-                      v-model="berat_lahir"
-                      type="number"
-                      placeholder="Masukkan Berat Lahir"
-                      persistent-placeholder
-                    />
-                    <sup class="text-error"
-                      >*Gunakan "." bukan "," jika desimal</sup
-                    >
+                    <VTextField v-model="berat_lahir" type="number" placeholder="Masukkan Berat Lahir"
+                      persistent-placeholder />
+                    <sup class="text-error">*Gunakan "." bukan "," jika desimal</sup>
                   </VCol>
                 </VRow>
               </VCol>
@@ -178,11 +141,7 @@
                   </VCol>
 
                   <VCol cols="12" md="9">
-                    <VTextField
-                      v-model="rt_rw"
-                      placeholder="Masukkan RT/RW"
-                      persistent-placeholder
-                    />
+                    <VTextField v-model="rt_rw" placeholder="Masukkan RT/RW" persistent-placeholder />
                   </VCol>
                 </VRow>
               </VCol>
@@ -194,11 +153,7 @@
                   </VCol>
 
                   <VCol cols="12" md="9">
-                    <VTextField
-                      v-model="keterangan"
-                      placeholder="Masukkan Keterangan"
-                      persistent-placeholder
-                    />
+                    <VTextField v-model="keterangan" placeholder="Masukkan Keterangan" persistent-placeholder />
                   </VCol>
                 </VRow>
               </VCol>
@@ -206,11 +161,7 @@
               <!-- 👉 submit and reset button -->
               <VCol offset-md="3" cols="12" md="9" class="d-flex gap-4">
                 <VBtn type="submit" :disabled="isLoading">
-                  <VProgressCircular
-                    v-if="isLoading"
-                    indeterminate
-                    color="white"
-                  >
+                  <VProgressCircular v-if="isLoading" indeterminate color="white">
                   </VProgressCircular>
 
                   <font v-else>Submit</font>
@@ -268,7 +219,6 @@ export default {
           memiliki_kms: this.memiliki_kms,
           berat_lahir: this.berat_lahir,
         };
-        console.log(data);
         const response = await axios.post(
           `${config.urlServer}/api/format-a`,
           data,

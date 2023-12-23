@@ -94,7 +94,6 @@
 import axios from "axios";
 import AnalyticsBarCharts from "@/views/dashboard/AnalyticsBarCharts.vue";
 import config from "@/@core/config.vue";
-import { ref } from "vue";
 import VueApexCharts from "vue3-apexcharts";
 
 export default {
@@ -102,7 +101,6 @@ export default {
     const d = new Date();
     return {
       dataSearch: "",
-      dialog: ref([]),
       urlServer: config.urlServer,
       page: 1,
       banyakPage: 5,

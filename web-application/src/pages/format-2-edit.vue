@@ -18,6 +18,10 @@
                   <font class="float-right">{{ dataEdit.bayi.nama }}</font>
                 </p>
                 <p class="mb-4">
+                  Nama Ayah:
+                  <font class="float-right">{{ dataEdit.bayi.nama }}</font>
+                </p>
+                <p class="mb-4">
                   Tanggal Lahir:
                   <font class="float-right">{{
                     dataEdit.bayi.tanggal_lahir
@@ -65,7 +69,9 @@
                       <VProgressCircular v-if="isLoading[index]" indeterminate color="white" :for="index">
                       </VProgressCircular>
 
-                      <font v-else>Submit</font>
+                      <font v-else>
+                        simpan
+                      </font>
                     </VBtn>
                   </VCol>
                 </VRow>
@@ -99,6 +105,11 @@ export default {
           zoom: {
             enabled: false
           },
+        },
+        toolBar: {
+          tools: {
+            download: '<img src="/static/icons/download.png" class="ico-download" width="20">',
+          }
         },
         colors: [
           "#FF5252", // rgb(var(--v-theme-error))
@@ -168,13 +179,11 @@ export default {
             },
           }
         );
-        console.log(idBayi);
         this.series = response.data.series;
         this.dataEdit = response.data;
         for (let i = 0; i < this.dataEdit.length; i++) {
           this.isLoading[i] = false;
         }
-        console.log(this.dataEdit);
       } else {
         window.location.href = "/dashboard";
       }
@@ -192,7 +201,6 @@ export default {
           judul: judul,
           id_bayi: idBayi,
         };
-        console.log(data);
         const response = await axios.post(
           `${config.urlServer}/api/format-ba`,
           data,
@@ -215,6 +223,19 @@ export default {
             icon: "success",
             title: response.data.success.message,
           });
+        } else {
+          Swal.fire({
+            toast: true,
+            position: "top",
+            iconColor: "white",
+            color: "white",
+            background: "rgb(var(--v-theme-warning))",
+            showConfirmButton: false,
+            timerProgressBar: true,
+            timer: 4000,
+            icon: "warning",
+            title: response.data.warning.message,
+          });
         }
         this.fetchData();
       } catch (error) {
@@ -230,7 +251,6 @@ export default {
           icon: "error",
           title: "Format Salah",
         });
-        console.log(error);
       }
       this.isLoading[index] = false;
     },

@@ -90,7 +90,6 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
      * Endpoint untuk format-a
      * 
      */
-    Route::get('/listtahun', [FormatBAController::class, 'getListTahun']);
     Route::get('/format-ba', [FormatBAController::class, 'get']);
     Route::post('/format-ba', [FormatBAController::class, 'post']);
     Route::put('/format-ba', [FormatBAController::class, 'put']);
@@ -130,3 +129,4 @@ Route::get('/gambar', [GambarController::class, 'get']);
 Route::get('/posyandu', [PosyanduController::class, 'get']);
 Route::get('/jabatan', [AdminController::class, 'jabatan']);
 Route::get('/struktur-admin', [AdminController::class, 'strukturAdmin']);
+Route::get('/listtahun', [FormatBAController::class, 'getListTahun']);

@@ -31,6 +31,7 @@
                                 <th>No</th>
                                 <th>Nama Anak</th>
                                 <th>Umur</th>
+                                <th>Bulan</th>
                                 <th>Kelamin</th>
                                 <th>Berat Badan</th>
                                 <th>N/T/O/B & BGM</th>
@@ -51,6 +52,9 @@
                                     {{ item.nama_bayi }}
                                 </td>
                                 <td class="text-center">{{ item.umur }} Bulan</td>
+                                <td class="text-center">
+                                    {{ item.bulan }}
+                                </td>
                                 <td class="text-center">
                                     {{ item.jenis_kelamin }}
                                 </td>
@@ -88,8 +92,6 @@
 import axios from "axios";
 import AnalyticsBarCharts from "@/views/dashboard/AnalyticsBarCharts.vue";
 import config from "@/@core/config.vue";
-import { ref } from "vue";
-import Swal from "sweetalert2";
 import VueApexCharts from "vue3-apexcharts";
 
 export default {
@@ -97,7 +99,6 @@ export default {
         const d = new Date();
         return {
             dataSearch: "",
-            dialog: ref([]),
             urlServer: config.urlServer,
             page: 1,
             banyakPage: 5,

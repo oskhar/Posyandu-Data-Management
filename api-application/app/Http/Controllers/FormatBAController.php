@@ -306,16 +306,40 @@ class FormatBAController extends Controller
 
         }
 
+        /**
+         * Melakukan perulangan dari queries
+         * 
+         */
         foreach ($queries as $index => $query) {
+
+            /**
+             * Memeriksa query utama
+             * 
+             */
             if ($index === 0) {
+
+                /**
+                 * Tetapkan index 0 menjadi query utama
+                 * 
+                 */
                 $mergedQuery = $query;
+
             } else {
-                // Use union to merge subsequent queries
+
+                /**
+                 * Menambahkan query lainnya untuk
+                 * distak ke dalam query utama
+                 * 
+                 */
                 $mergedQuery = $mergedQuery->union($query);
             }
         }
 
-        // Get the final result
+        /**
+         * Assigment query yang dimerge kedalam
+         * query yang akan dipanggil nantinya
+         * 
+         */
         $query = $mergedQuery;
 
 
@@ -472,7 +496,44 @@ class FormatBAController extends Controller
             ->where('penimbangan.id_bayi', $data['id_bayi'])
             ->join('standar_deviasi', 'standar_deviasi.id', 'penimbangan.id_standar_deviasi')
             ->where('standar_deviasi.umur_bulan', $umurBayi - 1)
-            ->first();
+            ->value('berat_badan');
+
+        /**
+         * Menetapkan isi pesan response nanti
+         */
+        $pesan = [
+            'success' => [
+                'message' => 'Berhasil',
+            ]
+        ];
+
+        /**
+         * Jika data berat badan dan data
+         * asi_ekslisif tidak relevan
+         * 
+         */
+        if ($data['asi_eksklusif'] == "Alpa" && $data['berat_badan'] != 0) {
+
+            /**
+             * Memeberikan peringatan
+             * 
+             */
+            $pesan = [
+                'warning' => [
+                    'message' => 'Jika alpa, berat badan akan dikosongkan !!',
+                ]
+            ];
+
+        }
+
+        /**
+         * Mendapatkan data pertama
+         * 
+         */
+        $umurDataPertama = PenimbanganModel::select('standar_deviasi.umur_bulan')
+            ->join('standar_deviasi', 'standar_deviasi.id', 'penimbangan.id_standar_deviasi')
+            ->where('penimbangan.berat_badan', '<>', '0.00')
+            ->min('umur_bulan');
 
         /**
          * Memeriksa apakah data kosong
@@ -481,10 +542,13 @@ class FormatBAController extends Controller
         if ($data['asi_eksklusif'] == "Alpa" || $data['berat_badan'] == 0) {
 
             /**
-             * Status NTOB dikosongkan jika data kosong
+             * Atur semua data yang tidak
+             * relevan secara paksa
              * 
              */
             $data['ntob'] = "Kosong";
+            $data['berat_badan'] = 0;
+            $data['asi_eksklusif'] = "Alpa";
 
         } else {
 
@@ -492,8 +556,59 @@ class FormatBAController extends Controller
              * Ambil data NTOB sesuai dengan perhitungan
              * 
              */
-            $data['ntob'] = $this->getNTOB($umurBayi, $dataWHOBulanLalu, $dataWHO, $beratBadanBulanLalu, $data['berat_badan']);
+            $data['ntob'] = $this->getNTOB($umurBayi, $dataWHOBulanLalu, $dataWHO, $beratBadanBulanLalu, $data['berat_badan'], $umurDataPertama);
 
+        }
+
+        /**
+         * Mengambil data berat badan bulan depan
+         * 
+         */
+        $beratBadanBulanDepan = PenimbanganModel::select('penimbangan.berat_badan')
+            ->where('penimbangan.id_bayi', $data['id_bayi'])
+            ->join('standar_deviasi', 'standar_deviasi.id', 'penimbangan.id_standar_deviasi')
+            ->where('standar_deviasi.umur_bulan', $umurBayi + 1)
+            ->value('berat_badan');
+
+        /**
+         * Memeriksa apakah berat bulan
+         * depan tidak kosong
+         * 
+         */
+        if (!empty($beratBadanBulanDepan)) {
+
+            /**
+             * Mengambil standar deviasi dari WHO
+             * Untuk berat badan umur bulan depan
+             * 
+             */
+            $dataWHOBulanDepan = DB::table('standar_deviasi')->select(
+                'sangat_kurus',
+                'kurus',
+                'normal_kurus',
+                'baik',
+                'normal_gemuk',
+                'gemuk',
+                'sangat_gemuk'
+            )->where('id_berat_untuk_umur', $jenisKelamin == 'L' ? 1 : 2)
+                ->where('umur_bulan', $umurBayi + 1)->first();
+
+            /**
+             * Mendapatkan status ntob untuk bulan depan
+             * 
+             */
+            $ntobBulanDepan = $this->getNTOB($umurBayi + 1, $dataWHO, $dataWHOBulanDepan, $data['berat_badan'], $beratBadanBulanDepan);
+
+            /**
+             * Melakukan update ntob data bulan depan
+             * 
+             */
+            PenimbanganModel::where('penimbangan.id_bayi', $data['id_bayi'])
+                ->join('standar_deviasi', 'standar_deviasi.id', 'penimbangan.id_standar_deviasi')
+                ->where('standar_deviasi.umur_bulan', $umurBayi + 1)
+                ->update([
+                    'ntob' => $ntobBulanDepan
+                ]);
         }
 
         /**
@@ -514,23 +629,22 @@ class FormatBAController extends Controller
          * melakukan penambahan data
          * 
          */
-        return response()->json([
-            'success' => [
-                'message' => 'Berhasil',
-            ]
-        ])->setStatusCode(201);
+        return response()->json(
+            $pesan
+        )->setStatusCode(201);
     }
-    protected function getNTOB($umurBayi, $dataWHOBulanLalu, $dataWHO, $beratBadanBulanLalu, $beratBadanSekarang)
+    protected function getNTOB($umurBayi, $dataWHOBulanLalu, $dataWHO, $beratBadanBulanLalu, $beratBadanSekarang, $umurDataPertama = 1)
     {
 
         /**
-         * Memeriksa umur bayi
+         * Memeriksa apakah berat bayi tersedia
          * 
          */
-        if ($umurBayi == 0) {
+        if (empty($umurDataPertama) || $umurBayi <= $umurDataPertama) {
 
             /**
-             * Apakah bayi baru pertama kali menimbang
+             * Menetapkan nilai ntob sebagai B jika bayi
+             * baru pertama kali menimbang di posyandu
              * 
              */
             return "B (Baru pertama kali menimbang)";
@@ -545,11 +659,6 @@ class FormatBAController extends Controller
             return "O (Tidak menimbang bulan lalu)";
 
         } else {
-
-            /**
-             * Mendapatkan berat badan bayi bulan lalu
-             */
-            $beratBadanBulanLalu = $beratBadanBulanLalu->berat_badan;
 
             /**
              * Mendapatkan pita berat bulan lalu
@@ -578,7 +687,7 @@ class FormatBAController extends Controller
                  */
                 return "BGM (Bayi butuh penanganan khusus)";
 
-            } else if ($beratBadanSekarang > $beratBadanBulanLalu && $pitaBulanIni > $pitaBulanLalu) {
+            } else if ($beratBadanSekarang > $beratBadanBulanLalu && $pitaBulanIni >= $pitaBulanLalu) {
 
                 /**
                  * Kembalikan N1 Jika berat bayi masuk ke
@@ -586,27 +695,18 @@ class FormatBAController extends Controller
                  * tinggi dari bulan lalu
                  * 
                  */
-                return "N1 (Naik, Masuk pita diatasnya)";
-
-            } else if ($pitaBulanIni < $pitaBulanLalu) {
-
-                /**
-                 * Mengembalikan response T yang menandakan
-                 * bahwa berat bayi berada di zona waspada
-                 * 
-                 */
-                return "T" . ($beratBadanSekarang > $beratBadanBulanLalu ? "1 (Naik, Namun masuk ke pita bawahnya)" : ($beratBadanSekarang == $beratBadanBulanLalu ? "2 (Tetap, Tidak mengalami pertumbuah)" : "3 (Turun, Tumbuh negatif)"));
+                return "N" . $pitaBulanIni > $pitaBulanLalu ? "1 (Naik, Masuk pita diatasnya)" : "2 (Naik, Tetap pada pita yang sama)";
 
             }
 
         }
 
         /**
-         * Mengembalikan N2 jika semua kondisi tidak
-         * terpenuhi atau tidak sesuai
+         * Mengembalikan response T yang menandakan
+         * bahwa berat bayi berada di zona waspada
          * 
          */
-        return "N2, Naik, Tetap pada pita yang sama";
+        return "T" . ($beratBadanSekarang > $beratBadanBulanLalu ? "1 (Naik, Namun masuk ke pita bawahnya)" : ($beratBadanSekarang == $beratBadanBulanLalu ? "2 (Tetap, Tidak mengalami pertumbuah)" : "3 (Turun, Tumbuh negatif)"));
     }
     private function getPitaBeratBadan($beratBadan, $dataWHO)
     {
@@ -650,6 +750,10 @@ class FormatBAController extends Controller
     }
     public function getListTahun(Request $request): JsonResponse
     {
+        /**
+         * Memeriksa apakah request tab ada
+         * 
+         */
         if (empty($request->tab)) {
             throw new HttpResponseException(response()->json([
                 'errors' => [
@@ -658,29 +762,20 @@ class FormatBAController extends Controller
             ])->setStatusCode(400));
         }
         /**
-         * Mendapatkan seluruh list tahun lahir yang
-         * bisa dipilih berdasarkan bulan start
+         * Mendapatkan tahun terkecil dan terbesar
+         * yang ada di database
          * 
          */
-        $listTahunLahir = BayiModel::selectRaw('YEAR(tanggal_lahir) + FLOOR((MONTH(tanggal_lahir) + ' . $this->batasBulanStart[intval($request->tab) - 1] . ') / 12) as tahun_lahir')
-            ->orderByDesc('tanggal_lahir')
-            ->distinct()
-            ->pluck('tahun_lahir')
-            ->toArray();
+        $listTahunLahir = BayiModel::selectRaw('MIN(YEAR(tanggal_lahir) + FLOOR((MONTH(tanggal_lahir) + ' . $this->batasBulanStart[intval($request->tab) - 1] . ') / 12)) as min_tahun')
+            ->selectRaw('MAX(YEAR(tanggal_lahir) + FLOOR((MONTH(tanggal_lahir) + ' . $this->batasBulanEnd[intval($request->tab) - 1] . ') / 12)) as max_tahun')
+            ->first();
 
         /**
-         * Mendapatkan seluruh list tahun lahir yang
-         * bisa dipilih berdasarkan bulan end
+         * Mendapatkan seluruh list tahun berdasarkan
+         * range dari tahun terkecil dan terbesar
          * 
          */
-        $listTahunLahir = array_unique(array_merge(
-            $listTahunLahir,
-            BayiModel::selectRaw('YEAR(tanggal_lahir) + FLOOR((MONTH(tanggal_lahir) + ' . $this->batasBulanEnd[intval($request->tab) - 1] . ') / 12) as tahun_lahir')
-                ->orderByDesc('tanggal_lahir')
-                ->distinct()
-                ->pluck('tahun_lahir')
-                ->toArray()
-        ));
+        $listTahunLahir = range($listTahunLahir->min_tahun, $listTahunLahir->max_tahun);
 
         /**
          * Mengembalikan response setelah
