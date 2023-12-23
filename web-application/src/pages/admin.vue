@@ -32,7 +32,7 @@ const tabs = [
         </VTabs>
         <VDivider />
 
-        <VWindow v-model="activeTab" class="mt-5">
+        <VWindow v-model="activeTab" class="mt-5" :touch="false">
             <!-- read -->
             <VWindowItem value="read">
                 <ReadAdmin />

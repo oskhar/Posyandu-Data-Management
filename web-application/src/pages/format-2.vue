@@ -1,7 +1,5 @@
 <script setup>
 import { useRoute } from "vue-router";
-import ReadEdukasi from "@/views/pages/edukasi/ReadEdukasi.vue";
-import CreateEdukasi from "@/views/pages/edukasi/CreateEdukasi.vue";
 import Tab1 from "@/views/pages/format-2/Tab1.vue";
 import Tab2 from "@/views/pages/format-2/Tab2.vue";
 import Tab3 from "@/views/pages/format-2/Tab3.vue";
@@ -46,12 +44,11 @@ const tabs = [
     </VTabs>
     <VDivider />
 
-    <VWindow v-model="activeTab" class="mt-5">
+    <VWindow v-model="activeTab" class="mt-5" :touch="false">
       <!-- read -->
       <VWindowItem value="tab1">
         <Tab1 />
       </VWindowItem>
-
       <!-- create -->
       <VWindowItem value="tab2">
         <Tab2 />

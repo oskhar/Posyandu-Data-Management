@@ -11,9 +11,6 @@
                 <VCardItem>
                     <VSelect v-model="tahun" :items="listTahunLahir" />
                 </VCardItem>
-                <VCardItem>
-                    <VSelect v-model="bulan" :items="listBulanLahir" />
-                </VCardItem>
             </VCard>
         </VCol>
 
@@ -34,6 +31,7 @@
                                 <th>No</th>
                                 <th>Nama Anak</th>
                                 <th>Umur</th>
+                                <th>Bulan</th>
                                 <th>Kelamin</th>
                                 <th>Berat Badan</th>
                                 <th>Asi Eksklusif</th>
@@ -55,6 +53,7 @@
                                     {{ item.nama_bayi }}
                                 </td>
                                 <td class="text-center">{{ item.umur }} Bulan</td>
+                                <td class="text-center">{{ item.bulan }}</td>
                                 <td class="text-center">
                                     {{ item.jenis_kelamin }}
                                 </td>
@@ -118,20 +117,6 @@ export default {
             tahun: d.getFullYear(),
             bulan: d.getMonth() + 1,
             listTahunLahir: [d.getFullYear()],
-            listBulanLahir: [
-                { title: "Januari", value: 1 },
-                { title: "Februari", value: 2 },
-                { title: "Maret", value: 3 },
-                { title: "April", value: 4 },
-                { title: "Mei", value: 5 },
-                { title: "Juni", value: 6 },
-                { title: "Juli", value: 7 },
-                { title: "Agustus", value: 8 },
-                { title: "September", value: 9 },
-                { title: "Oktober", value: 10 },
-                { title: "November", value: 11 },
-                { title: "Desember", value: 12 },
-            ],
             isLoading: false,
             chartOptions: {},
         };
@@ -187,7 +172,7 @@ export default {
         async fetchData() {
             this.isLoading = true;
             const response = await axios.get(
-                `${config.urlServer}/api/format-ba?length=20&start=${this.page}&bulan=${this.bulan}&tahun=${this.tahun}&search=${this.dataSearch}&tab=2`,
+                `${config.urlServer}/api/format-ba?length=20&start=${this.page}&tahun=${this.tahun}&search=${this.dataSearch}&tab=2`,
                 {
                     headers: {
                         Authorization: localStorage.getItem("tokenAuth"),
