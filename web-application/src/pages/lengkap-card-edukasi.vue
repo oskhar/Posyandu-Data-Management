@@ -2,19 +2,19 @@
   <VCard>
     <VCardItem>
       <div class="container">
-        <v-row class="text-xs-left" style="margin-top: 20px">
-          <v-col>
-            <strong><span class="caption" style="font-size: 30px; color: rgba(0, 0, 0, 0.781)">EDUKASI</span></strong>
-
+        <VRow class="text-xs-left" style="margin-top: 150px">
+          <VCol>
+            <h2 class="caption">Penyuluhan <font class="text-primary">Edukasi</font>
+            </h2>
             <p class="text-secondary">
-            <p>Informasi seputar EDUKASI POSYANDU MELATI akan di tampilkan di
-              sini</p>
+              Informasi seputar EDUKASI POSYANDU MELATI akan di tampilkan di
+              sini
             </p>
-          </v-col>
-        </v-row>
+          </VCol>
+        </VRow>
 
         <V-row class="mt-5">
-          <VCol v-for="(data, index) in dataEdukasi" cols="12" sm="6" md="4">
+          <VCol v-for="(data) in dataEdukasi" cols="12" sm="6" md="4">
             <RouterLink to="./edukasi-guest">
               <VCard>
                 <VImg :src="data.gambar" cover style="height: 200px">
@@ -33,11 +33,6 @@
                     {{ data.overview }}
                   </p>
                   <p>penulis: {{ data.nama_lengkap }}</p>
-
-                  <v-row justify="center">
-                    <v-dialog v-model="dialog[data.id_edukasi]" persistent width="1024">
-                    </v-dialog>
-                  </v-row>
                 </VCardText>
               </VCard>
             </RouterLink>
@@ -71,7 +66,6 @@ import Swal from "sweetalert2";
 export default {
   data() {
     return {
-      dialog: ref([]),
       dataEdukasi: ref([]),
       urlServer: config.urlServer,
       refInput: ref(),
@@ -81,45 +75,6 @@ export default {
   },
 
   methods: {
-    async putData(indexEdukasi) {
-      try {
-        const data = {
-          id_edukasi: this.dataEdukasi[indexEdukasi].id_edukasi,
-          judul: this.dataEdukasi[indexEdukasi].judul,
-          materi: this.dataEdukasi[indexEdukasi].materi,
-        };
-
-        const response = await axios.put(
-          `${this.urlServer}/api/edukasi`,
-          data,
-          {
-            headers: {
-              Authorization: localStorage.getItem("tokenAuth"),
-            },
-          }
-        );
-        if (response.data.success) {
-          Swal.fire({
-            toast: true,
-            position: "top",
-            iconColor: "white",
-            color: "white",
-            background: "rgb(var(--v-theme-success))",
-            showConfirmButton: false,
-            timerProgressBar: true,
-            timer: 1500,
-            icon: "success",
-            title: response.data.success.message,
-          });
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    },
-
-    inputGambar() {
-      document.getElementById("inputGambar").click();
-    },
 
     async fetchData() {
       const banyakDataTampil = 9;
@@ -137,41 +92,6 @@ export default {
       this.banyakPage = Math.ceil(response.data.jumlah_data / banyakDataTampil);
     },
 
-    async changeAvatar(file, indexEdukasi) {
-      const files = file.target.files[0];
-      if (files) {
-        const fileReader = new FileReader();
-        // Validasi tipe file sebelum menampilkan gambarnya
-        if (
-          files.type === "image/jpeg" ||
-          files.type === "image/png" ||
-          files.type === "image/jpg"
-        ) {
-          fileReader.readAsDataURL(files);
-          fileReader.onload = async () => {
-            if (typeof fileReader.result === "string") {
-              this.dataEdukasi[indexEdukasi].gambar = fileReader.result;
-              const response = await axios.put(
-                `${this.urlServer}/api/edukasi`,
-                {
-                  id_edukasi: this.dataEdukasi[indexEdukasi].id_edukasi,
-                  gambar: fileReader.result,
-                },
-                {
-                  headers: {
-                    Authorization: localStorage.getItem("tokenAuth"),
-                  },
-                }
-              );
-            }
-          };
-        } else {
-          // Tindakan jika tipe file tidak valid
-          alert("File harus berupa gambar dengan tipe jpeg, png, atau jpg.");
-          resetAvatar();
-        }
-      }
-    },
   },
 
   mounted() {

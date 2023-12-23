@@ -295,18 +295,22 @@ class FormatBAController extends Controller
             'penimbangan.ntob',
             'penimbangan.asi_eksklusif'
         )
-            ->selectRaw('(' . $data['tahun'] . ' - YEAR(bayi.tanggal_lahir)) * 12 + ' . $data['bulan'] . ' - MONTH(bayi.tanggal_lahir) as umur')
+            ->selectRaw('(' . $data['tahun'] . ' - YEAR(bayi.tanggal_lahir)) * 12 + MONTH(bayi.tanggal_lahir) as umur')
             ->leftJoin('format_b', function ($join) {
                 $join->on('bayi.id', '=', 'format_b.id_bayi');
-            })
-            ->leftJoin('penimbangan', function ($join) use ($data) {
-                $join->on('bayi.id', '=', 'penimbangan.id_bayi')
-                    ->where('penimbangan.tahun_penimbangan', $data['tahun'])
-                    ->where('penimbangan.bulan_penimbangan', $data['bulan'])
-                    ->whereRaw('(' . $data['tahun'] . ' - YEAR(bayi.tanggal_lahir)) * 12 + ' . $data['bulan'] . ' - MONTH(bayi.tanggal_lahir) BETWEEN ' . $this->batasBulanStart[intval($data['tab']) - 1] . ' AND ' . $this->batasBulanEnd[intval($data['tab']) - 1]);
-            })
-            ->whereRaw('(' . $data['tahun'] . ' - YEAR(bayi.tanggal_lahir)) * 12 + ' . $data['bulan'] . ' - MONTH(bayi.tanggal_lahir) BETWEEN ' . $this->batasBulanStart[$data['tab'] - 1] . ' AND ' . $this->batasBulanEnd[$data['tab'] - 1])
+            });
+
+        for ($bulan = 1; $bulan <= 12; $bulan++) {
+            $query->leftJoin('penimbangan as penimbangan_' . $bulan, function ($join) use ($data, $bulan) {
+                $join->on('bayi.id', '=', 'penimbangan_' . $bulan . '.id_bayi')
+                    ->where('penimbangan_' . $bulan . '.tahun_penimbangan', $data['tahun'])
+                    ->whereRaw('(' . $data['tahun'] . ' - YEAR(bayi.tanggal_lahir)) * 12 + ' . $bulan . ' - MONTH(bayi.tanggal_lahir) BETWEEN 0 AND 5');
+            });
+        }
+
+        $query->whereRaw('(' . $data['tahun'] . ' - YEAR(bayi.tanggal_lahir)) * 12 + MONTH(bayi.tanggal_lahir) BETWEEN 0 AND 5')
             ->whereNull('bayi.tanggal_meninggal');
+
 
 
         /**
@@ -480,10 +484,10 @@ class FormatBAController extends Controller
          * Mengambil data berat badan bulan lalu
          * 
          */
-        $beratBadanBulanLalu = PenimbanganModel::select('berat_badan')
-            ->where('id_bayi', $data['id_bayi'])
-            ->where('tahun_penimbangan', $data['tahun_penimbangan'])
-            ->where('bulan_penimbangan', $data['bulan_penimbangan'] - 1)
+        $beratBadanBulanLalu = PenimbanganModel::select('penimbangan.berat_badan')
+            ->where('penimbangan.id_bayi', $data['id_bayi'])
+            ->join('standar_deviasi', 'standar_deviasi.id', 'penimbangan.id_standar_deviasi')
+            ->where('standar_deviasi.umur_bulan', $umurBayi - 1)
             ->first();
 
         /**

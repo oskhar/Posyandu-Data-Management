@@ -70,7 +70,7 @@ export default {
         `${this.urlServer}/api/gambar?start=${this.page}&length=${banyakDataTampil}`
       );
       this.dataGambar = response.data.gambar.map((item) => {
-        item.gambar = ref(this.urlServer + item.gambar);
+        item.gambar = ref(config.imagePath + item.gambar);
         item.refInput = ref();
         item.nama_lengkap = ref(item.nama_lengkap);
         return item;
@@ -81,12 +81,7 @@ export default {
     async lihatGambar(gambar, judul, id_gambar) {
       const ask = await Swal.fire({
         imageUrl: gambar,
-        // html: judul,
         imageAlt: "Ini gambar",
-        // showConfirmButton: false,
-        // showDenyButton: true,
-        // showCancelButton: true,
-        // denyButtonText: "Hapus",
       });
       if (ask.isDenied) {
         const response = await axios.delete(

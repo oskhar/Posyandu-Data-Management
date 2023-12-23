@@ -20,7 +20,7 @@
       <RouterLink to="./edukasi-guest">
         <VCard>
           <VImg :src="data.gambar" cover style="height: 200px">
-            <h2 v-if="data.gambar == urlServer + null" class="text-center text-secondary" style="margin-top: 25%">
+            <h2 v-if="data.gambar == imagePath + null" class="text-center text-secondary" style="margin-top: 25%">
               Tidak Ada Foto
             </h2>
           </VImg>
@@ -65,6 +65,7 @@ export default {
       dialog: ref([]),
       dataEdukasi: ref([]),
       urlServer: config.urlServer,
+      imagePath: config.imagePath,
       refInput: ref(),
       page: 1,
       banyakPage: 0,
@@ -72,45 +73,6 @@ export default {
   },
 
   methods: {
-    async putData(indexEdukasi) {
-      try {
-        const data = {
-          id_edukasi: this.dataEdukasi[indexEdukasi].id_edukasi,
-          judul: this.dataEdukasi[indexEdukasi].judul,
-          materi: this.dataEdukasi[indexEdukasi].materi,
-        };
-
-        const response = await axios.put(
-          `${this.urlServer}/api/edukasi`,
-          data,
-          {
-            headers: {
-              Authorization: localStorage.getItem("tokenAuth"),
-            },
-          }
-        );
-        if (response.data.success) {
-          Swal.fire({
-            toast: true,
-            position: "top",
-            iconColor: "white",
-            color: "white",
-            background: "rgb(var(--v-theme-success))",
-            showConfirmButton: false,
-            timerProgressBar: true,
-            timer: 1500,
-            icon: "success",
-            title: response.data.success.message,
-          });
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    },
-
-    inputGambar() {
-      document.getElementById("inputGambar").click();
-    },
 
     async fetchData() {
       const banyakDataTampil = 3;
@@ -121,48 +83,13 @@ export default {
         item.id_edukasi = ref(item.id_edukasi);
         item.judul = ref(item.judul);
         item.materi = ref(item.materi);
-        item.gambar = ref(this.urlServer + item.gambar);
+        item.gambar = ref(this.imagePath + item.gambar);
         item.refInput = ref();
         return item;
       });
       this.banyakPage = Math.ceil(response.data.jumlah_data / banyakDataTampil);
     },
 
-    async changeAvatar(file, indexEdukasi) {
-      const files = file.target.files[0];
-      if (files) {
-        const fileReader = new FileReader();
-        // Validasi tipe file sebelum menampilkan gambarnya
-        if (
-          files.type === "image/jpeg" ||
-          files.type === "image/png" ||
-          files.type === "image/jpg"
-        ) {
-          fileReader.readAsDataURL(files);
-          fileReader.onload = async () => {
-            if (typeof fileReader.result === "string") {
-              this.dataEdukasi[indexEdukasi].gambar = fileReader.result;
-              const response = await axios.put(
-                `${this.urlServer}/api/edukasi`,
-                {
-                  id_edukasi: this.dataEdukasi[indexEdukasi].id_edukasi,
-                  gambar: fileReader.result,
-                },
-                {
-                  headers: {
-                    Authorization: localStorage.getItem("tokenAuth"),
-                  },
-                }
-              );
-            }
-          };
-        } else {
-          // Tindakan jika tipe file tidak valid
-          alert("File harus berupa gambar dengan tipe jpeg, png, atau jpg.");
-          resetAvatar();
-        }
-      }
-    },
   },
 
   mounted() {

@@ -11,15 +11,15 @@
     <!-- Isi halaman utama Anda di sini -->
     <div style="position: absolute;top: 200px;width: 100vw;">
       <center>
-        <h3 class="text-white text-no-wrap text-h5">SELAMAT DATANG DI</h3>
-        <h1 class="text-white text-no-wrap text-h3">POSYANDU MELATI</h1>
+        <h3 class="text-white text-h5">SELAMAT DATANG DI</h3>
+        <h1 class="text-white text-h3">POSYANDU MELATI</h1>
       </center>
     </div>
   </main>
   <VRow style="margin-top: 200px;">
-    <VCol md="9" lg="9" sm="12" class="mx-auto">
+    <VCol md="9" lg="9" cols="12" class="mx-auto">
       <VRow>
-        <VCol md="8" sm="12">
+        <VCol md="8" cols="12">
           <VCardItem>
             <VCardTitle class="text-md-h5 text-primary">
               Sambutan Ketua Posyandu
@@ -79,28 +79,26 @@
       </VCardItem>
     </VCol>
   </VRow>
-  <section class="container">
-    <VRow v-for="(perlevel, index) in strukurAdmin">
-      <VCol v-for="item in perlevel" cols="6" md="3" lg="3" class="mx-auto mt-5">
-        <VCard>
-          <VCardItem>
-            <img style="width: 200px; height: 200px; object-fit: cover; border-radius: 4px;" class="mx-auto d-block"
-              :src="imagePath + item.foto_profile" alt="" />
-            <div class="text-center mt-3">
-              <h2 style="line-height: 1.5rem;">{{ item.nama_lengkap }}</h2>
-              <p>{{ item.nama_jabatan }}</p>
-              <p>{{ item.email_admin }}</p>
-            </div>
-          </VCardItem>
-        </VCard>
-      </VCol>
-      <div style="width: 100%;" v-if="index != strukurAdmin.length - 1">
-        <div
-          style="height: 5px;width:50%;background-color: rgba(var(--v-theme-on-background), var(--v-high-emphasis-opacity));border-radius: 2px;"
-          class="mx-auto"></div>
-      </div>
-    </VRow>
-  </section>
+  <VRow v-for="(perlevel, index) in strukurAdmin">
+    <VCol v-for="item in perlevel" cols="6" md="3" lg="3" class="mx-auto mt-5">
+      <VCard>
+        <VCardItem>
+          <img style="width: 150px; height: 150px; object-fit: cover; border-radius: 4px;" class="mx-auto d-block"
+            :src="imagePath + item.foto_profile" alt="" />
+          <div class="text-center mt-3">
+            <h2 style="line-height: 1.5rem;">{{ item.nama_lengkap }}</h2>
+            <p>{{ item.nama_jabatan }}</p>
+            <p>{{ item.email_admin }}</p>
+          </div>
+        </VCardItem>
+      </VCard>
+    </VCol>
+    <div style="width: 100%;" v-if="index != strukurAdmin.length - 1">
+      <div
+        style="height: 5px;width:50%;background-color: rgba(var(--v-theme-on-background), var(--v-high-emphasis-opacity));border-radius: 2px;"
+        class="mx-auto"></div>
+    </div>
+  </VRow>
   <div class="my-5"></div>
 </template>
 

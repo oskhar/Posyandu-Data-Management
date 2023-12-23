@@ -29,5 +29,6 @@ class PenimbanganModel extends Model
         'berat_badan',
         'ntob',
         'asi_eksklusif',
+        'id_standar_deviasi',
     ];
 }

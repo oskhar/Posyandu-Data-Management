@@ -2,25 +2,24 @@
   <!-- Konten halaman -->
   <main>
     <img style="
-        width: 100vw;
-        height: 550px;
-        object-fit: cover;
-        position: relative;
-        top: 0px;
-        filter: brightness(0.8)" :src="langit" alt="" />
+      width: 100vw;
+      height: 550px;
+      object-fit: cover;
+      position: relative;
+      top: 0px;
+      filter: brightness(0.8)" :src="langit" alt="" />
     <!-- Isi halaman utama Anda di sini -->
     <div style="position: absolute;top: 200px;width: 100vw;">
       <center>
-        <h3 class="text-white text-no-wrap text-h5">SELAMAT DATANG DI</h3>
-        <h1 class="text-white text-no-wrap text-h3">POSYANDU MELATI</h1>
+        <h3 class="text-white text-h5">SELAMAT DATANG DI</h3>
+        <h1 class="text-white text-h3">POSYANDU MELATI</h1>
       </center>
     </div>
   </main>
-
   <!-- CARD 3 -->
   <section class="mt-5">
     <VRow>
-      <VCol cols="11" md="9" lg="9" class="mx-auto">
+      <VCol cols="12" md="9" lg="9" class="mx-auto">
         <!-- 👉 Profit -->
         <VCard>
           <VCardItem>
@@ -74,6 +73,8 @@
             </VRow>
           </VCardItem>
         </VCard>
+      </VCol>
+      <VCol cols="11" md="9" lg="9" class="mx-auto">
         <Sambutan class="my-5" />
       </VCol>
     </VRow>
