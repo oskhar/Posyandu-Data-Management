@@ -263,10 +263,10 @@ class FormatBAController extends Controller
          * dibutuhkan sudah tersedia
          * 
          */
-        if (empty($data['tahun']) || empty($data['bulan'])) {
+        if (empty($data['tahun'])) {
             throw new HttpResponseException(response()->json([
                 'errors' => [
-                    'message' => 'Data tahun dan bulan tidak boleh kosong'
+                    'message' => 'Data tahun tidak boleh kosong'
                 ]
             ])->setStatusCode(400));
         }
@@ -287,30 +287,36 @@ class FormatBAController extends Controller
          * Membuat query utama
          * 
          */
-        $query = BayiModel::select(
-            'bayi.id as id_bayi',
-            'bayi.nama as nama_bayi',
-            'bayi.jenis_kelamin',
-            'penimbangan.berat_badan',
-            'penimbangan.ntob',
-            'penimbangan.asi_eksklusif'
-        )
-            ->selectRaw('(' . $data['tahun'] . ' - YEAR(bayi.tanggal_lahir)) * 12 + MONTH(bayi.tanggal_lahir) as umur')
-            ->leftJoin('format_b', function ($join) {
-                $join->on('bayi.id', '=', 'format_b.id_bayi');
-            });
-
+        $queries = [];
         for ($bulan = 1; $bulan <= 12; $bulan++) {
-            $query->leftJoin('penimbangan as penimbangan_' . $bulan, function ($join) use ($data, $bulan) {
-                $join->on('bayi.id', '=', 'penimbangan_' . $bulan . '.id_bayi')
-                    ->where('penimbangan_' . $bulan . '.tahun_penimbangan', $data['tahun'])
-                    ->whereRaw('(' . $data['tahun'] . ' - YEAR(bayi.tanggal_lahir)) * 12 + ' . $bulan . ' - MONTH(bayi.tanggal_lahir) BETWEEN 0 AND 5');
-            });
+
+            $queries[$bulan - 1] = BayiModel::select(
+                'bayi.id as id_bayi',
+                'bayi.nama as nama_bayi',
+                'bayi.jenis_kelamin',
+                'penimbangan.berat_badan',
+                'penimbangan.ntob',
+                'penimbangan.asi_eksklusif'
+            )
+                ->selectRaw('"' . $this->namaBulan[$bulan] . '" as bulan')
+                ->selectRaw('(' . $data['tahun'] . ' - YEAR(bayi.tanggal_lahir)) * 12 + ' . $bulan . ' - MONTH(bayi.tanggal_lahir) as umur')
+                ->leftJoin('penimbangan', 'penimbangan.id_bayi', 'bayi.id')
+                ->whereRaw('(' . $data['tahun'] . ' - YEAR(bayi.tanggal_lahir)) * 12 + ' . $bulan . ' - MONTH(bayi.tanggal_lahir) BETWEEN ' . $this->batasBulanStart[$data['tab'] - 1] . ' AND ' . $this->batasBulanEnd[$data['tab'] - 1])
+                ->whereNull('bayi.tanggal_meninggal');
+
         }
 
-        $query->whereRaw('(' . $data['tahun'] . ' - YEAR(bayi.tanggal_lahir)) * 12 + MONTH(bayi.tanggal_lahir) BETWEEN 0 AND 5')
-            ->whereNull('bayi.tanggal_meninggal');
+        foreach ($queries as $index => $query) {
+            if ($index === 0) {
+                $mergedQuery = $query;
+            } else {
+                // Use union to merge subsequent queries
+                $mergedQuery = $mergedQuery->union($query);
+            }
+        }
 
+        // Get the final result
+        $query = $mergedQuery;
 
 
         /**
@@ -357,28 +363,6 @@ class FormatBAController extends Controller
          * 
          */
         $formatBA = $query->get();
-
-        /**
-         * Memeriksa apakah id_format_a ada
-         * 
-         */
-        if (!empty($data['id_format_a'])) {
-
-            /**
-             * Mengambil query data sesuai id
-             * 
-             */
-            $query = $query->where('format_a.id', $data['id_format_a']);
-
-            /**
-             * Mengambil data dari query dan
-             * akan dijadikan response
-             * 
-             */
-            $count = $query->count();
-            $formatBA = $query->first();
-
-        }
 
         /**
          * Mengambil data posyandu
