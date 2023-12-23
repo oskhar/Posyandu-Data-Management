@@ -1,14 +1,14 @@
 <template>
-  <v-row class="text-xs-left" style="margin-top: 150px">
-    <v-col>
+  <VRow class="text-xs-left" style="margin-top: 150px">
+    <VCol>
       <h2 class="caption">Penyuluhan <font class="text-primary">Edukasi</font>
       </h2>
       <p class="text-secondary">
         Informasi seputar EDUKASI POSYANDU MELATI akan di tampilkan di
         sini
       </p>
-    </v-col>
-  </v-row>
+    </VCol>
+  </VRow>
 
   <V-row class="mt-5">
     <VCol v-if="dataEdukasi.length == 0" cols="12">

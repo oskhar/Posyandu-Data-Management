@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
+
 class EdukasiRequest extends CoreRequest
 {
 
@@ -23,7 +25,11 @@ class EdukasiRequest extends CoreRequest
             case 'PUT':
                 return [
                     "id_edukasi" => "required|integer",
-                    "judul" => "nullable|string",
+                    "judul" => [
+                        "nullable",
+                        "string",
+                        Rule::unique('edukasi')->ignore($this->input('id_edukasi')),
+                    ],
                     "materi" => "nullable|string",
                     "gambar" => "nullable",
                 ];

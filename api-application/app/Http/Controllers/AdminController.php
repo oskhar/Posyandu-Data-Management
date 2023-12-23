@@ -342,10 +342,72 @@ class AdminController extends Controller
     }
     public function jabatan(): JsonResponse
     {
+        /**
+         * Mendapatkan id jabatan dan nama jabatan
+         * untuk dijadikan pilihan dalam VSelect
+         * 
+         */
         $jabatan = JabatanModel::select(
             'id as value',
             'nama as title',
         )->get();
-        return response()->json($jabatan)->setStatusCode(200);
+
+        /**
+         * Mengembalikan response yang sesuai
+         * 
+         */
+        return response()->json(
+            $jabatan
+        )->setStatusCode(200);
+    }
+    public function strukturAdmin(): JsonResponse
+    {
+        /**
+         * mendapatkan level jabatan yang tersedia
+         * 
+         */
+        $listLevel = JabatanModel::select('level')
+            ->orderBy('level')
+            ->distinct()
+            ->pluck('level')
+            ->toArray();
+
+        /**
+         * Mendekalarsikan data struktur untuk
+         * dijadikan wadah penyimpanan utama
+         * 
+         */
+        $struktur = array();
+
+        /**
+         * Melakukan perulangan sebanyak
+         * tingkat level yang tersedia
+         * 
+         */
+        for ($i = 0; $i < count($listLevel); $i++) {
+
+            /**
+             * Mendapatkan data admin
+             * 
+             */
+            $struktur[$i] = AdminModel::select(
+                'admin.foto_profile',
+                'admin.nama_lengkap',
+                'admin.email_admin',
+                'jabatan.nama as nama_jabatan',
+            )
+                ->join('jabatan', 'jabatan.id', 'admin.id_jabatan')
+                ->where('jabatan.level', $listLevel[$i])
+                ->get();
+
+        }
+
+        /**
+         * Mengembalikan response yang sesuai
+         * 
+         */
+        return response()->json(
+            $struktur
+        )->setStatusCode(200);
     }
 }

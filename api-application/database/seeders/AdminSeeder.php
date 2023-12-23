@@ -20,5 +20,24 @@ class AdminSeeder extends Seeder
             'nama_lengkap' => 'aidil manaf',
             'password' => Hash::make('123456'),
         ]);
+        \DB::table('admin')->insert([
+            'id_jabatan' => 3,
+            'email_admin' => 'oskhar@gmail.com',
+            'nama_lengkap' => 'Muh Oskhar',
+            'password' => Hash::make('123456'),
+        ]);
+        \DB::table('admin')->insert([
+            'id_jabatan' => 2,
+            'email_admin' => 'faried@gmail.com',
+            'nama_lengkap' => 'Faried Riansyah',
+            'password' => Hash::make('123456'),
+        ]);
+        \DB::table('admin')->insert([
+            'id_jabatan' => 4,
+            'email_admin' => 'fajar@gmail.com',
+            'nama_lengkap' => 'Fajar Ganevi',
+            'password' => Hash::make('123456'),
+        ]);
+
     }
 }

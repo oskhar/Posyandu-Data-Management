@@ -20,13 +20,7 @@
             </thead>
 
             <tbody>
-              <VProgressCircular
-                v-if="isLoading"
-                indeterminate
-                color="primary"
-                class="mt-5 float-center"
-                size="50"
-              >
+              <VProgressCircular v-if="isLoading" indeterminate color="primary" class="mt-5 float-center" size="50">
               </VProgressCircular>
 
               <tr v-else v-for="(item, index) in dataAdmin" :key="item.dessert">
@@ -40,35 +34,21 @@
                   {{ item.nama_lengkap }}
                 </td>
                 <td>
-                  <VSelect
-                    v-model="item.id_jabatan"
-                    style="width: 237px"
-                    :items="[
-                      { title: 'PELINDUNG', value: 1 },
-                      { title: 'PENANGGUNG JAWAB', value: 2 },
-                      { title: 'SEKRETARIS', value: 3 },
-                      { title: 'BENDAHARA', value: 4 },
-                      { title: 'PENDAFTARAN', value: 5 },
-                      { title: 'PENIMBANGAN', value: 6 },
-                      { title: 'PENCATATAN', value: 7 },
-                      { title: 'PENYULUHAN', value: 8 },
-                    ]"
-                    placeholder="Pilih Jabatan"
-                  />
+                  <VSelect v-model="item.id_jabatan" style="width: 237px" :items="[
+                    { title: 'PELINDUNG', value: 1 },
+                    { title: 'PENANGGUNG JAWAB', value: 2 },
+                    { title: 'SEKRETARIS', value: 3 },
+                    { title: 'BENDAHARA', value: 4 },
+                    { title: 'PENDAFTARAN', value: 5 },
+                    { title: 'PENIMBANGAN', value: 6 },
+                    { title: 'PENCATATAN', value: 7 },
+                    { title: 'PENYULUHAN', value: 8 },
+                  ]" placeholder="Pilih Jabatan" />
                 </td>
                 <td class="text-center">
-                  <v-dialog
-                    v-model="dialog[item.id_bayi]"
-                    persistent
-                    width="1024"
-                  >
+                  <v-dialog v-model="dialog[item.id_bayi]" persistent width="1024">
                     <template v-slot:activator="{ props }">
-                      <VBtn
-                        color="primary"
-                        class="ml-2"
-                        v-bind="props"
-                        prepend-icon="bx-key"
-                      >
+                      <VBtn color="primary" class="ml-2" v-bind="props" prepend-icon="bx-key">
                         password
                       </VBtn>
                     </template>
@@ -83,70 +63,40 @@
                               <!-- 👉 First Name -->
 
                               <!-- 👉 new password -->
-                              <VTextField
-                                v-model="newPassword"
-                                :type="
-                                  isNewPasswordVisible ? 'text' : 'password'
-                                "
-                                :append-inner-icon="
-                                  isNewPasswordVisible ? 'bx-hide' : 'bx-show'
-                                "
-                                label="Password Baru"
-                                placeholder="············"
-                                @click:append-inner="
-                                  isNewPasswordVisible = !isNewPasswordVisible
-                                "
-                              />
+                              <VTextField v-model="newPassword" :type="isNewPasswordVisible ? 'text' : 'password'
+                                " :append-inner-icon="isNewPasswordVisible ? 'bx-hide' : 'bx-show'
+    " label="Password Baru" placeholder="············" @click:append-inner="
+    isNewPasswordVisible = !isNewPasswordVisible
+    " />
                             </VCol>
 
                             <VCol cols="12">
                               <!-- 👉 confirm password -->
-                              <VTextField
-                                v-model="confirmPassword"
-                                :type="
-                                  isConfirmPasswordVisible ? 'text' : 'password'
-                                "
-                                :append-inner-icon="
-                                  isConfirmPasswordVisible
-                                    ? 'bx-hide'
-                                    : 'bx-show'
-                                "
-                                label="Konfirmasi Password Baru"
-                                placeholder="············"
-                                @click:append-inner="
-                                  isConfirmPasswordVisible =
-                                    !isConfirmPasswordVisible
-                                "
-                              />
+                              <VTextField v-model="confirmPassword" :type="isConfirmPasswordVisible ? 'text' : 'password'
+                                " :append-inner-icon="isConfirmPasswordVisible
+    ? 'bx-hide'
+    : 'bx-show'
+    " label="Konfirmasi Password Baru" placeholder="············" @click:append-inner="
+    isConfirmPasswordVisible =
+    !isConfirmPasswordVisible
+    " />
                             </VCol>
                           </VRow>
                         </v-container>
                       </v-card-text>
                       <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn
-                          color="blue-darken-1"
-                          variant="text"
-                          @click="dialog[item.id_bayi] = false"
-                        >
+                        <v-btn color="blue-darken-1" variant="text" @click="dialog[item.id_bayi] = false">
                           Close
                         </v-btn>
-                        <v-btn
-                          color="blue-darken-1"
-                          variant="text"
-                          @click="putData(index)"
-                        >
+                        <v-btn color="blue-darken-1" variant="text" @click="putData(index)">
                           Save
                         </v-btn>
                       </v-card-actions>
                     </v-card>
                   </v-dialog>
                   <!-- <VBtn> </VBtn> -->
-                  <VBtn
-                    class="ml-2"
-                    color="error"
-                    @click="deleteData(item.id_bayi)"
-                  >
+                  <VBtn class="ml-2" color="error" @click="deleteData(item.id_bayi)">
                     <v-icon>bx-trash</v-icon>
                   </VBtn>
                 </td>
@@ -202,6 +152,7 @@ export default {
             },
           }
         );
+        dialog[this.dataAdmin[indexAdmin].id_admin] = false;
         if (response.data.success) {
           Swal.fire({
             toast: true,
@@ -216,7 +167,6 @@ export default {
             title: response.data.success.message,
           });
         }
-        dialog[this.dataAdmin[indexAdmin].id_admin] = false;
       } catch (get) {
         const errorMessage = Object.values(get.response.data.errors).join(
           " - "

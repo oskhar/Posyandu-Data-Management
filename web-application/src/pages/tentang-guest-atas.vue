@@ -1,10 +1,11 @@
 <script>
 // 👉 Images
 import posyandu from "@images/pages/3.png";
+
 export default {
   data: () => ({
     dialog: false,
-    posyandu: posyandu,
+    posyandu,
     profil: "Bapak / Ibu (Nama Lengkap)",
   }),
   methods: {
@@ -70,12 +71,14 @@ export default {
     </VCol>
     <VCol cols="12" md="4" sm="12">
       <VCard class="pt-5">
-        <img style="width: 250px; height: 250px; object-fit: cover; border-radius: 4px;" class="mx-auto d-block"
-          :src="posyandu" alt="" />
-        <div class="text-center mt-3">
-          <h2 style="line-height: 0.8rem;">Nama Ketua</h2>
-          <p>Jabatan</p>
-        </div>
+        <VCardItem>
+          <img style="width: 250px; height: 250px; object-fit: cover; border-radius: 4px;" class="mx-auto d-block"
+            :src="posyandu" alt="" />
+          <div class="text-center mt-3">
+            <h2 style="line-height: 0.8rem;">Nama Ketua</h2>
+            <p>Jabatan</p>
+          </div>
+        </VCardItem>
       </VCard>
     </VCol>
   </VRow>

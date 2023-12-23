@@ -204,7 +204,7 @@ export default {
     this.judulFormatBA = response.data.judul_format;
     this.namaPosyandu = response.data.nama_posyandu;
     this.kota = response.data.kota;
-    const response2 = await axios.get(`${config.urlServer}/api/listtahun?tab=1`, {
+    const response2 = await axios.get(`${config.urlServer}/api/listtahun?tab=3`, {
       headers: {
         Authorization: localStorage.getItem("tokenAuth"),
       },

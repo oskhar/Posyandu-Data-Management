@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->string('email_admin', 70)->unique();
             $table->bigInteger('id_jabatan')->unsigned();
             $table->foreign('id_jabatan')->references('id')->on('jabatan')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('foto_profile', 70)->nullable();
+            $table->string('foto_profile', 70)->default('/images/upload/profileDefault.svg');
             $table->string('jenis_kelamin', 2)->nullable();
             $table->string('alamat')->nullable();
             $table->date('tanggal_lahir')->nullable();

@@ -129,3 +129,4 @@ Route::get('/berita', [BeritaController::class, 'get']);
 Route::get('/gambar', [GambarController::class, 'get']);
 Route::get('/posyandu', [PosyanduController::class, 'get']);
 Route::get('/jabatan', [AdminController::class, 'jabatan']);
+Route::get('/struktur-admin', [AdminController::class, 'strukturAdmin']);

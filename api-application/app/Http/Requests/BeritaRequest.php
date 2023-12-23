@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
+
 class BeritaRequest extends CoreRequest
 {
 
@@ -24,7 +26,11 @@ class BeritaRequest extends CoreRequest
             case 'PUT':
                 return [
                     "id_berita" => "required|integer",
-                    "judul" => "nullable|string",
+                    "judul" => [
+                        "nullable",
+                        "string",
+                        Rule::unique('berita')->ignore($this->input('id_berita')),
+                    ],
                     "deskripsi" => "nullable|string",
                     "gambar" => "nullable",
                     "tanggal_pelaksanaan" => "nullable"

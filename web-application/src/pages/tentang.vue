@@ -123,9 +123,7 @@ export default {
 </script>
 
 <template>
-  <VRow
-    v-if="isUpload"
-    style="
+  <VRow v-if="isUpload" style="
       position: fixed;
       z-index: 1;
       right: 50px;
@@ -134,8 +132,7 @@ export default {
       padding: 1rem;
       padding-block: 5px;
       border-radius: 5px;
-    "
-  >
+    ">
     <font>Menyimpan... </font>
     <VProgressCircular indeterminate color="primary" class="ml-3 float-center">
     </VProgressCircular>
@@ -168,77 +165,40 @@ export default {
                   <v-container>
                     <v-row>
                       <v-col cols="12">
-                        <VTextarea
-                          label="Profil"
-                          v-model="posyandu.penyampaian_ketua"
-                          required
-                        ></VTextarea>
+                        <VTextarea label="Profil" v-model="posyandu.penyampaian_ketua" required></VTextarea>
                       </v-col>
                       <v-col cols="12">
-                        <VTextarea
-                          label="Visi"
-                          v-model="posyandu.visi"
-                          required
-                        ></VTextarea>
+                        <VTextarea label="Visi" v-model="posyandu.visi" required></VTextarea>
                       </v-col>
                       <v-col cols="12">
-                        <VTextarea
-                          label="Misi"
-                          v-model="posyandu.misi"
-                          required
-                        ></VTextarea>
+                        <VTextarea label="Misi" v-model="posyandu.misi" required></VTextarea>
                       </v-col>
                       <VCol cols="12" md="9">
                         <div class="d-flex flex-column justify-center gap-5">
                           <div class="d-flex flex-wrap gap-2">
-                            <VBtn
-                              id="gambar"
-                              color="primary"
-                              @click="inputGambar"
-                            >
+                            <VBtn id="gambar" color="primary" @click="inputGambar">
                               <VIcon icon="bx-cloud-upload" class="d-sm-none" />
-                              <span class="d-none d-sm-block"
-                                >Upload foto baru</span
-                              >
+                              <span class="d-none d-sm-block">Upload foto baru</span>
                             </VBtn>
 
-                            <input
-                              id="inputGambar"
-                              type="file"
-                              name="file"
-                              accept=".jpeg,.png,.jpg"
-                              hidden
-                              @change="changeAvatar($event)"
-                            />
+                            <input id="inputGambar" type="file" name="file" accept=".jpeg,.png,.jpg" hidden
+                              @change="changeAvatar($event)" />
                           </div>
                         </div>
-                        <VAvatar
-                          rounded="lg"
-                          size="200"
-                          class="me-1 mt-3"
-                          :image="posyandu.gambar_gedung"
-                        />
+                        <VAvatar rounded="lg" size="200" class="me-1 mt-3" :image="posyandu.gambar_gedung" />
                       </VCol>
                     </v-row>
                   </v-container>
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn
-                    color="blue-darken-1"
-                    variant="text"
-                    @click="dialog = false"
-                  >
+                  <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
                     Close
                   </v-btn>
-                  <v-btn
-                    color="blue-darken-1"
-                    variant="text"
-                    @click="
-                      putData();
-                      dialog = false;
-                    "
-                  >
+                  <v-btn color="blue-darken-1" variant="text" @click="
+                    putData();
+                  dialog = false;
+                  ">
                     Save
                   </v-btn>
                 </v-card-actions>
@@ -249,18 +209,10 @@ export default {
       </VRow>
     </div>
     <VCol cols="12">
-      <img
-        style="width: 100%; height: 500px; object-fit: cover"
-        :src="posyandu.gambar_gedung"
-        alt=""
-      />
+      <img style="width: 100%; height: 500px; object-fit: cover" :src="posyandu.gambar_gedung" alt="" />
     </VCol>
     <VCol md="3" sm="12">
-      <img
-        style="width: 250px; height: 250px; object-fit: cover"
-        :src="imagePath + posyandu.foto_profile_ketua"
-        alt=""
-      />
+      <img style="width: 250px; height: 250px; object-fit: cover" :src="imagePath + posyandu.foto_profile_ketua" alt="" />
     </VCol>
     <VCol md="9" sm="12">
       <VCard class="text-center text-sm-start">
@@ -272,11 +224,8 @@ export default {
               </VCardTitle>
             </VCardItem>
 
-            <VCardText>
-              <span>
-                {{ posyandu.penyampaian_ketua }}
-              </span>
-              <br />
+            <VCardText style="white-space: pre-line;">
+              {{ posyandu.penyampaian_ketua }}
             </VCardText>
           </VCol>
         </VRow>
@@ -290,11 +239,8 @@ export default {
               <VCardTitle class="text-md-h5 text-primary"> VISI </VCardTitle>
             </VCardItem>
 
-            <VCardText>
-              <span>
-                {{ posyandu.visi }}
-              </span>
-              <br />
+            <VCardText style="white-space: pre-line;">
+              {{ posyandu.visi }}
             </VCardText>
           </VCol>
         </VRow>
@@ -308,11 +254,8 @@ export default {
               <VCardTitle class="text-md-h5 text-primary"> MISI </VCardTitle>
             </VCardItem>
 
-            <VCardText>
-              <span>
-                {{ posyandu.misi }}
-              </span>
-              <br />
+            <VCardText style="white-space: pre-line;">
+              {{ posyandu.misi }}
             </VCardText>
           </VCol>
         </VRow>

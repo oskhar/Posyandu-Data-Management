@@ -133,7 +133,17 @@ class FormatBAController extends Controller
                  * 
                  */
                 foreach ($penimbangan as $dataPenimbangan) {
+
+                    /**
+                     * Memeriksa kesamaan data penimbangan
+                     * 
+                     */
                     if ($dataPenimbangan->tahun_penimbangan . ' ' . $this->namaBulan[$dataPenimbangan->bulan_penimbangan] == $list_waktu[$i]) {
+
+                        /**
+                         * Memasukan data jika penimbangan ada
+                         * 
+                         */
                         $list_penimbangan[$i] = [
                             'judul' => 'Umur ' . $i . ' Bulan - ' . $list_waktu[$i],
                             'berat_badan' => $dataPenimbangan->berat_badan,
@@ -236,22 +246,6 @@ class FormatBAController extends Controller
                             })->toArray(),
                 ],
             ];
-            // PenimbanganModel::select('berat_badan')
-            // ->where('id_bayi', $data['id_bayi'])
-            // ->pluck('berat_badan')
-            // ->toArray(),
-
-            // PenimbanganModel::select('berat_badan')
-            //                 ->join('bayi', 'bayi.id', '=', 'penimbangan.id_bayi')
-            //                 ->selectRaw('(penimbangan.tahun_penimbangan - YEAR(bayi.tanggal_lahir)) * 12 + penimbangan.bulan_penimbangan - MONTH(bayi.tanggal_lahir) as umur_bulan')
-            //                 ->where('id_bayi', $data['id_bayi'])
-            //                 ->get()
-            //                 ->map(function ($item) {
-            //                     return [
-            //                         'x' => $item->umur_bulan,
-            //                         'y' => $item->berat_badan
-            //                     ];
-            //                 }),
 
             /**
              * Mengembalikan response sesuai request
@@ -309,7 +303,7 @@ class FormatBAController extends Controller
                 $join->on('bayi.id', '=', 'penimbangan.id_bayi')
                     ->where('penimbangan.tahun_penimbangan', $data['tahun'])
                     ->where('penimbangan.bulan_penimbangan', $data['bulan'])
-                    ->whereRaw('(' . $data['tahun'] . ' - YEAR(bayi.tanggal_lahir)) * 12 + ' . $data['bulan'] . ' - MONTH(bayi.tanggal_lahir) BETWEEN ' . $this->batasBulanStart[$data['tab'] - 1] . ' AND ' . $this->batasBulanEnd[$data['tab'] - 1]);
+                    ->whereRaw('(' . $data['tahun'] . ' - YEAR(bayi.tanggal_lahir)) * 12 + ' . $data['bulan'] . ' - MONTH(bayi.tanggal_lahir) BETWEEN ' . $this->batasBulanStart[intval($data['tab']) - 1] . ' AND ' . $this->batasBulanEnd[intval($data['tab']) - 1]);
             })
             ->whereRaw('(' . $data['tahun'] . ' - YEAR(bayi.tanggal_lahir)) * 12 + ' . $data['bulan'] . ' - MONTH(bayi.tanggal_lahir) BETWEEN ' . $this->batasBulanStart[$data['tab'] - 1] . ' AND ' . $this->batasBulanEnd[$data['tab'] - 1])
             ->whereNull('bayi.tanggal_meninggal');
@@ -541,68 +535,146 @@ class FormatBAController extends Controller
     protected function getNTOB($umurBayi, $dataWHOBulanLalu, $dataWHO, $beratBadanBulanLalu, $beratBadanSekarang)
     {
 
+        /**
+         * Memeriksa umur bayi
+         * 
+         */
         if ($umurBayi == 0) {
 
+            /**
+             * Apakah bayi baru pertama kali menimbang
+             * 
+             */
             return "B (Baru pertama kali menimbang)";
 
         } else if (empty($beratBadanBulanLalu)) {
 
+            /**
+             * Mengembalikan O jika bulan lalu bayi
+             * tidak melakukan penimbangan
+             * 
+             */
             return "O (Tidak menimbang bulan lalu)";
 
         } else {
 
+            /**
+             * Mendapatkan berat badan bayi bulan lalu
+             */
             $beratBadanBulanLalu = $beratBadanBulanLalu->berat_badan;
 
+            /**
+             * Mendapatkan pita berat bulan lalu
+             * 
+             */
             $pitaBulanLalu = $this->getPitaBeratBadan($beratBadanBulanLalu, $dataWHOBulanLalu);
 
+            /**
+             * Mendapatkan pita berat bulan sekarang
+             * 
+             */
             $pitaBulanIni = $this->getPitaBeratBadan($beratBadanSekarang, $dataWHO);
 
+            /**
+             * Membandingkan pita bulan ini dengan
+             * pita bulan lalu
+             * 
+             */
             if ($pitaBulanIni == 0) {
 
+                /**
+                 * Mengembalikan response BGM karena bayi
+                 * berada di pita paling bawah berat
+                 * bayi berada di zona bahaya
+                 * 
+                 */
                 return "BGM (Bayi butuh penanganan khusus)";
 
             } else if ($beratBadanSekarang > $beratBadanBulanLalu && $pitaBulanIni > $pitaBulanLalu) {
 
+                /**
+                 * Kembalikan N1 Jika berat bayi masuk ke
+                 * pita diatasnya dan berat badan lebih
+                 * tinggi dari bulan lalu
+                 * 
+                 */
                 return "N1 (Naik, Masuk pita diatasnya)";
 
-            } elseif ($pitaBulanIni < $pitaBulanLalu) {
+            } else if ($pitaBulanIni < $pitaBulanLalu) {
 
+                /**
+                 * Mengembalikan response T yang menandakan
+                 * bahwa berat bayi berada di zona waspada
+                 * 
+                 */
                 return "T" . ($beratBadanSekarang > $beratBadanBulanLalu ? "1 (Naik, Namun masuk ke pita bawahnya)" : ($beratBadanSekarang == $beratBadanBulanLalu ? "2 (Tetap, Tidak mengalami pertumbuah)" : "3 (Turun, Tumbuh negatif)"));
 
             }
 
         }
 
+        /**
+         * Mengembalikan N2 jika semua kondisi tidak
+         * terpenuhi atau tidak sesuai
+         * 
+         */
         return "N2, Naik, Tetap pada pita yang sama";
     }
     private function getPitaBeratBadan($beratBadan, $dataWHO)
     {
+        /**
+         * Memeriksa berat bayi berada di pita mana
+         * 
+         */
         if ($beratBadan > $dataWHO->sangat_gemuk) {
+
             return 7;
+
         } elseif ($beratBadan > $dataWHO->gemuk) {
+
             return 6;
+
         } elseif ($beratBadan > $dataWHO->normal_gemuk) {
+
             return 5;
+
         } elseif ($beratBadan > $dataWHO->baik) {
+
             return 4;
+
         } elseif ($beratBadan > $dataWHO->normal_kurus) {
+
             return 3;
+
         } elseif ($beratBadan > $dataWHO->kurus) {
+
             return 2;
+
         } elseif ($beratBadan > $dataWHO->sangat_kurus) {
+
             return 1;
+
         } else {
-            return 0; // Jika berat badan kurang dari sangat kurus
+
+            return 0;
+
         }
     }
     public function getListTahun(Request $request): JsonResponse
     {
+        if (empty($request->tab)) {
+            throw new HttpResponseException(response()->json([
+                'errors' => [
+                    'message' => 'Data tab tidak boleh kosong'
+                ]
+            ])->setStatusCode(400));
+        }
         /**
          * Mendapatkan seluruh list tahun lahir yang
          * bisa dipilih berdasarkan bulan start
          * 
          */
-        $listTahunLahir = BayiModel::selectRaw('YEAR(tanggal_lahir) + FLOOR((MONTH(tanggal_lahir) + ' . $this->batasBulanStart[$request->tab] . ') / 12) as tahun_lahir')
+        $listTahunLahir = BayiModel::selectRaw('YEAR(tanggal_lahir) + FLOOR((MONTH(tanggal_lahir) + ' . $this->batasBulanStart[intval($request->tab) - 1] . ') / 12) as tahun_lahir')
             ->orderByDesc('tanggal_lahir')
             ->distinct()
             ->pluck('tahun_lahir')
@@ -615,7 +687,7 @@ class FormatBAController extends Controller
          */
         $listTahunLahir = array_unique(array_merge(
             $listTahunLahir,
-            BayiModel::selectRaw('YEAR(tanggal_lahir) + FLOOR((MONTH(tanggal_lahir) + ' . $this->batasBulanEnd[$request->tab] . ') / 12) as tahun_lahir')
+            BayiModel::selectRaw('YEAR(tanggal_lahir) + FLOOR((MONTH(tanggal_lahir) + ' . $this->batasBulanEnd[intval($request->tab) - 1] . ') / 12) as tahun_lahir')
                 ->orderByDesc('tanggal_lahir')
                 ->distinct()
                 ->pluck('tahun_lahir')
