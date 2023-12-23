@@ -256,7 +256,7 @@ export default {
           timerProgressBar: true,
           timer: 4000,
           icon: "error",
-          title: "Judul Tidak Boleh Kosong",
+          title: "Judul Tidak Boleh Kosong atau Sama Seperti Yang Sudah Ada",
         });
       }
       this.isUpload = false;
