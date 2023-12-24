@@ -1,6 +1,6 @@
 <template>
-  <v-row class="text-xs-left" style="margin-top: 150px">
-    <v-col>
+  <VRow class="text-xs-left" style="margin-top: 150px">
+    <VCol>
       <h2 class="caption">Berita <font class="text-primary">Acara</font>
       </h2>
 
@@ -8,10 +8,13 @@
         Informasi seputar BERITA & ACARA POSYANDU MELATI akan di tampilkan di
         sini
       </p>
-    </v-col>
-  </v-row>
+    </VCol>
+  </VRow>
 
-  <VRow class="mb-4">
+  <VProgressCircular v-if="isLoading" indeterminate color="primary" class="mx-auto">
+  </VProgressCircular>
+
+  <VRow v-else class="mb-4">
     <VCol v-if="dataBerita.length == 0" cols="12">
       <center>
         <h3 class="text-secondary">Belum ada berita..</h3>
@@ -53,6 +56,7 @@ import config from "@/@core/config.vue";
 export default {
   data() {
     return {
+      isLoading: false,
       dataBerita: [],
       urlServer: config.urlServer,
       page: 1,
@@ -62,6 +66,7 @@ export default {
 
   methods: {
     async fetchData() {
+      this.isLoading = true;
       const banyakDataTampil = 3;
       const response = await axios.get(
         `${this.urlServer}/api/berita?start=${this.page}&length=${banyakDataTampil}`
@@ -71,6 +76,7 @@ export default {
         return item;
       });
       this.banyakPage = Math.ceil(response.data.jumlah_data / banyakDataTampil);
+      this.isLoading = false;
     },
 
   },

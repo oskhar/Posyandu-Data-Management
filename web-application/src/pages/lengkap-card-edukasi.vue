@@ -15,10 +15,10 @@
 
         <V-row class="mt-5">
           <VCol v-for="(data) in dataEdukasi" cols="12" sm="6" md="4">
-            <RouterLink to="./edukasi-guest">
+            <RouterLink :to="`./edukasi-guest?id_edukasi=${data.id_edukasi}`">
               <VCard>
                 <VImg :src="data.gambar" cover style="height: 200px">
-                  <h2 v-if="data.gambar == urlServer + null" class="text-center text-secondary" style="margin-top: 25%">
+                  <h2 v-if="data.gambar == imagePath + null" class="text-center text-secondary" style="margin-top: 25%">
                     Tidak Ada Foto
                   </h2>
                 </VImg>
@@ -60,15 +60,12 @@
 <script>
 import axios from "axios";
 import config from "@/@core/config.vue";
-import { ref } from "vue";
-import Swal from "sweetalert2";
 
 export default {
   data() {
     return {
-      dataEdukasi: ref([]),
-      urlServer: config.urlServer,
-      refInput: ref(),
+      dataEdukasi: [],
+      imagePath: config.imagePath,
       page: 1,
       banyakPage: 0,
     };
@@ -79,14 +76,11 @@ export default {
     async fetchData() {
       const banyakDataTampil = 9;
       const response = await axios.get(
-        `${this.urlServer}/api/edukasi?start=${this.page}&length=${banyakDataTampil}`
+        `${config.urlServer}/api/edukasi?start=${this.page}&length=${banyakDataTampil}`
       );
       this.dataEdukasi = response.data.edukasi.map((item) => {
-        item.id_edukasi = ref(item.id_edukasi);
-        item.judul = ref(item.judul);
-        item.materi = ref(item.materi);
-        item.gambar = ref(this.urlServer + item.gambar);
-        item.refInput = ref();
+        item.id_edukasi = btoa(item.id_edukasi);
+        item.gambar = this.imagePath + item.gambar;
         return item;
       });
       this.banyakPage = Math.ceil(response.data.jumlah_data / banyakDataTampil);

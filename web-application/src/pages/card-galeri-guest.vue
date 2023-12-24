@@ -13,10 +13,13 @@
     </p>
   </div>
 
-  <VRow no-gutters>
+  <VProgressCircular v-if="isLoading" indeterminate color="primary" class="mx-auto">
+  </VProgressCircular>
+
+  <VRow v-else no-gutters>
     <VCol cols="12" md="3" sm="6" v-for="data in dataGambar">
       <VImg id="gambar" style="width: 100%; height: 200px" cover :src="data.gambar" alt="image"
-        @click="lihatGambar(data.gambar, data.nama_lengkap, data.id_gambar)" />
+        @click="lihatGambar(data.gambar, data.nama_lengkap)" />
       <!-- <h1>{{ data.id_gambar }}</h1> -->
     </VCol>
   </VRow>
@@ -31,69 +34,41 @@
 
 <script>
 //import EditEdukasi from "./EditEdukasi.vue";
-import wallet from "@/assets/images/pages/1.png";
 import axios from "axios";
 import config from "@/@core/config.vue";
-import { ref } from "vue";
 import Swal from "sweetalert2";
 
 export default {
   data() {
     return {
-      dialog: ref([]),
-      dataGambar: ref([]),
-      urlServer: config.urlServer,
+      isLoading: false,
+      dataGambar: [],
       page: 1,
       banyakPage: 0,
-      wallet,
     };
   },
 
   methods: {
     async fetchData() {
+      this.isLoading = true;
       const banyakDataTampil = 8;
       const response = await axios.get(
-        `${this.urlServer}/api/gambar?start=${this.page}&length=${banyakDataTampil}`
+        `${config.urlServer}/api/gambar?start=${this.page}&length=${banyakDataTampil}`
       );
       this.dataGambar = response.data.gambar.map((item) => {
-        item.gambar = ref(config.imagePath + item.gambar);
-        item.refInput = ref();
-        item.nama_lengkap = ref(item.nama_lengkap);
+        item.gambar = config.imagePath + item.gambar;
         return item;
       });
       this.banyakPage = Math.ceil(response.data.jumlah_data / banyakDataTampil);
+      this.isLoading = false;
     },
 
-    async lihatGambar(gambar, judul, id_gambar) {
-      const ask = await Swal.fire({
+    lihatGambar(gambar, judul) {
+      Swal.fire({
         imageUrl: gambar,
+        html: judul,
         imageAlt: "Ini gambar",
       });
-      if (ask.isDenied) {
-        const response = await axios.delete(
-          `${this.urlServer}/api/gambar?id_gambar=${id_gambar}`,
-          {
-            headers: {
-              Authorization: localStorage.getItem("tokenAuth"),
-            },
-          }
-        );
-        if (response.data.success) {
-          Swal.fire({
-            toast: true,
-            position: "top",
-            iconColor: "white",
-            color: "white",
-            background: "rgb(var(--v-theme-success))",
-            showConfirmButton: false,
-            timerProgressBar: true,
-            timer: 1500,
-            icon: "success",
-            title: response.data.success.message,
-          });
-          this.fetchData();
-        }
-      }
     },
   },
 

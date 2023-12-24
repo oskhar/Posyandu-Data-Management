@@ -7,7 +7,7 @@
       object-fit: cover;
       position: relative;
       top: 0px;
-      filter: brightness(0.8)" :src="imagePath + posyandu.gambar_gedung" alt="" />
+      filter: brightness(0.6)" :src="imagePath + posyandu.gambar_gedung" alt="" />
     <!-- Isi halaman utama Anda di sini -->
     <div style="position: absolute;top: 200px;width: 100vw;">
       <center>
