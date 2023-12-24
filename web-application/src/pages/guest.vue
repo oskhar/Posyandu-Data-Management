@@ -7,7 +7,7 @@
       object-fit: cover;
       position: relative;
       top: 0px;
-      filter: brightness(0.8)" :src="langit" alt="" />
+      filter: brightness(0.8)" :src="imagePath + posyandu.gambar_gedung" alt="" />
     <!-- Isi halaman utama Anda di sini -->
     <div style="position: absolute;top: 200px;width: 100vw;">
       <center>
@@ -75,7 +75,31 @@
         </VCard>
       </VCol>
       <VCol cols="11" md="9" lg="9" class="mx-auto">
-        <Sambutan class="my-5" />
+        <VRow>
+          <VCol md="8" cols="12">
+            <VCardItem>
+              <VCardTitle class="text-md-h5 text-primary">
+                Sambutan Ketua Posyandu
+              </VCardTitle>
+            </VCardItem>
+
+            <VCardText style="white-space: pre-line;">
+              {{ posyandu.penyampaian_ketua }}
+            </VCardText>
+          </VCol>
+          <VCol cols="12" md="4" sm="12">
+            <VCard class="pt-5">
+              <VCardItem>
+                <img style="width: 250px; height: 250px; object-fit: cover; border-radius: 4px;" class="mx-auto d-block"
+                  :src="imagePath + posyandu.foto_profile_ketua" alt="" />
+                <div class="text-center mt-3">
+                  <h2 style="line-height: 0.8rem;">{{ posyandu.nama_lengkap_ketua }}</h2>
+                  <p>{{ posyandu.jabatan_ketua }}</p>
+                </div>
+              </VCardItem>
+            </VCard>
+          </VCol>
+        </VRow>
       </VCol>
     </VRow>
     <VCard class="mt-5">
@@ -99,7 +123,6 @@
 import cardEdukasi from "./card-edukasi.vue";
 import cardBeritaAcara from "./card-berita-acara.vue";
 import cardGaleri from "./card-galeri-guest.vue";
-import Sambutan from "./tentang-guest-atas.vue";
 import langit from "@images/pages/2.png";
 
 import axios from "axios";
@@ -109,16 +132,16 @@ export default {
     cardEdukasi,
     cardBeritaAcara,
     cardGaleri,
-    Sambutan,
   },
   data() {
     return {
-      langit,
       urlServer: config.urlServer,
       statEdukasi: 0,
       statBerita: 0,
       statBayi: 0,
       statGambar: 0,
+      imagePath: config.imagePath,
+      posyandu: {},
     };
   },
   methods: {
@@ -153,6 +176,7 @@ export default {
     this.fetchEdukasi();
     this.fetchGambar();
     this.fetchBayi();
+    this.fetchPosyandu();
   }
 };
 </script>

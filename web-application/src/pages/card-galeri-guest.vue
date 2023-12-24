@@ -13,15 +13,6 @@
     </p>
   </div>
 
-  <VRow>
-    <VCol>
-      <div class="d-flex flex-wrap gap-2 float-right">
-        <input id="inputGambar" ref="refInputEl" type="file" name="file" accept=".jpeg,.png,.jpg" hidden
-          @change="changeAvatar" />
-      </div>
-    </VCol>
-  </VRow>
-
   <VRow no-gutters>
     <VCol cols="12" md="3" sm="6" v-for="data in dataGambar">
       <VImg id="gambar" style="width: 100%; height: 200px" cover :src="data.gambar" alt="image"
@@ -52,7 +43,6 @@ export default {
       dialog: ref([]),
       dataGambar: ref([]),
       urlServer: config.urlServer,
-      refInputEl: ref(),
       page: 1,
       banyakPage: 0,
       wallet,
@@ -60,10 +50,6 @@ export default {
   },
 
   methods: {
-    inputGambar() {
-      document.getElementById("inputGambar").click();
-    },
-
     async fetchData() {
       const banyakDataTampil = 8;
       const response = await axios.get(

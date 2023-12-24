@@ -26,7 +26,7 @@
 </style>
 <template>
   <v-app style="position: fixed;">
-    <v-app-bar style="background-color: rgba(255, 255, 255, 0.65);position: fixed;">
+    <v-app-bar style="background-color: rgba(255, 255, 255, 0.75);position: fixed;">
       <!-- Logo di sebelah pojok kiri -->
       <v-app-bar-nav-icon @click="toggleDrawer" class="hide-md-and-up humburger ml-5"></v-app-bar-nav-icon>
 

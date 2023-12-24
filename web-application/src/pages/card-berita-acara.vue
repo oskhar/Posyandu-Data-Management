@@ -19,7 +19,7 @@
     </VCol>
     <!-- 👉 Popular Uses Of The Internet -->
     <VCol v-for="(data) in dataBerita" cols="12" md="4" lg="4">
-      <RouterLink to="./berita-acara-guest">
+      <RouterLink :to="`./berita-acara-guest?id_berita=${data.id_berita}`">
         <VCard>
 
           <VCardItem>
@@ -49,15 +49,12 @@
 <script>
 import axios from "axios";
 import config from "@/@core/config.vue";
-import { ref } from "vue";
 
 export default {
   data() {
     return {
-      dialog: ref([]),
-      dataBerita: ref([]),
+      dataBerita: [],
       urlServer: config.urlServer,
-      refInput: ref(),
       page: 1,
       banyakPage: 0,
     };
@@ -70,11 +67,7 @@ export default {
         `${this.urlServer}/api/berita?start=${this.page}&length=${banyakDataTampil}`
       );
       this.dataBerita = response.data.berita.map((item) => {
-        item.id_berita = ref(item.id_berita);
-        item.judul = ref(item.judul);
-        item.tanggal_pelaksanaan = ref(item.tanggal_pelaksanaan);
-        item.deskripsi = ref(item.deskripsi);
-        item.refInput = ref();
+        item.id_berita = btoa(item.id_berita);
         return item;
       });
       this.banyakPage = Math.ceil(response.data.jumlah_data / banyakDataTampil);

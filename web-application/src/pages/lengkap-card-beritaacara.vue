@@ -17,10 +17,10 @@
         <VRow>
           <!-- 👉 Popular Uses Of The Internet -->
           <VCol v-for="(data) in dataBerita" cols="6" sm="6" md="4">
-            <RouterLink to="./berita-acara-guest">
+            <RouterLink :to="`./berita-acara-guest?id_berita=${data.id_berita}`">
               <VCard>
                 <VImg :src="data.gambar" cover style="height: 280px">
-                  <h2 v-if="data.gambar == urlServer + null" class="text-center text-secondary" style="margin-top: 25%">
+                  <h2 v-if="data.gambar == imagePath + null" class="text-center text-secondary" style="margin-top: 25%">
                     Tidak Ada Foto
                   </h2>
                 </VImg>
@@ -60,16 +60,12 @@
 <script>
 import axios from "axios";
 import config from "@/@core/config.vue";
-import { ref } from "vue";
-import Swal from "sweetalert2";
 
 export default {
   data() {
     return {
-      dialog: ref([]),
-      dataBerita: ref([]),
-      urlServer: config.urlServer,
-      refInput: ref(),
+      dataBerita: [],
+      imagePath: config.imagePath,
       page: 1,
       banyakPage: 0,
     };
@@ -80,15 +76,11 @@ export default {
     async fetchData() {
       const banyakDataTampil = 9;
       const response = await axios.get(
-        `${this.urlServer}/api/berita?start=${this.page}&length=${banyakDataTampil}`
+        `${config.urlServer}/api/berita?start=${this.page}&length=${banyakDataTampil}`
       );
       this.dataBerita = response.data.berita.map((item) => {
-        item.id_berita = ref(item.id_berita);
-        item.judul = ref(item.judul);
-        item.tanggal_pelaksanaan = ref(item.tanggal_pelaksanaan);
-        item.deskripsi = ref(item.deskripsi);
-        item.gambar = ref(this.urlServer + item.gambar);
-        item.refInput = ref();
+        item.id_berita = btoa(item.id_berita);
+        item.gambar = this.imagePath + item.gambar;
         return item;
       });
       this.banyakPage = Math.ceil(response.data.jumlah_data / banyakDataTampil);
