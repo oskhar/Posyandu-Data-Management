@@ -699,7 +699,7 @@ class FormatBAController extends Controller
                  * tinggi dari bulan lalu
                  * 
                  */
-                return "N" . $pitaBulanIni > $pitaBulanLalu ? "1 (Naik, Masuk pita diatasnya)" : "2 (Naik, Tetap pada pita yang sama)";
+                return "N" . ($pitaBulanIni > $pitaBulanLalu ? "1 (Naik, Masuk pita diatasnya)" : "2 (Naik, Tetap pada pita yang sama)");
 
             }
 

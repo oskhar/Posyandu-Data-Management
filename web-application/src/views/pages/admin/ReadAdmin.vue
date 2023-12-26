@@ -32,19 +32,48 @@
                   {{ item.nama_lengkap }}
                 </td>
                 <td>
-                  <VSelect v-model="item.id_jabatan" style="width: 237px" :items="[
-                    { title: 'PELINDUNG', value: 1 },
-                    { title: 'PENANGGUNG JAWAB', value: 2 },
-                    { title: 'SEKRETARIS', value: 3 },
-                    { title: 'BENDAHARA', value: 4 },
-                    { title: 'PENDAFTARAN', value: 5 },
-                    { title: 'PENIMBANGAN', value: 6 },
-                    { title: 'PENCATATAN', value: 7 },
-                    { title: 'PENYULUHAN', value: 8 },
-                  ]" placeholder="Pilih Jabatan" />
+                  <v-dialog v-model="dialog[index]" persistent width="1024">
+                    <template v-slot:activator="{ props }">
+                      <VBtn class="ml-2 text-none text-subtitle-1" v-bind="props" style="width: 210px" variant="tonal">
+                        {{ listJabatan[item.id_jabatan] }}
+                      </VBtn>
+                    </template>
+                    <v-card>
+                      <v-card-title>
+                        <VBtn class="text-h5">{{ listJabatan[item.id_jabatan] }}</VBtn>
+                      </v-card-title>
+                      <v-card-text>
+                        <v-container>
+                          <VRow>
+                            <VCol cols="12">
+                              <VSelect v-model="item.id_jabatan" style="width: 237px" :items="[
+                                { title: 'PELINDUNG', value: 1 },
+                                { title: 'PENANGGUNG JAWAB', value: 2 },
+                                { title: 'SEKRETARIS', value: 3 },
+                                { title: 'BENDAHARA', value: 4 },
+                                { title: 'PENDAFTARAN', value: 5 },
+                                { title: 'PENIMBANGAN', value: 6 },
+                                { title: 'PENCATATAN', value: 7 },
+                                { title: 'PENYULUHAN', value: 8 },
+                              ]" placeholder="Pilih Jabatan" />
+                            </VCol>
+                          </VRow>
+                        </v-container>
+                      </v-card-text>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="blue-darken-1" variant="text" @click="dialog[index] = false">
+                          Close
+                        </v-btn>
+                        <v-btn color="blue-darken-1" variant="text" @click="putData(item.id_admin)">
+                          Save
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
                 </td>
                 <td class="text-center">
-                  <v-dialog v-model="dialog[item.id_bayi]" persistent width="1024">
+                  <v-dialog v-model="dialog[index]" persistent width="1024">
                     <template v-slot:activator="{ props }">
                       <VBtn color="primary" class="ml-2" v-bind="props" prepend-icon="bx-key">
                         password
@@ -62,39 +91,37 @@
 
                               <!-- 👉 new password -->
                               <VTextField v-model="newPassword" :type="isNewPasswordVisible ? 'text' : 'password'
-                                " :append-inner-icon="isNewPasswordVisible ? 'bx-hide' : 'bx-show'
-    " label="Password Baru" placeholder="············" @click:append-inner="
-    isNewPasswordVisible = !isNewPasswordVisible
-    " />
+                                " :append-inner-icon="isNewPasswordVisible ? 'bx-hide' : 'bx-show'"
+                                label="Password Baru" placeholder="············" @click:append-inner="
+                                  isNewPasswordVisible = !isNewPasswordVisible
+                                  " />
                             </VCol>
 
                             <VCol cols="12">
                               <!-- 👉 confirm password -->
                               <VTextField v-model="confirmPassword" :type="isConfirmPasswordVisible ? 'text' : 'password'
-                                " :append-inner-icon="isConfirmPasswordVisible
-    ? 'bx-hide'
-    : 'bx-show'
-    " label="Konfirmasi Password Baru" placeholder="············" @click:append-inner="
-    isConfirmPasswordVisible =
-    !isConfirmPasswordVisible
-    " />
+                                " :append-inner-icon="isConfirmPasswordVisible ? 'bx-hide' : 'bx-show'"
+                                label="Konfirmasi Password Baru" placeholder="············" @click:append-inner="
+                                  isConfirmPasswordVisible =
+                                  !isConfirmPasswordVisible
+                                  " />
                             </VCol>
                           </VRow>
                         </v-container>
                       </v-card-text>
                       <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="blue-darken-1" variant="text" @click="dialog[item.id_bayi] = false">
+                        <v-btn color="blue-darken-1" variant="text" @click="dialog[index] = false">
                           Close
                         </v-btn>
-                        <v-btn color="blue-darken-1" variant="text" @click="putData(index)">
+                        <v-btn color="blue-darken-1" variant="text" @click="putData(item.id_admin)">
                           Save
                         </v-btn>
                       </v-card-actions>
                     </v-card>
                   </v-dialog>
                   <!-- <VBtn> </VBtn> -->
-                  <VBtn class="ml-2" color="error" @click="deleteData(item.id_bayi)">
+                  <VBtn class="ml-2" color="error" @click="deleteData(item.id_admin)">
                     <v-icon>bx-trash</v-icon>
                   </VBtn>
                 </td>
@@ -115,13 +142,23 @@ export default {
   data() {
     return {
       dialog: [],
+      dialogJabatan: [],
       dataAdmin: [],
       page: 1,
       isNewPasswordVisible: false,
       isConfirmPasswordVisible: false,
       newPassword: null,
       confirmPassword: null,
-      kategori: "PELINDUNG",
+      listJabatan: {
+        1: 'PELINDUNG',
+        2: 'PENANGGUNG JAWAB',
+        3: 'SEKRETARIS',
+        4: 'BENDAHARA',
+        5: 'PENDAFTARAN',
+        6: 'PENIMBANGAN',
+        7: 'PENCATATAN',
+        8: 'PENYULUHAN',
+      }
     };
   },
   methods: {
@@ -133,6 +170,7 @@ export default {
       });
       this.dataAdmin = response.data.admin;
     },
+
     async putData(indexAdmin) {
       try {
         const data = {
@@ -150,7 +188,6 @@ export default {
             },
           }
         );
-        dialog[this.dataAdmin[indexAdmin].id_admin] = false;
         if (response.data.success) {
           Swal.fire({
             toast: true,
@@ -166,6 +203,7 @@ export default {
           });
         }
       } catch (get) {
+        console.log(get)
         const errorMessage = Object.values(get.response.data.errors).join(
           " - "
         );
@@ -182,6 +220,7 @@ export default {
           title: errorMessage,
         });
       }
+      this.dialog[indexAdmin] = false;
     },
 
     async deleteData(id_admin) {

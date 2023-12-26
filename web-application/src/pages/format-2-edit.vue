@@ -61,7 +61,7 @@
                       placeholder="Masukkan Asi Ekslusif" :items="['Ya', 'Tidak', 'Alpa']" />
                   </VCol>
                   <VCol cols="12" sm="12" md="6">
-                    <VBtn class="text-none text-subtitle-1" color="black">{{ dataEdit.penimbangan[index].ntob }}</VBtn>
+                    <VBtn class="text-none text-subtitle-1" variant="tonal">{{ dataEdit.penimbangan[index].ntob }}</VBtn>
                   </VCol>
                   <VCol cols="12" md="9" class="d-flex gap-4">
                     <VBtn :disabled="isLoading[index]" type="submit" :id="index" @click="
