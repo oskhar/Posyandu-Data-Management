@@ -19,7 +19,11 @@
                 </p>
                 <p class="mb-4">
                   Nama Ayah:
-                  <font class="float-right">{{ dataEdit.bayi.nama }}</font>
+                  <font class="float-right">{{ dataEdit.bayi.nama_ayah }}</font>
+                </p>
+                <p class="mb-4">
+                  Nama Ibu:
+                  <font class="float-right">{{ dataEdit.bayi.nama_ibu }}</font>
                 </p>
                 <p class="mb-4">
                   Tanggal Lahir:

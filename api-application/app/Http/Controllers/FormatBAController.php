@@ -53,9 +53,12 @@ class FormatBAController extends Controller
                 'bayi.nama',
                 'bayi.tanggal_lahir',
                 'bayi.jenis_kelamin',
+                'orang_tua.nama_ayah',
+                'orang_tua.nama_ibu',
                 'bayi.berat_lahir',
                 'format_b.keterangan',
             )
+                ->join('orang_tua', 'orang_tua.id', 'bayi.id_orang_tua')
                 ->selectRaw('bayi.tanggal_lahir')
                 ->leftJoin('format_b', function ($join) {
                     $join->on('bayi.id', '=', 'format_b.id_bayi');

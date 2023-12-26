@@ -38,6 +38,12 @@ class AdminSeeder extends Seeder
             'nama_lengkap' => 'Fajar Ganevi',
             'password' => Hash::make('123456'),
         ]);
+        \DB::table('admin')->insert([
+            'id_jabatan' => 5,
+            'email_admin' => 'faiz@gmail.com',
+            'nama_lengkap' => 'Faiz Riansyah Manaf',
+            'password' => Hash::make('123456'),
+        ]);
 
     }
 }
