@@ -539,6 +539,14 @@ class FormatBAController extends Controller
             ->where('penimbangan.berat_badan', '<>', '0.00')
             ->min('umur_bulan');
 
+
+        // return response()->json([
+        //     'success' => [
+        //         'message' => $umurDataPertama,
+        //     ]
+        // ]
+        // )->setStatusCode(201);
+
         /**
          * Memeriksa apakah data kosong
          * 
@@ -644,7 +652,7 @@ class FormatBAController extends Controller
          * Memeriksa apakah berat bayi tersedia
          * 
          */
-        if (empty($umurDataPertama) || $umurBayi <= $umurDataPertama) {
+        if (!isset($umurDataPertama) || $umurBayi <= $umurDataPertama) {
 
             /**
              * Menetapkan nilai ntob sebagai B jika bayi
