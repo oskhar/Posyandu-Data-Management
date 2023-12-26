@@ -300,7 +300,11 @@ class FormatBAController extends Controller
             )
                 ->selectRaw('"' . $this->namaBulan[$bulan] . '" as bulan')
                 ->selectRaw('(' . $data['tahun'] . ' - YEAR(bayi.tanggal_lahir)) * 12 + ' . $bulan . ' - MONTH(bayi.tanggal_lahir) as umur')
-                ->leftJoin('penimbangan', 'penimbangan.id_bayi', 'bayi.id')
+                ->leftJoin('penimbangan', function ($join) use ($data, $bulan) {
+                    $join->on('penimbangan.id_bayi', '=', 'bayi.id')
+                        ->where('penimbangan.tahun_penimbangan', $data['tahun'])
+                        ->where('penimbangan.bulan_penimbangan', $bulan);
+                })
                 ->whereRaw('(' . $data['tahun'] . ' - YEAR(bayi.tanggal_lahir)) * 12 + ' . $bulan . ' - MONTH(bayi.tanggal_lahir) BETWEEN ' . $this->batasBulanStart[$data['tab'] - 1] . ' AND ' . $this->batasBulanEnd[$data['tab'] - 1])
                 ->whereNull('bayi.tanggal_meninggal');
 

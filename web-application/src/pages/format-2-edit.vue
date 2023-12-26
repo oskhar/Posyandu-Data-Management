@@ -47,7 +47,14 @@
                 <VRow>
                   <VCol cols="12" sm="6" md="3">
                     <VTextField v-model="dataEdit.penimbangan[index].berat_badan" type="number" label="Berat Badan"
-                      placeholder="Masukkan Berat Badan" />
+                      placeholder="Masukkan Berat Badan" @change="
+                        submitData(
+                          dataEdit.penimbangan[index].berat_badan,
+                          dataEdit.penimbangan[index].asi_eksklusif,
+                          dataEdit.penimbangan[index].ntob,
+                          dataEdit.penimbangan[index].judul,
+                          index
+                        )" />
                   </VCol>
                   <VCol v-if="index < 23" cols="12" sm="6" md="3">
                     <VSelect v-model="dataEdit.penimbangan[index].asi_eksklusif" label="Asi Eksklusif"

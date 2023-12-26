@@ -6,7 +6,7 @@
           <img class="mt-5" style="width: 100%; object-fit: cover" :src="imagePath + dataEdukasi.gambar" alt="" />
           <h2 class="text-h2 text-center">{{ dataEdukasi.judul }}</h2>
           <p class="text-center text-secondary">{{ dataEdukasi.tanggal }}</p>
-          <p style="white-space: pre-line;">{{ }}</p>
+          <p style="white-space: pre-line;">{{ dataEdukasi.materi }}</p>
           <p>Penulis: <span class="text-primary">{{ dataEdukasi.nama_lengkap }}</span></p>
           <RouterLink to="./">
             <div>

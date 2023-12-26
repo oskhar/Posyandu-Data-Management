@@ -37,6 +37,8 @@ class BeritaController extends Controller
             'berita.tanggal_pelaksanaan',
             'berita.created_at as tanggal'
         )->join('admin', 'admin.id', '=', 'berita.id_admin')
+            ->selectRaw('IF(CHAR_LENGTH(berita.deskripsi) > 35, CONCAT(SUBSTRING(berita.deskripsi, 1, 35), ".."), berita.deskripsi) AS overview')
+            ->selectRaw('DATE_FORMAT(berita.created_at, "%Y-%m-%d") as tanggal')
             ->orderByDesc('berita.created_at');
 
         /**
@@ -58,14 +60,6 @@ class BeritaController extends Controller
              * 
              */
             $berita = $query->first();
-
-            /**
-             * Mengubah tanggal dan waktu menjadi hanya tanggal saja
-             * tt-bb-hh jj:mm:dd -> tt-bb-hh
-             * 
-             */
-            $berita->tanggal = explode(' ', $berita->tanggal)[0];
-            $berita->overview = strlen($berita->deskripsi) > 35 ? substr($berita->deskripsi, 0, 35) . ".." : $berita->deskripsi;
 
             /**
              * Mengembalikan nilai yang diminta
@@ -114,23 +108,6 @@ class BeritaController extends Controller
          * 
          */
         $berita = $query->get();
-
-        /**
-         * Menyesuaikan data
-         * 
-         */
-        $berita = $berita->map(function ($result) {
-
-            /**
-             * Mengubah tanggal dan waktu menjadi hanya tanggal saja
-             * tt-bb-hh jj:mm:dd -> tt-bb-hh
-             * 
-             */
-            $result->tanggal = explode(' ', $result->tanggal)[0];
-            $result->overview = strlen($result->deskripsi) > 35 ? substr($result->deskripsi, 0, 35) . ".." : $result->deskripsi;
-            return $result;
-
-        });
 
         /**
          * Mengembalikan nilai yang diminta

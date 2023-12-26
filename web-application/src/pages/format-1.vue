@@ -32,16 +32,20 @@
       <VCard>
         <!-- <VCardText> </VCardText> -->
         <VCardItem>
-          <div class="d-flex justify-end">
-            <VTextField v-model="dataSearch" append-inner-icon="bx-search">
-            </VTextField>
-            <VBtn class="ml-4" href="/data/format-1-create" prepend-icon="bx-plus">
-              Tambah
-            </VBtn>
-            <VBtn class="ml-4" @click="exportExcel" prepend-icon="bx-download">
-              Download
-            </VBtn>
-          </div>
+          <VRow>
+            <VCol cols="12">
+              <VTextField v-model="dataSearch" append-inner-icon="bx-search">
+              </VTextField>
+            </VCol>
+            <VCol cols="12">
+              <VBtn class="ml-4" href="/data/format-1-create" prepend-icon="bx-plus">
+                Tambah
+              </VBtn>
+              <VBtn class="ml-4" @click="exportExcel" prepend-icon="bx-download">
+                Download
+              </VBtn>
+            </VCol>
+          </VRow>
           <VTable>
             <thead>
               <tr>

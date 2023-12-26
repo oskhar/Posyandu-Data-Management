@@ -18,13 +18,17 @@
       <VCard>
         <!-- <VCardText> </VCardText> -->
         <VCardItem>
-          <div class="d-flex justify-end">
-            <VTextField v-model="dataSearch" append-inner-icon="bx-search">
-            </VTextField>
-            <VBtn class="ml-4" @click="exportExcel" prepend-icon="bx-download">
-              Download
-            </VBtn>
-          </div>
+          <VRow>
+            <VCol cols="12">
+              <VTextField v-model="dataSearch" append-inner-icon="bx-search">
+              </VTextField>
+            </VCol>
+            <VCol cols="12">
+              <VBtn class="ml-4" @click="exportExcel" prepend-icon="bx-download">
+                Download
+              </VBtn>
+            </VCol>
+          </VRow>
           <VTable>
             <thead>
               <tr>
@@ -59,13 +63,16 @@
                   {{ item.jenis_kelamin }}
                 </td>
                 <td class="text-center">
-                  {{ item.berat_badan }}
+                  <p v-if="item.berat_badan">{{ item.berat_badan }}</p>
+                  <p v-else> - </p>
                 </td>
                 <td class="text-center">
-                  {{ item.asi_eksklusif }}
+                  <p v-if="item.asi_eksklusif">{{ item.asi_eksklusif }}</p>
+                  <p v-else> - </p>
                 </td>
                 <td class="text-center">
-                  {{ item.ntob }}
+                  <p v-if="item.ntob">{{ item.ntob }}</p>
+                  <p v-else> - </p>
                 </td>
                 <td class="text-center">
                   <VBtn color="primary" class="ml-2" :href="`/data/format-2-edit?id_bayi=${item.id_bayi}`">
@@ -138,7 +145,7 @@ export default {
     async exportExcel() {
       const response = await axios({
         method: "get",
-        url: `${this.urlServer}/api/export/format-a?tahun=${this.tahun}`,
+        url: `${this.urlServer}/api/export/format-b?tahun=${this.tahun}&tab=1`,
         responseType: "blob",
         headers: {
           Authorization: localStorage.getItem("tokenAuth"),
@@ -175,6 +182,7 @@ export default {
           },
         }
       );
+      this.banyakPage = Math.ceil(response.data.jumlah_data / 20);
       this.jumlahData = response.data.jumlah_data;
       this.dataFormatBA = response.data.format_ba;
       this.isLoading = false;
@@ -187,7 +195,6 @@ export default {
   },
   async mounted() {
     const response = await this.fetchData();
-    this.banyakPage = Math.ceil(response.data.jumlah_data / 20);
     this.judulFormatBA = response.data.judul_format;
     this.namaPosyandu = response.data.nama_posyandu;
     this.kota = response.data.kota;

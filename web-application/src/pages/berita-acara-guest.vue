@@ -6,7 +6,7 @@
           <img class="mt-5" style="width: 100%; object-fit: cover" :src="imagePath + dataBerita.gambar" alt="" />
           <h2 class="text-h2 text-center">{{ dataBerita.judul }}</h2>
           <p class="text-center text-secondary">{{ dataBerita.tanggal }}</p>
-          <p style="white-space: pre-line;">{{ }}</p>
+          <p style="white-space: pre-line;">{{ dataBerita.deskripsi }}</p>
           <p>Penulis Berita: <span class="text-primary">{{ dataBerita.nama_lengkap }}</span></p>
           <p>
             <VIcon>bx-calendar</VIcon>

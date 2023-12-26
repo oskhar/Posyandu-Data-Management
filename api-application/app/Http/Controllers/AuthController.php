@@ -3,21 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ForgetPasswordRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\ResetPasswordRequest;
 use App\Models\AdminModel;
-use App\Models\JabatanModel;
-use App\Models\ResetPasswordModel;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -146,8 +139,7 @@ class AuthController extends Controller
         $level_jabatan = AdminModel::select('jabatan.level')
             ->where('admin.id', Auth::user()->id)
             ->join('jabatan', 'admin.id_jabatan', 'jabatan.id')
-            ->first()
-            ->level;
+            ->value('level');
 
         /**
          * Memeriksa apakah dia diijikan dengan jabatannya

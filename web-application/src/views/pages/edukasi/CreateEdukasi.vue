@@ -14,12 +14,7 @@
                   </VCol>
 
                   <VCol cols="12" md="9">
-                    <VTextField
-                      id="judul"
-                      v-model="judul"
-                      placeholder="Masukkan Judul"
-                      persistent-placeholder
-                    />
+                    <VTextField id="judul" v-model="judul" placeholder="Masukkan Judul" persistent-placeholder />
                     <sup class="text-error">*wajib diisi</sup>
                     <br />
                     <sup class="text-error">*harus unik</sup>
@@ -35,12 +30,7 @@
                   </VCol>
 
                   <VCol cols="12" md="9">
-                    <VTextarea
-                      id="materi"
-                      v-model="materi"
-                      placeholder="Masukkan Isi Materi"
-                      persistent-placeholder
-                    />
+                    <VTextarea id="materi" v-model="materi" placeholder="Masukkan Isi Materi" persistent-placeholder />
                   </VCol>
                 </VRow>
               </VCol>
@@ -53,44 +43,22 @@
                   <VCol cols="12" md="9">
                     <div class="d-flex flex-column justify-center gap-5">
                       <div class="d-flex flex-wrap gap-2">
-                        <VBtn
-                          id="gambar"
-                          color="primary"
-                          @click="refInputEl?.click()"
-                        >
+                        <VBtn id="gambar" color="primary" @click="refInputEl?.click()">
                           <VIcon icon="bx-cloud-upload" class="d-sm-none" />
-                          <span class="d-none d-sm-block"
-                            >Upload new photo</span
-                          >
+                          <span class="d-none d-sm-block">Upload new photo</span>
                         </VBtn>
 
-                        <input
-                          ref="refInputEl"
-                          type="file"
-                          name="file"
-                          accept=".jpeg,.png,.jpg"
-                          hidden
-                          @change="changeAvatar"
-                        />
+                        <input ref="refInputEl" type="file" name="file" accept=".jpeg,.png,.jpg" hidden
+                          @change="changeAvatar" />
 
-                        <VBtn
-                          type="reset"
-                          color="error"
-                          variant="tonal"
-                          @click="resetAvatar"
-                        >
+                        <VBtn type="reset" color="error" variant="tonal" @click="resetAvatar">
                           <span class="d-none d-sm-block">Reset</span>
                           <VIcon icon="bx-refresh" class="d-sm-none" />
                         </VBtn>
                       </div>
                     </div>
-                    <VAvatar
-                      rounded="lg"
-                      size="200"
-                      class="me-1 mt-3"
-                      :image="projectImageLocal.imageValue"
-                      v-show="projectImageLocal.imageValue !== ''"
-                    />
+                    <VAvatar rounded="lg" size="200" class="me-1 mt-3" :image="projectImageLocal.imageValue"
+                      v-show="projectImageLocal.imageValue !== ''" />
                   </VCol>
                 </VRow>
                 <!-- 👉 Upload Photo -->
@@ -98,12 +66,8 @@
 
               <!-- 👉 submit and reset button -->
               <VCol offset-md="3" cols="12" md="9" class="d-flex gap-4">
-                <VBtn type="submit" :disabled="isLoading"
-                  ><VProgressCircular
-                    v-if="isLoading"
-                    indeterminate
-                    color="white"
-                  >
+                <VBtn type="submit" :disabled="isLoading">
+                  <VProgressCircular v-if="isLoading" indeterminate color="white">
                   </VProgressCircular>
 
                   <span v-else>Submit</span>
@@ -169,11 +133,12 @@ export default {
         formData.preventDefault();
         isLoading.value = true;
 
-        const data = new FormData();
-        data.append("id_admin", localStorage.getItem("id_admin"));
-        data.append("judul", judul.value);
-        data.append("materi", materi.value);
-        data.append("gambar", projectImageLocal.value.imageValue);
+        const data = {
+          "id_admin": localStorage.getItem("id_admin"),
+          "judul": judul.value,
+          "materi": materi.value,
+          "gambar": projectImageLocal.value.imageValue,
+        };
         const response = await axios.post(
           `${config.urlServer}/api/edukasi`,
           data,

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\GambarRequest;
+use App\Models\BayiModel;
 use App\Models\GambarModel;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -238,4 +239,5 @@ class GambarController extends Controller
             ]
         ])->setStatusCode(200);
     }
+
 }

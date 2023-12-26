@@ -183,6 +183,7 @@ export default {
             icon: "success",
             title: response.data.success.message,
           });
+          this.dataEdukasi[indexEdukasi].overview = data.materi;
         }
       } catch (error) {
         Swal.fire({

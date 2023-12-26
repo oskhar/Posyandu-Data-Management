@@ -5,8 +5,6 @@
         <!-- <VCardText> </VCardText> -->
         <VCardItem>
           <div class="d-flex justify-end">
-            <VTextField v-model="dataSearch" append-inner-icon="bx-search">
-            </VTextField>
           </div>
           <VTable>
             <thead>
@@ -14,7 +12,7 @@
                 <th>No</th>
                 <th>Email Admin</th>
                 <th>Nama Lengkap</th>
-                <th>Jabatin</th>
+                <th>Jabatan</th>
                 <th>Aksi</th>
               </tr>
             </thead>

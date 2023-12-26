@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\FormatAExport;
+use App\Exports\FormatBAExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
@@ -53,6 +54,6 @@ class ExportController extends Controller
          * Menggunakan Excel::download untuk menghasilkan response
          * 
          */
-        return Excel::download(new FormatAExport($request->tahun), $namaFileExcel);
+        return Excel::download(new FormatBAExport($request->tahun, $request->tab), $namaFileExcel);
     }
 }

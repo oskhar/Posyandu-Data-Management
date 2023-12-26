@@ -33,8 +33,9 @@ class EdukasiController extends Controller
             'edukasi.judul',
             'edukasi.materi',
             'edukasi.gambar',
-            'edukasi.created_at as tanggal'
         )->join('admin', 'admin.id', '=', 'edukasi.id_admin')
+            ->selectRaw('IF(CHAR_LENGTH(edukasi.materi) > 35, CONCAT(SUBSTRING(edukasi.materi, 1, 35), ".."), edukasi.materi) AS overview')
+            ->selectRaw('DATE_FORMAT(edukasi.created_at, "%Y-%m-%d") as tanggal')
             ->orderByDesc('edukasi.created_at');
 
 
@@ -57,14 +58,6 @@ class EdukasiController extends Controller
              * 
              */
             $edukasi = $query->first();
-
-            /**
-             * Mengubah tanggal dan waktu menjadi hanya tanggal saja
-             * tt-bb-hh jj:mm:dd -> tt-bb-hh
-             * 
-             */
-            $edukasi->tanggal = explode(' ', $edukasi->tanggal)[0];
-            $edukasi->overview = strlen($edukasi->materi) > 35 ? substr($edukasi->materi, 0, 35) . ".." : $edukasi->materi;
 
             /**
              * Mengembalikan nilai yang diminta
@@ -112,23 +105,6 @@ class EdukasiController extends Controller
          * 
          */
         $edukasi = $query->get();
-
-        /**
-         * Menyesuaikan data
-         * 
-         */
-        $edukasi = $edukasi->map(function ($result) {
-
-            /**
-             * Mengubah tanggal dan waktu menjadi hanya tanggal saja
-             * tt-bb-hh jj:mm:dd -> tt-bb-hh
-             * 
-             */
-            $result->tanggal = explode(' ', $result->tanggal)[0];
-            $result->overview = strlen($result->materi) > 35 ? substr($result->materi, 0, 35) . ".." : $result->materi;
-            return $result;
-
-        });
 
         /**
          * Memeberikan data yang diminta
