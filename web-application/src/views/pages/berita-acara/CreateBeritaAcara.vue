@@ -14,10 +14,10 @@
                   </VCol>
 
                   <VCol cols="12" md="9">
-                    <VTextField id="judul" v-model="judul" placeholder="Masukkan Judul" persistent-placeholder />
-                    <sup class="text-error">*wajib diisi</sup>
-                    <br />
-                    <sup class="text-error">*harus unik</sup>
+                    <VTextField id="judul" v-model="judul" placeholder="Masukkan Judul" persistent-placeholder :rules="[
+                      (input) => input || 'Judul tidak boleh kosong'
+                    ]" />
+                    <sup class="text-error ml-4">Harus unik</sup>
                   </VCol>
                 </VRow>
               </VCol>
@@ -45,8 +45,9 @@
 
                   <VCol cols="12" md="9">
                     <VTextField type="date" id="tanggalPelaksanaan" v-model="tanggal_pelaksanaan"
-                      placeholder="Masukkan tanggal" persistent-placeholder />
-                    <sup class="text-error">*wajib diisi</sup>
+                      placeholder="Masukkan tanggal" persistent-placeholder :rules="[
+                        (input) => input || 'Tanggal acara tidak boleh kosong'
+                      ]" />
                   </VCol>
                 </VRow>
               </VCol>

@@ -21,7 +21,7 @@
               <VProgressCircular v-if="isLoading" indeterminate color="primary" class="mt-5 float-center" size="50">
               </VProgressCircular>
 
-              <tr v-else v-for="(item, index) in dataAdmin" :key="item.dessert">
+              <tr v-else v-for="(item, index) in  dataAdmin " :key="item.dessert">
                 <td>
                   {{ (page - 1) * 20 + (index + 1) }}
                 </td>
@@ -32,7 +32,7 @@
                   {{ item.nama_lengkap }}
                 </td>
                 <td>
-                  <v-dialog v-model="dialog[index]" persistent width="1024">
+                  <v-dialog v-model="dialogJabatan[index]" persistent width="1024">
                     <template v-slot:activator="{ props }">
                       <VBtn class="ml-2 text-none text-subtitle-1" v-bind="props" style="width: 210px" variant="tonal">
                         {{ listJabatan[item.id_jabatan] }}
@@ -40,13 +40,13 @@
                     </template>
                     <v-card>
                       <v-card-title>
-                        <VBtn class="text-h5">{{ listJabatan[item.id_jabatan] }}</VBtn>
+                        <span class="text-h5">Ubah Jabatan</span>
                       </v-card-title>
                       <v-card-text>
                         <v-container>
                           <VRow>
                             <VCol cols="12">
-                              <VSelect v-model="item.id_jabatan" style="width: 237px" :items="[
+                              <VSelect v-model="dataAdmin[index].id_jabatan" :items="[
                                 { title: 'PELINDUNG', value: 1 },
                                 { title: 'PENANGGUNG JAWAB', value: 2 },
                                 { title: 'SEKRETARIS', value: 3 },
@@ -62,10 +62,10 @@
                       </v-card-text>
                       <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="blue-darken-1" variant="text" @click="dialog[index] = false">
+                        <v-btn color="blue-darken-1" variant="text" @click="dialogJabatan[index] = false; fetchData()">
                           Close
                         </v-btn>
-                        <v-btn color="blue-darken-1" variant="text" @click="putData(item.id_admin)">
+                        <v-btn color="success" variant="text" @click="putDataJabatan(index)">
                           Save
                         </v-btn>
                       </v-card-actions>
@@ -114,7 +114,7 @@
                         <v-btn color="blue-darken-1" variant="text" @click="dialog[index] = false">
                           Close
                         </v-btn>
-                        <v-btn color="blue-darken-1" variant="text" @click="putData(item.id_admin)">
+                        <v-btn color="success" variant="text" @click="putData(index)">
                           Save
                         </v-btn>
                       </v-card-actions>
@@ -145,6 +145,7 @@ export default {
       dialogJabatan: [],
       dataAdmin: [],
       page: 1,
+      currentIdAdmin: localStorage.getItem("id_admin"),
       isNewPasswordVisible: false,
       isConfirmPasswordVisible: false,
       newPassword: null,
@@ -171,7 +172,59 @@ export default {
       this.dataAdmin = response.data.admin;
     },
 
+    async putDataJabatan(indexAdmin) {
+      this.dialogJabatan[indexAdmin] = false;
+      try {
+        const data = {
+          id_admin: this.dataAdmin[indexAdmin].id_admin,
+          id_jabatan: this.dataAdmin[indexAdmin].id_jabatan,
+        };
+
+        const response = await axios.put(
+          `${config.urlServer}/api/admin`,
+          data,
+          {
+            headers: {
+              Authorization: localStorage.getItem("tokenAuth"),
+            },
+          }
+        );
+        if (response.data.success) {
+          Swal.fire({
+            toast: true,
+            position: "top",
+            iconColor: "white",
+            color: "white",
+            background: "rgb(var(--v-theme-success))",
+            showConfirmButton: false,
+            timerProgressBar: true,
+            timer: 2000,
+            icon: "success",
+            title: response.data.success.message,
+          });
+        }
+      } catch (get) {
+        const errorMessage = Object.values(get.response.data.errors).join(
+          " - "
+        );
+        Swal.fire({
+          toast: true,
+          position: "top",
+          iconColor: "white",
+          color: "white",
+          background: "rgb(var(--v-theme-error))",
+          showConfirmButton: false,
+          timerProgressBar: true,
+          timer: 2000,
+          icon: "error",
+          title: errorMessage,
+        });
+        this.fetchData();
+      }
+    },
+
     async putData(indexAdmin) {
+      this.dialog[indexAdmin] = false;
       try {
         const data = {
           id_admin: this.dataAdmin[indexAdmin].id_admin,
@@ -197,17 +250,16 @@ export default {
             background: "rgb(var(--v-theme-success))",
             showConfirmButton: false,
             timerProgressBar: true,
-            timer: 1500,
+            timer: 2000,
             icon: "success",
             title: response.data.success.message,
           });
         }
       } catch (get) {
-        console.log(get)
         const errorMessage = Object.values(get.response.data.errors).join(
           " - "
         );
-        await Swal.fire({
+        Swal.fire({
           toast: true,
           position: "top",
           iconColor: "white",
@@ -215,46 +267,64 @@ export default {
           background: "rgb(var(--v-theme-error))",
           showConfirmButton: false,
           timerProgressBar: true,
-          timer: 1500,
+          timer: 2000,
           icon: "error",
           title: errorMessage,
         });
       }
-      this.dialog[indexAdmin] = false;
     },
 
     async deleteData(id_admin) {
-      const ask = await Swal.fire({
-        title: "Anda yakin ingin menghapus?",
-        showConfirmButton: false,
-        showDenyButton: true,
-        showCancelButton: true,
-        denyButtonText: "Hapus",
-      });
-      if (ask.isDenied) {
-        const response = await axios.delete(
-          `${config.urlServer}/api/admin?id_admin=${id_admin}`,
-          {
-            headers: {
-              Authorization: localStorage.getItem("tokenAuth"),
-            },
+      try {
+        const ask = await Swal.fire({
+          title: "Anda yakin ingin menghapus?",
+          showConfirmButton: false,
+          showDenyButton: true,
+          showCancelButton: true,
+          denyButtonText: "Hapus",
+        });
+        if (ask.isDenied) {
+          const response = await axios.delete(
+            `${config.urlServer}/api/admin?id_admin=${id_admin}`,
+            {
+              headers: {
+                Authorization: localStorage.getItem("tokenAuth"),
+              },
+            }
+          );
+          if (response.data.success) {
+            Swal.fire({
+              toast: true,
+              position: "top",
+              iconColor: "white",
+              color: "white",
+              background: "rgb(var(--v-theme-success))",
+              showConfirmButton: false,
+              timerProgressBar: true,
+              timer: 2000,
+              icon: "success",
+              title: response.data.success.message,
+            });
+            this.fetchData();
           }
-        );
-        if (response.data.success) {
-          Swal.fire({
-            toast: true,
-            position: "top",
-            iconColor: "white",
-            color: "white",
-            background: "rgb(var(--v-theme-success))",
-            showConfirmButton: false,
-            timerProgressBar: true,
-            timer: 1500,
-            icon: "success",
-            title: response.data.success.message,
-          });
-          this.fetchData();
         }
+      } catch (get) {
+        const errorMessage = Object.values(get.response.data.errors).join(
+          " - "
+        );
+        Swal.fire({
+          toast: true,
+          position: "top",
+          iconColor: "white",
+          color: "white",
+          background: "rgb(var(--v-theme-error))",
+          showConfirmButton: false,
+          timerProgressBar: true,
+          timer: 2000,
+          icon: "error",
+          title: errorMessage,
+        });
+        this.fetchData();
       }
     },
   },

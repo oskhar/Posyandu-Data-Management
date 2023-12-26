@@ -136,6 +136,11 @@ class AuthController extends Controller
          */
         $data = $request->validated();
 
+        /**
+         * Mengambil level dari user saat ini
+         * user yang telah terauthentikasi
+         * 
+         */
         $level_jabatan = AdminModel::select('jabatan.level')
             ->where('admin.id', Auth::user()->id)
             ->join('jabatan', 'admin.id_jabatan', 'jabatan.id')

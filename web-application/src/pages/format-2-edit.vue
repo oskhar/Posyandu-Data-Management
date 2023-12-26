@@ -42,46 +42,36 @@
                   </font>
                 </p>
               </VCol>
-              <VCol cols="12" v-for="(item, index) in dataEdit.penimbangan">
+              <VCol cols="12" v-for="(item, index) in    dataEdit.penimbangan   ">
                 <h4 class="my-5">{{ item.judul }}</h4>
                 <VRow>
                   <VCol cols="12" sm="6" md="3">
                     <VTextField v-model="dataEdit.penimbangan[index].berat_badan" type="number" label="Berat Badan"
-                      placeholder="Masukkan Berat Badan" @change="
-                        submitData(
-                          dataEdit.penimbangan[index].berat_badan,
-                          dataEdit.penimbangan[index].asi_eksklusif,
-                          dataEdit.penimbangan[index].ntob,
-                          dataEdit.penimbangan[index].judul,
-                          index
-                        )" />
+                      placeholder="Masukkan Berat Badan" :rules="[
+                        (input) => (input >= 0) || 'Berat badan tidak bisa negatif'
+                      ]" />
                   </VCol>
                   <VCol v-if="index < 23" cols="12" sm="6" md="3">
                     <VSelect v-model="dataEdit.penimbangan[index].asi_eksklusif" label="Asi Eksklusif"
                       placeholder="Masukkan Asi Ekslusif" :items="['Ya', 'Tidak', 'Alpa']" />
                   </VCol>
                   <VCol cols="12" sm="12" md="6">
-                    <VBtn class="text-none text-subtitle-1" variant="tonal">{{ dataEdit.penimbangan[index].ntob }}</VBtn>
-                  </VCol>
-                  <VCol cols="12" md="9" class="d-flex gap-4">
-                    <VBtn :disabled="isLoading[index]" type="submit" :id="index" @click="
-                      submitData(
-                        dataEdit.penimbangan[index].berat_badan,
-                        dataEdit.penimbangan[index].asi_eksklusif,
-                        dataEdit.penimbangan[index].ntob,
-                        dataEdit.penimbangan[index].judul,
-                        index
-                      )
-                      ">
-                      <VProgressCircular v-if="isLoading[index]" indeterminate color="white" :for="index">
-                      </VProgressCircular>
-
-                      <font v-else>
-                        simpan
-                      </font>
-                    </VBtn>
+                    <VBtn class="text-none text-subtitle-1" variant="tonal" :color="getColorNTOB(item.ntob)">
+                      {{
+                        dataEdit.penimbangan[index].ntob }}</VBtn>
                   </VCol>
                 </VRow>
+              </VCol>
+
+              <VCol cols=" 12" class="d-flex gap-4">
+                <VBtn :disabled="isLoading[index]" type="submit" :id="index" @click="submitData()" style="width: 100%;">
+                  <VProgressCircular v-if="isLoading[index]" indeterminate color="white" :for="index">
+                  </VProgressCircular>
+
+                  <font v-else>
+                    simpan
+                  </font>
+                </VBtn>
               </VCol>
             </VRow>
           </VCardText>
@@ -103,7 +93,7 @@ export default {
   },
   data() {
     return {
-      isLoading: [],
+      isLoading: false,
       series: [],
       chartOptions: {
         chart: {
@@ -170,6 +160,16 @@ export default {
     this.fetchData();
   },
   methods: {
+    getColorNTOB(ntob) {
+      if (ntob) {
+        return ntob === 'Kosong' ? 'secondary' :
+          ntob[0] === 'T' ? 'warning' :
+            ntob.substring(0, 3) === 'BGM' ? 'error' : 'primary';
+      } else {
+        // Jika ntob null, mungkin Anda ingin mengembalikan warna default di sini
+        return 'default-color';
+      }
+    },
     async fetchData() {
       // Membuat objek URLSearchParams dari query string
       const queryString = window.location.search;
@@ -195,17 +195,14 @@ export default {
         window.location.href = "/dashboard";
       }
     },
-    async submitData(berat_badan, asi_eksklusif, ntob, judul, index) {
-      this.isLoading[index] = true;
+    async submitData() {
+      this.isLoading = true;
       try {
         const queryString = window.location.search;
         const queryParams = new URLSearchParams(queryString);
         const idBayi = queryParams.get("id_bayi");
         const data = {
-          berat_badan: berat_badan,
-          asi_eksklusif: asi_eksklusif,
-          ntob: ntob,
-          judul: judul,
+          penimbangan: this.dataEdit.penimbangan,
           id_bayi: idBayi,
         };
         const response = await axios.post(
@@ -245,7 +242,11 @@ export default {
           });
         }
         this.fetchData();
-      } catch (error) {
+
+      } catch (get) {
+        const errorMessage = Object.values(get.response.data.errors).join(
+          " - "
+        );
         Swal.fire({
           toast: true,
           position: "top",
@@ -254,13 +255,13 @@ export default {
           background: "rgb(var(--v-theme-error))",
           showConfirmButton: false,
           timerProgressBar: true,
-          timer: 4000,
+          timer: 2000,
           icon: "error",
-          title: "Format Salah",
+          title: errorMessage,
         });
+        this.isLoading = false;
       }
-      this.isLoading[index] = false;
-    },
+    }
   },
 };
 </script>

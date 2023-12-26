@@ -14,10 +14,10 @@
                   </VCol>
 
                   <VCol cols="12" md="9">
-                    <VTextField id="judul" v-model="judul" placeholder="Masukkan Judul" persistent-placeholder />
-                    <sup class="text-error">*wajib diisi</sup>
-                    <br />
-                    <sup class="text-error">*harus unik</sup>
+                    <VTextField id="judul" v-model="judul" placeholder="Masukkan Judul" persistent-placeholder :rules="[
+                      (input) => input || 'Judul tidak boleh kosong'
+                    ]" />
+                    <sup class="text-error ml-4">Harus unik</sup>
                   </VCol>
                 </VRow>
               </VCol>

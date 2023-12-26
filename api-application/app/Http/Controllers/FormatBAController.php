@@ -425,82 +425,12 @@ class FormatBAController extends Controller
          * Melakukan validasi data request
          * 
          */
-        $data = $request->validated();
-        $data['berat_badan'] = floatval($data['berat_badan']);
+        $allData = $request->validated();
 
         /**
-         * Mengambil tahun dan bulan dari data judul
-         * 
+         * Menetapkan id bayi
          */
-        $dataJudul = explode(' - ', $data['judul']);
-        $umurBayi = explode(' ', $dataJudul[0])[1];
-        $tahunBulan = explode(' ', $dataJudul[1]);
-        $tahunPenimbangan = $tahunBulan[0];
-        $bulanPenimbangan = array_search($tahunBulan[1], $this->namaBulan);
-
-        /**
-         * Menghabpus data judul
-         * 
-         */
-        unset($data['judul']);
-
-        /**
-         * Menambahkan tahun dan bulan ke dalam data
-         * 
-         */
-        $data['tahun_penimbangan'] = intval($tahunPenimbangan);
-        $data['bulan_penimbangan'] = intval($bulanPenimbangan);
-
-        /**
-         * Mengambil jenis kelamin bayi
-         * 
-         */
-        $jenisKelamin = BayiModel::select('jenis_kelamin')
-            ->where('id', $data['id_bayi'])->first()->jenis_kelamin;
-
-        /**
-         * Mengambil standar deviasi dari WHO
-         * 
-         */
-        $dataWHO = DB::table('standar_deviasi')->select(
-            'id',
-            'sangat_kurus',
-            'kurus',
-            'normal_kurus',
-            'baik',
-            'normal_gemuk',
-            'gemuk',
-            'sangat_gemuk'
-        )->where('id_berat_untuk_umur', $jenisKelamin == 'L' ? 1 : 2)
-            ->where('umur_bulan', $umurBayi)->first();
-
-        $data['id_standar_deviasi'] = $dataWHO->id;
-
-        /**
-         * Mengambil standar deviasi dari WHO
-         * Untuk berat badan umur bulan lalu
-         * 
-         */
-        $dataWHOBulanLalu = DB::table('standar_deviasi')->select(
-            'sangat_kurus',
-            'kurus',
-            'normal_kurus',
-            'baik',
-            'normal_gemuk',
-            'gemuk',
-            'sangat_gemuk'
-        )->where('id_berat_untuk_umur', $jenisKelamin == 'L' ? 1 : 2)
-            ->where('umur_bulan', $umurBayi - 1)->first();
-
-        /**
-         * Mengambil data berat badan bulan lalu
-         * 
-         */
-        $beratBadanBulanLalu = PenimbanganModel::select('penimbangan.berat_badan')
-            ->where('penimbangan.id_bayi', $data['id_bayi'])
-            ->join('standar_deviasi', 'standar_deviasi.id', 'penimbangan.id_standar_deviasi')
-            ->where('standar_deviasi.umur_bulan', $umurBayi - 1)
-            ->value('berat_badan');
+        $idBayi = $allData['id_bayi'];
 
         /**
          * Menetapkan isi pesan response nanti
@@ -511,90 +441,59 @@ class FormatBAController extends Controller
             ]
         ];
 
-        /**
-         * Jika data berat badan dan data
-         * asi_ekslisif tidak relevan
-         * 
-         */
-        if ($data['asi_eksklusif'] == "Alpa" && $data['berat_badan'] != 0) {
+        foreach ($allData['penimbangan'] as $data) {
 
             /**
-             * Memeberikan peringatan
+             * Memeriksa apakah data valid
              * 
              */
-            $pesan = [
-                'warning' => [
-                    'message' => 'Jika alpa, berat badan akan dikosongkan !!',
-                ]
-            ];
-
-        }
-
-        /**
-         * Mendapatkan data pertama
-         * 
-         */
-        $umurDataPertama = PenimbanganModel::select('standar_deviasi.umur_bulan')
-            ->join('standar_deviasi', 'standar_deviasi.id', 'penimbangan.id_standar_deviasi')
-            ->where('penimbangan.berat_badan', '<>', '0.00')
-            ->min('umur_bulan');
-
-
-        // return response()->json([
-        //     'success' => [
-        //         'message' => $umurDataPertama,
-        //     ]
-        // ]
-        // )->setStatusCode(201);
-
-        /**
-         * Memeriksa apakah data kosong
-         * 
-         */
-        if ($data['asi_eksklusif'] == "Alpa" || $data['berat_badan'] == 0) {
+            if (empty($data['asi_eksklusif']) && is_null($data['berat_badan'])) {
+                break;
+            }
+            if ($data['berat_badan'] < 0) {
+                throw new HttpResponseException(response()->json([
+                    'errors' => [
+                        'message' => 'Berat badan tidak boleh negatif'
+                    ]
+                ])->setStatusCode(400));
+            }
 
             /**
-             * Atur semua data yang tidak
-             * relevan secara paksa
+             * Mengambil tahun dan bulan dari data judul
              * 
              */
-            $data['ntob'] = "Kosong";
-            $data['berat_badan'] = 0;
-            $data['asi_eksklusif'] = "Alpa";
-
-        } else {
+            $dataJudul = explode(' - ', $data['judul']);
+            $umurBayi = explode(' ', $dataJudul[0])[1];
+            $tahunBulan = explode(' ', $dataJudul[1]);
+            $tahunPenimbangan = $tahunBulan[0];
+            $bulanPenimbangan = array_search($tahunBulan[1], $this->namaBulan);
 
             /**
-             * Ambil data NTOB sesuai dengan perhitungan
+             * Menghabpus data judul
              * 
              */
-            $data['ntob'] = $this->getNTOB($umurBayi, $dataWHOBulanLalu, $dataWHO, $beratBadanBulanLalu, $data['berat_badan'], $umurDataPertama);
+            unset($data['judul']);
 
-        }
+            /**
+             * Menambahkan tahun dan bulan ke dalam data
+             * 
+             */
+            $data['tahun_penimbangan'] = intval($tahunPenimbangan);
+            $data['bulan_penimbangan'] = intval($bulanPenimbangan);
 
-        /**
-         * Mengambil data berat badan bulan depan
-         * 
-         */
-        $beratBadanBulanDepan = PenimbanganModel::select('penimbangan.berat_badan')
-            ->where('penimbangan.id_bayi', $data['id_bayi'])
-            ->join('standar_deviasi', 'standar_deviasi.id', 'penimbangan.id_standar_deviasi')
-            ->where('standar_deviasi.umur_bulan', $umurBayi + 1)
-            ->value('berat_badan');
-
-        /**
-         * Memeriksa apakah berat bulan
-         * depan tidak kosong
-         * 
-         */
-        if (!empty($beratBadanBulanDepan)) {
+            /**
+             * Mengambil jenis kelamin bayi
+             * 
+             */
+            $jenisKelamin = BayiModel::select('jenis_kelamin')
+                ->where('id', $idBayi)->first()->jenis_kelamin;
 
             /**
              * Mengambil standar deviasi dari WHO
-             * Untuk berat badan umur bulan depan
              * 
              */
-            $dataWHOBulanDepan = DB::table('standar_deviasi')->select(
+            $dataWHO = DB::table('standar_deviasi')->select(
+                'id',
                 'sangat_kurus',
                 'kurus',
                 'normal_kurus',
@@ -603,38 +502,103 @@ class FormatBAController extends Controller
                 'gemuk',
                 'sangat_gemuk'
             )->where('id_berat_untuk_umur', $jenisKelamin == 'L' ? 1 : 2)
-                ->where('umur_bulan', $umurBayi + 1)->first();
+                ->where('umur_bulan', $umurBayi)->first();
+
+            $data['id_standar_deviasi'] = $dataWHO->id;
 
             /**
-             * Mendapatkan status ntob untuk bulan depan
+             * Mengambil standar deviasi dari WHO
+             * Untuk berat badan umur bulan lalu
              * 
              */
-            $ntobBulanDepan = $this->getNTOB($umurBayi + 1, $dataWHO, $dataWHOBulanDepan, $data['berat_badan'], $beratBadanBulanDepan);
+            $dataWHOBulanLalu = DB::table('standar_deviasi')->select(
+                'sangat_kurus',
+                'kurus',
+                'normal_kurus',
+                'baik',
+                'normal_gemuk',
+                'gemuk',
+                'sangat_gemuk'
+            )->where('id_berat_untuk_umur', $jenisKelamin == 'L' ? 1 : 2)
+                ->where('umur_bulan', $umurBayi - 1)->first();
 
             /**
-             * Melakukan update ntob data bulan depan
+             * Mengambil data berat badan bulan lalu
              * 
              */
-            PenimbanganModel::where('penimbangan.id_bayi', $data['id_bayi'])
+            $beratBadanBulanLalu = PenimbanganModel::select('penimbangan.berat_badan')
+                ->where('penimbangan.id_bayi', $idBayi)
                 ->join('standar_deviasi', 'standar_deviasi.id', 'penimbangan.id_standar_deviasi')
-                ->where('standar_deviasi.umur_bulan', $umurBayi + 1)
-                ->update([
-                    'ntob' => $ntobBulanDepan
-                ]);
-        }
+                ->where('standar_deviasi.umur_bulan', $umurBayi - 1)
+                ->value('berat_badan');
 
-        /**
-         * Menggunakan updateOrCreate untuk menyimpan atau memperbarui data
-         * 
-         */
-        PenimbanganModel::updateOrCreate(
-            [
-                'id_bayi' => $data['id_bayi'],
-                'tahun_penimbangan' => $tahunPenimbangan,
-                'bulan_penimbangan' => $bulanPenimbangan,
-            ],
-            $data
-        );
+            /**
+             * Jika data berat badan dan data
+             * asi_ekslisif tidak relevan
+             * 
+             */
+            if ($data['asi_eksklusif'] == "Alpa" && $data['berat_badan'] != 0) {
+
+                /**
+                 * Memeberikan peringatan
+                 * 
+                 */
+                $pesan = [
+                    'warning' => [
+                        'message' => 'Jika alpa, berat badan akan dikosongkan !!',
+                    ]
+                ];
+
+            }
+
+            /**
+             * Mendapatkan data pertama
+             * 
+             */
+            $umurDataPertama = PenimbanganModel::select('standar_deviasi.umur_bulan')
+                ->join('standar_deviasi', 'standar_deviasi.id', 'penimbangan.id_standar_deviasi')
+                ->where('penimbangan.id_bayi', $idBayi)
+                ->where('penimbangan.berat_badan', '<>', '0')
+                ->min('umur_bulan');
+
+            /**
+             * Memeriksa apakah data kosong
+             * 
+             */
+            if ($data['asi_eksklusif'] == "Alpa" || $data['berat_badan'] == 0) {
+
+                /**
+                 * Atur semua data yang tidak
+                 * relevan secara paksa
+                 * 
+                 */
+                $data['ntob'] = "Kosong";
+                $data['berat_badan'] = 0;
+                $data['asi_eksklusif'] = "Alpa";
+
+            } else {
+
+                /**
+                 * Ambil data NTOB sesuai dengan perhitungan
+                 * 
+                 */
+                $data['ntob'] = $this->getNTOB($umurBayi, $dataWHOBulanLalu, $dataWHO, $beratBadanBulanLalu, $data['berat_badan'], $umurDataPertama);
+
+            }
+
+            /**
+             * Menggunakan updateOrCreate untuk menyimpan atau memperbarui data
+             * 
+             */
+            PenimbanganModel::updateOrCreate(
+                [
+                    'id_bayi' => $idBayi,
+                    'tahun_penimbangan' => $tahunPenimbangan,
+                    'bulan_penimbangan' => $bulanPenimbangan,
+                ],
+                $data
+            );
+        }
 
         /**
          * Mengembalikan response setelah
@@ -645,14 +609,14 @@ class FormatBAController extends Controller
             $pesan
         )->setStatusCode(201);
     }
-    protected function getNTOB($umurBayi, $dataWHOBulanLalu, $dataWHO, $beratBadanBulanLalu, $beratBadanSekarang, $umurDataPertama = 1)
+    protected function getNTOB($umurBayi, $dataWHOBulanLalu, $dataWHO, $beratBadanBulanLalu, $beratBadanSekarang, $umurDataPertama)
     {
 
         /**
          * Memeriksa apakah berat bayi tersedia
          * 
          */
-        if (!isset($umurDataPertama) || $umurBayi <= $umurDataPertama) {
+        if (is_null($umurDataPertama) || $umurBayi <= $umurDataPertama) {
 
             /**
              * Menetapkan nilai ntob sebagai B jika bayi

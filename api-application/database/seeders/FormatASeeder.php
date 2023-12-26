@@ -16,7 +16,7 @@ class FormatASeeder extends Seeder
     public function run(): void
     {
         //
-        FormatAModel::factory(100)->create();
+        FormatAModel::factory(10)->create();
         // while (true) {
         //     $orangTua = OrangTuaModel::create([
         //         "nama_ayah" => fake()->name(),

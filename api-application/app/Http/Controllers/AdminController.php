@@ -8,6 +8,7 @@ use App\Models\JabatanModel;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Carbon;
@@ -290,6 +291,36 @@ class AdminController extends Controller
         }
 
         /**
+         * Memeriksa apakah jabatan ada
+         * 
+         */
+        if (!empty($data['id_jabatan'])) {
+
+            /**
+             * Mengambil level dari user saat ini
+             * user yang telah terauthentikasi
+             * 
+             */
+            $level_jabatan = AdminModel::select('jabatan.level')
+                ->where('admin.id', Auth::user()->id)
+                ->join('jabatan', 'admin.id_jabatan', 'jabatan.id')
+                ->value('level');
+
+            /**
+             * Memeriksa apakah dia diijikan dengan jabatannya
+             * 
+             */
+            if ($level_jabatan > 3) {
+                throw new HttpResponseException(response()->json([
+                    'errors' => [
+                        'message' => 'Anda tidak memiliki wewenang yang sah!'
+                    ]
+                ])->setStatusCode(400));
+            }
+
+        }
+
+        /**
          * Melakukan update data
          * sesuai request
          * 
@@ -316,6 +347,29 @@ class AdminController extends Controller
          * 
          */
         $data = $request->validated();
+
+        /**
+         * Mengambil level dari user saat ini
+         * user yang telah terauthentikasi
+         * 
+         */
+        $level_jabatan = AdminModel::select('jabatan.level')
+            ->where('admin.id', Auth::user()->id)
+            ->join('jabatan', 'admin.id_jabatan', 'jabatan.id')
+            ->value('level');
+
+        /**
+         * Memeriksa apakah dia diijikan dengan jabatannya
+         * 
+         */
+        if ($level_jabatan > 3) {
+            throw new HttpResponseException(response()->json([
+                'errors' => [
+                    'message' => 'Anda tidak memiliki wewenang yang sah!'
+                ]
+            ])->setStatusCode(400));
+        }
+
 
         /**
          * Mengambil data admin sesuai id

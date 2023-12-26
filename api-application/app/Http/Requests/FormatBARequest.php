@@ -16,7 +16,8 @@ class FormatBARequest extends CoreRequest
             case 'POST':
                 return [
                     'id_bayi' => 'required',
-                    'judul' => 'required',
+                    'penimbangan' => 'nullable',
+                    // 'judul' => 'required',
                     'berat_badan' => 'nullable',
                     'ntob' => 'nullable',
                     'asi_eksklusif' => 'nullable:in:Ya,Tidak,Alpa',

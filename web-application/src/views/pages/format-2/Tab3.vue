@@ -140,13 +140,12 @@ export default {
     async exportExcel() {
       const response = await axios({
         method: "get",
-        url: `${this.urlServer}/api/export/format-a?tahun=${this.tahun}`,
+        url: `${this.urlServer}/api/export/format-b?tahun=${this.tahun}&tab=3`,
         responseType: "blob",
         headers: {
           Authorization: localStorage.getItem("tokenAuth"),
         },
       });
-
       // Membuat objek Date yang merepresentasikan waktu saat ini
       const currentDate = new Date();
 
@@ -158,7 +157,7 @@ export default {
       const minutes = currentDate.getMinutes();
       const seconds = currentDate.getSeconds();
       const currentDateTime = `_${year}-${month}-${day}_${hours}:${minutes}:${seconds}`;
-      const namaFile = `Format-1${currentDateTime}.xlsx`;
+      const namaFile = `Format-2_tab-3${currentDateTime}.xlsx`;
 
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
