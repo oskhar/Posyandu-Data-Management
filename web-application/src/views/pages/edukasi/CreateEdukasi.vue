@@ -15,7 +15,7 @@
 
                   <VCol cols="12" md="9">
                     <VTextField id="judul" v-model="judul" placeholder="Masukkan Judul" persistent-placeholder :rules="[
-                      (input) => input || 'Judul tidak boleh kosong'
+                      (input) => !!input || 'Judul tidak boleh kosong'
                     ]" />
                     <sup class="text-error ml-4">Harus unik</sup>
                   </VCol>
@@ -82,8 +82,8 @@
 </template>
 
 <script>
-import axios from "axios";
 import config from "@/@core/config.vue";
+import axios from "axios";
 import Swal from "sweetalert2";
 
 export default {

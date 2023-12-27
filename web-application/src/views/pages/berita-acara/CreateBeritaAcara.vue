@@ -15,7 +15,7 @@
 
                   <VCol cols="12" md="9">
                     <VTextField id="judul" v-model="judul" placeholder="Masukkan Judul" persistent-placeholder :rules="[
-                      (input) => input || 'Judul tidak boleh kosong'
+                      (input) => !!input || 'Judul tidak boleh kosong'
                     ]" />
                     <sup class="text-error ml-4">Harus unik</sup>
                   </VCol>
@@ -46,7 +46,7 @@
                   <VCol cols="12" md="9">
                     <VTextField type="date" id="tanggalPelaksanaan" v-model="tanggal_pelaksanaan"
                       placeholder="Masukkan tanggal" persistent-placeholder :rules="[
-                        (input) => input || 'Tanggal acara tidak boleh kosong'
+                        (input) => !!input || 'Tanggal acara tidak boleh kosong'
                       ]" />
                   </VCol>
                 </VRow>
@@ -99,8 +99,8 @@
 </template>
 
 <script>
-import axios from "axios";
 import config from "@/@core/config.vue";
+import axios from "axios";
 import Swal from "sweetalert2";
 
 export default {
