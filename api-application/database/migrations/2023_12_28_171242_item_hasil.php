@@ -10,15 +10,12 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('format_b', function (Blueprint $table) {
+        Schema::create('item_hasil', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_bayi')->unsigned();
-            $table->foreign('id_bayi')->references('id')->on('bayi')->onDelete('cascade')->onUpdate('cascade');
+            $table->bigInteger('id_list_hasil')->unsigned();
+            $table->foreign('id_list_hasil')->references('id')->on('list_hasil')->onDelete('cascade')->onUpdate('cascade');
             $table->bigInteger('nomor_batas_tab')->unsigned();
             $table->foreign('nomor_batas_tab')->references('nomor')->on('batas_tab')->onDelete('cascade')->onUpdate('cascade');
-            $table->text('hasil');
-            $table->text('keterangan');
-            $table->timestamps();
         });
     }
 
@@ -27,6 +24,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('format_b');
+        Schema::dropIfExists('item_hasil');
     }
 };

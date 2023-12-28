@@ -23,6 +23,8 @@ class FormatBModel extends Model
      */
     protected $fillable = [
         'id_bayi',
+        'nomor_batas_tab',
+        'hasil',
         'keterangan',
     ];
 }

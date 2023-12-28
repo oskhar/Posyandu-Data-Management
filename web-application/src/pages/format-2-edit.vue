@@ -65,9 +65,29 @@
                         dataEdit.penimbangan[index].ntob }}</VBtn>
                   </VCol>
                 </VRow>
+                <VRow>
+                  <VCol cols="12">
+                    <VSelect v-model="pilihanJenjang" :items="jenjangItems" label="Hasil penimbangan"
+                      placeholder="Pilih beberapa" multiple chips @click="handleSelectChange()">
+                      <template v-slot:prepend-item>
+                        <v-list-item ripple @mousedown.prevent @click="toggle">
+                          <v-list-item-action>
+                            <v-icon :color="pilihanJenjang.length === jenjangItems.length ? 'primary' : 'secondary'">
+                              {{ icon }}
+                            </v-icon>
+                            <font class="ml-2"> Pilih Semua </font>
+                          </v-list-item-action>
+                        </v-list-item>
+                        <v-divider class="mt-2"></v-divider>
+                      </template>
+                    </VSelect>
+                  </VCol>
+                </VRow>
               </VCol>
 
+
               <VCol cols=" 12" class="d-flex gap-4">
+
                 <VBtn :disabled="isLoading[index]" type="submit" :id="index" @click="submitData()" style="width: 100%;">
                   <VProgressCircular v-if="isLoading[index]" indeterminate color="white" :for="index">
                   </VProgressCircular>
@@ -97,6 +117,22 @@ export default {
   },
   data() {
     return {
+      pilihanJenjang: [],
+      jenjangItems: [
+        'HB-0 24 JAM',
+        'Vitamin',
+        'BCG',
+        'POLIO 1',
+        'POLIO 2',
+        'POLIO 3',
+        'POLIO 4',
+        'DPT-HB-HiB 1',
+        'DPT-HB-HiB 2',
+        'DPT-HB-HiB 3',
+        'DPT-HB-HiB 4',
+        'Inactivated Pollo Vaccine',
+        'Campak Rubela',
+      ],
       isLoading: false,
       series: [],
       chartOptions: {
@@ -163,7 +199,25 @@ export default {
   mounted() {
     this.fetchData();
   },
+  computed: {
+    likesAllFruit() {
+      return this.pilihanJenjang.length === this.jenjangItems.length
+    },
+    icon() {
+      if (this.likesAllFruit) return 'mdi-close-box'
+      return 'mdi-checkbox-blank-outline'
+    },
+  },
   methods: {
+    toggle() {
+      this.$nextTick(() => {
+        if (this.likesAllFruit) {
+          this.pilihanJenjang = []
+        } else {
+          this.pilihanJenjang = this.jenjangItems.slice()
+        }
+      })
+    },
     getColorNTOB(ntob) {
       if (ntob) {
         return ntob === 'Kosong' ? 'secondary' :

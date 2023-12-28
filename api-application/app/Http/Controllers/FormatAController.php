@@ -11,6 +11,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class FormatAController extends Controller
 {
@@ -250,6 +251,7 @@ class FormatAController extends Controller
          */
         FormatAModel::create([
             'id_bayi' => $data['id_bayi'] ?? $bayi->id,
+            'id_admin' => Auth::user()->id,
             'keterangan' => $data['keterangan'],
         ]);
 

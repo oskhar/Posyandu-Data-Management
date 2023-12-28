@@ -23,6 +23,7 @@ class FormatAModel extends Model
      */
     protected $fillable = [
         'id_bayi',
+        'id_admin',
         'keterangan',
     ];
 }
