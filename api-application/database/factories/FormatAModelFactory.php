@@ -34,6 +34,7 @@ class FormatAModelFactory extends Factory
 
         return [
             "id_bayi" => $bayi->id,
+            "id_admin" => 1,
             "keterangan" => $this->faker->paragraph,
         ];
     }

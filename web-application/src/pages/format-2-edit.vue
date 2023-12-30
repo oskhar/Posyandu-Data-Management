@@ -65,27 +65,39 @@
                         dataEdit.penimbangan[index].ntob }}</VBtn>
                   </VCol>
                 </VRow>
-                <VRow>
-                  <VCol cols="12">
-                    <VSelect v-model="pilihanJenjang" :items="jenjangItems" label="Hasil penimbangan"
-                      placeholder="Pilih beberapa" multiple chips @click="handleSelectChange()">
-                      <template v-slot:prepend-item>
-                        <v-list-item ripple @mousedown.prevent @click="toggle">
-                          <v-list-item-action>
-                            <v-icon :color="pilihanJenjang.length === jenjangItems.length ? 'primary' : 'secondary'">
-                              {{ icon }}
-                            </v-icon>
-                            <font class="ml-2"> Pilih Semua </font>
-                          </v-list-item-action>
-                        </v-list-item>
-                        <v-divider class="mt-2"></v-divider>
-                      </template>
-                    </VSelect>
-                  </VCol>
-                </VRow>
               </VCol>
-
-
+              <VCol cols="12">
+                <VSelect v-model="pilihanJenjang" :items="jenjangItems" label="Hasil penimbangan"
+                  placeholder="Pilih beberapa" multiple chips @click="handleSelectChange()">
+                  <template v-slot:prepend-item>
+                    <v-list-item ripple @mousedown.prevent @click="toggle">
+                      <v-list-item-action>
+                        <v-icon :color="pilihanJenjang.length === jenjangItems.length ? 'primary' : 'secondary'">
+                          {{ icon }}
+                        </v-icon>
+                        <font class="ml-2"> Pilih Semua </font>
+                      </v-list-item-action>
+                    </v-list-item>
+                    <v-divider class="mt-2"></v-divider>
+                  </template>
+                </VSelect>
+              </VCol>
+              <VCol cols="12">
+                <VSelect v-model="pilihanJenjang" :items="jenjangItems" label="Pelayanan yang diberikan"
+                  placeholder="Pilih beberapa" multiple chips @click="handleSelectChange()">
+                  <template v-slot:prepend-item>
+                    <v-list-item ripple @mousedown.prevent @click="toggle">
+                      <v-list-item-action>
+                        <v-icon :color="pilihanJenjang.length === jenjangItems.length ? 'primary' : 'secondary'">
+                          {{ icon }}
+                        </v-icon>
+                        <font class="ml-2"> Pilih Semua </font>
+                      </v-list-item-action>
+                    </v-list-item>
+                    <v-divider class="mt-2"></v-divider>
+                  </template>
+                </VSelect>
+              </VCol>
               <VCol cols=" 12" class="d-flex gap-4">
 
                 <VBtn :disabled="isLoading[index]" type="submit" :id="index" @click="submitData()" style="width: 100%;">
