@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use DB;
 
-class ItemHasilSeeder extends Seeder
+class ListPelayananSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -30,7 +30,7 @@ class ItemHasilSeeder extends Seeder
             'Campak Rubella',
         ];
         foreach ($itemHasil as $hasil) {
-            DB::table('list_item')->insert([
+            DB::table('list_pelayanan')->insert([
                 'nama' => $hasil,
                 'type' => 'hasil'
             ]);
@@ -44,7 +44,7 @@ class ItemHasilSeeder extends Seeder
             'ORALIT',
         ];
         foreach ($itemHasil as $hasil) {
-            DB::table('list_item')->insert([
+            DB::table('list_pelayanan')->insert([
                 'nama' => $hasil,
                 'type' => 'pelayanan'
             ]);
