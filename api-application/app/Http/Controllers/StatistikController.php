@@ -47,7 +47,7 @@ class StatistikController extends Controller
             'statistik' => [],
         ];
 
-        for ($i = 0; $i < 7; $i++) {
+        for ($i = 1; $i <= 7; $i++) {
             $date = $lastWeek->clone()->addDays($i)->toDateString();
             $result['statistik'][$date] = $this->getDataCountByDate($dataThisWeek, $date);
         }
@@ -90,67 +90,3 @@ class StatistikController extends Controller
         }
     }
 }
-
-// $dataPerMonth = EdukasiModel::select(DB::raw('MONTH(created_at) as month'), DB::raw('COUNT(*) as count'))
-//     ->groupBy('month')
-//     ->get();
-
-// $result = [];
-
-// for ($i = 1; $i <= 12; $i++) {
-//     $result[$i] = 0;
-// }
-
-// foreach ($dataPerMonth as $data) {
-//     $result[$data->month] = $data->count;
-// }
-
-// {
-//     "berita": {
-//         "jumlah_hari_ini": 0,
-//         "persentase_perubahan_kemarin": -10 + " % ",
-//         "jumlah_minggu_ini": 10 + " berita ",
-//         "bandingkan_minggu_lalu": 10 + " berita lebih sedikit dari minggu lalu",
-//         "statistik": {
-//             "2023-12-07": 0,
-//             "2023-12-08": 0,
-//             "2023-12-09": 0,
-//             "2023-12-10": 0,
-//             "2023-12-11": 0,
-//             "2023-12-12": 0,
-//             "2023-12-13": 0,
-//         }
-//     },
-
-//     "edukasi": {
-//         "jumlah_hari_ini": 0,
-//         "persentase_perubahan_kemarin": -10 + " % ",
-//         "jumlah_minggu_ini": 10 + " edukasi ",
-//         "bandingkan_minggu_lalu": 10 + " edukasi lebih sedikit dari minggu lalu",
-//         "statistik": {
-//             "2023-12-07": 0,
-//             "2023-12-08": 0,
-//             "2023-12-09": 0,
-//             "2023-12-10": 0,
-//             "2023-12-11": 0,
-//             "2023-12-12": 0,
-//             "2023-12-13": 0,
-//         }
-//     },
-
-//     "gambar": {
-//         "jumlah_hari_ini": 0,
-//         "persentase_perubahan_kemarin": -10 + " % ",
-//         "jumlah_minggu_ini": 10 + " gambar ",
-//         "bandingkan_minggu_lalu": 10 + " gambar lebih sedikit dari minggu lalu",
-//         "statistik": {
-//             "2023-12-07": 0,
-//             "2023-12-08": 0,
-//             "2023-12-09": 0,
-//             "2023-12-10": 0,
-//             "2023-12-11": 0,
-//             "2023-12-12": 0,
-//             "2023-12-13": 0,
-//         }
-//     }
-// }
