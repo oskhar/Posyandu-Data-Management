@@ -21,7 +21,9 @@ const illustrationJohn = computed(() =>
 
         <VCardText>
           <span>
-            Ini merupakan situs web Posyandu Melati Semoga dapat memudahkan masyarakat
+            Posyandu merupakan pusat pelayanan kesehatan masyarakat yang memiliki peran krusial dalam pemantauan dan
+            perawatan kesehatan ibu dan anak. Dengan platform ini, Anda memiliki akses ke berbagai fitur untuk membantu
+            Anda dalam mengelola kegiatan Posyandu dengan lebih efisien.
           </span>
           <br />
           <VBtn variant="tonal" class="mt-4" size="small" to="/tentang">

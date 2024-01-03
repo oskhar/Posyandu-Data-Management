@@ -146,6 +146,10 @@ const router = createRouter({
               path: "format-7",
               component: () => import("../pages/format-7.vue"),
             },
+            {
+              path: "laporan",
+              component: () => import("../pages/laporan.vue"),
+            },
           ],
         },
         {

@@ -64,6 +64,10 @@ import UserProfile from "@/layouts/components/UserProfile.vue";
             title: 'Registrasi Bayi',
             to: '/data/format-2',
           },
+          {
+            title: 'Laporan',
+            to: '/data/laporan',
+          },
         ],
       }" />
       <VerticalNavLink :item="{

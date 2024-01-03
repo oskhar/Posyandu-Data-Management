@@ -4,6 +4,10 @@
       <VCol cols="12">
         <VCard>
           <VCardItem>
+            <h1 class="text-center">
+              <VIcon>{{ dataEdit.bayi.jenis_kelamin == "L" ? "bx-male" : "bx-female" }}</VIcon>Grafik {{
+                dataEdit.bayi.jenis_kelamin == "L" ? "Laki Laki" : "Perempuan" }}
+            </h1>
             <VueApexCharts type="line" height="530" :options="chartOptions" :series="series" />
           </VCardItem>
         </VCard>
@@ -17,25 +21,30 @@
                   Nama:
                   <font class="float-right">{{ dataEdit.bayi.nama }}</font>
                 </p>
+                <hr class="text-primary mb-5" style="border-style: dashed;opacity: 0.5;">
                 <p class="mb-4">
                   Nama Ayah:
                   <font class="float-right">{{ dataEdit.bayi.nama_ayah }}</font>
                 </p>
+                <hr class="text-primary mb-5" style="border-style: dashed;opacity: 0.5;">
                 <p class="mb-4">
                   Nama Ibu:
                   <font class="float-right">{{ dataEdit.bayi.nama_ibu }}</font>
                 </p>
+                <hr class="text-primary mb-5" style="border-style: dashed;opacity: 0.5;">
                 <p class="mb-4">
                   Tanggal Lahir:
                   <font class="float-right">{{
                     dataEdit.bayi.tanggal_lahir
                   }}</font>
                 </p>
+                <hr class="text-primary mb-5" style="border-style: dashed;opacity: 0.5;">
                 <p class="mb-4">
                   Jenis Kelamin:<font class="float-right">
-                    {{ dataEdit.bayi.jenis_kelamin }}
+                    {{ dataEdit.bayi.jenis_kelamin == "L" ? "Laki Laki" : "Perempuan" }}
                   </font>
                 </p>
+                <hr class="text-primary mb-5" style="border-style: dashed;opacity: 0.5;">
                 <p class="mb-4">
                   BB Saat Lahir :<font class="float-right">
                     {{
@@ -46,7 +55,73 @@
                   </font>
                 </p>
               </VCol>
-              <VCol cols="12" v-for="(item, index) in    dataEdit.penimbangan   ">
+              <VCol cols="12">
+                <v-dialog v-model="dialog" persistent width="1024">
+                  <template v-slot:activator="{ props }">
+                    <v-btn color="primary" class="ml-2" v-bind="props" prepend-icon="bx-edit">
+                      Keterangan
+                    </v-btn>
+                  </template>
+                  <v-card>
+                    <VCardTitle>
+                      <span class="text-h5">Ubah Data</span>
+                    </VCardTitle>
+                    <VCardItem>
+                      <v-container>
+                        <VRow>
+                          <VCol cols="12">
+                            <VSelect v-model="pilihanJenjang" :items="jenjangItems" label="Hasil penimbangan"
+                              placeholder="Pilih beberapa" multiple chips @click="handleSelectChange()">
+                              <template v-slot:prepend-item>
+                                <v-list-item ripple @mousedown.prevent @click="toggle">
+                                  <v-list-item-action>
+                                    <v-icon
+                                      :color="pilihanJenjang.length === jenjangItems.length ? 'primary' : 'secondary'">
+                                      {{ icon }}
+                                    </v-icon>
+                                    <font class="ml-2"> Pilih Semua </font>
+                                  </v-list-item-action>
+                                </v-list-item>
+                                <v-divider class="mt-2"></v-divider>
+                              </template>
+                            </VSelect>
+                          </VCol>
+                          <VCol cols="12">
+                            <VSelect v-model="pilihanJenjang" :items="jenjangItems" label="Pelayanan yang diberikan"
+                              placeholder="Pilih beberapa" multiple chips @click="handleSelectChange()">
+                              <template v-slot:prepend-item>
+                                <v-list-item ripple @mousedown.prevent @click="toggle">
+                                  <v-list-item-action>
+                                    <v-icon
+                                      :color="pilihanJenjang.length === jenjangItems.length ? 'primary' : 'secondary'">
+                                      {{ icon }}
+                                    </v-icon>
+                                    <font class="ml-2"> Pilih Semua </font>
+                                  </v-list-item-action>
+                                </v-list-item>
+                                <v-divider class="mt-2"></v-divider>
+                              </template>
+                            </VSelect>
+                          </VCol>
+                        </VRow>
+                      </v-container>
+                    </VCardItem>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
+                        Close
+                      </v-btn>
+                      <v-btn color="blue-darken-1" variant="text" @click="
+                        putData(index);
+                      dialog = false;
+                      ">
+                        Save
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+              </VCol>
+              <VCol cols="12" v-for="(item, index) in dataEdit.penimbangan">
                 <h4 class="my-5">{{ item.judul }}</h4>
                 <VRow>
                   <VCol cols="12" sm="6" md="3">
@@ -65,38 +140,6 @@
                         dataEdit.penimbangan[index].ntob }}</VBtn>
                   </VCol>
                 </VRow>
-              </VCol>
-              <VCol cols="12">
-                <VSelect v-model="pilihanJenjang" :items="jenjangItems" label="Hasil penimbangan"
-                  placeholder="Pilih beberapa" multiple chips @click="handleSelectChange()">
-                  <template v-slot:prepend-item>
-                    <v-list-item ripple @mousedown.prevent @click="toggle">
-                      <v-list-item-action>
-                        <v-icon :color="pilihanJenjang.length === jenjangItems.length ? 'primary' : 'secondary'">
-                          {{ icon }}
-                        </v-icon>
-                        <font class="ml-2"> Pilih Semua </font>
-                      </v-list-item-action>
-                    </v-list-item>
-                    <v-divider class="mt-2"></v-divider>
-                  </template>
-                </VSelect>
-              </VCol>
-              <VCol cols="12">
-                <VSelect v-model="pilihanJenjang" :items="jenjangItems" label="Pelayanan yang diberikan"
-                  placeholder="Pilih beberapa" multiple chips @click="handleSelectChange()">
-                  <template v-slot:prepend-item>
-                    <v-list-item ripple @mousedown.prevent @click="toggle">
-                      <v-list-item-action>
-                        <v-icon :color="pilihanJenjang.length === jenjangItems.length ? 'primary' : 'secondary'">
-                          {{ icon }}
-                        </v-icon>
-                        <font class="ml-2"> Pilih Semua </font>
-                      </v-list-item-action>
-                    </v-list-item>
-                    <v-divider class="mt-2"></v-divider>
-                  </template>
-                </VSelect>
               </VCol>
               <VCol cols=" 12" class="d-flex gap-4">
 
@@ -129,6 +172,7 @@ export default {
   },
   data() {
     return {
+      dialog: false,
       pilihanJenjang: [],
       jenjangItems: [
         'HB-0 24 JAM',

@@ -24,19 +24,11 @@
     </VCardText>
 
     <VCardText>
-      <VueApexCharts
-        type="area"
-        :height="241"
-        :options="chartConfig"
-        :series="series[currentTab]"
-      />
+      <VueApexCharts type="area" :height="241" :options="chartConfig" :series="series[currentTab]" />
     </VCardText>
 
     <VCardText class="d-flex align-center justify-center gap-3">
-      <VProgressCircular
-        size="45"
-        :model-value="tabData[currentTab].gambarLoss"
-      >
+      <VProgressCircular size="45" :model-value="tabData[currentTab].gambarLoss">
         <span class="text-xs text-medium-emphasis">{{
           tabData[currentTab].gambarLossAmount
         }}</span>
@@ -184,13 +176,13 @@ export default {
           axisTicks: { show: false },
           axisBorder: { show: false },
           categories: [
-            "",
             "senin",
             "Selasa",
             "rabu",
             "kamis",
             "jumat",
             "sabtu",
+            "Minggu",
           ],
           labels: {
             style: {
@@ -253,6 +245,7 @@ export default {
           },
         ],
       };
+      console.log(this.series);
       this.tabData = {
         berita: {
           avatar: statsVerticalWallet,

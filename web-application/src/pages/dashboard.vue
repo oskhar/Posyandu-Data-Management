@@ -1,6 +1,5 @@
 <script setup>
 import AnalyticsCongratulations from "@/views/dashboard/AnalyticsCongratulations.vue";
-import StatistikDashboard from "@/views/dashboard/StatistikDashboard.vue";
 import config from "@/@core/config.vue";
 import { onMounted } from "vue";
 import axios from "axios";
@@ -50,53 +49,29 @@ onMounted(() => {
       <VRow>
         <!-- 👉 Profit -->
         <VCol cols="12" md="4">
-          <CardStatisticsVertical
-            href="/berita-acara"
-            v-bind="{
-              title: 'Jumlah Berita',
-              image: chart,
-              stats: statBerita,
-            }"
-          />
+          <CardStatisticsVertical href="/berita-acara" v-bind="{
+            title: 'Jumlah Berita',
+            image: chart,
+            stats: statBerita,
+          }" />
         </VCol>
 
         <!-- 👉 Sales -->
         <VCol cols="12" md="4">
-          <CardStatisticsVertical
-            href="/edukasi"
-            v-bind="{
-              title: 'Jumlah Edukasi',
-              image: chart,
-              stats: statEdukasi,
-            }"
-          />
+          <CardStatisticsVertical href="/edukasi" v-bind="{
+            title: 'Jumlah Edukasi',
+            image: chart,
+            stats: statEdukasi,
+          }" />
         </VCol>
         <VCol cols="12" md="4">
-          <CardStatisticsVertical
-            href="/galeri"
-            v-bind="{
-              title: 'Jumlah Gambar',
-              image: info,
-              stats: statGambar,
-            }"
-          />
+          <CardStatisticsVertical href="/galeri" v-bind="{
+            title: 'Jumlah Gambar',
+            image: info,
+            stats: statGambar,
+          }" />
         </VCol>
-        <!-- 👉 Profit -->
-
-        <!-- 👉 Sales -->
-        <!-- <VCol cols="12" md="4">
-          <CardStatisticsVertical
-          v-bind="{
-              title: 'Jumlah Gambar',
-              image: info,
-              stats: jumlahPengurus,
-            }"
-            />
-          </VCol> -->
       </VRow>
-    </VCol>
-    <VCol cols="12" md="12">
-      <StatistikDashboard />
     </VCol>
   </VRow>
 </template>
