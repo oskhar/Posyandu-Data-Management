@@ -14,10 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->bigInteger('id_bayi')->unsigned();
             $table->foreign('id_bayi')->references('id')->on('bayi')->onDelete('cascade')->onUpdate('cascade');
-            $table->bigInteger('nomor_batas_tab')->unsigned();
-            $table->foreign('nomor_batas_tab')->references('nomor')->on('batas_tab')->onDelete('cascade')->onUpdate('cascade');
-            $table->text('hasil');
-            $table->text('pelayanan');
+            $table->bigInteger('tab')->unsigned();
             $table->text('keterangan');
             $table->timestamps();
         });
