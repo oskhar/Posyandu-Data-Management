@@ -25,10 +25,8 @@ class BundleSeeder extends Seeder
             PosyanduSeeder::class,
             FormatASeeder::class,
             BeratUmurSeeder::class,
-            ListPelayananSeeder::class,
             EdukasiSeeder::class,
             BeritaSeeder::class,
-            GambarSeeder::class,
         ]);
 
     }
