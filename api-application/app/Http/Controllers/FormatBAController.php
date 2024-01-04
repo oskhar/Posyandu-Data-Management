@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\FormatBARequest;
 use App\Models\BayiModel;
-use App\Models\OrangTuaModel;
 use DB;
 use App\Models\PenimbanganModel;
 use App\Models\PosyanduModel;
@@ -31,6 +30,30 @@ class FormatBAController extends Controller
         11 => 'November',
         12 => 'Desember'
     ];
+
+    protected $itemHasil = [
+        'HB-0 24 JAM',
+        'Vitamin',
+        'BCG',
+        'POLIO 1',
+        'POLIO 2',
+        'POLIO 3',
+        'POLIO 4',
+        'DPT-HB-HiB 1',
+        'DPT-HB-HiB 2',
+        'DPT-HB-HiB 3',
+        'DPT-HB-HiB 4',
+        'Inactivated Pollo Vaccine (IPV)',
+        'Campak Rubella',
+    ];
+    protected $itemPelayanan = [
+        'VIT A I',
+        'VIT A II',
+        'DPT-HB-HiB Lanjutan',
+        'Campak Rubella Lanjutan',
+        'Makanan Tambahan',
+        'ORALIT',
+    ];
     public function get(FormatBARequest $request): JsonResponse
     {
         /**
@@ -53,6 +76,8 @@ class FormatBAController extends Controller
                 'bayi.nama',
                 'bayi.tanggal_lahir',
                 'bayi.jenis_kelamin',
+                'bayi.hasil_penimbangan',
+                'bayi.pelayanan',
                 'orang_tua.nama_ayah',
                 'orang_tua.nama_ibu',
                 'bayi.berat_lahir',
@@ -250,6 +275,39 @@ class FormatBAController extends Controller
                 ],
             ];
 
+
+            /**
+             * Menyatukan array hasil penimbangan
+             * kedalam bentuk string
+             * 
+             */
+            $hasilPenimbangan = explode(', ', $bayi->hasil_penimbangan);
+
+            /**
+             * Melakukan map array pada hasil penimbangan
+             * mengubah text menjadi kumpulan index
+             * 
+             */
+            $hasilPenimbangan = array_map(function ($item) {
+                return $this->itemHasil[$item];
+            }, $hasilPenimbangan);
+
+            /**
+             * Menyatukan array pelayanan
+             * kedalam bentuk string
+             * 
+             */
+            $pelayanan = explode(', ', $bayi->pelayanan);
+
+            /**
+             * Melakukan map array pada pelayanan
+             * text menjadi kumpulan index
+             * 
+             */
+            $pelayanan = array_map(function ($item) {
+                return $this->itemPelayanan[$item];
+            }, $pelayanan);
+
             /**
              * Mengembalikan response sesuai request
              * 
@@ -258,6 +316,8 @@ class FormatBAController extends Controller
                 "bayi" => $bayi,
                 "penimbangan" => $list_penimbangan,
                 "series" => $series,
+                "hasil_penimbangan" => $hasilPenimbangan,
+                "pelayanan" => $pelayanan,
             ])->setStatusCode(200);
         }
 
@@ -438,13 +498,13 @@ class FormatBAController extends Controller
         /**
          * Menetapkan isi pesan response nanti
          */
+        $errorField = array();
         $pesan = [
             'success' => [
                 'message' => 'Berhasil',
             ]
         ];
-
-        foreach ($allData['penimbangan'] as $data) {
+        foreach ($allData['penimbangan'] as $index => $data) {
 
             /**
              * Memeriksa apakah data valid
@@ -552,6 +612,14 @@ class FormatBAController extends Controller
                     ]
                 ];
 
+                /**
+                 * Menambahkan data errorField untuk
+                 * memberi tau bagian yang diisi
+                 * dengan tidak sesuai oleh user
+                 * 
+                 */
+                array_push($errorField, $index);
+
             }
 
             /**
@@ -602,6 +670,9 @@ class FormatBAController extends Controller
                 $data
             );
         }
+        $pesan = array_merge($pesan, [
+            'error_field' => $errorField
+        ]);
 
         /**
          * Mengembalikan response setelah
@@ -764,5 +835,60 @@ class FormatBAController extends Controller
         return response()->json(
             $listTahunLahir,
         )->setStatusCode(200);
+    }
+    public function put(Request $request): JsonResponse
+    {
+        /**
+         * Melakukan map array pada hasil penimbangan
+         * mengubah text menjadi kumpulan index
+         * 
+         */
+        $hasil = array_map(function ($item) {
+            return array_search($item, $this->itemHasil);
+        }, $request->hasil_penimbangan);
+
+        /**
+         * Menyatukan array hasil penimbangan
+         * kedalam bentuk string
+         * 
+         */
+        $hasil = implode(', ', $hasil);
+
+        /**
+         * Melakukan map array pada pelayanan
+         * text menjadi kumpulan index
+         * 
+         */
+        $pelayanan = array_map(function ($item) {
+            return array_search($item, $this->itemPelayanan);
+        }, $request->pelayanan);
+
+        /**
+         * Menyatukan array pelayanan
+         * kedalam bentuk string
+         * 
+         */
+        $pelayanan = implode(', ', $pelayanan);
+
+        /**
+         * Melakukan pengubahan data bayi
+         * 
+         */
+        BayiModel::where('id', $request->id_bayi)
+            ->update([
+                'hasil_penimbangan' => $hasil,
+                'pelayanan' => $pelayanan,
+            ]);
+
+        /**
+         * Mengembalikan response setelah
+         * melakukan penambahan data
+         * 
+         */
+        return response()->json([
+            'success' => [
+                'message' => 'Berhasil update data!'
+            ]
+        ])->setStatusCode(200);
     }
 }

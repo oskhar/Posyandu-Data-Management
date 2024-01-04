@@ -70,14 +70,13 @@
                       <v-container>
                         <VRow>
                           <VCol cols="12">
-                            <VSelect v-model="pilihanJenjang" :items="jenjangItems" label="Hasil penimbangan"
+                            <VSelect v-model="pilihHasil" :items="itemHasil" label="Hasil penimbangan"
                               placeholder="Pilih beberapa" multiple chips @click="handleSelectChange()">
                               <template v-slot:prepend-item>
-                                <v-list-item ripple @mousedown.prevent @click="toggle">
+                                <v-list-item ripple @mousedown.prevent @click="toggleHasil">
                                   <v-list-item-action>
-                                    <v-icon
-                                      :color="pilihanJenjang.length === jenjangItems.length ? 'primary' : 'secondary'">
-                                      {{ icon }}
+                                    <v-icon :color="pilihHasil.length === itemHasil.length ? 'primary' : 'secondary'">
+                                      {{ iconHasil }}
                                     </v-icon>
                                     <font class="ml-2"> Pilih Semua </font>
                                   </v-list-item-action>
@@ -87,14 +86,14 @@
                             </VSelect>
                           </VCol>
                           <VCol cols="12">
-                            <VSelect v-model="pilihanJenjang" :items="jenjangItems" label="Pelayanan yang diberikan"
+                            <VSelect v-model="pilihPelayanan" :items="itemPelayanan" label="Pelayanan yang diberikan"
                               placeholder="Pilih beberapa" multiple chips @click="handleSelectChange()">
                               <template v-slot:prepend-item>
-                                <v-list-item ripple @mousedown.prevent @click="toggle">
+                                <v-list-item ripple @mousedown.prevent @click="togglePelayanan">
                                   <v-list-item-action>
                                     <v-icon
-                                      :color="pilihanJenjang.length === jenjangItems.length ? 'primary' : 'secondary'">
-                                      {{ icon }}
+                                      :color="pilihPelayanan.length === itemPelayanan.length ? 'primary' : 'secondary'">
+                                      {{ iconPelayanan }}
                                     </v-icon>
                                     <font class="ml-2"> Pilih Semua </font>
                                   </v-list-item-action>
@@ -108,11 +107,11 @@
                     </VCardItem>
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
+                      <v-btn color="secondary" variant="text" @click="dialog = false">
                         Close
                       </v-btn>
-                      <v-btn color="blue-darken-1" variant="text" @click="
-                        putData(index);
+                      <v-btn color="primary" variant="text" @click="
+                        submitKeterangan();
                       dialog = false;
                       ">
                         Save
@@ -128,11 +127,11 @@
                     <VTextField v-model="dataEdit.penimbangan[index].berat_badan" type="number" label="Berat Badan"
                       placeholder="Masukkan Berat Badan" :rules="[
                         (input) => (input >= 0) || 'Berat badan tidak bisa negatif'
-                      ]" />
+                      ]" :error-messages="errorField.includes(index) ? errorFieldMessage : ''" />
                   </VCol>
                   <VCol v-if="index < 23" cols="12" sm="6" md="3">
-                    <VSelect v-model="dataEdit.penimbangan[index].asi_eksklusif" label="Asi Eksklusif"
-                      placeholder="Masukkan Asi Ekslusif" :items="['Ya', 'Tidak', 'Alpa']" />
+                    <VSelect :error="errorField.includes(index)" v-model="dataEdit.penimbangan[index].asi_eksklusif"
+                      label="Asi Eksklusif" placeholder="Masukkan Asi Ekslusif" :items="['Ya', 'Tidak', 'Alpa']" />
                   </VCol>
                   <VCol cols="12" sm="12" md="6">
                     <VBtn class="text-none text-subtitle-1" variant="tonal" :color="getColorNTOB(item.ntob)">
@@ -173,8 +172,8 @@ export default {
   data() {
     return {
       dialog: false,
-      pilihanJenjang: [],
-      jenjangItems: [
+      pilihHasil: [],
+      itemHasil: [
         'HB-0 24 JAM',
         'Vitamin',
         'BCG',
@@ -186,9 +185,20 @@ export default {
         'DPT-HB-HiB 2',
         'DPT-HB-HiB 3',
         'DPT-HB-HiB 4',
-        'Inactivated Pollo Vaccine',
-        'Campak Rubela',
+        'Inactivated Pollo Vaccine (IPV)',
+        'Campak Rubella',
       ],
+      pilihPelayanan: [],
+      itemPelayanan: [
+        'VIT A I',
+        'VIT A II',
+        'DPT-HB-HiB Lanjutan',
+        'Campak Rubella Lanjutan',
+        'Makanan Tambahan',
+        'ORALIT',
+      ],
+      errorField: [],
+      errorFieldMessage: '',
       isLoading: false,
       series: [],
       chartOptions: {
@@ -256,21 +266,37 @@ export default {
     this.fetchData();
   },
   computed: {
-    likesAllFruit() {
-      return this.pilihanJenjang.length === this.jenjangItems.length
+    pilihSemuaHasil() {
+      return this.pilihHasil.length === this.itemHasil.length
     },
-    icon() {
-      if (this.likesAllFruit) return 'mdi-close-box'
+    iconHasil() {
+      if (this.pilihSemuaHasil) return 'mdi-close-box'
+      return 'mdi-checkbox-blank-outline'
+    },
+    pilihSemuaPelayanan() {
+      return this.pilihPelayanan.length === this.itemPelayanan.length
+    },
+    iconPelayanan() {
+      if (this.pilihSemuaPelayanan) return 'mdi-close-box'
       return 'mdi-checkbox-blank-outline'
     },
   },
   methods: {
-    toggle() {
+    toggleHasil() {
       this.$nextTick(() => {
-        if (this.likesAllFruit) {
-          this.pilihanJenjang = []
+        if (this.pilihSemuaHasil) {
+          this.pilihHasil = []
         } else {
-          this.pilihanJenjang = this.jenjangItems.slice()
+          this.pilihHasil = this.itemHasil.slice()
+        }
+      })
+    },
+    togglePelayanan() {
+      this.$nextTick(() => {
+        if (this.pilihSemuaPelayanan) {
+          this.pilihPelayanan = []
+        } else {
+          this.pilihPelayanan = this.itemPelayanan.slice()
         }
       })
     },
@@ -300,6 +326,8 @@ export default {
             },
           }
         );
+        this.pilihHasil = response.data.hasil_penimbangan;
+        this.pilihPelayanan = response.data.pelayanan;
         this.series = response.data.series;
         this.dataEdit = response.data;
         for (let i = 0; i < this.dataEdit.length; i++) {
@@ -309,9 +337,70 @@ export default {
         window.location.href = "/dashboard";
       }
     },
-    async submitData() {
-      this.isLoading = true;
+    async submitKeterangan() {
       try {
+
+        const queryString = window.location.search;
+        const queryParams = new URLSearchParams(queryString);
+
+        // Mendapatkan nilai dari parameter tertentu
+        if (queryParams.get("id_bayi")) {
+          const idBayi = queryParams.get("id_bayi");
+          const data = {
+            id_bayi: idBayi,
+            hasil_penimbangan: this.pilihHasil,
+            pelayanan: this.pilihPelayanan,
+          }
+          const response = await axios.put(
+            `${config.urlServer}/api/format-ba`,
+            data,
+            {
+              headers: {
+                Authorization: localStorage.getItem("tokenAuth"),
+              },
+            }
+          );
+          if (response.data.success) {
+            Swal.fire({
+              toast: true,
+              position: "top",
+              iconColor: "white",
+              color: "white",
+              background: "rgb(var(--v-theme-success))",
+              showConfirmButton: false,
+              timerProgressBar: true,
+              timer: 1500,
+              icon: "success",
+              title: response.data.success.message,
+            });
+          }
+        }
+
+      } catch (get) {
+        const errorMessage = Object.values(get.response.data.errors).join(
+          " - "
+        );
+        Swal.fire({
+          toast: true,
+          position: "top",
+          iconColor: "white",
+          color: "white",
+          background: "rgb(var(--v-theme-error))",
+          showConfirmButton: false,
+          timerProgressBar: true,
+          timer: 2000,
+          icon: "error",
+          title: errorMessage,
+        });
+        this.isLoading = false;
+      }
+    },
+    async submitData() {
+
+      this.isLoading = true;
+
+      try {
+
         const queryString = window.location.search;
         const queryParams = new URLSearchParams(queryString);
         const idBayi = queryParams.get("id_bayi");
@@ -341,6 +430,7 @@ export default {
             icon: "success",
             title: response.data.success.message,
           });
+          this.errorField = [];
         } else {
           Swal.fire({
             toast: true,
@@ -354,6 +444,8 @@ export default {
             icon: "warning",
             title: response.data.warning.message,
           });
+          this.errorFieldMessage = response.data.warning.message;
+          this.errorField = response.data.error_field;
         }
         this.fetchData();
 
