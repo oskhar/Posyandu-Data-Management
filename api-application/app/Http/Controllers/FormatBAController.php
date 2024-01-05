@@ -275,38 +275,44 @@ class FormatBAController extends Controller
                 ],
             ];
 
+            $hasilPenimbangan = [];
+            $pelayanan = [];
 
-            /**
-             * Menyatukan array hasil penimbangan
-             * kedalam bentuk string
-             * 
-             */
-            $hasilPenimbangan = explode(', ', $bayi->hasil_penimbangan);
+            if (!empty($bayi->hasil_penimbangan)) {
+                /**
+                 * Menyatukan array hasil penimbangan
+                 * kedalam bentuk string
+                 * 
+                 */
+                $hasilPenimbangan = explode(', ', $bayi->hasil_penimbangan);
 
-            /**
-             * Melakukan map array pada hasil penimbangan
-             * mengubah text menjadi kumpulan index
-             * 
-             */
-            $hasilPenimbangan = array_map(function ($item) {
-                return $this->itemHasil[$item];
-            }, $hasilPenimbangan);
+                /**
+                 * Melakukan map array pada hasil penimbangan
+                 * mengubah text menjadi kumpulan index
+                 * 
+                 */
+                $hasilPenimbangan = array_map(function ($item) {
+                    return $this->itemHasil[$item];
+                }, $hasilPenimbangan);
+            }
 
-            /**
-             * Menyatukan array pelayanan
-             * kedalam bentuk string
-             * 
-             */
-            $pelayanan = explode(', ', $bayi->pelayanan);
+            if (!empty($bayi->pelayanan)) {
+                /**
+                 * Menyatukan array pelayanan
+                 * kedalam bentuk string
+                 * 
+                 */
+                $pelayanan = explode(', ', $bayi->pelayanan);
 
-            /**
-             * Melakukan map array pada pelayanan
-             * text menjadi kumpulan index
-             * 
-             */
-            $pelayanan = array_map(function ($item) {
-                return $this->itemPelayanan[$item];
-            }, $pelayanan);
+                /**
+                 * Melakukan map array pada pelayanan
+                 * text menjadi kumpulan index
+                 * 
+                 */
+                $pelayanan = array_map(function ($item) {
+                    return $this->itemPelayanan[$item];
+                }, $pelayanan);
+            }
 
             /**
              * Mengembalikan response sesuai request
