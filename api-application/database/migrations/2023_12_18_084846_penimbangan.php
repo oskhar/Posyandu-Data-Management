@@ -19,6 +19,10 @@ return new class extends Migration {
             $table->integer('tahun_penimbangan');
             $table->integer('bulan_penimbangan');
             $table->float('berat_badan')->nullable();
+            $table->float('tinggi_badan')->nullable();
+            $table->float('lila')->nullable();
+            $table->float('lingkar_kepala')->nullable();
+            $table->string('cara_ukur')->nullable();
             $table->string('ntob')->nullable();
             $table->string('asi_eksklusif')->nullable();
             $table->timestamps();

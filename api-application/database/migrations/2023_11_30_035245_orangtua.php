@@ -14,11 +14,15 @@ return new class extends Migration {
             $table->id();
             $table->string('nama_ayah', 50)->nullable();
             $table->string('nama_ibu', 50);
+            $table->string('nik_ayah')->nullable();
+            $table->string('nik_ibu')->nullable();
+            $table->string('no_telp')->nullable();
+            $table->string('rt_rw', 10)->nullable();
+            $table->text('tempat_tinggal')->nullable();
+            $table->text('tahapan_ks')->nullable();
             $table->date('tanggal_lahir_ibu')->nullable();
             $table->date('tanggal_meninggal_ibu')->nullable();
-            $table->string('rt_rw', 10)->nullable();
             $table->boolean('wus_pus')->nullable();
-            $table->text('tahapan_ks')->nullable();
             $table->boolean('memiliki_kms')->nullable();
             $table->boolean('memiliki_kia')->nullable();
             $table->timestamps();
