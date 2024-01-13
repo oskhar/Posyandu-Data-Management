@@ -103,6 +103,7 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
 
         Route::get('/format-a', [ExportController::class, 'exportFormatAExcel']);
         Route::get('/format-b', [ExportController::class, 'exportFormatBAExcel']);
+        Route::get('/laporan-b', [ExportController::class, 'exportLaporanBAExcel']);
 
     });
 
