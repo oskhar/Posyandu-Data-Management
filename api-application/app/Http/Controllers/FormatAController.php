@@ -40,8 +40,8 @@ class FormatAController extends Controller
             'format_a.keterangan',
             'bayi.berat_lahir',
             'orang_tua.rt_rw',
-            'orang_tua.memiliki_kms',
-            'orang_tua.memiliki_kia'
+            'bayi.memiliki_kms',
+            'bayi.memiliki_kia'
         )
             ->join('bayi', 'bayi.id', 'format_a.id_bayi')
             ->join('orang_tua', 'orang_tua.id', 'bayi.id_orang_tua')
@@ -75,7 +75,6 @@ class FormatAController extends Controller
              * 
              */
             $jumlahBayiMeninggal = $queryMenghitung->whereRaw('bayi.tanggal_meninggal IS NOT NULL')->count();
-            $jumlahIbuMeninggal = $queryMenghitung->whereRaw('orang_tua.tanggal_meninggal_ibu IS NOT NULL')->count();
             $jumlahLahir = $query->count();
 
         }
@@ -101,7 +100,7 @@ class FormatAController extends Controller
          * 
          */
         $count = $query->count();
-        $jumlahMeninggal = $jumlahBayiMeninggal + $jumlahIbuMeninggal;
+        $jumlahMeninggal = $jumlahBayiMeninggal;
         $jumlahLahir -= $jumlahBayiMeninggal;
 
         /**
@@ -188,7 +187,6 @@ class FormatAController extends Controller
             'jumlah_lahir' => $jumlahLahir,
             'jumlah_meninggal' => $jumlahMeninggal,
             'jumlah_bayi_meninggal' => $jumlahBayiMeninggal,
-            'jumlah_ibu_meninggal' => $jumlahIbuMeninggal,
             'jumlah_data' => $count,
             'format_a' => $formatA,
         ])->setStatusCode(200);
@@ -227,8 +225,6 @@ class FormatAController extends Controller
                 'nama_ibu' => $data['nama_ibu'],
                 'tanggal_meninggal_ibu' => $data['tanggal_meninggal_ibu'],
                 'rt_rw' => $data['rt_rw'],
-                'memiliki_kms' => $data['memiliki_kms'],
-                'memiliki_kia' => $data['memiliki_kia'],
             ]);
 
             /**
@@ -242,6 +238,8 @@ class FormatAController extends Controller
                 'tanggal_lahir' => $data['tanggal_lahir'],
                 'berat_lahir' => $data['berat_lahir'],
                 'tanggal_meninggal' => $data['tanggal_meninggal_bayi'],
+                'memiliki_kms' => $data['memiliki_kms'],
+                'memiliki_kia' => $data['memiliki_kia'],
             ]);
         }
 
@@ -316,6 +314,8 @@ class FormatAController extends Controller
             'tanggal_lahir' => $data['tanggal_lahir'] ?? $formatA->tanggal_lahir,
             'tanggal_meninggal' => $data['tanggal_meninggal_bayi'] ?? $formatA->tanggal_meninggal_bayi,
             'berat_lahir' => $data['berat_lahir'] ?? $formatA->berat_lahir,
+            'memiliki_kms' => $data['memiliki_kms'] ?? $formatA->memiliki_kms,
+            'memiliki_kia' => $data['memiliki_kia'] ?? $formatA->memiliki_kia,
         ]);
         $bayi = $bayi->select('id_orang_tua')->first();
 
@@ -328,8 +328,6 @@ class FormatAController extends Controller
             'nama_ibu' => $data['nama_ibu'] ?? $formatA->nama_ibu,
             'tanggal_meninggal_ibu' => $data['tanggal_meninggal_ibu'] ?? $formatA->tanggal_meninggal_ibu,
             'rt_rw' => $data['rt_rw'] ?? $formatA->rt_rw,
-            'memiliki_kms' => $data['memiliki_kms'] ?? $formatA->memiliki_kms,
-            'memiliki_kia' => $data['memiliki_kia'] ?? $formatA->memiliki_kia,
         ]);
 
         /**
@@ -388,6 +386,15 @@ class FormatAController extends Controller
          */
         return response()->json(
             $jumlahBayi
+        )->setStatusCode(200);
+    }
+    public function listOrangTua(): JsonResponse
+    {
+        $query = OrangTuaModel::select('id as value')
+            ->selectRaw('CONCAT(nama_ayah, " & ", nama_ibu) as title');
+        $listOrangTua = $query->get();
+        return response()->json(
+            $listOrangTua
         )->setStatusCode(200);
     }
 }

@@ -24,7 +24,7 @@
                             </VTextField>
                         </VCol>
                         <VCol cols="12">
-                            <VBtn class="ml-4" @click="exportExcel" prepend-icon="bx-download">
+                            <VBtn class="mb-3" @click="exportExcel" prepend-icon="bx-download">
                                 Download
                             </VBtn>
                         </VCol>

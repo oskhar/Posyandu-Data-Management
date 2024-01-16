@@ -102,8 +102,8 @@ class FormatBAExport implements FromCollection, WithHeadings, WithEvents, WithCu
             'orang_tua.nama_ibu',
             'orang_tua.nama_ayah',
             'orang_tua.rt_rw',
-            'orang_tua.memiliki_kms',
-            'orang_tua.memiliki_kia',
+            'bayi.memiliki_kms',
+            'bayi.memiliki_kia',
         )->join('orang_tua', 'orang_tua.id', 'bayi.id_orang_tua')
             ->join('penimbangan', 'penimbangan.id_bayi', 'bayi.id')
             ->join('standar_deviasi', 'standar_deviasi.id', 'penimbangan.id_standar_deviasi')
@@ -140,8 +140,8 @@ class FormatBAExport implements FromCollection, WithHeadings, WithEvents, WithCu
             ->groupBy('orang_tua.nama_ibu')
             ->groupBy('orang_tua.nama_ayah')
             ->groupBy('orang_tua.rt_rw')
-            ->groupBy('orang_tua.memiliki_kms')
-            ->groupBy('orang_tua.memiliki_kia');
+            ->groupBy('bayi.memiliki_kms')
+            ->groupBy('bayi.memiliki_kia');
 
         /**
          * Mengambil data dari query yang sudah diolah

@@ -71,7 +71,7 @@
                         <VRow>
                           <VCol cols="12">
                             <VSelect v-model="pilihHasil" :items="itemHasil" label="Hasil penimbangan"
-                              placeholder="Pilih beberapa" multiple chips @click="handleSelectChange()">
+                              placeholder="Pilih beberapa" multiple chips>
                               <template v-slot:prepend-item>
                                 <v-list-item ripple @mousedown.prevent @click="toggleHasil">
                                   <v-list-item-action>
@@ -87,7 +87,7 @@
                           </VCol>
                           <VCol cols="12">
                             <VSelect v-model="pilihPelayanan" :items="itemPelayanan" label="Pelayanan yang diberikan"
-                              placeholder="Pilih beberapa" multiple chips @click="handleSelectChange()">
+                              placeholder="Pilih beberapa" multiple chips>
                               <template v-slot:prepend-item>
                                 <v-list-item ripple @mousedown.prevent @click="togglePelayanan">
                                   <v-list-item-action>

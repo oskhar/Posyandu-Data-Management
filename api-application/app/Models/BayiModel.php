@@ -28,5 +28,7 @@ class BayiModel extends Model
         'berat_lahir',
         'tanggal_lahir',
         'tanggal_meninggal',
+        'memiliki_kms',
+        'memiliki_kia',
     ];
 }

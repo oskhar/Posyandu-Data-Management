@@ -23,8 +23,6 @@ return new class extends Migration {
             $table->date('tanggal_lahir_ibu')->nullable();
             $table->date('tanggal_meninggal_ibu')->nullable();
             $table->boolean('wus_pus')->nullable();
-            $table->boolean('memiliki_kms')->nullable();
-            $table->boolean('memiliki_kia')->nullable();
             $table->timestamps();
         });
     }

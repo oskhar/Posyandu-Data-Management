@@ -65,6 +65,14 @@ import UserProfile from "@/layouts/components/UserProfile.vue";
             to: '/data/format-2',
           },
           {
+            title: 'Wus & Pus',
+            to: '/data/format-3',
+          },
+          {
+            title: 'Data Ibu hamil',
+            to: '/data/format-4',
+          },
+          {
             title: 'Laporan',
             to: '/data/laporan',
           },

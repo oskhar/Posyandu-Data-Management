@@ -13,17 +13,13 @@
             <font class="float-right">Meninggal: <font class="text-error">{{ jumlahMeninggal }}</font>
             </font>
           </h4>
-        </VCardItem>
-      </VCard>
-      <VCard class="mt-5">
-        <VCardItem>
-          <VSelect v-model="tahun" :items="listTahunLahir" />
+          <VSelect v-model="tahun" :items="listTahunLahir" class="mt-5" />
         </VCardItem>
       </VCard>
     </VCol>
     <VCol cols="12" md="4" sm="12">
-      <VCard style="min-height: 300px;">
-        <VCardItem>
+      <VCard>
+        <VCardItem style="min-height: 300px;">
           <VueApexCharts class="float-center" :options="chartOptions" :series="series" />
         </VCardItem>
       </VCard>
@@ -318,13 +314,12 @@ export default {
       isLoadingSekali: false,
       series: [
         {
-          data: [0, 0, 0],
+          data: [0, 0],
         },
       ],
       chartOptions: {
         chart: {
           type: "bar",
-          height: 700,
         },
         plotOptions: {
           bar: {
@@ -338,7 +333,6 @@ export default {
         },
         colors: [
           "#696cff",
-          "#ffab00",
           "#ff3e1d",
         ],
         dataLabels: {
@@ -356,7 +350,7 @@ export default {
           },
         },
         xaxis: {
-          categories: ["Bayi Lahir", "Bayi Meninggal", "Ibu Meninggal"],
+          categories: ["Bayi Lahir", "Bayi Meninggal"],
         },
         yaxis: {
           labels: {
@@ -391,7 +385,6 @@ export default {
           data: [
             response.data.jumlah_lahir,
             response.data.jumlah_bayi_meninggal,
-            response.data.jumlah_ibu_meninggal,
           ],
         },
       ];
@@ -508,6 +501,8 @@ export default {
 
       this.isLoading = false;
       this.dataFormatA = response.data.format_a;
+      this.jumlahData = response.data.jumlah_data;
+      this.banyakPage = Math.ceil(response.data.jumlah_data / 20);
       return response;
     },
     async deleteData(id_format_a) {
@@ -551,7 +546,6 @@ export default {
   },
   async mounted() {
     const response = await this.fetchData();
-    this.banyakPage = Math.ceil(response.data.jumlah_data / 20);
     this.judulFormatA = response.data.judul_format;
     this.namaPosyandu = response.data.nama_posyandu;
     this.kota = response.data.kota;
@@ -563,11 +557,9 @@ export default {
         data: [
           response.data.jumlah_lahir,
           response.data.jumlah_bayi_meninggal,
-          response.data.jumlah_ibu_meninggal,
         ],
       },
     ];
-    this.jumlahData = response.data.jumlah_data;
   },
 };
 </script>

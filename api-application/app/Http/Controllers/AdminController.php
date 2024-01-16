@@ -52,7 +52,6 @@ class AdminController extends Controller
             $admin = $query
                 ->where('id', $data['id_admin'])
                 ->first();
-            $admin->tanggal = explode(' ', $admin->tanggal)[0];
 
             /**
              * Mengembalikan nilai yang diminta

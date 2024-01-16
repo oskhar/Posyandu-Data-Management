@@ -13,6 +13,7 @@ use App\Http\Controllers\PosyanduController;
 use App\Http\Controllers\StatistikController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Tests\Unit\ExampleTest;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,6 +86,7 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
     Route::post('/format-a', [FormatAController::class, 'post']);
     Route::put('/format-a', [FormatAController::class, 'put']);
     Route::delete('/format-a', [FormatAController::class, 'delete']);
+    Route::get('/list-orang-tua', [FormatAController::class, 'listOrangTua']);
 
     /**
      * Endpoint untuk format-a
@@ -132,3 +134,9 @@ Route::get('/posyandu', [PosyanduController::class, 'get']);
 Route::get('/jabatan', [AdminController::class, 'jabatan']);
 Route::get('/struktur-admin', [AdminController::class, 'strukturAdmin']);
 Route::get('/listtahun', [FormatBAController::class, 'getListTahun']);
+
+/**
+ * API Testing
+ * 
+ */
+Route::get('/testing', [FormatBAController::class, 'apiTesting']);

@@ -26,6 +26,8 @@ return new class extends Migration {
             $table->boolean('lulus_asi_eksklusif')->nullable();
             $table->text('pelayanan')->nullable();
             $table->text('hasil_penimbangan')->nullable();
+            $table->boolean('memiliki_kms')->nullable();
+            $table->boolean('memiliki_kia')->nullable();
             $table->timestamps();
         });
     }

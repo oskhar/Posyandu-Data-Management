@@ -29,8 +29,9 @@ class OrangTuaModel extends Model
         'tanggal_meninggal_ibu',
         'wus_pus',
         'tahapan_ks',
-        'memiliki_kms',
-        'memiliki_kia',
+        'tempat_tinggal',
+        'nik_ibu',
+        'nik_ayah',
     ];
 
 }
