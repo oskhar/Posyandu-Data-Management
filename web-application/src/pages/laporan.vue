@@ -3,7 +3,7 @@
         <VCol cols="12" sm="12">
             <VCard>
                 <VCardItem>
-                    <VBtn @click="">Download Laporan Format 2</VBtn>
+                    <VBtn @click="exportExcel">Download Laporan Format 2</VBtn>
                 </VCardItem>
             </VCard>
         </VCol>
@@ -62,13 +62,15 @@ export default {
             statsVerticalChart,
             statsVerticalPaypal,
             statsVerticalWallet,
+            tahun: 2024,
+            bulan: 1,
         }
     },
     methods: {
         async exportExcel() {
             const response = await axios({
                 method: "get",
-                url: `${this.urlServer}/api/export/format-a?tahun=${this.tahun}`,
+                url: `${config.urlServer}/api/export/laporan-b?tahun=${this.tahun}&bulan=${this.bulan}`,
                 responseType: "blob",
                 headers: {
                     Authorization: localStorage.getItem("tokenAuth"),

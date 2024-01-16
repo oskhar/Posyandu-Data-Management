@@ -48,7 +48,7 @@ class FormatAController extends Controller
             ->orderBy('bayi.tanggal_lahir', 'DESC');
 
         /**
-         * Membuat query untuk perhitaungan
+         * Membuat query untuk perhitungan
          * 
          */
         $queryMenghitung = BayiModel::select(
@@ -208,7 +208,7 @@ class FormatAController extends Controller
              * dibutuhkan sudah tersedia
              * 
              */
-            if (empty($data['nama_ibu']) || empty($data['nama_bayi'])) {
+            if ((empty($data['nama_ibu']) && empty($data['id_orang_tua'])) || empty($data['nama_bayi'])) {
                 throw new HttpResponseException(response()->json([
                     'errors' => [
                         'message' => 'Data nama_ibu atau nama_bayi tidak boleh kosong'
@@ -216,30 +216,48 @@ class FormatAController extends Controller
                 ])->setStatusCode(400));
             }
 
+            if (empty($data['id_orang_tua'])) {
+
+                /**
+                 * Melakukan penambahan data orang_tua
+                 * 
+                 */
+                $orangTua = OrangTuaModel::create([
+                    'nama_ayah' => $data['nama_ayah'],
+                    'nik_ayah' => $data['nik_ayah'],
+                    'nama_ibu' => $data['nama_ibu'],
+                    'nik_ibu' => $data['nik_ibu'],
+                    'tanggal_meninggal_ibu' => $data['tanggal_meninggal_ibu'],
+                    'no_telp' => $data['no_telp'],
+                    'rt_rw' => $data['rt_rw'],
+                    'tempat_tinggal' => $data['tempat_tinggal'],
+                ]);
+
+            }
+
             /**
-             * Melakukan penambahan data orang_tua
+             * Inisiasi id data orang tua
              * 
              */
-            $orangTua = OrangTuaModel::create([
-                'nama_ayah' => $data['nama_ayah'],
-                'nama_ibu' => $data['nama_ibu'],
-                'tanggal_meninggal_ibu' => $data['tanggal_meninggal_ibu'],
-                'rt_rw' => $data['rt_rw'],
-            ]);
+            $idOrangTua = empty($data['id_orang_tua']) ? $orangTua->id : $data['id_orang_tua'];
 
             /**
              * Melakukan penambahan data bayi
              * 
              */
             $bayi = BayiModel::create([
-                'id_orang_tua' => $orangTua->id,
+                'id_orang_tua' => $idOrangTua,
                 'nama' => $data['nama_bayi'],
+                'nik' => $data['nik_bayi'],
+                'anak_ke' => $data['anak_ke'],
                 'jenis_kelamin' => $data['jenis_kelamin'],
                 'tanggal_lahir' => $data['tanggal_lahir'],
-                'berat_lahir' => $data['berat_lahir'],
                 'tanggal_meninggal' => $data['tanggal_meninggal_bayi'],
+                'berat_lahir' => $data['berat_lahir'],
+                'tinggi_lahir' => $data['tinggi_lahir'],
                 'memiliki_kms' => $data['memiliki_kms'],
                 'memiliki_kia' => $data['memiliki_kia'],
+                'imd' => $data['imd'],
             ]);
         }
 

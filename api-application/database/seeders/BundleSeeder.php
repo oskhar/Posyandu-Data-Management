@@ -23,7 +23,7 @@ class BundleSeeder extends Seeder
             JabatanSeeder::class,
             AdminSeeder::class,
             PosyanduSeeder::class,
-            FormatASeeder::class,
+                // FormatASeeder::class,
             BeratUmurSeeder::class,
             EdukasiSeeder::class,
             BeritaSeeder::class,

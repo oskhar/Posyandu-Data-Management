@@ -15,6 +15,15 @@ class FormatARequest extends CoreRequest
         switch ($this->getMethod()) {
             case 'POST':
                 return [
+                    'id_orang_tua' => 'nullable|integer',
+                    'nik_ayah' => 'nullable',
+                    'nik_ibu' => 'nullable',
+                    'no_telp' => 'nullable',
+                    'nik_bayi' => 'nullable',
+                    'anak_ke' => 'nullable',
+                    'tinggi_lahir' => 'nullable',
+                    'imd' => 'nullable',
+                    'tempat_tinggal' => 'nullable',
                     'id_bayi' => 'nullable|integer',
                     'nama_ayah' => 'nullable|string',
                     'nama_ibu' => 'nullable|string',
@@ -32,6 +41,15 @@ class FormatARequest extends CoreRequest
             case 'PUT':
                 return [
                     "id_format_a" => "required|integer",
+                    'nik_ayah' => 'nullable',
+                    'nik_ibu' => 'nullable',
+                    'no_telp' => 'nullable',
+                    'nik_bayi' => 'nullable',
+                    'anak_ke' => 'nullable',
+                    'tinggi_lahir' => 'nullable',
+                    'imd' => 'nullable',
+                    'tempat_tinggal' => 'nullable',
+                    'id_bayi' => 'nullable|integer',
                     'nama_ayah' => 'nullable|string',
                     'nama_ibu' => 'nullable|string',
                     'nama_bayi' => 'nullable|string',

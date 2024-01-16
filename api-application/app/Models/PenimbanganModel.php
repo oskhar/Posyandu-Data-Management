@@ -30,5 +30,9 @@ class PenimbanganModel extends Model
         'ntob',
         'asi_eksklusif',
         'id_standar_deviasi',
+        'lila',
+        'lingkar_kepala',
+        'tinggi_badan',
+        'cara_ukur',
     ];
 }

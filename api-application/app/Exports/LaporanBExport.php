@@ -128,168 +128,168 @@ class LaporanBExport implements FromCollection, WithEvents, WithCustomStartCell,
 
         $result->push([
             "S",
-            $SL[0],
-            $SP[0],
-            $S[0],
-            $SL[1],
-            $SP[1],
-            $S[1],
-            $SL[2],
-            $SP[2],
-            $S[2],
-            $SL[3],
-            $SP[3],
-            $S[3],
+            empty($SL[0]) ? '-' : $SL[0],
+            empty($SP[0]) ? '-' : $SP[0],
+            empty($S[0]) ? '-' : $S[0],
+            empty($SL[1]) ? '-' : $SL[1],
+            empty($SP[1]) ? '-' : $SP[1],
+            empty($S[1]) ? '-' : $S[1],
+            empty($SL[2]) ? '-' : $SL[2],
+            empty($SP[2]) ? '-' : $SP[2],
+            empty($S[2]) ? '-' : $S[2],
+            empty($SL[3]) ? '-' : $SL[3],
+            empty($SP[3]) ? '-' : $SP[3],
+            empty($S[3]) ? '-' : $S[3],
         ]);
         $result->push([
             "K",
-            $KL[0],
-            $KP[0],
-            $K[0],
-            $KL[1],
-            $KP[1],
-            $K[1],
-            $KL[2],
-            $KP[2],
-            $K[2],
-            $KL[3],
-            $KP[3],
-            $K[3],
+            empty($KL[0]) ? '-' : $KL[0],
+            empty($KP[0]) ? '-' : $KP[0],
+            empty($K[0]) ? '-' : $K[0],
+            empty($KL[1]) ? '-' : $KL[1],
+            empty($KP[1]) ? '-' : $KP[1],
+            empty($K[1]) ? '-' : $K[1],
+            empty($KL[2]) ? '-' : $KL[2],
+            empty($KP[2]) ? '-' : $KP[2],
+            empty($K[2]) ? '-' : $K[2],
+            empty($KL[3]) ? '-' : $KL[3],
+            empty($KP[3]) ? '-' : $KP[3],
+            empty($K[3]) ? '-' : $K[3],
         ]);
         $result->push([
             "N",
-            $NL[0],
-            $NP[0],
-            $N[0],
-            $NL[1],
-            $NP[1],
-            $N[1],
-            $NL[2],
-            $NP[2],
-            $N[2],
-            $NL[3],
-            $NP[3],
-            $N[3],
+            empty($NL[0]) ? '-' : $NL[0],
+            empty($NP[0]) ? '-' : $NP[0],
+            empty($N[0]) ? '-' : $N[0],
+            empty($NL[1]) ? '-' : $NL[1],
+            empty($NP[1]) ? '-' : $NP[1],
+            empty($N[1]) ? '-' : $N[1],
+            empty($NL[2]) ? '-' : $NL[2],
+            empty($NP[2]) ? '-' : $NP[2],
+            empty($N[2]) ? '-' : $N[2],
+            empty($NL[3]) ? '-' : $NL[3],
+            empty($NP[3]) ? '-' : $NP[3],
+            empty($N[3]) ? '-' : $N[3],
         ]);
         $result->push([
             "T",
-            $TL[0],
-            $TP[0],
-            $T[0],
-            $TL[1],
-            $TP[1],
-            $T[1],
-            $TL[2],
-            $TP[2],
-            $T[2],
-            $TL[3],
-            $TP[3],
-            $T[3],
+            empty($TL[0]) ? '-' : $TL[0],
+            empty($TP[0]) ? '-' : $TP[0],
+            empty($T[0]) ? '-' : $T[0],
+            empty($TL[1]) ? '-' : $TL[1],
+            empty($TP[1]) ? '-' : $TP[1],
+            empty($T[1]) ? '-' : $T[1],
+            empty($TL[2]) ? '-' : $TL[2],
+            empty($TP[2]) ? '-' : $TP[2],
+            empty($T[2]) ? '-' : $T[2],
+            empty($TL[3]) ? '-' : $TL[3],
+            empty($TP[3]) ? '-' : $TP[3],
+            empty($T[3]) ? '-' : $T[3],
         ]);
         $result->push([
             "O",
-            $OL[0],
-            $OP[0],
-            $O[0],
-            $OL[1],
-            $OP[1],
-            $O[1],
-            $OL[2],
-            $OP[2],
-            $O[2],
-            $OL[3],
-            $OP[3],
-            $O[3],
+            empty($OL[0]) ? '-' : $OL[0],
+            empty($OP[0]) ? '-' : $OP[0],
+            empty($O[0]) ? '-' : $O[0],
+            empty($OL[1]) ? '-' : $OL[1],
+            empty($OP[1]) ? '-' : $OP[1],
+            empty($O[1]) ? '-' : $O[1],
+            empty($OL[2]) ? '-' : $OL[2],
+            empty($OP[2]) ? '-' : $OP[2],
+            empty($O[2]) ? '-' : $O[2],
+            empty($OL[3]) ? '-' : $OL[3],
+            empty($OP[3]) ? '-' : $OP[3],
+            empty($O[3]) ? '-' : $O[3],
         ]);
         $result->push([
             "B",
-            $BL[0],
-            $BP[0],
-            $B[0],
-            $BL[1],
-            $BP[1],
-            $B[1],
-            $BL[2],
-            $BP[2],
-            $B[2],
-            $BL[3],
-            $BP[3],
-            $B[3],
+            empty($BL[0]) ? '-' : $BL[0],
+            empty($BP[0]) ? '-' : $BP[0],
+            empty($B[0]) ? '-' : $B[0],
+            empty($BL[1]) ? '-' : $BL[1],
+            empty($BP[1]) ? '-' : $BP[1],
+            empty($B[1]) ? '-' : $B[1],
+            empty($BL[2]) ? '-' : $BL[2],
+            empty($BP[2]) ? '-' : $BP[2],
+            empty($B[2]) ? '-' : $B[2],
+            empty($BL[3]) ? '-' : $BL[3],
+            empty($BP[3]) ? '-' : $BP[3],
+            empty($B[3]) ? '-' : $B[3],
         ]);
         $result->push([
             "D",
-            $DL[0],
-            $DP[0],
-            $D[0],
-            $DL[1],
-            $DP[1],
-            $D[1],
-            $DL[2],
-            $DP[2],
-            $D[2],
-            $DL[3],
-            $DP[3],
-            $D[3],
+            empty($DL[0]) ? '-' : $DL[0],
+            empty($DP[0]) ? '-' : $DP[0],
+            empty($D[0]) ? '-' : $D[0],
+            empty($DL[1]) ? '-' : $DL[1],
+            empty($DP[1]) ? '-' : $DP[1],
+            empty($D[1]) ? '-' : $D[1],
+            empty($DL[2]) ? '-' : $DL[2],
+            empty($DP[2]) ? '-' : $DP[2],
+            empty($D[2]) ? '-' : $D[2],
+            empty($DL[3]) ? '-' : $DL[3],
+            empty($DP[3]) ? '-' : $DP[3],
+            empty($D[3]) ? '-' : $D[3],
         ]);
         $result->push([
             "-",
-            $STL[0],
-            $STP[0],
-            $ST[0],
-            $STL[1],
-            $STP[1],
-            $ST[1],
-            $STL[2],
-            $STP[2],
-            $ST[2],
-            $STL[3],
-            $STP[3],
-            $ST[3],
+            empty($STL[0]) ? '-' : $STL[0],
+            empty($STP[0]) ? '-' : $STP[0],
+            empty($ST[0]) ? '-' : $ST[0],
+            empty($STL[1]) ? '-' : $STL[1],
+            empty($STP[1]) ? '-' : $STP[1],
+            empty($ST[1]) ? '-' : $ST[1],
+            empty($STL[2]) ? '-' : $STL[2],
+            empty($STP[2]) ? '-' : $STP[2],
+            empty($ST[2]) ? '-' : $ST[2],
+            empty($STL[3]) ? '-' : $STL[3],
+            empty($STP[3]) ? '-' : $STP[3],
+            empty($ST[3]) ? '-' : $ST[3],
         ]);
         $result->push([
             "2T",
-            $TTL[0],
-            $TTP[0],
-            $TT[0],
-            $TTL[1],
-            $TTP[1],
-            $TT[1],
-            $TTL[2],
-            $TTP[2],
-            $TT[2],
-            $TTL[3],
-            $TTP[3],
-            $TT[3],
+            empty($TTL[0]) ? '-' : $TTL[0],
+            empty($TTP[0]) ? '-' : $TTP[0],
+            empty($TT[0]) ? '-' : $TT[0],
+            empty($TTL[1]) ? '-' : $TTL[1],
+            empty($TTP[1]) ? '-' : $TTP[1],
+            empty($TT[1]) ? '-' : $TT[1],
+            empty($TTL[2]) ? '-' : $TTL[2],
+            empty($TTP[2]) ? '-' : $TTP[2],
+            empty($TT[2]) ? '-' : $TT[2],
+            empty($TTL[3]) ? '-' : $TTL[3],
+            empty($TTP[3]) ? '-' : $TTP[3],
+            empty($TT[3]) ? '-' : $TT[3],
         ]);
         $result->push([
             "D-O-B",
-            $DOBL[0],
-            $DOBP[0],
-            $DOB[0],
-            $DOBL[1],
-            $DOBP[1],
-            $DOB[1],
-            $DOBL[2],
-            $DOBP[2],
-            $DOB[2],
-            $DOBL[3],
-            $DOBP[3],
-            $DOB[3],
+            empty($DOBL[0]) ? '-' : $DOBL[0],
+            empty($DOBP[0]) ? '-' : $DOBP[0],
+            empty($DOB[0]) ? '-' : $DOB[0],
+            empty($DOBL[1]) ? '-' : $DOBL[1],
+            empty($DOBP[1]) ? '-' : $DOBP[1],
+            empty($DOB[1]) ? '-' : $DOB[1],
+            empty($DOBL[2]) ? '-' : $DOBL[2],
+            empty($DOBP[2]) ? '-' : $DOBP[2],
+            empty($DOB[2]) ? '-' : $DOB[2],
+            empty($DOBL[3]) ? '-' : $DOBL[3],
+            empty($DOBP[3]) ? '-' : $DOBP[3],
+            empty($DOB[3]) ? '-' : $DOB[3],
         ]);
         $result->push([
             "BGM",
-            $BGML[0],
-            $BGMP[0],
-            $BGM[0],
-            $BGML[1],
-            $BGMP[1],
-            $BGM[1],
-            $BGML[2],
-            $BGMP[2],
-            $BGM[2],
-            $BGML[3],
-            $BGMP[3],
-            $BGM[3],
+            empty($BGML[0]) ? '-' : $BGML[0],
+            empty($BGMP[0]) ? '-' : $BGMP[0],
+            empty($BGM[0]) ? '-' : $BGM[0],
+            empty($BGML[1]) ? '-' : $BGML[1],
+            empty($BGMP[1]) ? '-' : $BGMP[1],
+            empty($BGM[1]) ? '-' : $BGM[1],
+            empty($BGML[2]) ? '-' : $BGML[2],
+            empty($BGMP[2]) ? '-' : $BGMP[2],
+            empty($BGM[2]) ? '-' : $BGM[2],
+            empty($BGML[3]) ? '-' : $BGML[3],
+            empty($BGMP[3]) ? '-' : $BGMP[3],
+            empty($BGM[3]) ? '-' : $BGM[3],
         ]);
 
         return $result;
@@ -300,24 +300,32 @@ class LaporanBExport implements FromCollection, WithEvents, WithCustomStartCell,
         return [
             AfterSheet::class => function (AfterSheet $event) {
                 // Menggabungkan kolom A sampai C pada baris 1
-                $event->sheet->getDelegate()->mergeCells('A1:H3');
+                $event->sheet->getDelegate()->mergeCells('A1:M3');
 
                 // Menambahkan judul ke tengah-tengah sel yang digabungkan
-                $event->sheet->setCellValue('A1', 'Catatan ibu hamil, kelahiran, kematian bayi' . chr(10) . 'dan kematian ibu hamil, melahirkan atau nifas' . chr(10) . 'Januari - Desember');
+                $event->sheet->setCellValue('A1', 'Cetak laporan register bayi' . chr(10) . 'penimbangan bayi pada tahun ' . $this->tahun . ' bulan ke ' . $this->bulan);
                 $event->sheet->getStyle('A1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
-                $event->sheet->setCellValue('J4', 'Januari');
-                $event->sheet->setCellValue('M4', 'Februari');
-                $event->sheet->setCellValue('P4', 'Maret');
-                $event->sheet->setCellValue('S4', 'April');
-                $event->sheet->setCellValue('V4', 'Mei');
-                $event->sheet->setCellValue('Y4', 'Juni');
-                $event->sheet->setCellValue('AB4', 'Juli');
-                $event->sheet->setCellValue('AE4', 'Agustus');
-                $event->sheet->setCellValue('AH4', 'September');
-                $event->sheet->setCellValue('AK4', 'Oktober');
-                $event->sheet->setCellValue('AN4', 'November');
-                $event->sheet->setCellValue('AQ4', 'Desember');
+                $event->sheet->getDelegate()->mergeCells('B4:D4');
+                $event->sheet->setCellValue('B4', '0 - 5 Bln');
+                $event->sheet->setCellValue('B5', 'L');
+                $event->sheet->setCellValue('C5', 'P');
+                $event->sheet->setCellValue('D5', 'JML');
+                $event->sheet->getDelegate()->mergeCells('E4:G4');
+                $event->sheet->setCellValue('E4', '6 - 11 Bln');
+                $event->sheet->setCellValue('E5', 'L');
+                $event->sheet->setCellValue('F5', 'P');
+                $event->sheet->setCellValue('G5', 'JML');
+                $event->sheet->getDelegate()->mergeCells('H4:J4');
+                $event->sheet->setCellValue('H4', '12 - 23 Bln');
+                $event->sheet->setCellValue('H5', 'L');
+                $event->sheet->setCellValue('I5', 'P');
+                $event->sheet->setCellValue('J5', 'JML');
+                $event->sheet->getDelegate()->mergeCells('K4:M4');
+                $event->sheet->setCellValue('K4', '24 - 59 Bln');
+                $event->sheet->setCellValue('K5', 'L');
+                $event->sheet->setCellValue('L5', 'P');
+                $event->sheet->setCellValue('M5', 'JML');
             },
         ];
     }
@@ -330,22 +338,32 @@ class LaporanBExport implements FromCollection, WithEvents, WithCustomStartCell,
          * 
          */
         $sheet->getStyle(1)->getAlignment()->setWrapText(true);
-        $sheet->getColumnDimension('A')->setWidth(26);
-        $sheet->getColumnDimension('B')->setWidth(26);
-        $sheet->getColumnDimension('C')->setWidth(26);
-        $sheet->getColumnDimension('D')->setWidth(3);
-        $sheet->getColumnDimension('E')->setWidth(15);
-        $sheet->getColumnDimension('F')->setWidth(20);
-        $sheet->getColumnDimension('G')->setWidth(20);
-        $sheet->getColumnDimension('H')->setWidth(50);
+        $sheet->getColumnDimension('A')->setWidth(6);
+        $sheet->getColumnDimension('B')->setWidth(5);
+        $sheet->getColumnDimension('C')->setWidth(5);
+        $sheet->getColumnDimension('D')->setWidth(5);
+        $sheet->getColumnDimension('E')->setWidth(5);
+        $sheet->getColumnDimension('F')->setWidth(5);
+        $sheet->getColumnDimension('G')->setWidth(5);
+        $sheet->getColumnDimension('H')->setWidth(5);
+        $sheet->getColumnDimension('I')->setWidth(5);
+        $sheet->getColumnDimension('J')->setWidth(5);
+        $sheet->getColumnDimension('K')->setWidth(5);
+        $sheet->getColumnDimension('L')->setWidth(5);
+        $sheet->getColumnDimension('M')->setWidth(5);
+
+        $sheet->getStyle('A4:M16')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+
         return [
             1 => ['font' => ['bold' => true]],
             4 => ['font' => ['bold' => true]],
+            5 => ['font' => ['bold' => true]],
+            "A" => ['font' => ['bold' => true]],
         ];
     }
 
     public function startCell(): string
     {
-        return 'B4';
+        return 'A6';
     }
 }

@@ -25,6 +25,7 @@ return new class extends Migration {
             $table->string('cara_ukur')->nullable();
             $table->string('ntob')->nullable();
             $table->string('asi_eksklusif')->nullable();
+            $table->boolean('vit_a')->nullable();
             $table->timestamps();
         });
     }

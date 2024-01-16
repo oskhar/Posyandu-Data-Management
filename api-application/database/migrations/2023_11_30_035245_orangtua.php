@@ -19,10 +19,7 @@ return new class extends Migration {
             $table->string('no_telp')->nullable();
             $table->string('rt_rw', 10)->nullable();
             $table->text('tempat_tinggal')->nullable();
-            $table->text('tahapan_ks')->nullable();
-            $table->date('tanggal_lahir_ibu')->nullable();
             $table->date('tanggal_meninggal_ibu')->nullable();
-            $table->boolean('wus_pus')->nullable();
             $table->timestamps();
         });
     }

@@ -123,20 +123,43 @@
               <VCol cols="12" v-for="(item, index) in dataEdit.penimbangan">
                 <h4 class="my-5">{{ item.judul }}</h4>
                 <VRow>
-                  <VCol cols="12" sm="6" md="3">
+                  <VCol cols="12" sm="12" md="6" lg="6">
                     <VTextField v-model="dataEdit.penimbangan[index].berat_badan" type="number" label="Berat Badan"
                       placeholder="Masukkan Berat Badan" :rules="[
                         (input) => (input >= 0) || 'Berat badan tidak bisa negatif'
                       ]" :error-messages="errorField.includes(index) ? errorFieldMessage : ''" />
                   </VCol>
-                  <VCol v-if="index < 23" cols="12" sm="6" md="3">
+                  <VCol v-if="index < 23" cols="12" sm="12" md="6" lg="6">
                     <VSelect :error="errorField.includes(index)" v-model="dataEdit.penimbangan[index].asi_eksklusif"
                       label="Asi Eksklusif" placeholder="Masukkan Asi Ekslusif" :items="['Ya', 'Tidak', 'Alpa']" />
                   </VCol>
-                  <VCol cols="12" sm="12" md="6">
-                    <VBtn class="text-none text-subtitle-1" variant="tonal" :color="getColorNTOB(item.ntob)">
+                  <VCol cols="12" sm="12" md="6" lg="6">
+                    <VTextField v-model="dataEdit.penimbangan[index].lila" type="number" label="Lila"
+                      placeholder="Masukkan Lila" :rules="[
+                        (input) => (input >= 0) || 'Lila tidak bisa negatif'
+                      ]" :error-messages="errorField.includes(index) ? errorFieldMessage : ''" />
+                  </VCol>
+                  <VCol cols="12" sm="12" md="6" lg="6">
+                    <VTextField v-model="dataEdit.penimbangan[index].lingkar_kepala" type="number" label="Lingkar Kepala"
+                      placeholder="Masukkan Lingkar Kepala" :rules="[
+                        (input) => (input >= 0) || 'Lingkar Kepala tidak bisa negatif'
+                      ]" :error-messages="errorField.includes(index) ? errorFieldMessage : ''" />
+                  </VCol>
+                  <VCol cols="12" sm="12" md="6" lg="6">
+                    <VTextField v-model="dataEdit.penimbangan[index].tinggi_badan" type="number" label="Tinggi Badan"
+                      placeholder="Masukkan Tinggi Badan" :rules="[
+                        (input) => (input >= 0) || 'Tinggi badan tidak bisa negatif'
+                      ]" :error-messages="errorField.includes(index) ? errorFieldMessage : ''" />
+                  </VCol>
+                  <VCol cols="12" sm="12" md="6" lg="6">
+                    <VSelect v-model="dataEdit.penimbangan[index].cara_ukur" label="Cara Ukur" placeholder="Cara ukur"
+                      :items="['Berdiri', 'Telentang']" />
+                  </VCol>
+                  <VCol cols="12" sm="12" md="12">
+                    <VBtn class="text-none text-subtitle-1" variant="tonal" :color="getColorNTOB(item.ntob)"
+                      style="width: 100%;">
                       {{
-                        dataEdit.penimbangan[index].ntob }}</VBtn>
+                        dataEdit.penimbangan[index].ntob || "Kosong" }}</VBtn>
                   </VCol>
                 </VRow>
               </VCol>

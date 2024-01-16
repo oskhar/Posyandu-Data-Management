@@ -132,6 +132,10 @@ class FormatBAController extends Controller
                 'berat_badan',
                 'ntob',
                 'asi_eksklusif',
+                'lila',
+                'lingkar_kepala',
+                'tinggi_badan',
+                'cara_ukur',
             )->where('id_bayi', '=', $data['id_bayi'])
                 ->orderBy('tahun_penimbangan', 'asc')
                 ->orderBy('bulan_penimbangan', 'asc')
@@ -177,6 +181,10 @@ class FormatBAController extends Controller
                             'berat_badan' => $dataPenimbangan->berat_badan,
                             'ntob' => $dataPenimbangan->ntob,
                             'asi_eksklusif' => $dataPenimbangan->asi_eksklusif,
+                            'lila' => $dataPenimbangan->lila,
+                            'lingkar_kepala' => $dataPenimbangan->lingkar_kepala,
+                            'tinggi_badan' => $dataPenimbangan->tinggi_badan,
+                            'cara_ukur' => $dataPenimbangan->cara_ukur,
                         ];
                     }
                 }

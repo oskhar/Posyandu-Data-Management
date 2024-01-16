@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class OrangTuaModel extends Model
+class FormatCModel extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,7 @@ class OrangTuaModel extends Model
      * 
      * @var string
      */
-    protected $table = 'orang_tua';
+    protected $table = 'format_c';
 
     /**
      * Atribut atau kolom yang boleh diubah.
@@ -22,14 +22,15 @@ class OrangTuaModel extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'nama_ayah',
-        'nik_ayah',
-        'nama_ibu',
-        'nik_ibu',
-        'tanggal_meninggal_ibu',
-        'no_telp',
-        'rt_rw',
-        'tempat_tinggal',
+        'tahapan_ks',
+        'kelompok_dasawisma',
+        'ukuran_lila',
+        'jumlah_anak_hidup',
+        'jumlah_anak_meinggal',
+        'imunisasi',
+        'jenis_kontrasepsi',
+        'tanggal_penggantian',
+        'penggantian_jenis_kontrasepsi',
+        'keterangan',
     ];
-
 }

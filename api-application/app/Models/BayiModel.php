@@ -24,11 +24,15 @@ class BayiModel extends Model
     protected $fillable = [
         'id_orang_tua',
         'nama',
+        'nik',
+        'anak_ke',
         'jenis_kelamin',
-        'berat_lahir',
         'tanggal_lahir',
         'tanggal_meninggal',
+        'berat_lahir',
+        'panjang_lahir',
         'memiliki_kms',
         'memiliki_kia',
+        'imd',
     ];
 }

@@ -70,6 +70,6 @@ class ExportController extends Controller
          * Menggunakan Excel::download untuk menghasilkan response
          * 
          */
-        return Excel::download(new LaporanBExport($request->tahun), $namaFileExcel);
+        return Excel::download(new LaporanBExport($request->tahun, $request->bulan), $namaFileExcel);
     }
 }
