@@ -136,6 +136,7 @@ class FormatBAController extends Controller
                 'lingkar_kepala',
                 'tinggi_badan',
                 'cara_ukur',
+                'vit_a',
             )->where('id_bayi', '=', $data['id_bayi'])
                 ->orderBy('tahun_penimbangan', 'asc')
                 ->orderBy('bulan_penimbangan', 'asc')
@@ -158,6 +159,11 @@ class FormatBAController extends Controller
                     'berat_badan' => null,
                     'ntob' => null,
                     'asi_eksklusif' => null,
+                    'lila' => null,
+                    'lingkar_kepala' => null,
+                    'tinggi_badan' => null,
+                    'cara_ukur' => null,
+                    'vit_a' => null,
                 ];
 
                 /**
@@ -185,6 +191,7 @@ class FormatBAController extends Controller
                             'lingkar_kepala' => $dataPenimbangan->lingkar_kepala,
                             'tinggi_badan' => $dataPenimbangan->tinggi_badan,
                             'cara_ukur' => $dataPenimbangan->cara_ukur,
+                            'vit_a' => $dataPenimbangan->vit_a == '1',
                         ];
                     }
                 }
@@ -510,6 +517,12 @@ class FormatBAController extends Controller
         $idBayi = $allData['id_bayi'];
 
         /**
+         * Inisiasi apakah bayi sudah pernah mendapat T
+         * 
+         */
+        $lastMountIsT = false;
+
+        /**
          * Menetapkan isi pesan response nanti
          */
         $errorField = array();
@@ -670,6 +683,29 @@ class FormatBAController extends Controller
                 $data['ntob'] = $this->getNTOB($umurBayi, $dataWHOBulanLalu, $dataWHO, $beratBadanBulanLalu, $data['berat_badan'], $umurDataPertama);
 
             }
+
+            /**
+             * Memeriksa kondisi apakah
+             * bulan ini ntob adalah t
+             * 
+             */
+            $thisMountIsT = $data['ntob'][0] == "T";
+
+            /**
+             * Memeriksa kondisi double t
+             * 
+             */
+            if ($lastMountIsT && $thisMountIsT) {
+
+                $data['double_t'] = true;
+
+            }
+
+            /**
+             * Mengupdate data t bulan lalu
+             * 
+             */
+            $lastMountIsT = $thisMountIsT == "T" ? true : false;
 
             /**
              * Menggunakan updateOrCreate untuk menyimpan atau memperbarui data

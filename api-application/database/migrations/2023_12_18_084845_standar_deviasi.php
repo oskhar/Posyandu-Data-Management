@@ -15,13 +15,13 @@ return new class extends Migration {
             $table->bigInteger('id_berat_untuk_umur')->unsigned();
             $table->foreign('id_berat_untuk_umur')->references('id')->on('berat_untuk_umur')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('umur_bulan');
-            $table->float('sangat_kurus');
-            $table->float('kurus');
-            $table->float('normal_kurus');
-            $table->float('baik');
-            $table->float('normal_gemuk');
-            $table->float('gemuk');
-            $table->float('sangat_gemuk');
+            $table->float('sangat_kurus')->unsigned();
+            $table->float('kurus')->unsigned();
+            $table->float('normal_kurus')->unsigned();
+            $table->float('baik')->unsigned();
+            $table->float('normal_gemuk')->unsigned();
+            $table->float('gemuk')->unsigned();
+            $table->float('sangat_gemuk')->unsigned();
         });
     }
 

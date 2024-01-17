@@ -22,15 +22,16 @@ class FormatCModel extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'id_orang_tua',
+        'umur',
         'tahapan_ks',
         'kelompok_dasawisma',
-        'ukuran_lila',
+        'lila',
         'jumlah_anak_hidup',
-        'jumlah_anak_meinggal',
+        'jumlah_anak_meninggal',
         'imunisasi',
         'jenis_kontrasepsi',
         'tanggal_penggantian',
         'penggantian_jenis_kontrasepsi',
-        'keterangan',
     ];
 }

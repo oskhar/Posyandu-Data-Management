@@ -15,16 +15,29 @@ class FormatCRequest extends CoreRequest
         switch ($this->getMethod()) {
             case 'POST':
                 return [
-                    'id_bayi' => 'required',
-                    'penimbangan' => 'nullable',
-                    // 'judul' => 'required',
-                    'berat_badan' => 'nullable',
-                    'ntob' => 'nullable',
-                    'asi_eksklusif' => 'nullable:in:Ya,Tidak,Alpa',
+                    'id_orang_tua' => 'nullable',
+                    'nama_ayah' => 'nullable',
+                    'nik_ayah' => 'nullable',
+                    'nama_ibu' => 'nullable',
+                    'nik_ibu' => 'nullable',
+                    'tanggal_meninggal_ibu' => 'nullable',
+                    'no_telp' => 'nullable',
+                    'rt_rw' => 'nullable',
+                    'tempat_tinggal' => 'nullable',
+                    'umur' => 'nullable',
+                    'tahapan_ks' => 'nullable',
+                    'kelompok_dasawisma' => 'nullable',
+                    'lila' => 'nullable',
+                    'jumlah_anak_hidup' => 'nullable',
+                    'jumlah_anak_meninggal' => 'nullable',
+                    'imunisasi' => 'nullable',
+                    'jenis_kontrasepsi' => 'nullable',
+                    'tanggal_penggantian' => 'nullable',
+                    'penggantian_jenis_kontrasepsi' => 'nullable',
                 ];
             case 'GET':
                 return [
-                    'id_bayi' => 'nullable|integer',
+                    'id_format_c' => 'nullable|integer',
                     'tahun' => 'nullable',
                     'bulan' => 'nullable',
                     'tab' => 'nullable',

@@ -52,7 +52,7 @@ class LaporanBExport implements FromCollection, WithEvents, WithCustomStartCell,
                 ->where('penimbangan.tahun_penimbangan', $this->tahun)
                 ->where('penimbangan.bulan_penimbangan', $this->bulan)
                 ->whereRaw('SUBSTRING(penimbangan.ntob FROM 1 FOR 1) = "N"')
-                ->whereRaw('standar_deviasi.umur_bulan BETWEEN ' . $this->batasBulanStart[$i] . ' AND ' . $this->batasBulanEnd[$i]);
+                ->whereBetween('standar_deviasi.umur_bulan', [$this->batasBulanStart[$i], $this->batasBulanEnd[$i]]);
 
             $N[$i] = $query->count();
             $NP[$i] = $query->where('id_berat_untuk_umur', 2)->count();
@@ -62,7 +62,7 @@ class LaporanBExport implements FromCollection, WithEvents, WithCustomStartCell,
                 ->where('penimbangan.tahun_penimbangan', $this->tahun)
                 ->where('penimbangan.bulan_penimbangan', $this->bulan)
                 ->whereRaw('SUBSTRING(penimbangan.ntob FROM 1 FOR 1) = "T"')
-                ->whereRaw('standar_deviasi.umur_bulan BETWEEN ' . $this->batasBulanStart[$i] . ' AND ' . $this->batasBulanEnd[$i]);
+                ->whereBetween('standar_deviasi.umur_bulan', [$this->batasBulanStart[$i], $this->batasBulanEnd[$i]]);
 
             $T[$i] = $query->count();
             $TP[$i] = $query->where('id_berat_untuk_umur', 2)->count();
@@ -72,7 +72,7 @@ class LaporanBExport implements FromCollection, WithEvents, WithCustomStartCell,
                 ->where('penimbangan.tahun_penimbangan', $this->tahun)
                 ->where('penimbangan.bulan_penimbangan', $this->bulan)
                 ->whereRaw('SUBSTRING(penimbangan.ntob FROM 1 FOR 1) = "O"')
-                ->whereRaw('standar_deviasi.umur_bulan BETWEEN ' . $this->batasBulanStart[$i] . ' AND ' . $this->batasBulanEnd[$i]);
+                ->whereBetween('standar_deviasi.umur_bulan', [$this->batasBulanStart[$i], $this->batasBulanEnd[$i]]);
 
             $O[$i] = $query->count();
             $OP[$i] = $query->where('id_berat_untuk_umur', 2)->count();
@@ -82,7 +82,7 @@ class LaporanBExport implements FromCollection, WithEvents, WithCustomStartCell,
                 ->where('penimbangan.tahun_penimbangan', $this->tahun)
                 ->where('penimbangan.bulan_penimbangan', $this->bulan)
                 ->whereRaw('SUBSTRING(penimbangan.ntob FROM 1 FOR 1) = "B"')
-                ->whereRaw('standar_deviasi.umur_bulan BETWEEN ' . $this->batasBulanStart[$i] . ' AND ' . $this->batasBulanEnd[$i]);
+                ->whereBetween('standar_deviasi.umur_bulan', [$this->batasBulanStart[$i], $this->batasBulanEnd[$i]]);
 
             $B[$i] = $query->count();
             $BP[$i] = $query->where('id_berat_untuk_umur', 2)->count();
@@ -96,14 +96,11 @@ class LaporanBExport implements FromCollection, WithEvents, WithCustomStartCell,
             $STP[$i] = $SP[$i] - $DP[$i];
             $STL[$i] = $SL[$i] - $DL[$i];
 
-            $tahunLalu = ($this->bulan - 1 == 0) ? $this->tahun - 1 : $this->tahun;
-            $bulanLalu = ($this->bulan - 1 == 0) ? 12 : $this->bulan - 1;
-
             $query = PenimbanganModel::join('standar_deviasi', 'standar_deviasi.id', 'penimbangan.id_standar_deviasi')
-                ->where('penimbangan.tahun_penimbangan', $tahunLalu)
-                ->where('penimbangan.bulan_penimbangan', $bulanLalu)
-                ->whereRaw('SUBSTRING(penimbangan.ntob FROM 1 FOR 1) = "T"')
-                ->whereRaw('standar_deviasi.umur_bulan BETWEEN ' . ($this->batasBulanStart[$i] + 1) . ' AND ' . $this->batasBulanEnd[$i]);
+                ->where('penimbangan.tahun_penimbangan', $this->tahun)
+                ->where('penimbangan.bulan_penimbangan', $this->bulan)
+                ->where('penimbangan.double_t', true)
+                ->whereBetween('standar_deviasi.umur_bulan', [$this->batasBulanStart[$i], $this->batasBulanEnd[$i]]);
 
             $TT[$i] = $query->count();
             $TTP[$i] = $query->where('id_berat_untuk_umur', 2)->count();
@@ -117,11 +114,21 @@ class LaporanBExport implements FromCollection, WithEvents, WithCustomStartCell,
                 ->where('penimbangan.tahun_penimbangan', $this->tahun)
                 ->where('penimbangan.bulan_penimbangan', $this->bulan)
                 ->whereRaw('SUBSTRING(penimbangan.ntob FROM 1 FOR 3) = "BGM"')
-                ->whereRaw('standar_deviasi.umur_bulan BETWEEN ' . $this->batasBulanStart[$i] . ' AND ' . $this->batasBulanEnd[$i]);
+                ->whereBetween('standar_deviasi.umur_bulan', [$this->batasBulanStart[$i], $this->batasBulanEnd[$i]]);
 
             $BGM[$i] = $query->count();
             $BGMP[$i] = $query->where('id_berat_untuk_umur', 2)->count();
             $BGML[$i] = $BGM[$i] - $BGMP[$i];
+
+            $query = PenimbanganModel::join('standar_deviasi', 'standar_deviasi.id', 'penimbangan.id_standar_deviasi')
+                ->where('penimbangan.tahun_penimbangan', $this->tahun)
+                ->where('penimbangan.bulan_penimbangan', $this->bulan)
+                ->where('penimbangan.vit_a', true)
+                ->whereBetween('standar_deviasi.umur_bulan', [$this->batasBulanStart[$i], $this->batasBulanEnd[$i]]);
+
+            $VA[$i] = $query->count();
+            $VAP[$i] = $query->where('id_berat_untuk_umur', 2)->count();
+            $VAL[$i] = $VA[$i] - $VAP[$i];
 
         }
         $result = collect();
@@ -291,14 +298,34 @@ class LaporanBExport implements FromCollection, WithEvents, WithCustomStartCell,
             empty($BGMP[3]) ? '-' : $BGMP[3],
             empty($BGM[3]) ? '-' : $BGM[3],
         ]);
+        $result->push([
+            "VIT A",
+            empty($VAL[0]) ? '-' : $VAL[0],
+            empty($VAP[0]) ? '-' : $VAP[0],
+            empty($VA[0]) ? '-' : $VA[0],
+            empty($VAL[1]) ? '-' : $VAL[1],
+            empty($VAP[1]) ? '-' : $VAP[1],
+            empty($VA[1]) ? '-' : $VA[1],
+            empty($VAL[2]) ? '-' : $VAL[2],
+            empty($VAP[2]) ? '-' : $VAP[2],
+            empty($VA[2]) ? '-' : $VA[2],
+            empty($VAL[3]) ? '-' : $VAL[3],
+            empty($VAP[3]) ? '-' : $VAP[3],
+            empty($VA[3]) ? '-' : $VA[3],
+        ]);
 
         return $result;
     }
 
     public function registerEvents(): array
     {
+
+        $query = BayiModel::whereYear('tanggal_lahir', $this->tahun)
+            ->whereMonth('tanggal_lahir', $this->bulan)
+            ->where('imd', true);
+
         return [
-            AfterSheet::class => function (AfterSheet $event) {
+            AfterSheet::class => function (AfterSheet $event) use ($query) {
                 // Menggabungkan kolom A sampai C pada baris 1
                 $event->sheet->getDelegate()->mergeCells('A1:M3');
 
@@ -326,6 +353,16 @@ class LaporanBExport implements FromCollection, WithEvents, WithCustomStartCell,
                 $event->sheet->setCellValue('K5', 'L');
                 $event->sheet->setCellValue('L5', 'P');
                 $event->sheet->setCellValue('M5', 'JML');
+
+                $jml = $query->count();
+                $p = $query->where('jenis_kelamin', 'P')
+                    ->count();
+                $l = $jml - $p;
+
+                $event->sheet->setCellValue('A18', "IMD");
+                $event->sheet->setCellValue('B18', empty($l) ? '-' : $l);
+                $event->sheet->setCellValue('C18', empty($p) ? '-' : $p);
+                $event->sheet->setCellValue('D18', empty($jml) ? '-' : $jml);
             },
         ];
     }
@@ -338,7 +375,7 @@ class LaporanBExport implements FromCollection, WithEvents, WithCustomStartCell,
          * 
          */
         $sheet->getStyle(1)->getAlignment()->setWrapText(true);
-        $sheet->getColumnDimension('A')->setWidth(6);
+        $sheet->getColumnDimension('A')->setWidth(7);
         $sheet->getColumnDimension('B')->setWidth(5);
         $sheet->getColumnDimension('C')->setWidth(5);
         $sheet->getColumnDimension('D')->setWidth(5);
@@ -352,7 +389,7 @@ class LaporanBExport implements FromCollection, WithEvents, WithCustomStartCell,
         $sheet->getColumnDimension('L')->setWidth(5);
         $sheet->getColumnDimension('M')->setWidth(5);
 
-        $sheet->getStyle('A4:M16')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle('A4:M18')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
         return [
             1 => ['font' => ['bold' => true]],

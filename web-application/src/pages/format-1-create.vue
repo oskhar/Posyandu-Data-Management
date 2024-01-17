@@ -38,12 +38,12 @@
               <VRow no-gutters>
                 <!-- 👉 First Name -->
                 <VCol cols="12" md="3">
-                  <label for="nik_ibu">NIK Ayah</label>
+                  <label for="ibu">Nama Ibu</label>
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField v-model="nik_ayah" id="nik_ayah" placeholder="Masukkan NIK Ayah..."
-                    persistent-placeholder />
+                  <VTextField v-model="nama_ibu" id="ibu" placeholder="Masukkan Nama Ibu..." persistent-placeholder />
+                  <sup class="text-error">*Wajib diisi</sup>
                 </VCol>
               </VRow>
             </VCol>
@@ -51,12 +51,12 @@
               <VRow no-gutters>
                 <!-- 👉 First Name -->
                 <VCol cols="12" md="3">
-                  <label for="ibu">Nama Ibu</label>
+                  <label for="nik_ibu">NIK Ayah</label>
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField v-model="nama_ibu" id="ibu" placeholder="Masukkan Nama Ibu..." persistent-placeholder />
-                  <sup class="text-error">*Wajib diisi</sup>
+                  <VTextField v-model="nik_ayah" id="nik_ayah" placeholder="Masukkan NIK Ayah..."
+                    persistent-placeholder />
                 </VCol>
               </VRow>
             </VCol>
@@ -116,7 +116,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VSelect placeholder="Pilih...." v-model="provinceId" :items="provinces" />
+                  <VAutocomplete placeholder="Pilih...." v-model="provinceId" :items="provinces" />
                 </VCol>
               </VRow>
             </VCol>
@@ -128,7 +128,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VSelect placeholder="Pilih...." v-model="regencyId" :items="regencies" />
+                  <VAutocomplete placeholder="Pilih...." v-model="regencyId" :items="regencies" />
                 </VCol>
               </VRow>
             </VCol>
@@ -140,7 +140,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VSelect placeholder="Pilih...." v-model="districtId" :items="districts" />
+                  <VAutocomplete placeholder="Pilih...." v-model="districtId" :items="districts" />
                 </VCol>
               </VRow>
             </VCol>
@@ -152,7 +152,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VSelect placeholder="Pilih...." v-model="villageId" :items="villages" />
+                  <VAutocomplete placeholder="Pilih...." v-model="villageId" :items="villages" />
                 </VCol>
               </VRow>
             </VCol>
@@ -353,8 +353,8 @@ import { ref } from "vue";
 export default {
   data() {
     return {
-      listOrangTua: [],
       isLoading: false,
+      listOrangTua: [],
       data_tersedia: true,
       pilihOrangTua: null,
       nama_ayah: "",
@@ -386,28 +386,28 @@ export default {
       regencies: [],
       districts: [],
       villages: [],
-      provinceId: ref(),
-      regencyId: ref(),
-      districtId: ref(),
-      villageId: ref(),
+      provinceId: null,
+      regencyId: null,
+      districtId: null,
+      villageId: null,
     };
   },
   watch: {
     provinceId() {
-      this.regencyId = ref()
-      this.districtId = ref()
-      this.villageId = ref()
+      this.regencyId = null
+      this.districtId = null
+      this.villageId = null
       this.fetchRegencies()
       this.completed = false
     },
     regencyId() {
-      this.districtId = ref()
-      this.villageId = ref()
+      this.districtId = null
+      this.villageId = null
       this.fetchDistricts()
       this.completed = false
     },
     districtId() {
-      this.villageId = ref()
+      this.villageId = null
       this.fetchVillages()
       this.completed = false
     },
@@ -514,6 +514,12 @@ export default {
       this.imd = false;
       this.memiliki_kms = false;
       this.keterangan = "";
+      this.bayi_memiliki_nik = false;
+      this.completed = false;
+      this.fetchingProvinces = false;
+      this.fetchingRegencies = false;
+      this.fetchingDistricts = false;
+      this.fetchingVillages = false;
     },
     async submitData() {
       this.isLoading = true;
@@ -584,6 +590,7 @@ export default {
             title: response.data.success.message,
           });
           this.resetData();
+          this.fetchListOrtu();
         }
       } catch (error) {
         console.log(error)

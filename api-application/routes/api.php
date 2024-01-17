@@ -7,6 +7,7 @@ use App\Http\Controllers\EdukasiController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\FormatAController;
 use App\Http\Controllers\FormatBAController;
+use App\Http\Controllers\FormatCController;
 use App\Http\Controllers\GambarController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\PosyanduController;
@@ -89,13 +90,22 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
     Route::get('/list-orang-tua', [FormatAController::class, 'listOrangTua']);
 
     /**
-     * Endpoint untuk format-a
+     * Endpoint untuk format-b
      * 
      */
     Route::get('/format-ba', [FormatBAController::class, 'get']);
     Route::post('/format-ba', [FormatBAController::class, 'post']);
     Route::put('/format-ba', [FormatBAController::class, 'put']);
     Route::delete('/format-ba', [FormatBAController::class, 'delete']);
+
+    /**
+     * Endpoint untuk format-c
+     * 
+     */
+    Route::get('/format-c', [FormatCController::class, 'get']);
+    Route::post('/format-c', [FormatCController::class, 'post']);
+    Route::put('/format-c', [FormatCController::class, 'put']);
+    Route::delete('/format-c', [FormatCController::class, 'delete']);
 
     /**
      * Endpoint untuk export file excel

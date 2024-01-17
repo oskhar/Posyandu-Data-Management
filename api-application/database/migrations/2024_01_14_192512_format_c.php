@@ -12,13 +12,14 @@ return new class extends Migration {
     {
         Schema::create('format_c', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_bayi')->unsigned();
-            $table->foreign('id_bayi')->references('id')->on('bayi')->onDelete('cascade')->onUpdate('cascade');
+            $table->bigInteger('id_orang_tua')->unsigned();
+            $table->foreign('id_orang_tua')->references('id')->on('orang_tua')->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('umur')->nullable()->unsigned();
             $table->string('tahapan_ks')->nullable();
             $table->string('kelompok_dasawisma')->nullable();
-            $table->float('ukuran_lila')->nullable();
-            $table->integer('jumlah_anak_hidup')->nullable();
-            $table->integer('jumlah_anak_meinggal')->nullable();
+            $table->float('lila')->nullable()->unsigned();
+            $table->integer('jumlah_anak_hidup')->nullable()->unsigned();
+            $table->integer('jumlah_anak_meninggal')->nullable()->unsigned();
             $table->text('imunisasi')->nullable();
             $table->string('jenis_kontrasepsi')->nullable();
             $table->date('tanggal_penggantian')->nullable();

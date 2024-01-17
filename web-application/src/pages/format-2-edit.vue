@@ -121,6 +121,7 @@
                 </v-dialog>
               </VCol>
               <VCol cols="12" v-for="(item, index) in dataEdit.penimbangan">
+                <hr class="mb-5" style="opacity: 0.3;">
                 <h4 class="my-5">{{ item.judul }}</h4>
                 <VRow>
                   <VCol cols="12" sm="12" md="6" lg="6">
@@ -155,6 +156,10 @@
                     <VSelect v-model="dataEdit.penimbangan[index].cara_ukur" label="Cara Ukur" placeholder="Cara ukur"
                       :items="['Berdiri', 'Telentang']" />
                   </VCol>
+                  <VCol v-if="index > 5" cols="12" sm="12" md="6" lg="6">
+                    <VCheckbox v-model="dataEdit.penimbangan[index].vit_a" :label="`Mendapatkan Vitamin A`" />
+                  </VCol>
+
                   <VCol cols="12" sm="12" md="12">
                     <VBtn class="text-none text-subtitle-1" variant="tonal" :color="getColorNTOB(item.ntob)"
                       style="width: 100%;">
@@ -356,6 +361,7 @@ export default {
         for (let i = 0; i < this.dataEdit.length; i++) {
           this.isLoading[i] = false;
         }
+        console.log(response.data.penimbangan)
       } else {
         window.location.href = "/dashboard";
       }

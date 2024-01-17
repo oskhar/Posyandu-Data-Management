@@ -16,16 +16,17 @@ return new class extends Migration {
             $table->foreign('id_bayi')->references('id')->on('bayi')->onDelete('cascade')->onUpdate('cascade');
             $table->bigInteger('id_standar_deviasi')->unsigned()->nullable();
             $table->foreign('id_standar_deviasi')->references('id')->on('standar_deviasi')->onDelete('cascade')->onUpdate('cascade');
-            $table->integer('tahun_penimbangan');
-            $table->integer('bulan_penimbangan');
-            $table->float('berat_badan')->nullable();
-            $table->float('tinggi_badan')->nullable();
-            $table->float('lila')->nullable();
-            $table->float('lingkar_kepala')->nullable();
+            $table->integer('tahun_penimbangan')->unsigned();
+            $table->integer('bulan_penimbangan')->unsigned();
+            $table->float('berat_badan')->nullable()->unsigned();
+            $table->float('tinggi_badan')->nullable()->unsigned();
+            $table->float('lila')->nullable()->unsigned();
+            $table->float('lingkar_kepala')->nullable()->unsigned();
             $table->string('cara_ukur')->nullable();
             $table->string('ntob')->nullable();
             $table->string('asi_eksklusif')->nullable();
             $table->boolean('vit_a')->nullable();
+            $table->boolean('double_t')->nullable();
             $table->timestamps();
         });
     }

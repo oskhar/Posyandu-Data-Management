@@ -2,14 +2,11 @@
     <VRow>
         <VCol cols="12">
             <VCard>
-                <VProgressCircular v-if="isLoading" indeterminate color="primary" class="mt-5 float-center" size="50">
+                <VProgressCircular v-if="isLoadingHeader" indeterminate color="primary" class="mt-5 float-center" size="50">
                 </VProgressCircular>
                 <VCardItem v-else style="min-height: 170px">
-                    <h2>{{ judulFormatBA }}</h2>
+                    <h2>{{ judulFormatC }}</h2>
                     <h3 class="text-secondary mt-5">{{ namaPosyandu }} - {{ kota }}</h3>
-                </VCardItem>
-                <VCardItem>
-                    <VSelect v-model="tahun" :items="listTahunLahir" />
                 </VCardItem>
             </VCard>
         </VCol>
@@ -45,11 +42,11 @@
                         </thead>
 
                         <tbody>
-                            <VProgressCircular v-if="isLoading" indeterminate color="primary" class="mt-5 float-center"
+                            <VProgressCircular v-if="isLoadingTable" indeterminate color="primary" class="mt-5 float-center"
                                 size="50">
                             </VProgressCircular>
 
-                            <tr v-else v-for="(item, index) in dataFormatBA" :key="item.dessert">
+                            <tr v-else v-for="(item, index) in dataFormatC" :key="item.dessert">
                                 <td>
                                     {{ (page - 1) * 20 + (index + 1) }}
                                 </td>
@@ -101,8 +98,8 @@ export default {
             urlServer: config.urlServer,
             page: 1,
             banyakPage: 5,
-            dataFormatBA: [],
-            judulFormatBA: "",
+            dataFormatC: [],
+            judulFormatC: "",
             namaPosyandu: "",
             kota: "",
             jumlahData: 0,
@@ -110,7 +107,8 @@ export default {
             jumlahMeninggal: "",
             tahun: d.getFullYear(),
             listTahunLahir: [d.getFullYear()],
-            isLoading: false,
+            isLoadingTable: false,
+            isLoadingHeader: false,
             chartOptions: {},
         };
     },
@@ -162,9 +160,9 @@ export default {
             link.click();
         },
         async fetchData() {
-            this.isLoading = true;
+            this.isLoadingTable = true;
             const response = await axios.get(
-                `${config.urlServer}/api/format-ba?length=20&start=${this.page}&tahun=${this.tahun}&search=${this.dataSearch}&tab=1`,
+                `${config.urlServer}/api/format-c?length=20&start=${this.page}&tahun=${this.tahun}&search=${this.dataSearch}&tab=1`,
                 {
                     headers: {
                         Authorization: localStorage.getItem("tokenAuth"),
@@ -173,8 +171,8 @@ export default {
             );
             this.banyakPage = Math.ceil(response.data.jumlah_data / 20);
             this.jumlahData = response.data.jumlah_data;
-            this.dataFormatBA = response.data.format_ba;
-            this.isLoading = false;
+            this.dataFormatC = response.data.format_c;
+            this.isLoadingTable = false;
             return response;
         },
     },
@@ -183,8 +181,9 @@ export default {
         VueApexCharts,
     },
     async mounted() {
+        this.isLoadingHeader = true;
         const response = await this.fetchData();
-        this.judulFormatBA = response.data.judul_format;
+        this.judulFormatC = response.data.judul_format;
         this.namaPosyandu = response.data.nama_posyandu;
         this.kota = response.data.kota;
         const response2 = await axios.get(`${config.urlServer}/api/listtahun?tab=1`, {
@@ -193,6 +192,7 @@ export default {
             },
         });
         this.listTahunLahir = response2.data;
+        this.isLoadingHeader = false;
     },
 };
 </script>

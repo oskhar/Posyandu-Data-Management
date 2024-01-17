@@ -57,19 +57,19 @@ import UserProfile from "@/layouts/components/UserProfile.vue";
             to: '/data/admin',
           },
           {
-            title: 'Data Bayi',
+            title: 'Format 1',
             to: '/data/format-1',
           },
           {
-            title: 'Registrasi Bayi',
+            title: 'Format 2',
             to: '/data/format-2',
           },
           {
-            title: 'Wus & Pus',
+            title: 'Format 3',
             to: '/data/format-3',
           },
           {
-            title: 'Data Ibu hamil',
+            title: 'Format 4',
             to: '/data/format-4',
           },
           {

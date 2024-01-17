@@ -34,5 +34,7 @@ class PenimbanganModel extends Model
         'lingkar_kepala',
         'tinggi_badan',
         'cara_ukur',
+        'vit_a',
+        'double_t',
     ];
 }

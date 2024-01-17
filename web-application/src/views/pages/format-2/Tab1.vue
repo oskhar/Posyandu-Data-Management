@@ -25,8 +25,43 @@
             </VCol>
             <VCol cols="12">
               <VBtn class="mb-3" @click="exportExcel" prepend-icon="bx-download">
-                Download
+                Data
               </VBtn>
+
+              <v-dialog v-model="dialog" persistent width="1024">
+                <template v-slot:activator="{ props }">
+                  <VBtn color="primary" class="mb-3 ml-3" v-bind="props" prepend-icon="bx-download">
+                    Laporan
+                  </VBtn>
+                </template>
+                <v-card>
+                  <VCardTitle>
+                    <span class="text-h5">Ubah Data</span>
+                  </VCardTitle>
+                  <VCardItem>
+                    <v-container>
+                      <VRow>
+                        <VCol cols="12">
+                          <VSelect v-model="bulan" :items="itemBulan" label="Pilih bulan laporan"
+                            placeholder="Pilih bulan" />
+                        </VCol>
+                      </VRow>
+                    </v-container>
+                  </VCardItem>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="secondary" variant="text" @click="dialog = false">
+                      Batal
+                    </v-btn>
+                    <v-btn color="primary" variant="text" @click="
+                      exportExcelLaporan();
+                    dialog = false;
+                    ">
+                      Download
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
             </VCol>
           </VRow>
           <VTable>
@@ -107,6 +142,7 @@ export default {
   data() {
     const d = new Date();
     return {
+      dialog: false,
       dataSearch: "",
       urlServer: config.urlServer,
       page: 1,
@@ -120,6 +156,21 @@ export default {
       jumlahMeninggal: "",
       tahun: d.getFullYear(),
       listTahunLahir: [d.getFullYear()],
+      bulan: d.getMonth() + 1,
+      itemBulan: [
+        { value: 1, title: 'Januari' },
+        { value: 2, title: 'Februari' },
+        { value: 3, title: 'Maret' },
+        { value: 4, title: 'April' },
+        { value: 5, title: 'Mei' },
+        { value: 6, title: 'Juni' },
+        { value: 7, title: 'Juli' },
+        { value: 8, title: 'Agustus' },
+        { value: 9, title: 'September' },
+        { value: 10, title: 'Oktober' },
+        { value: 11, title: 'November' },
+        { value: 12, title: 'Desember' },
+      ],
       isLoading: false,
       chartOptions: {},
     };
@@ -133,11 +184,6 @@ export default {
       this.fetchData();
     },
     dataSearch: function () {
-      this.fetchData();
-    },
-    bulan: function () {
-      // Ketika tahun berubah, panggil fungsi fetchData
-      this.page = 1;
       this.fetchData();
     },
   },
@@ -186,6 +232,37 @@ export default {
       this.dataFormatBA = response.data.format_ba;
       this.isLoading = false;
       return response;
+    },
+
+    async exportExcelLaporan() {
+      const response = await axios({
+        method: "get",
+        url: `${config.urlServer}/api/export/laporan-b?tahun=${this.tahun}&bulan=${this.bulan}`,
+        responseType: "blob",
+        headers: {
+          Authorization: localStorage.getItem("tokenAuth"),
+        },
+      });
+
+      // Membuat objek Date yang merepresentasikan waktu saat ini
+      const currentDate = new Date();
+
+      // Mendapatkan tahun, bulan, tanggal, jam, menit, dan detik
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth() + 1; // Perlu ditambah 1 karena indeks bulan dimulai dari 0
+      const day = currentDate.getDate();
+      const hours = currentDate.getHours();
+      const minutes = currentDate.getMinutes();
+      const seconds = currentDate.getSeconds();
+      const currentDateTime = `_${year}-${month}-${day}_${hours}:${minutes}:${seconds}`;
+      const namaFile = `Format-1${currentDateTime}.xlsx`;
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", namaFile);
+      document.body.appendChild(link);
+      link.click();
     },
   },
   components: {
