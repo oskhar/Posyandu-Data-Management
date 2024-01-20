@@ -19,11 +19,7 @@
           <v-container>
             <v-row>
               <v-col cols="12">
-                <v-text-field
-                  v-model="accountDataLocal.firstName"
-                  label="Judul"
-                  required
-                ></v-text-field>
+                <v-text-field v-model="accountDataLocal.firstName" label="Judul" required></v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-text-field label="Materi" required></v-text-field>
@@ -33,36 +29,20 @@
                   <div class="d-flex flex-wrap gap-2">
                     <VBtn color="primary" @click="refInputEl?.click()">
                       <VIcon icon="bx-cloud-upload" class="d-sm-none" />
-                      <span class="d-none d-sm-block">Upload new photo</span>
+                      <span class="d-none d-sm-block">Masukan Gambar</span>
                     </VBtn>
 
-                    <input
-                      ref="refInputEl"
-                      type="file"
-                      name="file"
-                      accept=".jpeg,.png,.jpg"
-                      hidden
-                      @change="changeAvatar"
-                    />
+                    <input ref="refInputEl" type="file" name="file" accept=".jpeg,.png,.jpg" hidden
+                      @change="changeAvatar" />
 
-                    <VBtn
-                      type="reset"
-                      color="error"
-                      variant="tonal"
-                      @click="resetAvatar"
-                    >
+                    <VBtn type="reset" color="error" variant="tonal" @click="resetAvatar">
                       <span class="d-none d-sm-block">Reset</span>
                       <VIcon icon="bx-refresh" class="d-sm-none" />
                     </VBtn>
                   </div>
                 </div>
-                <VAvatar
-                  rounded="lg"
-                  size="200"
-                  class="me-1 mt-3"
-                  :image="projectImageLocal.imageValue"
-                  v-show="projectImageLocal.imageValue !== ''"
-                />
+                <VAvatar rounded="lg" size="200" class="me-1 mt-3" :image="projectImageLocal.imageValue"
+                  v-show="projectImageLocal.imageValue !== ''" />
               </VCol>
             </v-row>
           </v-container>

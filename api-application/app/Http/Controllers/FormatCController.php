@@ -28,9 +28,17 @@ class FormatCController extends Controller
          */
         $query = FormatCModel::select(
             'orang_tua.nama_ibu',
-            'format_c.umur',
             'orang_tua.nama_ayah',
+            'format_c.umur',
             'format_c.tahapan_ks',
+            'format_c.kelompok_dasawisma',
+            'format_c.lila',
+            'format_c.jumlah_anak_hidup',
+            'format_c.jumlah_anak_meninggal',
+            'format_c.imunisasi',
+            'format_c.jenis_kontrasepsi',
+            'format_c.tanggal_penggantian',
+            'format_c.penggantian_jenis_kontrasepsi',
         )->join('orang_tua', 'orang_tua.id', 'format_c.id_orang_tua')
             ->orderByDesc('format_c.created_at');
 
@@ -79,6 +87,15 @@ class FormatCController extends Controller
             'nama_posyandu',
             'kota'
         )->first();
+
+        /**
+         * Mengubah data array dari imunisasi
+         * 
+         */
+        $formatC = $formatC->map(function ($item) {
+            $item->imunisasi = explode(',', $item->imunisasi);
+            return $item;
+        });
 
         /**
          * Memeberikan data yang diminta

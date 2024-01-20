@@ -61,10 +61,336 @@
                                     {{ item.tahapan_ks }}
                                 </td>
                                 <td class="text-center">
-                                    <VBtn color="primary" class="ml-2"
-                                        :href="`/data/format-2-edit?id_bayi=${item.id_bayi}`">
-                                        <v-icon>bx-edit</v-icon>
-                                    </VBtn>
+                                    <v-dialog v-model="dialog[index]" persistent width="1024">
+                                        <template v-slot:activator="{ props }">
+                                            <v-btn color="primary" class="ml-2" v-bind="props">
+                                                <v-icon>bx-edit</v-icon>
+                                            </v-btn>
+                                        </template>
+                                        <v-card>
+                                            <v-card-title>
+                                                <span class="text-h5">Ubah Data</span>
+                                            </v-card-title>
+                                            <v-card-item>
+                                                <VRow>
+                                                    <VCol cols="12">
+                                                        <h2>Data orang tua</h2>
+                                                        <VRow class="mb-5">
+                                                            <VCol cols="12" md="4" lg="4">
+                                                                <VRadioGroup v-model="data_tersedia">
+                                                                    <VRadio label="Ubah data" :value="true"></VRadio>
+                                                                </VRadioGroup>
+                                                            </VCol>
+                                                            <VCol cols="12" md="4" lg="4">
+                                                                <VRadioGroup v-model="data_tersedia">
+                                                                    <VRadio label="Pilih data lain" :value="false"></VRadio>
+                                                                </VRadioGroup>
+                                                            </VCol>
+                                                        </VRow>
+                                                        <VRow v-if="data_tersedia">
+                                                            <VCol cols="12">
+                                                                <VRow no-gutters>
+                                                                    <!-- 👉 First Name -->
+                                                                    <VCol cols="12" md="3">
+                                                                        <label for="ayah">Nama Ayah</label>
+                                                                    </VCol>
+
+                                                                    <VCol cols="12" md="9">
+                                                                        <VTextField id="ayah"
+                                                                            v-model="dataFormatC[index].nama_ayah"
+                                                                            placeholder="Masukkan Nama Ayah..."
+                                                                            persistent-placeholder />
+                                                                        <sup class="text-error">*Wajib diisi</sup>
+                                                                    </VCol>
+                                                                </VRow>
+                                                            </VCol>
+                                                            <VCol cols="12">
+                                                                <VRow no-gutters>
+                                                                    <!-- 👉 First Name -->
+                                                                    <VCol cols="12" md="3">
+                                                                        <label for="ibu">Nama Ibu</label>
+                                                                    </VCol>
+
+                                                                    <VCol cols="12" md="9">
+                                                                        <VTextField v-model="dataFormatC[index].nama_ibu"
+                                                                            id="ibu" placeholder="Masukkan Nama Ibu..."
+                                                                            persistent-placeholder />
+                                                                        <sup class="text-error">*Wajib diisi</sup>
+                                                                    </VCol>
+                                                                </VRow>
+                                                            </VCol>
+                                                            <VCol cols="12">
+                                                                <VRow no-gutters>
+                                                                    <!-- 👉 First Name -->
+                                                                    <VCol cols="12" md="3">
+                                                                        <label for="nik_ibu">NIK Ayah</label>
+                                                                    </VCol>
+
+                                                                    <VCol cols="12" md="9">
+                                                                        <VTextField v-model="dataFormatC[index].nik_ayah"
+                                                                            id="nik_ayah" placeholder="Masukkan NIK Ayah..."
+                                                                            persistent-placeholder />
+                                                                    </VCol>
+                                                                </VRow>
+                                                            </VCol>
+                                                            <VCol cols="12">
+                                                                <VRow no-gutters>
+                                                                    <!-- 👉 First Name -->
+                                                                    <VCol cols="12" md="3">
+                                                                        <label for="nik_ibu">NIK Ibu</label>
+                                                                    </VCol>
+
+                                                                    <VCol cols="12" md="9">
+                                                                        <VTextField v-model="dataFormatC[index].nik_ibu"
+                                                                            id="nik_ibu" placeholder="Masukkan NIK Ibu..."
+                                                                            persistent-placeholder />
+                                                                    </VCol>
+                                                                </VRow>
+                                                            </VCol>
+                                                            <VCol cols="12">
+                                                                <VRow no-gutters>
+                                                                    <!-- 👉 First Name -->
+                                                                    <VCol cols="12" md="3">
+                                                                        <label for="tanggal-meninggal-ibu">Tanggal Meninggal
+                                                                            Ibu</label>
+                                                                    </VCol>
+
+                                                                    <VCol cols="12" md="9">
+                                                                        <VTextField placeholder="" type="date"
+                                                                            v-model="dataFormatC[index].tanggal_meninggal_ibu" />
+                                                                    </VCol>
+                                                                </VRow>
+                                                            </VCol>
+                                                            <VCol cols="12">
+                                                                <VRow no-gutters>
+                                                                    <!-- 👉 First Name -->
+                                                                    <VCol cols="12" md="3">
+                                                                        <label>Nomor yang bisa dihubungi</label>
+                                                                    </VCol>
+
+                                                                    <VCol cols="12" md="9">
+                                                                        <VTextField v-model="dataFormatC[index].no_telp"
+                                                                            placeholder="08xx" persistent-placeholder />
+                                                                    </VCol>
+                                                                </VRow>
+                                                            </VCol>
+                                                            <VCol cols="12">
+                                                                <VRow no-gutters>
+                                                                    <!-- 👉 First Name -->
+                                                                    <VCol cols="12" md="3">
+                                                                        <label>RT/RW</label>
+                                                                    </VCol>
+
+                                                                    <VCol cols="12" md="9">
+                                                                        <VTextField v-model="dataFormatC[index].rt_rw"
+                                                                            placeholder="Masukkan RT/RW..."
+                                                                            persistent-placeholder />
+                                                                    </VCol>
+                                                                </VRow>
+                                                            </VCol>
+                                                            <VCol cols="12">
+                                                                <VRow no-gutters>
+                                                                    <!-- 👉 First Name -->
+                                                                    <VCol cols="12" md="3">
+                                                                        <label for="ibu">Tempat Tinggal</label>
+                                                                    </VCol>
+
+                                                                    <VCol cols="12" md="9">
+                                                                        <VTextarea placeholder="Alamat tempat tinggal..."
+                                                                            v-model="dataFormatC[index].tempat_tinggal" />
+                                                                    </VCol>
+                                                                </VRow>
+                                                            </VCol>
+                                                        </VRow>
+                                                        <VRow v-else>
+                                                            <VCol cols="12">
+                                                                <VAutocomplete v-model="ganti_id_ortu"
+                                                                    label="Nama orang tua...." :items="listOrangTua">
+                                                                </VAutocomplete>
+                                                            </VCol>
+                                                        </VRow>
+                                                        <VRow>
+                                                            <VCol cols="12">
+                                                                <h2>Data wus & pus</h2>
+                                                                <VRow no-gutters>
+                                                                    <!-- 👉 First Name -->
+                                                                    <VCol cols="12" md="3">
+                                                                        <label for="umur">Umur WUS dan PUS</label>
+                                                                    </VCol>
+
+                                                                    <VCol cols="12" md="9">
+                                                                        <VTextField v-model="dataFormatC[index].umur"
+                                                                            id="umur" placeholder="tahun.."
+                                                                            persistent-placeholder type="number" />
+                                                                        <sup class="text-error">*Wajib diisi</sup>
+                                                                    </VCol>
+                                                                </VRow>
+                                                            </VCol>
+                                                            <VCol cols="12">
+                                                                <VRow no-gutters>
+                                                                    <!-- 👉 First Name -->
+                                                                    <VCol cols="12" md="3">
+                                                                        <label for="ks">Tahapan KS</label>
+                                                                    </VCol>
+
+                                                                    <VCol cols="12" md="9">
+                                                                        <VTextField v-model="dataFormatC[index].tahapan_ks"
+                                                                            id="ks" placeholder="Tahapan KS.."
+                                                                            persistent-placeholder />
+                                                                        <sup class="text-error">*Wajib diisi</sup>
+                                                                    </VCol>
+                                                                </VRow>
+                                                            </VCol>
+                                                            <VCol cols="12">
+                                                                <VRow no-gutters>
+                                                                    <!-- 👉 First Name -->
+                                                                    <VCol cols="12" md="3">
+                                                                        <label for="dasawisma">Kelompok Dasawisma</label>
+                                                                    </VCol>
+
+                                                                    <VCol cols="12" md="9">
+                                                                        <VTextField
+                                                                            v-model="dataFormatC[index].kelompok_dasawisma"
+                                                                            id="dasawisma"
+                                                                            placeholder="Kelompok dasawisma.."
+                                                                            persistent-placeholder />
+                                                                        <sup class="text-error">*Wajib diisi</sup>
+                                                                    </VCol>
+                                                                </VRow>
+                                                            </VCol>
+                                                            <VCol cols="12">
+                                                                <VRow no-gutters>
+                                                                    <!-- 👉 First Name -->
+                                                                    <VCol cols="12" md="3">
+                                                                        <label for="lila">Ukuran LILA</label>
+                                                                    </VCol>
+
+                                                                    <VCol cols="12" md="9">
+                                                                        <VTextField v-model="dataFormatC[index].lila"
+                                                                            id="lila" placeholder="cm.."
+                                                                            persistent-placeholder type="number" />
+                                                                        <sup class="text-error">*Wajib diisi</sup>
+                                                                    </VCol>
+                                                                </VRow>
+                                                            </VCol>
+                                                            <VCol cols="12">
+                                                                <VRow no-gutters>
+                                                                    <!-- 👉 First Name -->
+                                                                    <VCol cols="12" md="3">
+                                                                        <label for="tanggal-lahir">Jumlah anak</label>
+                                                                    </VCol>
+
+                                                                    <VCol cols="6" md="4">
+                                                                        <VTextField placeholder="Hidup.."
+                                                                            v-model="dataFormatC[index].jumlah_anak_hidup" />
+                                                                        <sup class="text-error">*Wajib diisi</sup>
+                                                                    </VCol>
+
+                                                                    <VCol cols="6" class="ml-5" md="4">
+                                                                        <VTextField placeholder="Meninggal.."
+                                                                            v-model="dataFormatC[index].jumlah_anak_meninggal" />
+                                                                        <sup class="text-error">*Wajib diisi</sup>
+                                                                    </VCol>
+                                                                </VRow>
+                                                            </VCol>
+                                                            <VCol cols="12">
+                                                                <VRow no-gutters>
+                                                                    <!-- 👉 First Name -->
+                                                                    <VCol cols="12" md="3">
+                                                                        <label for="imunisasi">Imunisasi</label>
+                                                                    </VCol>
+
+                                                                    <VCol cols="12" md="9">
+                                                                        <VSelect v-model="dataFormatC[index].imunisasi"
+                                                                            :items="itemImunisasi" label="imunisasi"
+                                                                            placeholder="Pilih beberapa" multiple chips>
+                                                                            <template v-slot:prepend-item>
+                                                                                <v-list-item ripple @mousedown.prevent
+                                                                                    @click="toggleHasil">
+                                                                                    <v-list-item-action>
+                                                                                        <v-icon
+                                                                                            :color="dataFormatC[index].imunisasi.length === itemImunisasi.length ? 'primary' : 'secondary'">
+                                                                                            {{ iconHasil }}
+                                                                                        </v-icon>
+                                                                                        <font class="ml-2"> Pilih Semua
+                                                                                        </font>
+                                                                                    </v-list-item-action>
+                                                                                </v-list-item>
+                                                                                <v-divider class="mt-2"></v-divider>
+                                                                            </template>
+                                                                        </VSelect>
+                                                                    </VCol>
+                                                                </VRow>
+                                                            </VCol>
+                                                            <VCol cols="12">
+                                                                <VRow no-gutters>
+                                                                    <!-- 👉 First Name -->
+                                                                    <VCol cols="12" md="3">
+                                                                        <label for="kontrasepsi">Jenis Kontrasepsi</label>
+                                                                    </VCol>
+
+                                                                    <VCol cols="12" md="9">
+                                                                        <VTextField
+                                                                            v-model="dataFormatC[index].jenis_kontrasepsi"
+                                                                            id="kontrasepsi" placeholder="jenis.."
+                                                                            persistent-placeholder />
+                                                                        <sup class="text-error">*Wajib diisi</sup>
+                                                                    </VCol>
+                                                                </VRow>
+                                                            </VCol>
+                                                            <VCol cols="12">
+                                                                <VRow no-gutters>
+                                                                    <!-- 👉 First Name -->
+                                                                    <VCol cols="12" md="3">
+                                                                        <label for="penggantian">Tanggal Penggantian</label>
+                                                                    </VCol>
+
+                                                                    <VCol cols="12" md="9">
+                                                                        <VTextField
+                                                                            v-model="dataFormatC[index].tanggal_penggantian"
+                                                                            id="penggantian"
+                                                                            placeholder="Tanggal Penggantian.."
+                                                                            persistent-placeholder type="date" />
+                                                                        <sup class="text-error">*Wajib diisi</sup>
+                                                                    </VCol>
+                                                                </VRow>
+                                                            </VCol>
+                                                            <VCol cols="12">
+                                                                <VRow no-gutters>
+                                                                    <!-- 👉 First Name -->
+                                                                    <VCol cols="12" md="3">
+                                                                        <label for="kontrasepsi">Penggantian</label>
+                                                                    </VCol>
+
+                                                                    <VCol cols="12" md="9">
+                                                                        <VTextField
+                                                                            v-model="dataFormatC[index].penggantian_jenis_kontrasepsi"
+                                                                            id="kontrasepsi"
+                                                                            placeholder="jenis kontrasepsi.."
+                                                                            persistent-placeholder />
+                                                                        <sup class="text-error">*Wajib diisi</sup>
+                                                                    </VCol>
+                                                                </VRow>
+                                                            </VCol>
+                                                        </VRow>
+                                                    </VCol>
+                                                </VRow>
+                                            </v-card-item>
+                                            <v-card-actions>
+                                                <v-spacer></v-spacer>
+                                                <v-btn color="blue-darken-1" variant="text"
+                                                    @click="dialog[item.id_format_a] = false">
+                                                    Close
+                                                </v-btn>
+                                                <v-btn color="blue-darken-1" variant="text" @click="
+                                                    putData(index);
+                                                dialog[item.id_format_a] = false;
+                                                ">
+                                                    Save
+                                                </v-btn>
+                                            </v-card-actions>
+                                        </v-card>
+                                    </v-dialog>
                                 </td>
                             </tr>
                         </tbody>
@@ -94,6 +420,8 @@ export default {
     data() {
         const d = new Date();
         return {
+            dialog: [],
+            data_tersedia: true,
             dataSearch: "",
             urlServer: config.urlServer,
             page: 1,

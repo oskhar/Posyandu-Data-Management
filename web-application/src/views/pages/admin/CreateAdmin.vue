@@ -70,7 +70,7 @@
                                     <VProgressCircular v-if="isLoading" indeterminate color="white">
                                     </VProgressCircular>
 
-                                    <span v-else>Submit</span>
+                                    <span v-else>Simpan</span>
                                 </VBtn>
                             </VCol>
                         </VRow>

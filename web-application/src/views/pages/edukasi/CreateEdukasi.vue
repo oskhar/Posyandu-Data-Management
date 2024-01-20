@@ -45,7 +45,7 @@
                       <div class="d-flex flex-wrap gap-2">
                         <VBtn id="gambar" color="primary" @click="refInputEl?.click()">
                           <VIcon icon="bx-cloud-upload" class="d-sm-none" />
-                          <span class="d-none d-sm-block">Upload new photo</span>
+                          <span class="d-none d-sm-block">Masukan Gambar</span>
                         </VBtn>
 
                         <input ref="refInputEl" type="file" name="file" accept=".jpeg,.png,.jpg" hidden
@@ -70,7 +70,7 @@
                   <VProgressCircular v-if="isLoading" indeterminate color="white">
                   </VProgressCircular>
 
-                  <span v-else>Submit</span>
+                  <span v-else>Simpan</span>
                 </VBtn>
               </VCol>
             </VRow>

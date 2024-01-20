@@ -41,6 +41,7 @@ class FormatARequest extends CoreRequest
             case 'PUT':
                 return [
                     "id_format_a" => "required|integer",
+                    'ganti_id_ortu' => 'nullable',
                     'nik_ayah' => 'nullable',
                     'nik_ibu' => 'nullable',
                     'no_telp' => 'nullable',

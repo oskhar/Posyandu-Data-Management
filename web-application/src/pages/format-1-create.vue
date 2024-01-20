@@ -224,7 +224,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VSelect v-model="jenis_kelamin" :items="['L', 'P']" />
+                  <VSelect v-model="jenis_kelamin" :items="['L', 'P']" placeholder="Pilih jenis kelamin.." />
                   <sup class="text-error">*Wajib diisi</sup>
                 </VCol>
               </VRow>
@@ -334,7 +334,7 @@
                 <VProgressCircular v-if="isLoading" indeterminate color="white">
                 </VProgressCircular>
 
-                <font v-else>Submit</font>
+                <font v-else>Simpan</font>
               </VBtn>
             </VCol>
           </VRow>

@@ -30,18 +30,27 @@ class FormatAController extends Controller
          */
         $query = FormatAModel::select(
             'format_a.id as id_format_a',
+            'orang_tua.id as id_orang_tua',
             'orang_tua.nama_ayah',
             'orang_tua.nama_ibu',
+            'orang_tua.nik_ayah',
+            'orang_tua.nik_ibu',
+            'orang_tua.tanggal_meninggal_ibu',
+            'orang_tua.no_telp',
+            'orang_tua.rt_rw',
+            'orang_tua.tempat_tinggal',
             'bayi.nama as nama_bayi',
+            'bayi.nik as nik_bayi',
+            'bayi.anak_ke',
             'bayi.jenis_kelamin',
             'bayi.tanggal_lahir',
             'bayi.tanggal_meninggal as tanggal_meninggal_bayi',
-            'orang_tua.tanggal_meninggal_ibu',
-            'format_a.keterangan',
             'bayi.berat_lahir',
-            'orang_tua.rt_rw',
+            'bayi.tinggi_lahir',
+            'bayi.memiliki_kia',
+            'bayi.imd',
             'bayi.memiliki_kms',
-            'bayi.memiliki_kia'
+            'format_a.keterangan',
         )
             ->join('bayi', 'bayi.id', 'format_a.id_bayi')
             ->join('orang_tua', 'orang_tua.id', 'bayi.id_orang_tua')
@@ -297,15 +306,29 @@ class FormatAController extends Controller
          * 
          */
         $formatA = FormatAModel::select(
+            'format_a.id as id_format_a',
             'format_a.id_bayi',
+            'orang_tua.id as id_orang_tua',
             'orang_tua.nama_ayah',
             'orang_tua.nama_ibu',
+            'orang_tua.nik_ayah',
+            'orang_tua.nik_ibu',
+            'orang_tua.tanggal_meninggal_ibu',
+            'orang_tua.no_telp',
+            'orang_tua.rt_rw',
+            'orang_tua.tempat_tinggal',
             'bayi.nama as nama_bayi',
+            'bayi.nik as nik_bayi',
+            'bayi.anak_ke',
             'bayi.jenis_kelamin',
             'bayi.tanggal_lahir',
             'bayi.tanggal_meninggal as tanggal_meninggal_bayi',
-            'orang_tua.tanggal_meninggal_ibu',
-            'format_a.keterangan'
+            'bayi.berat_lahir',
+            'bayi.tinggi_lahir',
+            'bayi.memiliki_kia',
+            'bayi.imd',
+            'bayi.memiliki_kms',
+            'format_a.keterangan',
         )
             ->join('bayi', 'bayi.id', 'format_a.id_bayi')
             ->join('orang_tua', 'orang_tua.id', 'bayi.id_orang_tua')
@@ -317,7 +340,6 @@ class FormatAController extends Controller
          * 
          */
         FormatAModel::where('id', $data['id_format_a'])->update([
-            'id_bayi' => $formatA->id_bayi,
             'keterangan' => $data['keterangan'] ?? $formatA->keterangan,
         ]);
 
@@ -327,26 +349,39 @@ class FormatAController extends Controller
          */
         $bayi = BayiModel::where('id', $formatA->id_bayi);
         $bayi->update([
+            'id_orang_tua' => $data['ganti_id_ortu'] ?? $formatA->id_orang_tua,
             'nama' => $data['nama_bayi'] ?? $formatA->nama_bayi,
+            'nik' => $data['nik_bayi'] ?? $formatA->nik_bayi,
             'jenis_kelamin' => $data['jenis_kelamin'] ?? $formatA->jenis_kelamin,
             'tanggal_lahir' => $data['tanggal_lahir'] ?? $formatA->tanggal_lahir,
             'tanggal_meninggal' => $data['tanggal_meninggal_bayi'] ?? $formatA->tanggal_meninggal_bayi,
             'berat_lahir' => $data['berat_lahir'] ?? $formatA->berat_lahir,
-            'memiliki_kms' => $data['memiliki_kms'] ?? $formatA->memiliki_kms,
+            'tinggi_lahir' => $data['tinggi_lahir'] ?? $formatA->tinggi_lahir,
             'memiliki_kia' => $data['memiliki_kia'] ?? $formatA->memiliki_kia,
+            'imd' => $data['imd'] ?? $formatA->imd,
+            'memiliki_kms' => $data['memiliki_kms'] ?? $formatA->memiliki_kms,
         ]);
+
         $bayi = $bayi->select('id_orang_tua')->first();
 
-        /**
-         * Melakukan pengubahan data orang_tua
-         * 
-         */
-        OrangTuaModel::where('id', $bayi->id_orang_tua)->update([
-            'nama_ayah' => $data['nama_ayah'] ?? $formatA->nama_ayah,
-            'nama_ibu' => $data['nama_ibu'] ?? $formatA->nama_ibu,
-            'tanggal_meninggal_ibu' => $data['tanggal_meninggal_ibu'] ?? $formatA->tanggal_meninggal_ibu,
-            'rt_rw' => $data['rt_rw'] ?? $formatA->rt_rw,
-        ]);
+        if (empty($data['ganti_id_ortu'])) {
+
+            /**
+             * Melakukan pengubahan data orang_tua
+             * 
+             */
+            OrangTuaModel::where('id', $bayi->id_orang_tua)->update([
+                'nama_ayah' => $data['nama_ayah'] ?? $formatA->nama_ayah,
+                'nama_ibu' => $data['nama_ibu'] ?? $formatA->nama_ibu,
+                'nik_ayah' => $data['nik_ayah'] ?? $formatA->nik_ayah,
+                'nik_ibu' => $data['nik_ibu'] ?? $formatA->nik_ibu,
+                'tanggal_meninggal_ibu' => $data['tanggal_meninggal_ibu'] ?? $formatA->tanggal_meninggal_ibu,
+                'no_telp' => $data['no_telp'] ?? $formatA->no_telp,
+                'tempat_tinggal' => $data['tempat_tinggal'] ?? $formatA->tempat_tinggal,
+                'rt_rw' => $data['rt_rw'] ?? $formatA->rt_rw,
+            ]);
+
+        }
 
         /**
          * Mengembalikan response setelah

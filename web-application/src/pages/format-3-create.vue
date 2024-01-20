@@ -308,7 +308,7 @@
                 <VProgressCircular v-if="isLoading" indeterminate color="white">
                 </VProgressCircular>
 
-                <font v-else>Submit</font>
+                <font v-else>Simpan</font>
               </VBtn>
             </VCol>
           </VRow>
