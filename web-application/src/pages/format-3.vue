@@ -378,19 +378,22 @@
                                             </v-card-item>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
-                                                <v-btn color="blue-darken-1" variant="text"
-                                                    @click="dialog[item.id_format_a] = false">
+                                                <v-btn color="blue-darken-1" variant="text" @click="dialog[index] = false">
                                                     Close
                                                 </v-btn>
                                                 <v-btn color="blue-darken-1" variant="text" @click="
                                                     putData(index);
-                                                dialog[item.id_format_a] = false;
+                                                dialog[index] = false;
                                                 ">
                                                     Save
                                                 </v-btn>
                                             </v-card-actions>
                                         </v-card>
                                     </v-dialog>
+
+                                    <VBtn class="ml-2" color="error" @click="deleteData(item.id_format_a)">
+                                        <v-icon>bx-trash</v-icon>
+                                    </VBtn>
                                 </td>
                             </tr>
                         </tbody>
@@ -415,6 +418,7 @@ import axios from "axios";
 import AnalyticsBarCharts from "@/views/dashboard/AnalyticsBarCharts.vue";
 import config from "@/@core/config.vue";
 import VueApexCharts from "vue3-apexcharts";
+import Swal from "sweetalert2";
 
 export default {
     data() {
@@ -422,7 +426,9 @@ export default {
         return {
             dialog: [],
             data_tersedia: true,
+            ganti_id_ortu: null,
             dataSearch: "",
+            listOrangTua: [],
             urlServer: config.urlServer,
             page: 1,
             banyakPage: 5,
@@ -458,6 +464,16 @@ export default {
         },
     },
     methods: {
+        async fetchListOrtu() {
+
+            const response = await axios.get(`${config.urlServer}/api/list-orang-tua`,
+                {
+                    headers: {
+                        Authorization: localStorage.getItem("tokenAuth"),
+                    },
+                });
+            this.listOrangTua = response.data;
+        },
         async exportExcel() {
             const response = await axios({
                 method: "get",
@@ -503,12 +519,92 @@ export default {
             this.isLoadingTable = false;
             return response;
         },
+
+        async putData(indexFormatC) {
+            try {
+                this.dataFormatC[indexFormatC].ganti_id_ortu = this.data_tersedia ? null : this.ganti_id_ortu;
+
+                const response = await axios.put(
+                    `${this.urlServer}/api/format-c`,
+                    this.dataFormatC[indexFormatC],
+                    {
+                        headers: {
+                            Authorization: localStorage.getItem("tokenAuth"),
+                        },
+                    }
+                );
+                if (response.data.success) {
+                    Swal.fire({
+                        toast: true,
+                        position: "top",
+                        iconColor: "white",
+                        color: "white",
+                        background: "rgb(var(--v-theme-success))",
+                        showConfirmButton: false,
+                        timerProgressBar: true,
+                        timer: 1500,
+                        icon: "success",
+                        title: response.data.success.message,
+                    });
+                }
+            } catch (error) {
+                console.log(error)
+                Swal.fire({
+                    toast: true,
+                    position: "top",
+                    iconColor: "white",
+                    color: "white",
+                    background: "rgb(var(--v-theme-error))",
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 4000,
+                    icon: "error",
+                    title: "Data Tidak Lengkap atau Salah",
+                });
+            }
+        },
+
+        async deleteData(id_format_c) {
+            const ask = await Swal.fire({
+                title: "Anda yakin ingin menghapus?",
+                showConfirmButton: false,
+                showDenyButton: true,
+                showCancelButton: true,
+                denyButtonText: "Hapus",
+            });
+            if (ask.isDenied) {
+                const response = await axios.delete(
+                    `${this.urlServer}/api/format-c?id_format_c=${id_format_c}`,
+                    {
+                        headers: {
+                            Authorization: localStorage.getItem("tokenAuth"),
+                        },
+                    }
+                );
+                if (response.data.success) {
+                    Swal.fire({
+                        toast: true,
+                        position: "top",
+                        iconColor: "white",
+                        color: "white",
+                        background: "rgb(var(--v-theme-success))",
+                        showConfirmButton: false,
+                        timerProgressBar: true,
+                        timer: 1500,
+                        icon: "success",
+                        title: response.data.success.message,
+                    });
+                    this.fetchData();
+                }
+            }
+        },
     },
     components: {
         AnalyticsBarCharts,
         VueApexCharts,
     },
     async mounted() {
+        this.fetchListOrtu();
         this.isLoadingHeader = true;
         const response = await this.fetchData();
         this.judulFormatC = response.data.judul_format;

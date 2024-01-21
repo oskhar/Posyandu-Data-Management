@@ -407,15 +407,14 @@ class FormatAController extends Controller
          * Mendapatkan id_orang tua
          * 
          */
-        $idOrangTua = FormatAModel::select('bayi.id_orang_tua')
+        $idBayi = FormatAModel::select('id_bayi')
             ->where('format_a.id', $data['id_format_a'])
-            ->join('bayi', 'bayi.id', 'format_a.id_bayi')
-            ->value('id_orang_tua');
+            ->value('id_bayi');
 
         /**
          * Menghapus data orang tua berdasarkan id_format_a
          */
-        OrangTuaModel::where('id', $idOrangTua)
+        BayiModel::where('id', $idBayi)
             ->delete();
 
         /**

@@ -130,7 +130,7 @@
                         (input) => (input >= 0) || 'Berat badan tidak bisa negatif'
                       ]" :error-messages="errorField.includes(index) ? errorFieldMessage : ''" />
                   </VCol>
-                  <VCol v-if="index < 23" cols="12" sm="12" md="6" lg="6">
+                  <VCol v-if="index <= 6" cols="12" sm="12" md="6" lg="6">
                     <VSelect :error="errorField.includes(index)" v-model="dataEdit.penimbangan[index].asi_eksklusif"
                       label="Asi Eksklusif" placeholder="Masukkan Asi Ekslusif" :items="['Ya', 'Tidak', 'Alpa']" />
                   </VCol>

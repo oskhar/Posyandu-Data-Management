@@ -12,15 +12,12 @@ use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class LaporanBExport implements FromCollection, WithEvents, WithCustomStartCell, WithStyles
+class LaporanGExport implements FromCollection, WithEvents, WithCustomStartCell, WithStyles
 {
     protected $batasBulanStart = [0, 6, 12, 24];
     protected $batasBulanEnd = [5, 11, 23, 59];
     protected $tahun;
     protected $bulan;
-    protected $akumulasiD = 0;
-    protected $akumulasiDP = 0;
-    protected $akumulasiDL = 0;
     public function __construct($tahun = null, $bulan = null)
     {
         $this->tahun = $tahun;
@@ -243,11 +240,6 @@ class LaporanBExport implements FromCollection, WithEvents, WithCustomStartCell,
             empty($BP[0] + $BP[2] + $BP[2] + $BP[3]) ? '-' : $BP[0] + $BP[2] + $BP[2] + $BP[3],
             empty($B[0] + $B[2] + $B[2] + $B[3]) ? '-' : $B[0] + $B[2] + $B[2] + $B[3],
         ]);
-
-        $this->akumulasiDL = $DL[0] + $DL[1] + $DL[2] + $DL[3];
-        $this->akumulasiDP = $DP[0] + $DP[1] + $DP[2] + $DP[3];
-        $this->akumulasiD = $D[0] + $D[1] + $D[2] + $D[3];
-
         $result->push([
             "D",
             empty($DL[0]) ? '-' : $DL[0],
@@ -262,9 +254,9 @@ class LaporanBExport implements FromCollection, WithEvents, WithCustomStartCell,
             empty($DL[3]) ? '-' : $DL[3],
             empty($DP[3]) ? '-' : $DP[3],
             empty($D[3]) ? '-' : $D[3],
-            empty($this->akumulasiDL) ? '-' : $this->akumulasiDL,
-            empty($this->akumulasiDP) ? '-' : $this->akumulasiDP,
-            empty($this->akumulasiD) ? '-' : $this->akumulasiD,
+            empty($DL[0] + $DL[1] + $DL[2] + $DL[3]) ? '-' : $DL[0] + $DL[1] + $DL[2] + $DL[3],
+            empty($DP[0] + $DP[1] + $DP[2] + $DP[3]) ? '-' : $DP[0] + $DP[1] + $DP[2] + $DP[3],
+            empty($D[0] + $D[1] + $D[2] + $D[3]) ? '-' : $D[0] + $D[1] + $D[2] + $D[3],
         ]);
         $result->push([
             "-",
@@ -364,21 +356,10 @@ class LaporanBExport implements FromCollection, WithEvents, WithCustomStartCell,
             ->whereMonth('tanggal_lahir', $this->bulan)
             ->where('imd', true);
 
-        $queryLAE = BayiModel::where('lulus_asi_eksklusif', ($this->tahun * 12) + $this->bulan);
-
-        $queryPDS = PenimbanganModel::join('standar_deviasi', 'standar_deviasi.id', 'penimbangan.id_standar_deviasi')
-            ->where('penimbangan.tahun_penimbangan', $this->tahun)
-            ->where('penimbangan.bulan_penimbangan', $this->bulan)
-            ->where('standar_deviasi.umur_bulan', 6);
-
-        $queryAE = PenimbanganModel::join('standar_deviasi', 'standar_deviasi.id', 'penimbangan.id_standar_deviasi')
-            ->where('penimbangan.tahun_penimbangan', $this->tahun)
-            ->where('penimbangan.bulan_penimbangan', $this->bulan);
-
         return [
-            AfterSheet::class => function (AfterSheet $event) use ($query, $queryLAE, $queryPDS, $queryAE) {
+            AfterSheet::class => function (AfterSheet $event) use ($query) {
                 // Menggabungkan kolom A sampai C pada baris 1
-                $event->sheet->getDelegate()->mergeCells('A1:P3');
+                $event->sheet->getDelegate()->mergeCells('A1:M3');
 
                 // Menambahkan judul ke tengah-tengah sel yang digabungkan
                 $event->sheet->setCellValue('A1', 'Cetak laporan register bayi' . chr(10) . 'penimbangan bayi pada tahun ' . $this->tahun . ' bulan ke ' . $this->bulan);
@@ -419,53 +400,6 @@ class LaporanBExport implements FromCollection, WithEvents, WithCustomStartCell,
                 $event->sheet->setCellValue('B18', empty($l) ? '-' : $l);
                 $event->sheet->setCellValue('C18', empty($p) ? '-' : $p);
                 $event->sheet->setCellValue('D18', empty($jml) ? '-' : $jml);
-
-                $jml = $queryLAE->count();
-                $p = $queryLAE->where('jenis_kelamin', 'P')
-                    ->count();
-                $l = $jml - $p;
-
-                $event->sheet->getDelegate()->mergeCells('A19:D19');
-                $event->sheet->setCellValue('A19', "Lulus ASI Eksklusif");
-                $event->sheet->setCellValue('E19', empty($l) ? '-' : $l);
-                $event->sheet->setCellValue('F19', empty($p) ? '-' : $p);
-                $event->sheet->setCellValue('G19', empty($jml) ? '-' : $jml);
-
-                $jml = $queryPDS->count();
-                $p = $queryPDS->where('standar_deviasi.id_berat_untuk_umur', 2)
-                    ->count();
-                $l = $jml - $p;
-
-                $event->sheet->getDelegate()->mergeCells('A20:D20');
-                $event->sheet->setCellValue('A20', "Pindah SIP ke 6 - 11 Bln");
-                $event->sheet->setCellValue('E20', empty($l) ? '-' : $l);
-                $event->sheet->setCellValue('F20', empty($p) ? '-' : $p);
-                $event->sheet->setCellValue('G20', empty($jml) ? '-' : $jml);
-
-                $jml = $queryAE
-                    ->where('penimbangan.asi_eksklusif', 'Ya')
-                    ->count();
-                $p = $queryAE->where('standar_deviasi.id_berat_untuk_umur', 2)
-                    ->where('penimbangan.asi_eksklusif', 'Ya')
-                    ->count();
-                $l = $jml - $p;
-
-                $event->sheet->getDelegate()->mergeCells('I19:M19');
-                $event->sheet->setCellValue('I19', "Dapat ASI Eks bulan ini");
-                $event->sheet->setCellValue('N19', empty($l) ? '-' : $l);
-                $event->sheet->setCellValue('O19', empty($p) ? '-' : $p);
-                $event->sheet->setCellValue('P19', empty($jml) ? '-' : $jml);
-
-                $jml = $this->akumulasiD - $jml;
-                $p = $this->akumulasiDP - $p;
-                $l = $this->akumulasiDL - $l;
-
-                $event->sheet->getDelegate()->mergeCells('I20:M20');
-                $event->sheet->setCellValue('I20', "Tak Dapat ASI Eks bulan ini");
-                $event->sheet->setCellValue('N20', empty($l) ? '-' : $l);
-                $event->sheet->setCellValue('O20', empty($p) ? '-' : $p);
-                $event->sheet->setCellValue('P20', empty($jml) ? '-' : $jml);
-
             },
         ];
     }
@@ -491,11 +425,8 @@ class LaporanBExport implements FromCollection, WithEvents, WithCustomStartCell,
         $sheet->getColumnDimension('K')->setWidth(5);
         $sheet->getColumnDimension('L')->setWidth(5);
         $sheet->getColumnDimension('M')->setWidth(5);
-        $sheet->getColumnDimension('N')->setWidth(5);
-        $sheet->getColumnDimension('O')->setWidth(5);
-        $sheet->getColumnDimension('P')->setWidth(5);
 
-        $sheet->getStyle('A4:P20')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle('A4:M18')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
         return [
             1 => ['font' => ['bold' => true]],

@@ -523,6 +523,12 @@ class FormatBAController extends Controller
         $lastMountIsT = false;
 
         /**
+         * Inisiasi apakah bayi sudah pernah mendapat T
+         * 
+         */
+        $asiEksklusif = 0;
+
+        /**
          * Menetapkan isi pesan response nanti
          */
         $errorField = array();
@@ -698,6 +704,33 @@ class FormatBAController extends Controller
             if ($lastMountIsT && $thisMountIsT) {
 
                 $data['double_t'] = true;
+
+            }
+
+            /**
+             * Memeriksa asi eksklusif bayi
+             * 
+             */
+            if ($data['asi_eksklusif']) {
+
+                $asiEksklusif++;
+
+            } else {
+
+                $asiEksklusif = 0;
+
+            }
+
+            /**
+             * Menyatakan lulus asi eksklusif
+             * 
+             */
+            if ($asiEksklusif == 7) {
+
+                BayiModel::where('id', $idBayi)
+                    ->update([
+                        'lulus_asi_eksklusif' => ($data['tahun_penimbangan'] * 12) + $data['bulan_penimbangan']
+                    ]);
 
             }
 

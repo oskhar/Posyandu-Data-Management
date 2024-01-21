@@ -390,7 +390,7 @@
                       </v-card-actions>
                     </v-card>
                   </v-dialog>
-                  <!-- <VBtn> </VBtn> -->
+
                   <VBtn class="ml-2" color="error" @click="deleteData(item.id_format_a)">
                     <v-icon>bx-trash</v-icon>
                   </VBtn>
@@ -639,6 +639,7 @@ export default {
         });
       }
     },
+
     async fetchData() {
       this.isLoading = true;
       const response = await axios.get(
