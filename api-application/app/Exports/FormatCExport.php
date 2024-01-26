@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\FormatAModel;
+use App\Models\FormatCModel;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\WithEvents;
@@ -47,7 +47,7 @@ class FormatAExport implements FromCollection, WithHeadings, WithEvents, WithCus
          * dijadikan query utama
          * 
          */
-        $query = FormatAModel::select(
+        $query = FormatCModel::select(
             'orang_tua.nama_ayah',
             'orang_tua.nama_ibu',
             'bayi.nama as nama_bayi',
