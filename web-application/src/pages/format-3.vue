@@ -24,9 +24,9 @@
                             <VBtn class="mb-3" href="/data/format-3-create" prepend-icon="bx-plus">
                                 Tambah
                             </VBtn>
-                            <VBtn class="ml-4 mb-3" @click="exportExcel" prepend-icon="bx-download">
+                            <!-- <VBtn class="ml-4 mb-3" @click="exportExcel" prepend-icon="bx-download">
                                 Download
-                            </VBtn>
+                            </VBtn> -->
                         </VCol>
                     </VRow>
                     <VTable>
@@ -53,7 +53,7 @@
                                 <td>
                                     {{ item.nama_ibu }}
                                 </td>
-                                <td class="text-center">{{ item.umur }} Bulan</td>
+                                <td class="text-center">{{ item.umur }} Tahun</td>
                                 <td class="text-center">
                                     {{ item.nama_ayah }}
                                 </td>
@@ -306,11 +306,11 @@
                                                                             placeholder="Pilih beberapa" multiple chips>
                                                                             <template v-slot:prepend-item>
                                                                                 <v-list-item ripple @mousedown.prevent
-                                                                                    @click="toggleHasil">
+                                                                                    @click="toggleHasil(index)">
                                                                                     <v-list-item-action>
                                                                                         <v-icon
                                                                                             :color="dataFormatC[index].imunisasi.length === itemImunisasi.length ? 'primary' : 'secondary'">
-                                                                                            {{ iconHasil }}
+                                                                                            {{ iconHasil(index) }}
                                                                                         </v-icon>
                                                                                         <font class="ml-2"> Pilih Semua
                                                                                         </font>
@@ -444,6 +444,13 @@ export default {
             isLoadingTable: false,
             isLoadingHeader: false,
             chartOptions: {},
+            itemImunisasi: [
+                'Imunisasi I',
+                'Imunisasi II',
+                'Imunisasi III',
+                'Imunisasi IV',
+                'Imunisasi V',
+            ],
         };
     },
 
@@ -464,6 +471,22 @@ export default {
         },
     },
     methods: {
+        pilihSemuaHasil(index) {
+            return this.dataFormatC[index].imunisasi.length === this.itemImunisasi.length
+        },
+        iconHasil(index) {
+            if (this.pilihSemuaHasil(index)) return 'mdi-close-box'
+            return 'mdi-checkbox-blank-outline'
+        },
+        toggleHasil(index) {
+            this.$nextTick(() => {
+                if (this.pilihSemuaHasil(index)) {
+                    this.dataFormatC[index].imunisasi = [];
+                } else {
+                    this.dataFormatC[index].imunisasi = this.itemImunisasi.slice();
+                }
+            });
+        },
         async fetchListOrtu() {
 
             const response = await axios.get(`${config.urlServer}/api/list-orang-tua`,

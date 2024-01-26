@@ -251,7 +251,7 @@ class FormatCController extends Controller
             'lila' => $data['lila'] ?? $formatC->lila,
             'jumlah_anak_hidup' => $data['jumlah_anak_hidup'] ?? $formatC->jumlah_anak_hidup,
             'jumlah_anak_meninggal' => $data['jumlah_anak_meninggal'] ?? $formatC->jumlah_anak_meninggal,
-            'imunisasi' => $data['imunisasi'] ?? $formatC->imunisasi,
+            'imunisasi' => $data['imunisasi'] ? implode(',', $data['imunisasi']) : $formatC->imunisasi,
             'jenis_kontrasepsi' => $data['jenis_kontrasepsi'] ?? $formatC->jenis_kontrasepsi,
             'tanggal_penggantian' => $data['tanggal_penggantian'] ?? $formatC->tanggal_penggantian,
             'penggantian_jenis_kontrasepsi' => $data['penggantian_jenis_kontrasepsi'] ?? $formatC->penggantian_jenis_kontrasepsi,

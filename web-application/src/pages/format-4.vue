@@ -21,12 +21,12 @@
                             </VTextField>
                         </VCol>
                         <VCol cols="12">
-                            <VBtn class="mb-3" href="/data/format-3-create" prepend-icon="bx-plus">
+                            <VBtn class="mb-3" href="/data/format-4-create" prepend-icon="bx-plus">
                                 Tambah
                             </VBtn>
-                            <VBtn class="ml-4 mb-3" @click="exportExcel" prepend-icon="bx-download">
+                            <!-- <VBtn class="ml-4 mb-3" @click="exportExcel" prepend-icon="bx-download">
                                 Download
-                            </VBtn>
+                            </VBtn> -->
                         </VCol>
                     </VRow>
                     <VTable>
@@ -211,33 +211,17 @@
                                                         </VRow>
                                                         <VRow>
                                                             <VCol cols="12">
-                                                                <h2>Data wus & pus</h2>
+                                                                <h2>Data ibu hamil</h2>
                                                                 <VRow no-gutters>
                                                                     <!-- 👉 First Name -->
                                                                     <VCol cols="12" md="3">
-                                                                        <label for="umur">Umur WUS dan PUS</label>
+                                                                        <label for="umur">Umur Ibu hamil</label>
                                                                     </VCol>
 
                                                                     <VCol cols="12" md="9">
                                                                         <VTextField v-model="dataFormatD[index].umur"
                                                                             id="umur" placeholder="tahun.."
                                                                             persistent-placeholder type="number" />
-                                                                        <sup class="text-error">*Wajib diisi</sup>
-                                                                    </VCol>
-                                                                </VRow>
-                                                            </VCol>
-                                                            <VCol cols="12">
-                                                                <VRow no-gutters>
-                                                                    <!-- 👉 First Name -->
-                                                                    <VCol cols="12" md="3">
-                                                                        <label for="ks">Tahapan KS</label>
-                                                                    </VCol>
-
-                                                                    <VCol cols="12" md="9">
-                                                                        <VTextField v-model="dataFormatD[index].tahapan_ks"
-                                                                            id="ks" placeholder="Tahapan KS.."
-                                                                            persistent-placeholder />
-                                                                        <sup class="text-error">*Wajib diisi</sup>
                                                                     </VCol>
                                                                 </VRow>
                                                             </VCol>
@@ -254,7 +238,51 @@
                                                                             id="dasawisma"
                                                                             placeholder="Kelompok dasawisma.."
                                                                             persistent-placeholder />
-                                                                        <sup class="text-error">*Wajib diisi</sup>
+                                                                    </VCol>
+                                                                </VRow>
+                                                            </VCol>
+                                                            <VCol cols="12">
+                                                                <VRow no-gutters>
+                                                                    <!-- 👉 First Name -->
+                                                                    <VCol cols="12" md="3">
+                                                                        <label for="penggantian">Tanggal Pendaftaran</label>
+                                                                    </VCol>
+
+                                                                    <VCol cols="12" md="9">
+                                                                        <VTextField
+                                                                            v-model="dataFormatD[index].tanggal_pendaftaran"
+                                                                            id="penggantian"
+                                                                            placeholder="Tanggal Pendaftaran.."
+                                                                            persistent-placeholder type="date" />
+                                                                    </VCol>
+                                                                </VRow>
+                                                            </VCol>
+                                                            <VCol cols="12">
+                                                                <VRow no-gutters>
+                                                                    <!-- 👉 First Name -->
+                                                                    <VCol cols="12" md="3">
+                                                                        <label for="umur_kehamilan">Umur kehamilan</label>
+                                                                    </VCol>
+
+                                                                    <VCol cols="12" md="9">
+                                                                        <VTextField
+                                                                            v-model="dataFormatD[index].umur_kehamilan"
+                                                                            id="umur_kehamilan" placeholder="bulan.."
+                                                                            persistent-placeholder type="number" />
+                                                                    </VCol>
+                                                                </VRow>
+                                                            </VCol>
+                                                            <VCol cols="12">
+                                                                <VRow no-gutters>
+                                                                    <!-- 👉 First Name -->
+                                                                    <VCol cols="12" md="3">
+                                                                        <label for="tanggal-lahir">Hamil ke</label>
+                                                                    </VCol>
+
+                                                                    <VCol cols="12" md="9">
+                                                                        <VTextField v-model="dataFormatD[index].hamil_ke"
+                                                                            id="lila" placeholder="Hamil ke berapa.."
+                                                                            persistent-placeholder type="number" />
                                                                     </VCol>
                                                                 </VRow>
                                                             </VCol>
@@ -269,7 +297,6 @@
                                                                         <VTextField v-model="dataFormatD[index].lila"
                                                                             id="lila" placeholder="cm.."
                                                                             persistent-placeholder type="number" />
-                                                                        <sup class="text-error">*Wajib diisi</sup>
                                                                     </VCol>
                                                                 </VRow>
                                                             </VCol>
@@ -277,40 +304,73 @@
                                                                 <VRow no-gutters>
                                                                     <!-- 👉 First Name -->
                                                                     <VCol cols="12" md="3">
-                                                                        <label for="tanggal-lahir">Jumlah anak</label>
-                                                                    </VCol>
-
-                                                                    <VCol cols="6" md="4">
-                                                                        <VTextField placeholder="Hidup.."
-                                                                            v-model="dataFormatD[index].jumlah_anak_hidup" />
-                                                                        <sup class="text-error">*Wajib diisi</sup>
-                                                                    </VCol>
-
-                                                                    <VCol cols="6" class="ml-5" md="4">
-                                                                        <VTextField placeholder="Meninggal.."
-                                                                            v-model="dataFormatD[index].jumlah_anak_meninggal" />
-                                                                        <sup class="text-error">*Wajib diisi</sup>
-                                                                    </VCol>
-                                                                </VRow>
-                                                            </VCol>
-                                                            <VCol cols="12">
-                                                                <VRow no-gutters>
-                                                                    <!-- 👉 First Name -->
-                                                                    <VCol cols="12" md="3">
-                                                                        <label for="imunisasi">Imunisasi</label>
+                                                                        <label for="pmt_pemulihan">PMT Pemulihan</label>
                                                                     </VCol>
 
                                                                     <VCol cols="12" md="9">
-                                                                        <VSelect v-model="dataFormatD[index].imunisasi"
-                                                                            :items="itemImunisasi" label="imunisasi"
+                                                                        <VTextField
+                                                                            v-model="dataFormatD[index].pmt_pemulihan"
+                                                                            id="pmt_pemulihan" placeholder="PMT Pemulihan.."
+                                                                            persistent-placeholder />
+                                                                    </VCol>
+                                                                </VRow>
+                                                            </VCol>
+                                                            <VCol cols="12">
+                                                                <VRow no-gutters>
+                                                                    <!-- 👉 Pil Tambah Darah -->
+                                                                    <VCol cols="12" md="3">
+                                                                        <label for="penimbangan">Penimbangan</label>
+                                                                    </VCol>
+
+                                                                    <VCol cols="12" md="9">
+                                                                        <VSelect v-model="dataFormatD[index].penimbangan"
+                                                                            :items="[]" label="Penimbangan"
+                                                                            placeholder="Pilih beberapa" multiple chips
+                                                                            no-data-text="Masukan hasil penimbangan"
+                                                                            id="penimbangan">
+                                                                            <template v-slot:prepend-item>
+                                                                                <v-list>
+                                                                                    <v-list-item-group>
+                                                                                        <v-list-item
+                                                                                            v-for="( month, indexPenimbangan ) in  months "
+                                                                                            :key="indexPenimbangan" ripple
+                                                                                            @mousedown.prevent class="mb-3">
+                                                                                            {{ month }}
+                                                                                            <VTextField
+                                                                                                v-model="dataFormatD[index].penimbangan[indexPenimbangan]"
+                                                                                                id="penimbangan"
+                                                                                                placeholder="kg.."
+                                                                                                persistent-placeholder
+                                                                                                type="number" />
+                                                                                        </v-list-item>
+                                                                                    </v-list-item-group>
+                                                                                </v-list>
+                                                                            </template>
+                                                                        </VSelect>
+                                                                    </VCol>
+                                                                </VRow>
+                                                            </VCol>
+                                                            <VCol cols="12">
+                                                                <VRow no-gutters>
+                                                                    <!-- 👉 First Name -->
+                                                                    <VCol cols="12" md="3">
+                                                                        <label for="pil_tambah_darah">Pil Tambah
+                                                                            Darah</label>
+                                                                    </VCol>
+
+                                                                    <VCol cols="12" md="9">
+                                                                        <VSelect
+                                                                            v-model="dataFormatD[index].pil_tambah_darah"
+                                                                            :items="itemPilTambahDarah"
+                                                                            label="pil tambah darah"
                                                                             placeholder="Pilih beberapa" multiple chips>
                                                                             <template v-slot:prepend-item>
                                                                                 <v-list-item ripple @mousedown.prevent
-                                                                                    @click="toggleHasil">
+                                                                                    @click="toggleHasil(index)">
                                                                                     <v-list-item-action>
                                                                                         <v-icon
-                                                                                            :color="dataFormatD[index].imunisasi.length === itemImunisasi.length ? 'primary' : 'secondary'">
-                                                                                            {{ iconHasil }}
+                                                                                            :color="dataFormatD[index].pil_tambah_darah.length === itemPilTambahDarah.length ? 'primary' : 'secondary'">
+                                                                                            {{ iconHasil(index) }}
                                                                                         </v-icon>
                                                                                         <font class="ml-2"> Pilih Semua
                                                                                         </font>
@@ -324,17 +384,36 @@
                                                             </VCol>
                                                             <VCol cols="12">
                                                                 <VRow no-gutters>
-                                                                    <!-- 👉 First Name -->
+                                                                    <!-- 👉 Pil Tambah Darah -->
                                                                     <VCol cols="12" md="3">
-                                                                        <label for="kontrasepsi">Jenis Kontrasepsi</label>
+                                                                        <label for="imunisasi">Imunisasi</label>
                                                                     </VCol>
 
                                                                     <VCol cols="12" md="9">
-                                                                        <VTextField
-                                                                            v-model="dataFormatD[index].jenis_kontrasepsi"
-                                                                            id="kontrasepsi" placeholder="jenis.."
-                                                                            persistent-placeholder />
-                                                                        <sup class="text-error">*Wajib diisi</sup>
+                                                                        <VSelect v-model="dataFormatD[index].imunisasi"
+                                                                            :items="[]" label="Penimbangan"
+                                                                            placeholder="Pilih beberapa" multiple chips
+                                                                            no-data-text="Masukan hasil imunisasi"
+                                                                            id="imunisasi">
+                                                                            <template v-slot:prepend-item>
+                                                                                <v-list>
+                                                                                    <v-list-item-group>
+                                                                                        <v-list-item
+                                                                                            v-for="( month, indexImunisasi ) in  listImunisasi "
+                                                                                            :key="indexImunisasi" ripple
+                                                                                            @mousedown.prevent class="mb-3">
+                                                                                            Imunisasi {{ month }}
+                                                                                            <VTextField
+                                                                                                v-model="dataFormatD[index].imunisasi[indexImunisasi]"
+                                                                                                id="imunisasi"
+                                                                                                placeholder="kg.."
+                                                                                                persistent-placeholder
+                                                                                                type="date" />
+                                                                                        </v-list-item>
+                                                                                    </v-list-item-group>
+                                                                                </v-list>
+                                                                            </template>
+                                                                        </VSelect>
                                                                     </VCol>
                                                                 </VRow>
                                                             </VCol>
@@ -342,16 +421,12 @@
                                                                 <VRow no-gutters>
                                                                     <!-- 👉 First Name -->
                                                                     <VCol cols="12" md="3">
-                                                                        <label for="penggantian">Tanggal Penggantian</label>
+                                                                        <label for="vit_a">Vitamin A Bufas</label>
                                                                     </VCol>
 
                                                                     <VCol cols="12" md="9">
-                                                                        <VTextField
-                                                                            v-model="dataFormatD[index].tanggal_penggantian"
-                                                                            id="penggantian"
-                                                                            placeholder="Tanggal Penggantian.."
-                                                                            persistent-placeholder type="date" />
-                                                                        <sup class="text-error">*Wajib diisi</sup>
+                                                                        <VCheckbox v-model="dataFormatD[index].vit_a"
+                                                                            id="vit_a" :label="`Ya`" />
                                                                     </VCol>
                                                                 </VRow>
                                                             </VCol>
@@ -359,18 +434,26 @@
                                                                 <VRow no-gutters>
                                                                     <!-- 👉 First Name -->
                                                                     <VCol cols="12" md="3">
-                                                                        <label for="kontrasepsi">Penggantian</label>
+                                                                        <label for="keterangan">Keterangan</label>
                                                                     </VCol>
 
                                                                     <VCol cols="12" md="9">
-                                                                        <VTextField
-                                                                            v-model="dataFormatD[index].penggantian_jenis_kontrasepsi"
-                                                                            id="kontrasepsi"
-                                                                            placeholder="jenis kontrasepsi.."
+                                                                        <VTextField v-model="dataFormatD[index].keterangan"
+                                                                            id="keterangan" placeholder="Keterangan.."
                                                                             persistent-placeholder />
-                                                                        <sup class="text-error">*Wajib diisi</sup>
                                                                     </VCol>
                                                                 </VRow>
+                                                            </VCol>
+                                                            <!-- 👉 submit and reset button -->
+                                                            <VCol offset-md="3" cols="12" md="9" class="d-flex gap-4">
+                                                                <VBtn type="submit" :disabled="isLoading"
+                                                                    @click="submitData">
+                                                                    <VProgressCircular v-if="isLoading" indeterminate
+                                                                        color="white">
+                                                                    </VProgressCircular>
+
+                                                                    <font v-else>Simpan</font>
+                                                                </VBtn>
                                                             </VCol>
                                                         </VRow>
                                                     </VCol>
@@ -425,6 +508,17 @@ export default {
         const d = new Date();
         return {
             dialog: [],
+            months: [
+                'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+            ],
+            listImunisasi: [
+                'I', 'II', 'III', 'IV', 'V'
+            ],
+            itemPilTambahDarah: [
+                'BKS I',
+                'BKS II',
+                'BKS III',
+            ],
             data_tersedia: true,
             ganti_id_ortu: null,
             dataSearch: "",
@@ -464,6 +558,22 @@ export default {
         },
     },
     methods: {
+        pilihSemuaHasil(index) {
+            return this.dataFormatD[index].pil_tambah_darah.length === this.itemPilTambahDarah.length
+        },
+        iconHasil(index) {
+            if (this.pilihSemuaHasil(index)) return 'mdi-close-box'
+            return 'mdi-checkbox-blank-outline'
+        },
+        toggleHasil(index) {
+            this.$nextTick(() => {
+                if (this.pilihSemuaHasil(index)) {
+                    this.dataFormatD[index].pil_tambah_darah = []
+                } else {
+                    this.dataFormatD[index].pil_tambah_darah = this.itemPilTambahDarah.slice()
+                }
+            })
+        },
         async fetchListOrtu() {
 
             const response = await axios.get(`${config.urlServer}/api/list-orang-tua`,
@@ -520,13 +630,13 @@ export default {
             return response;
         },
 
-        async putData(indexFormatC) {
+        async putData(indexFormatD) {
             try {
-                this.dataFormatD[indexFormatC].ganti_id_ortu = this.data_tersedia ? null : this.ganti_id_ortu;
+                this.dataFormatD[indexFormatD].ganti_id_ortu = this.data_tersedia ? null : this.ganti_id_ortu;
 
                 const response = await axios.put(
                     `${this.urlServer}/api/format-d`,
-                    this.dataFormatD[indexFormatC],
+                    this.dataFormatD[indexFormatD],
                     {
                         headers: {
                             Authorization: localStorage.getItem("tokenAuth"),

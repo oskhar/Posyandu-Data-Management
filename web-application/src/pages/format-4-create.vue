@@ -266,7 +266,7 @@
                       <v-list>
                         <v-list-item-group>
                           <v-list-item v-for="( month, index ) in  months " :key="index" ripple @mousedown.prevent
-                            @click="toggleHasil(month)" class="mb-3">
+                            class="mb-3">
                             {{ month }}
                             <VTextField v-model="penimbangan[index]" id="penimbangan" placeholder="kg.."
                               persistent-placeholder type="number" />
@@ -318,7 +318,7 @@
                       <v-list>
                         <v-list-item-group>
                           <v-list-item v-for="( month, index ) in  listImunisasi " :key="index" ripple @mousedown.prevent
-                            @click="toggleHasil(month)" class="mb-3">
+                            class="mb-3">
                             Imunisasi {{ month }}
                             <VTextField v-model="imunisasi[index]" id="imunisasi" placeholder="kg.."
                               persistent-placeholder type="date" />
@@ -385,6 +385,11 @@ export default {
       listImunisasi: [
         'I', 'II', 'III', 'IV', 'V'
       ],
+      itemPilTambahDarah: [
+        'BKS I',
+        'BKS II',
+        'BKS III',
+      ],
       isLoading: false,
       listOrangTua: [],
       data_tersedia: true,
@@ -403,8 +408,8 @@ export default {
       hamil_ke: null,
       lila: null,
       pmt_pemulihan: null,
-      pil_tambah_darah: null,
       vit_a: false,
+      pil_tambah_darah: null,
       penimbangan: Array(12).fill(''),
       imunisasi: Array(5).fill(''),
       keterangan: null,
@@ -422,21 +427,7 @@ export default {
       districtId: null,
       villageId: null,
       pilihPilTambahDarah: [],
-      itemPilTambahDarah: [
-        'BKS I',
-        'BKS II',
-        'BKS III',
-      ],
     };
-  },
-  computed: {
-    pilihSemuaHasil() {
-      return this.pilihPilTambahDarah.length === this.itemPilTambahDarah.length
-    },
-    iconHasil() {
-      if (this.pilihSemuaHasil) return 'mdi-close-box'
-      return 'mdi-checkbox-blank-outline'
-    },
   },
   watch: {
     provinceId() {
@@ -465,6 +456,15 @@ export default {
     this.fetchProvinces();
     this.fetchListOrtu();
   },
+  computed: {
+    pilihSemuaHasil() {
+      return this.pilihPilTambahDarah.length === this.itemPilTambahDarah.length
+    },
+    iconHasil() {
+      if (this.pilihSemuaHasil) return 'mdi-close-box'
+      return 'mdi-checkbox-blank-outline'
+    },
+  },
   methods: {
     toggleHasil() {
       this.$nextTick(() => {
@@ -487,7 +487,7 @@ export default {
     },
     async fetchProvinces() {
       this.fetchingProvinces = true
-      const response = await axios.get(`/api-wilayah-indonesia/provinces.json`)
+      const response = await axios.get(`${config.urlServer}/api/indonesia/provinces`)
       this.fetchingProvinces = false
       this.provinces = response.data.map(item => {
         let result = {
@@ -503,7 +503,7 @@ export default {
         return
       }
       this.fetchingRegencies = true
-      const response = await axios.get(`/api-wilayah-indonesia/regencies/${this.provinceId}.json`)
+      const response = await axios.get(`${config.urlServer}/api/indonesia/regencies?province_id=${this.provinceId}`)
       this.fetchingRegencies = false
       this.regencies = response.data.map(item => {
         let result = {
@@ -520,7 +520,7 @@ export default {
       }
 
       this.fetchingDistricts = true
-      const response = await axios.get(`/api-wilayah-indonesia/districts/${this.regencyId}.json`)
+      const response = await axios.get(`${config.urlServer}/api/indonesia/districts?regency_id=${this.regencyId}`)
       this.fetchingDistricts = false
       this.districts = response.data.map(item => {
         let result = {
@@ -537,7 +537,7 @@ export default {
       }
 
       this.fetchingVillages = true
-      const response = await axios.get(`/api-wilayah-indonesia/villages/${this.districtId}.json`)
+      const response = await axios.get(`${config.urlServer}/api/indonesia/villages?district_id=${this.districtId}`)
       this.fetchingVillages = false
       this.villages = response.data.map(item => {
         let result = {
@@ -654,7 +654,7 @@ export default {
       this.hamil_ke = null;
       this.lila = null;
       this.pmt_pemulihan = null;
-      this.pilihPilTambahDarah = null;
+      this.pilihPilTambahDarah = [];
       this.vit_a = false;
       this.penimbangan = Array(12).fill('');
       this.imunisasi = Array(5).fill('');

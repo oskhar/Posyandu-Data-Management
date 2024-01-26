@@ -39,7 +39,7 @@ class FormatDRequest extends CoreRequest
                 ];
             case 'PUT':
                 return [
-                    "id_format_c" => "required|integer",
+                    "id_format_d" => "required|integer",
                     'ganti_id_ortu' => 'nullable',
                     'nama_ayah' => 'nullable',
                     'nik_ayah' => 'nullable',
@@ -50,15 +50,17 @@ class FormatDRequest extends CoreRequest
                     'rt_rw' => 'nullable',
                     'tempat_tinggal' => 'nullable',
                     'umur' => 'nullable',
-                    'tahapan_ks' => 'nullable',
                     'kelompok_dasawisma' => 'nullable',
+                    'tanggal_pendaftaran' => 'nullable',
+                    'umur_kehamilan' => 'nullable',
+                    'hamil_ke' => 'nullable',
                     'lila' => 'nullable',
-                    'jumlah_anak_hidup' => 'nullable',
-                    'jumlah_anak_meninggal' => 'nullable',
+                    'pmt_pemulihan' => 'nullable',
+                    'pil_tambah_darah' => 'nullable',
+                    'vit_a' => 'nullable',
+                    'penimbangan' => 'nullable',
                     'imunisasi' => 'nullable',
-                    'jenis_kontrasepsi' => 'nullable',
-                    'tanggal_penggantian' => 'nullable',
-                    'penggantian_jenis_kontrasepsi' => 'nullable',
+                    'keterangan' => 'nullable',
                 ];
             case 'GET':
                 return [
@@ -72,7 +74,7 @@ class FormatDRequest extends CoreRequest
                 ];
             case 'DELETE':
                 return [
-                    "id_format_c" => "required|integer",
+                    "id_format_d" => "required|integer",
                 ];
             default:
                 return [];

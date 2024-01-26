@@ -302,6 +302,20 @@
                 </VCol>
               </VRow>
             </VCol>
+            <VCol cols="12">
+              <VRow no-gutters>
+                <!-- 👉 First Name -->
+                <VCol cols="12" md="3">
+                  <label for="keterangan">Keterangan</label>
+                </VCol>
+
+                <VCol cols="12" md="9">
+                  <VTextField v-model="keterangan" id="keterangan" placeholder="berikan keterangan.."
+                    persistent-placeholder />
+                  <sup class="text-error">*Wajib diisi</sup>
+                </VCol>
+              </VRow>
+            </VCol>
             <!-- 👉 submit and reset button -->
             <VCol offset-md="3" cols="12" md="9" class="d-flex gap-4">
               <VBtn type="submit" :disabled="isLoading" @click="submitData">
@@ -348,6 +362,7 @@ export default {
       jenis_kontrasepsi: "",
       tanggal_penggantian: null,
       penggantian_jenis_kontrasepsi: "",
+      keterangan: "",
       completed: false,
       fetchingProvinces: false,
       fetchingRegencies: false,
@@ -370,15 +385,6 @@ export default {
         'Imunisasi V',
       ],
     };
-  },
-  computed: {
-    pilihSemuaHasil() {
-      return this.pilihImunisasi.length === this.itemImunisasi.length
-    },
-    iconHasil() {
-      if (this.pilihSemuaHasil) return 'mdi-close-box'
-      return 'mdi-checkbox-blank-outline'
-    },
   },
   watch: {
     provinceId() {
@@ -407,6 +413,15 @@ export default {
     this.fetchProvinces();
     this.fetchListOrtu();
   },
+  computed: {
+    pilihSemuaHasil() {
+      return this.pilihImunisasi.length === this.itemImunisasi.length
+    },
+    iconHasil() {
+      if (this.pilihSemuaHasil) return 'mdi-close-box'
+      return 'mdi-checkbox-blank-outline'
+    },
+  },
   methods: {
     toggleHasil() {
       this.$nextTick(() => {
@@ -429,7 +444,7 @@ export default {
     },
     async fetchProvinces() {
       this.fetchingProvinces = true
-      const response = await axios.get(`/api-wilayah-indonesia/provinces.json`)
+      const response = await axios.get(`${config.urlServer}/api/indonesia/provinces`)
       this.fetchingProvinces = false
       this.provinces = response.data.map(item => {
         let result = {
@@ -445,7 +460,7 @@ export default {
         return
       }
       this.fetchingRegencies = true
-      const response = await axios.get(`/api-wilayah-indonesia/regencies/${this.provinceId}.json`)
+      const response = await axios.get(`${config.urlServer}/api/indonesia/regencies?province_id=${this.provinceId}`)
       this.fetchingRegencies = false
       this.regencies = response.data.map(item => {
         let result = {
@@ -462,7 +477,7 @@ export default {
       }
 
       this.fetchingDistricts = true
-      const response = await axios.get(`/api-wilayah-indonesia/districts/${this.regencyId}.json`)
+      const response = await axios.get(`${config.urlServer}/api/indonesia/districts?regency_id=${this.regencyId}`)
       this.fetchingDistricts = false
       this.districts = response.data.map(item => {
         let result = {
@@ -479,7 +494,7 @@ export default {
       }
 
       this.fetchingVillages = true
-      const response = await axios.get(`/api-wilayah-indonesia/villages/${this.districtId}.json`)
+      const response = await axios.get(`${config.urlServer}/api/indonesia/villages?district_id=${this.districtId}`)
       this.fetchingVillages = false
       this.villages = response.data.map(item => {
         let result = {
@@ -533,6 +548,7 @@ export default {
           jenis_kontrasepsi: this.jenis_kontrasepsi,
           tanggal_penggantian: this.tanggal_penggantian,
           penggantian_jenis_kontrasepsi: this.penggantian_jenis_kontrasepsi,
+          keterangan: this.keterangan,
         };
         const response = await axios.post(
           `${config.urlServer}/api/format-c`,
@@ -596,6 +612,7 @@ export default {
       this.jenis_kontrasepsi = "";
       this.tanggal_penggantian = null;
       this.penggantian_jenis_kontrasepsi = "";
+      this.keterangan = "";
       this.completed = false;
       this.fetchingProvinces = false;
       this.fetchingRegencies = false;

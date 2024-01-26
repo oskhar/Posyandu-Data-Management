@@ -34,6 +34,7 @@ class FormatCRequest extends CoreRequest
                     'jenis_kontrasepsi' => 'nullable',
                     'tanggal_penggantian' => 'nullable',
                     'penggantian_jenis_kontrasepsi' => 'nullable',
+                    'keterangan' => 'nullable',
                 ];
             case 'PUT':
                 return [
@@ -57,6 +58,7 @@ class FormatCRequest extends CoreRequest
                     'jenis_kontrasepsi' => 'nullable',
                     'tanggal_penggantian' => 'nullable',
                     'penggantian_jenis_kontrasepsi' => 'nullable',
+                    'keterangan' => 'nullable',
                 ];
             case 'GET':
                 return [

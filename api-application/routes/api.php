@@ -13,6 +13,7 @@ use App\Http\Controllers\GambarController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\PosyanduController;
 use App\Http\Controllers\StatistikController;
+use App\Http\Controllers\WilayahController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Tests\Unit\ExampleTest;
@@ -154,6 +155,19 @@ Route::get('/posyandu', [PosyanduController::class, 'get']);
 Route::get('/jabatan', [AdminController::class, 'jabatan']);
 Route::get('/struktur-admin', [AdminController::class, 'strukturAdmin']);
 Route::get('/listtahun', [FormatBAController::class, 'getListTahun']);
+
+/**
+ * API Wilayah Indonesia\
+ * 
+ */
+Route::prefix('indonesia')->group(function () {
+
+    Route::get('/provinces', [WilayahController::class, 'provinces']);
+    Route::get('/regencies', [WilayahController::class, 'regencies']);
+    Route::get('/districts', [WilayahController::class, 'districts']);
+    Route::get('/villages', [WilayahController::class, 'villages']);
+
+});
 
 /**
  * API Testing

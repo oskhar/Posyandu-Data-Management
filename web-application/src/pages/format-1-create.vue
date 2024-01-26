@@ -432,7 +432,7 @@ export default {
     },
     async fetchProvinces() {
       this.fetchingProvinces = true
-      const response = await axios.get(`/api-wilayah-indonesia/provinces.json`)
+      const response = await axios.get(`${config.urlServer}/api/indonesia/provinces`)
       this.fetchingProvinces = false
       this.provinces = response.data.map(item => {
         let result = {
@@ -448,7 +448,7 @@ export default {
         return
       }
       this.fetchingRegencies = true
-      const response = await axios.get(`/api-wilayah-indonesia/regencies/${this.provinceId}.json`)
+      const response = await axios.get(`${config.urlServer}/api/indonesia/regencies?province_id=${this.provinceId}`)
       this.fetchingRegencies = false
       this.regencies = response.data.map(item => {
         let result = {
@@ -465,7 +465,7 @@ export default {
       }
 
       this.fetchingDistricts = true
-      const response = await axios.get(`/api-wilayah-indonesia/districts/${this.regencyId}.json`)
+      const response = await axios.get(`${config.urlServer}/api/indonesia/districts?regency_id=${this.regencyId}`)
       this.fetchingDistricts = false
       this.districts = response.data.map(item => {
         let result = {
@@ -482,7 +482,7 @@ export default {
       }
 
       this.fetchingVillages = true
-      const response = await axios.get(`/api-wilayah-indonesia/villages/${this.districtId}.json`)
+      const response = await axios.get(`${config.urlServer}/api/indonesia/villages?district_id=${this.districtId}`)
       this.fetchingVillages = false
       this.villages = response.data.map(item => {
         let result = {

@@ -257,9 +257,9 @@ class FormatDController extends Controller
             'hamil_ke' => $data['hamil_ke'] ?? $formatD->hamil_ke,
             'lila' => $data['lila'] ?? $formatD->lila,
             'pmt_pemulihan' => $data['pmt_pemulihan'] ?? $formatD->pmt_pemulihan,
-            'penimbangan' => $data['penimbangan'] ?? $formatD->penimbangan,
-            'pil_tambah_darah' => $data['pil_tambah_darah'] ?? $formatD->pil_tambah_darah,
-            'imunisasi' => $data['imunisasi'] ?? $formatD->imunisasi,
+            'pil_tambah_darah' => $data['pil_tambah_darah'] ? implode(',', $data['pil_tambah_darah']) : $formatD->pil_tambah_darah,
+            'penimbangan' => $data['penimbangan'] ? implode(',', $data['penimbangan']) : $formatD->penimbangan,
+            'imunisasi' => $data['imunisasi'] ? implode(',', $data['imunisasi']) : $formatD->imunisasi,
             'vit_a' => $data['vit_a'] ?? $formatD->vit_a,
             'keterangan' => $data['keterangan'] ?? $formatD->keterangan,
         ]);
