@@ -73,6 +73,14 @@ import UserProfile from "@/layouts/components/UserProfile.vue";
             to: '/data/format-4',
           },
           {
+            title: 'Format 5',
+            to: '/data/format-5',
+          },
+          {
+            title: 'Format 6',
+            to: '/data/format-6',
+          },
+          {
             title: 'Laporan',
             to: '/data/laporan',
           },

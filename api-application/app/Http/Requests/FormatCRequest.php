@@ -68,6 +68,10 @@ class FormatCRequest extends CoreRequest
                     'start' => 'nullable|integer',
                     'length' => 'nullable|integer',
                 ];
+            case 'DELETE':
+                return [
+                    "id_format_c" => "required|integer",
+                ];
             default:
                 return [];
         }

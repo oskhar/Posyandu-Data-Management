@@ -162,7 +162,7 @@
     </VCol>
     <VCol cols="12" md="12">
       <!-- 👉 Horizontal Form -->
-      <VCard title="Tambah Data Bayi">
+      <VCard title="Tambah Data Wus & Pus">
         <VCardText>
           <VRow>
             <VCol cols="12">

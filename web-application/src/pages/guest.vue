@@ -18,7 +18,7 @@
   </main>
   <!-- CARD 3 -->
   <section class="mt-5">
-    <VRow>
+    <VRow style="width: 96%;" class="mx-auto">
       <VCol cols="12" md="9" lg="9" class="mx-auto">
         <!-- 👉 Profit -->
         <VCard>

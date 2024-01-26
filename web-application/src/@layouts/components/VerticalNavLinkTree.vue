@@ -13,30 +13,16 @@ const active = () => {
 
 <template>
   <li class="nav-link nav-treeview" :class="{ disabled: item.disable }">
-    <Component
-      @click="active"
-      :is="item.to ? 'RouterLink' : 'a'"
-      :to="item.to"
-      :href="item.href"
-    >
-      <VIcon icon="bx-down-arrow" class="nav-item-icon" />
+    <Component @click="active" :is="item.to ? 'RouterLink' : 'a'" :to="item.to" :href="item.href">
+      <VIcon :icon="menuActive ? 'bx-chevron-down' : 'bx-chevron-right'" class="nav-item-icon" />
       <!-- 👉 Title -->
       <span class="nav-item-title">
         {{ item.title }}
       </span>
     </Component>
   </li>
-  <li
-    v-for="data in item.children"
-    v-if="menuActive"
-    class="nav-link"
-    :class="{ disabled: item.disable }"
-  >
-    <Component
-      :is="data.to ? 'RouterLink' : 'a'"
-      :to="data.to"
-      :href="data.href"
-    >
+  <li v-for="data in item.children" v-if="menuActive" class="nav-link" :class="{ disabled: item.disable }">
+    <Component :is="data.to ? 'RouterLink' : 'a'" :to="data.to" :href="data.href">
       <VIcon icon="bx-minus" class="nav-item-icon" />
       <!-- 👉 Title -->
       <span class="nav-item-title">

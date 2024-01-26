@@ -391,7 +391,7 @@
                                         </v-card>
                                     </v-dialog>
 
-                                    <VBtn class="ml-2" color="error" @click="deleteData(item.id_format_a)">
+                                    <VBtn class="ml-2" color="error" @click="deleteData(item.id_format_c)">
                                         <v-icon>bx-trash</v-icon>
                                     </VBtn>
                                 </td>

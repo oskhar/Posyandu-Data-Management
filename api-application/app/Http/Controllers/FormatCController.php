@@ -239,14 +239,6 @@ class FormatCController extends Controller
             ->first();
 
         /**
-         * Melakukan pengubahan data format_c
-         * 
-         */
-        FormatCModel::where('id', )->update([
-            'keterangan' => $data['keterangan'] ?? $formatC->keterangan,
-        ]);
-
-        /**
          * Melakukan pengubahan data bayi
          * 
          */
@@ -263,6 +255,7 @@ class FormatCController extends Controller
             'jenis_kontrasepsi' => $data['jenis_kontrasepsi'] ?? $formatC->jenis_kontrasepsi,
             'tanggal_penggantian' => $data['tanggal_penggantian'] ?? $formatC->tanggal_penggantian,
             'penggantian_jenis_kontrasepsi' => $data['penggantian_jenis_kontrasepsi'] ?? $formatC->penggantian_jenis_kontrasepsi,
+            'keterangan' => $data['keterangan'] ?? $formatC->keterangan,
         ]);
 
         $wusPus = $wusPus->select('id_orang_tua')->first();
@@ -299,6 +292,15 @@ class FormatCController extends Controller
     }
     public function delete(FormatCRequest $request): JsonResponse
     {
+        $data = $request->validated();
+
+        /**
+         * Mendapatkan id_orang tua
+         * 
+         */
+        FormatCModel::where('format_c.id', $data['id_format_c'])
+            ->delete();
+
         /**
          * Mengembalikan response setelah
          * melakukan penambahan data

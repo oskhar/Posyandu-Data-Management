@@ -139,6 +139,10 @@ const router = createRouter({
               component: () => import("../pages/format-4.vue"),
             },
             {
+              path: "format-4-create",
+              component: () => import("../pages/format-4-create.vue"),
+            },
+            {
               path: "format-5",
               component: () => import("../pages/format-5.vue"),
             },
