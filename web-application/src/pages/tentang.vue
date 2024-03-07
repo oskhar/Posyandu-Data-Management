@@ -202,13 +202,13 @@ export default {
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
-                    Close
+                    Tutup
                   </v-btn>
                   <v-btn color="blue-darken-1" variant="text" @click="
                     putData();
                   dialog = false;
                   ">
-                    Save
+                    Simpan
                   </v-btn>
                 </v-card-actions>
               </v-card>

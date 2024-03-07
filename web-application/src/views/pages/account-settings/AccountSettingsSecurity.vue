@@ -115,8 +115,6 @@ const passwordRequirements = ["Minimal 8 karakter"];
           <!-- 👉 Action Buttons -->
           <VCardText class="d-flex flex-wrap gap-4">
             <VBtn type="submit">Simpan Perubahan</VBtn>
-
-            <VBtn type="reset" color="secondary" variant="tonal"> Reset </VBtn>
           </VCardText>
         </VForm>
       </VCard>

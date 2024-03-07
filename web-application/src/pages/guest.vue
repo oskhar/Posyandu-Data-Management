@@ -102,7 +102,7 @@
         </VRow>
       </VCol>
     </VRow>
-    <VCard class="mt-5">
+    <VCard class="mt-5 mx-auto" style="width: 98%;">
       <VCardItem>
         <VRow>
           <VCol cols="11" md="9" lg="9" class="mx-auto py-5">

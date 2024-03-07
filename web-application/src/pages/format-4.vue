@@ -462,13 +462,13 @@
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
                                                 <v-btn color="blue-darken-1" variant="text" @click="dialog[index] = false">
-                                                    Close
+                                                    Tutup
                                                 </v-btn>
                                                 <v-btn color="blue-darken-1" variant="text" @click="
                                                     putData(index);
                                                 dialog[index] = false;
                                                 ">
-                                                    Save
+                                                    Simpan
                                                 </v-btn>
                                             </v-card-actions>
                                         </v-card>

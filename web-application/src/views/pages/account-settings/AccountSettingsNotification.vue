@@ -54,10 +54,7 @@ const selectedNotification = ref('Only when I\'m online')
         </tr>
       </thead>
       <tbody>
-        <tr
-          v-for="device in recentDevices"
-          :key="device.type"
-        >
+        <tr v-for="device in recentDevices" :key="device.type">
           <td>
             {{ device.type }}
           </td>
@@ -76,33 +73,22 @@ const selectedNotification = ref('Only when I\'m online')
     <VDivider />
 
     <VCardText>
-      <VForm @submit.prevent="() => {}">
+      <VForm @submit.prevent="() => { }">
         <p class="text-base font-weight-medium">
           When should we send you notifications?
         </p>
 
         <VRow>
-          <VCol
-            cols="12"
-            sm="6"
-          >
-            <VSelect
-              v-model="selectedNotification"
-              mandatory
-              :items="['Only when I\'m online', 'Anytime']"
-            />
+          <VCol cols="12" sm="6">
+            <VSelect v-model="selectedNotification" mandatory :items="['Only when I\'m online', 'Anytime']" />
           </VCol>
         </VRow>
 
         <div class="d-flex flex-wrap gap-4 mt-4">
           <VBtn type="submit">
-            Save Changes
+            Simpan
           </VBtn>
-          <VBtn
-            color="secondary"
-            variant="tonal"
-            type="reset"
-          >
+          <VBtn color="secondary" variant="tonal" type="reset">
             Reset
           </VBtn>
         </div>

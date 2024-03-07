@@ -1,14 +1,3 @@
-<script setup>
-import { useTheme } from "vuetify";
-import VerticalNavLayout from "@layouts/components/VerticalNavLayout.vue";
-import VerticalNavLink from "@layouts/components/VerticalNavLink.vue";
-import VerticalNavLinkTree from "@layouts/components/VerticalNavLinkTree.vue";
-
-// Components
-import UserProfile from "@/layouts/components/UserProfile.vue";
-
-</script>
-
 <template>
   <VerticalNavLayout>
     <!-- 👉 navbar -->
@@ -101,10 +90,6 @@ import UserProfile from "@/layouts/components/UserProfile.vue";
     <!-- 👉 Pages -->
     <slot />
 
-    <!-- 👉 Footer -->
-    <!-- <template #footer>
-      <Footer />
-    </template> -->
   </VerticalNavLayout>
 </template>
 
@@ -118,3 +103,20 @@ import UserProfile from "@/layouts/components/UserProfile.vue";
   padding-inline: 0.25rem;
 }
 </style>
+
+<script>
+import { useTheme } from "vuetify";
+import VerticalNavLayout from "@layouts/components/VerticalNavLayout.vue";
+import VerticalNavLink from "@layouts/components/VerticalNavLink.vue";
+import VerticalNavLinkTree from "@layouts/components/VerticalNavLinkTree.vue";
+import UserProfile from "@/layouts/components/UserProfile.vue";
+
+export default {
+  components: {
+    VerticalNavLayout,
+    VerticalNavLink,
+    VerticalNavLinkTree,
+    UserProfile,
+  },
+}
+</script>

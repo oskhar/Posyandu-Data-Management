@@ -63,10 +63,10 @@
                       <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn color="blue-darken-1" variant="text" @click="dialogJabatan[index] = false; fetchData()">
-                          Close
+                          Tutup
                         </v-btn>
                         <v-btn color="success" variant="text" @click="putDataJabatan(index)">
-                          Save
+                          Simpan
                         </v-btn>
                       </v-card-actions>
                     </v-card>
@@ -112,10 +112,10 @@
                       <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn color="blue-darken-1" variant="text" @click="dialog[index] = false">
-                          Close
+                          Tutup
                         </v-btn>
                         <v-btn color="success" variant="text" @click="putData(index)">
-                          Save
+                          Simpan
                         </v-btn>
                       </v-card-actions>
                     </v-card>

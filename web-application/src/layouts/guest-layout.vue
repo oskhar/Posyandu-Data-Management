@@ -83,7 +83,7 @@ export default {
   },
   data() {
     return {
-      fotoProfile: localStorage.getItem("foto_profile") ? localStorage.getItem("foto_profile") : false,
+      fotoProfile: localStorage.getItem("foto_profile") && localStorage.getItem("tokenAuth") ? localStorage.getItem("foto_profile") : false,
       drawer: false,
       desktopMenu: [
         { text: "Home", route: "/" },

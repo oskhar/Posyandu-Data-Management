@@ -108,13 +108,13 @@
                     <v-card-actions>
                       <v-spacer></v-spacer>
                       <v-btn color="secondary" variant="text" @click="dialog = false">
-                        Close
+                        Tutup
                       </v-btn>
                       <v-btn color="primary" variant="text" @click="
                         submitKeterangan();
                       dialog = false;
                       ">
-                        Save
+                        Simpan
                       </v-btn>
                     </v-card-actions>
                   </v-card>
