@@ -192,15 +192,4 @@ const router = createRouter({
   ],
 });
 
-router.beforeEach((to, from, next) => {
-  // Set loading true saat memasuki halaman baru
-  store.commit("setLoading", true);
-  next();
-});
-
-router.afterEach(() => {
-  // Set loading false setelah halaman selesai dimuat
-  store.commit("setLoading", false);
-});
-
 export default router;

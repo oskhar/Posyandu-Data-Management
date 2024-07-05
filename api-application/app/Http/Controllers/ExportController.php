@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\FormatAExport;
 use App\Exports\FormatBAExport;
+use App\Exports\FormatCExport;
 use App\Exports\LaporanBExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -56,6 +57,21 @@ class ExportController extends Controller
          * 
          */
         return Excel::download(new FormatBAExport($request->tahun, $request->tab), $namaFileExcel);
+    }
+    public function exportFormatCExcel(Request $request)
+    {
+
+        /**
+         * Mengatur nama file excel yang akan diexport
+         * 
+         */
+        $namaFileExcel = 'Format-3.' . $this->currentTime . '.xlsx';
+
+        /**
+         * Menggunakan Excel::download untuk menghasilkan response
+         * 
+         */
+        return Excel::download(new FormatCExport($request->tahun), $namaFileExcel);
     }
     public function exportLaporanBAExcel(Request $request)
     {

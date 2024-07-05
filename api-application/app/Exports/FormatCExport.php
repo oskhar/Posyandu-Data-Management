@@ -12,7 +12,7 @@ use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class FormatAExport implements FromCollection, WithHeadings, WithEvents, WithCustomStartCell, WithStyles
+class FormatCExport implements FromCollection, WithHeadings, WithEvents, WithCustomStartCell, WithStyles
 {
     protected $tahun;
     public function __construct($tahun = null)
