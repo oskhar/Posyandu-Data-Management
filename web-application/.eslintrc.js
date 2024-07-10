@@ -1,4 +1,4 @@
-const path = require("node:path")
+const path = require("node:path");
 
 module.exports = {
   env: {
@@ -11,6 +11,7 @@ module.exports = {
     "plugin:import/recommended",
     "plugin:promise/recommended",
     "plugin:sonarjs/recommended",
+    "prettier",
 
     // 'plugin:unicorn/recommended',
   ],
@@ -48,9 +49,6 @@ module.exports = {
 
     // Disable max-len
     "max-len": "off",
-
-    // we don't want it
-    semi: ["error", "never"],
 
     // add parens ony when required in arrow function
     "arrow-parens": ["error", "as-needed"],
@@ -258,4 +256,4 @@ module.exports = {
       },
     },
   },
-}
+};
