@@ -1739,6 +1739,7 @@ paths:
                     penanda_tangan: "string"
                     pembuat_surat: "string"
                     isi_surat: "text"
+                    tanggal_surat: "date"
                     created_at: "datetime"
         400:
           description: BAD REQUEST
@@ -1787,7 +1788,10 @@ paths:
                 tanggal_surat: "date"
                 nomor_telepon: "string"
                 kalimat_pembuka: "text"
-                ditugaskan: "array"
+                ditugaskan:
+                  nama: "string"
+                  jabatan: "string"
+                  alamat: "text"
                 isi_surat: "text"
                 kalimat_penutup: "text"
       responses:
@@ -1836,7 +1840,10 @@ paths:
                 tanggal_surat: "date"
                 nomor_telepon: "string"
                 kalimat_pembuka: "text"
-                ditugaskan: "array"
+                ditugaskan:
+                  nama: "string"
+                  jabatan: "string"
+                  alamat: "text"
                 isi_surat: "text"
                 kalimat_penutup: "text"
         400:
