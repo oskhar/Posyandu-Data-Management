@@ -21,6 +21,8 @@ tags:
     description: Untuk mengola data Format 1
   - name: Data Format 2 A
     description: Untuk mengola data Format 2 A
+  - name: Layanan Kader Gendong
+    description: Layanan untuk mengelola penugasan antar kader
 paths:
   /login:
     post:
@@ -1684,6 +1686,157 @@ paths:
                     type: string
                   foto_profile_ketua:
                     type: string
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+        404:
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data dengan id ... tidak ditemukan"
+
+  # ==================================================================
+
+  /kader-gendong:
+    get:
+      tags:
+        - Layanan Kader Gendong
+      summary: MELIHAT riwayat pencetakan surat
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  example:
+                    id: "integer"
+                    penanda_tangan: "string"
+                    pembuat_surat: "string"
+                    isi_surat: "text"
+                    created_at: "datetime"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+        404:
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data dengan id ... tidak ditemukan"
+    post:
+      tags:
+        - Layanan Kader Gendong
+      summary: MENAMBAHKAN data surat kader
+      requestBody:
+        description: Data Format 2 A untuk menambahkan data format-ba
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+              example:
+                penanda_tangan: "string"
+                tanggal_surat: "date"
+                nomor_telepon: "string"
+                kalimat_pembuka: "text"
+                ditugaskan: "array"
+                isi_surat: "text"
+                kalimat_penutup: "text"
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                success:
+                  message: "Data ... berhasil ditambahkan"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+  /kader-gendong/{id_surat}:
+    get:
+      tags:
+        - Layanan Kader Gendong
+      summary: MELIHAT spesifik surat berdasarkan ID
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              example:
+                penanda_tangan: "string"
+                tanggal_surat: "date"
+                nomor_telepon: "string"
+                kalimat_pembuka: "text"
+                ditugaskan: "array"
+                isi_surat: "text"
+                kalimat_penutup: "text"
         400:
           description: BAD REQUEST
           content:
