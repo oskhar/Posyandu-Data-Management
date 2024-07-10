@@ -51,7 +51,7 @@
       />
       <VerticalNavLinkTree
         :item="{
-          title: 'Data',
+          title: 'Master Data',
           children: [
             {
               title: 'Data Admin',
@@ -62,16 +62,27 @@
               to: '/data/format-1',
             },
             {
-              title: 'Perhitungan KMS',
-              to: '/data/format-2',
-            },
-            {
               title: 'WUS & PUS',
               to: '/data/format-3',
             },
             {
               title: 'Ibu Hamil',
               to: '/data/format-4',
+            },
+          ],
+        }"
+      />
+      <VerticalNavLinkTree
+        :item="{
+          title: 'Layanan',
+          children: [
+            {
+              title: 'Kader Gendong',
+              to: '/layanan/kader-gendong',
+            },
+            {
+              title: 'Screening',
+              to: '/data/format-2',
             },
           ],
         }"
@@ -97,6 +108,23 @@
   </VerticalNavLayout>
 </template>
 
+<script>
+import { useTheme } from "vuetify"
+import VerticalNavLayout from "@layouts/components/VerticalNavLayout.vue"
+import VerticalNavLink from "@layouts/components/VerticalNavLink.vue"
+import VerticalNavLinkTree from "@layouts/components/VerticalNavLinkTree.vue"
+import UserProfile from "@/layouts/components/UserProfile.vue"
+
+export default {
+  components: {
+    VerticalNavLayout,
+    VerticalNavLink,
+    VerticalNavLinkTree,
+    UserProfile,
+  },
+}
+</script>
+
 <style lang="scss" scoped>
 .meta-key {
   border: thin solid rgba(var(--v-border-color), var(--v-border-opacity));
@@ -107,20 +135,3 @@
   padding-inline: 0.25rem;
 }
 </style>
-
-<script>
-import { useTheme } from "vuetify";
-import VerticalNavLayout from "@layouts/components/VerticalNavLayout.vue";
-import VerticalNavLink from "@layouts/components/VerticalNavLink.vue";
-import VerticalNavLinkTree from "@layouts/components/VerticalNavLinkTree.vue";
-import UserProfile from "@/layouts/components/UserProfile.vue";
-
-export default {
-  components: {
-    VerticalNavLayout,
-    VerticalNavLink,
-    VerticalNavLinkTree,
-    UserProfile,
-  },
-};
-</script>

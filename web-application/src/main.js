@@ -4,6 +4,7 @@ import App from "@/App.vue";
 import vuetify from "@/plugins/vuetify";
 import { loadFonts } from "@/plugins/webfontloader";
 import router from "@/router";
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import "@core/scss/template/index.scss";
 import "@layouts/styles/index.scss";
 import "@styles/styles.scss";
