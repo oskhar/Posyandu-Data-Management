@@ -21,6 +21,8 @@ tags:
     description: Untuk mengola data Format 1
   - name: Data Format 2 A
     description: Untuk mengola data Format 2 A
+  - name: Data statistik
+    description: Untuk memantau statistik posyandu
   - name: Layanan Kader Gendong
     description: Layanan untuk mengelola penugasan antar kader
 paths:
