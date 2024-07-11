@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import ListDraftSuratTugas from './draft-surat-tugas/list-draft-surat-tugas.vue';
 import BuatSuratTugas from './buat-surat-tugas/buat-surat-tugas.vue';
+import ListHistorySuratTugas from './history-surat-tugas/list-history-surat-tugas.vue';
 
 
 const tabs = [
@@ -48,7 +49,7 @@ const createSurat = surat => {
     </VWindowItem>
 
     <VWindowItem value="histori-surat">
-      2
+      <ListHistorySuratTugas />
     </VWindowItem>
   </VWindow>
 </template>
