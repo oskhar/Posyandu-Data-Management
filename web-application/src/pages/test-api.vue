@@ -6,9 +6,10 @@ import axios from "axios";
 
 export default {
   methods: {
-    getKaderGendong: async () => {
+    // Data EDUKASI
+    getEdukasi: async () => {
       const response = await axios.get(
-        `${config.urlServer}/api/kader-gendong`,
+        `${config.urlServer}/api/edukasi?start=1&length=10&search=Veritatis aut est magni eum labore debitis`,
         {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
@@ -17,11 +18,24 @@ export default {
       );
       console.log(response);
     },
-    postKaderGendong: async () => {
+
+    // Data SURAT
+    getSurat: async () => {
+      const response = await axios.get(
+        `${config.urlServer}/api/kader-gendong?page=2&length=1`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("tokenAuth"),
+          },
+        }
+      );
+      console.log(response);
+    },
+    postSurat: async () => {
       const data = {
         penanda_tangan: "Dr. Susilo Bambang",
         tanggal_surat: "2024-07-20",
-        nomor: "SPK/001/2024",
+        nomor: "SPK/IV/2024",
         kalimat_pembuka: "<p>Dengan hormat,</p>",
         isi_surat: `<p>Sehubungan dengan program kerja sama antar posyandu yang membutuhkan kader gendong, kami menugaskan beberapa kader untuk membantu dalam kegiatan tersebut. Kegiatan ini akan dilaksanakan mulai tanggal 1 Agustus 2024 hingga 31 Agustus 2024. Diharapkan kader yang ditugaskan dapat bekerja sama dengan baik dan menjalankan tugas dengan penuh tanggung jawab.</p>`,
         kalimat_penutup:
@@ -55,7 +69,7 @@ export default {
       );
       console.log(response);
     },
-    downloadKaderGendong: async () => {
+    downloadSurat: async () => {
       try {
         const response = await axios.get(
           `${config.urlServer}/api/kader-gendong/2`,
@@ -107,11 +121,124 @@ export default {
         console.error("Error downloading the PDF:", error);
       }
     },
+
+    // Data DRAF SURAT
+    getDrafSurat: async () => {
+      const response = await axios.get(
+        `${config.urlServer}/api/kader-gendong/draf?page=2&length=1`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("tokenAuth"),
+          },
+        }
+      );
+      console.log(response);
+    },
+    postDrafSurat: async () => {
+      const data = {
+        penanda_tangan: "Dr. Susilo Bambang",
+        tanggal_surat: "2024-07-20",
+        nomor: "SPK/XI/2024",
+        kalimat_pembuka: "<p>Dengan hormat,</p>",
+        isi_surat: `<p>Sehubungan dengan program kerja sama antar posyandu yang membutuhkan kader gendong, kami menugaskan beberapa kader untuk membantu dalam kegiatan tersebut. Kegiatan ini akan dilaksanakan mulai tanggal 1 Agustus 2024 hingga 31 Agustus 2024. Diharapkan kader yang ditugaskan dapat bekerja sama dengan baik dan menjalankan tugas dengan penuh tanggung jawab.</p>`,
+        kalimat_penutup:
+          "<p>Demikian surat penugasan ini kami buat, untuk dilaksanakan dengan sebaik-baiknya. Atas perhatian dan kerjasamanya, kami ucapkan terima kasih.</p>",
+        ditugaskan: [
+          {
+            nama: "Siti Aminah",
+            jabatan: "Kader Gendong",
+            alamat: "Jl. Melati No. 123, Jakarta",
+          },
+          {
+            nama: "Rina Kusuma",
+            jabatan: "Kader Gendong",
+            alamat: "Jl. Mawar No. 45, Jakarta",
+          },
+          {
+            nama: "Dewi Lestari",
+            jabatan: "Kader Gendong",
+            alamat: "Jl. Kenanga No. 78, Jakarta",
+          },
+        ],
+      };
+      const response = await axios.post(
+        `${config.urlServer}/api/kader-gendong/draf`,
+        data,
+        {
+          headers: {
+            Authorization: localStorage.getItem("tokenAuth"),
+          },
+        }
+      );
+      console.log(response);
+    },
+    putDrafSurat: async () => {
+      const data = {
+        penanda_tangan: "Dr. Tesdoang",
+        tanggal_surat: "2024-07-20",
+        nomor: "SPK/XI/2024",
+        kalimat_pembuka: "<p>Dengan hormat,</p>",
+        isi_surat: `<p>Sehubungan dengan program kerja sama antar posyandu yang membutuhkan kader gendong, kami menugaskan beberapa kader untuk membantu dalam kegiatan tersebut. Kegiatan ini akan dilaksanakan mulai tanggal 1 Agustus 2024 hingga 31 Agustus 2024. Diharapkan kader yang ditugaskan dapat bekerja sama dengan baik dan menjalankan tugas dengan penuh tanggung jawab.</p>`,
+        kalimat_penutup:
+          "<p>Demikian surat penugasan ini kami buat, untuk dilaksanakan dengan sebaik-baiknya. Atas perhatian dan kerjasamanya, kami ucapkan terima kasih.</p>",
+        ditugaskan: [
+          {
+            nama: "Siti Aminah",
+            jabatan: "Kader Gendong",
+            alamat: "Jl. Melati No. 123, Jakarta",
+          },
+          {
+            nama: "Tes lagi",
+            jabatan: "Kader Gendong",
+            alamat: "Jl. Mawar No. 45, Jakarta",
+          },
+        ],
+      };
+      const response = await axios.put(
+        `${config.urlServer}/api/kader-gendong/draf/15`,
+        data,
+        {
+          headers: {
+            Authorization: localStorage.getItem("tokenAuth"),
+          },
+        }
+      );
+      console.log(response);
+    },
+    deleteDrafSurat: async () => {
+      const response = await axios.delete(
+        `${config.urlServer}/api/kader-gendong/draf/14`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("tokenAuth"),
+          },
+        }
+      );
+      console.log(response);
+    },
+    postCetakDrafSurat: async () => {
+      const response = await axios.post(
+        `${config.urlServer}/api/kader-gendong/draf/cetak/15`,
+        {},
+        {
+          headers: {
+            Authorization: localStorage.getItem("tokenAuth"),
+          },
+        }
+      );
+      console.log(response);
+    },
   },
   mounted() {
-    // this.getKaderGendong();
-    // this.postKaderGendong();
-    this.downloadKaderGendong();
+    // this.getEdukasi();
+    this.getSurat();
+    // this.postSurat();
+    // this.downloadSurat();
+    this.getDrafSurat();
+    // this.postDrafSurat();
+    // this.putDrafSurat();
+    // this.postCetakDrafSurat();
+    this.deleteDrafSurat();
   },
 };
 </script>

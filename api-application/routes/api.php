@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\DrafSuratController;
 use App\Http\Controllers\EdukasiController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\FormatAController;
@@ -146,9 +147,17 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
      * Endpoint untuk kader gendong
      *
      */
-    Route::get('/kader-gendong', [SuratController::class, 'get']);
-    Route::post('/kader-gendong', [SuratController::class, 'post']);
-    Route::get('/kader-gendong/{id}', [SuratController::class, 'show']);
+    Route::prefix('kader-gendong')->group(function () {
+
+        Route::get('/', [SuratController::class, 'get']);
+        Route::post('/', [SuratController::class, 'post']);
+        Route::get('/draf', [DrafSuratController::class, 'get']);
+        Route::post('/draf', [DrafSuratController::class, 'post']);
+        Route::post('/draf/cetak/{id}', [DrafSuratController::class, 'draftToSurat']);
+        Route::put('/draf/{id}', [DrafSuratController::class, 'put']);
+        Route::delete('/draf/{id}', [DrafSuratController::class, 'delete']);
+
+    });
 });
 
 /**
