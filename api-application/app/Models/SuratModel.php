@@ -26,9 +26,14 @@ class SuratModel extends Model
         "admin_id",
         "penanda_tangan",
         "tanggal_surat",
-        "nomor_telepon",
+        "nomor",
         "kalimat_pembuka",
         "isi_surat",
         "kalimat_penutup",
     ];
+
+    public function penugasan()
+    {
+        return $this->belongsToMany(PenugasanModel::class);
+    }
 }

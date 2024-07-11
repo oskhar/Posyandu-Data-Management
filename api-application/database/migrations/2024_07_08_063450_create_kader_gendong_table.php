@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -16,7 +15,7 @@ return new class extends Migration
             $table->unsignedBigInteger('admin_id');
             $table->string('penanda_tangan');
             $table->date('tanggal_surat');
-            $table->string('nomor_telepon', 15);
+            $table->string('nomor', 15);
             $table->text('kalimat_pembuka')->nullable();
             $table->text('isi_surat')->nullable();
             $table->text('kalimat_penutup')->nullable();
