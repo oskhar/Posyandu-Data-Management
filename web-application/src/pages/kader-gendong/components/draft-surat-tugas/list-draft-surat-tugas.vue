@@ -52,7 +52,7 @@ watch(draftSearch, () => {
 
 	<VRow>
 		<VCol cols="12">
-			<VPagination :length="4"></VPagination>
+			<VPagination size="x-large" :length="4" @update:model-value="changeDraftPage"></VPagination>
 		</VCol>
 	</VRow>
 </template>

@@ -16,7 +16,7 @@ const editSurat = editedDraft => {
 </script>
 
 <template>
-	<VCard :id="dialogActivator" style="height: 312px;" class="cursor-pointer" @click="openDialog">
+	<VCard :id="dialogActivator" style="height: 312px;" class="cursor-pointer">
 		<VCardItem class="border-b-md pb-3">
 			<p class="text-subtitle-1 mb-1 font-black">No. Surat: {{ draft.nomor }}</p>
 			<p class="text-subtitle-2 mb-1 font-black">Penanda Tangan: {{ draft.penanda_tangan }}</p>
