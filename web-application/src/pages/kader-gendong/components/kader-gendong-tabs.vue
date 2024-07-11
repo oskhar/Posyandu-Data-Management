@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
-import BuatSuratTugas from './surat-tugas/buat-surat-tugas.vue';
+import BuatSuratTugas from './buat-surat-tugas/buat-surat-tugas.vue';
+
 
 const tabs = [
   {
@@ -38,7 +39,7 @@ const createSurat = surat => {
 
   <VWindow v-model="activeTab" class="mt-5 disable-tab-transition">
     <VWindowItem value="buat-surat">
-      <BuatSuratTugas :on-create="createSurat" />
+      <BuatSuratTugas @create="createSurat" />
     </VWindowItem>
 
     <VWindowItem value="draft-surat">
