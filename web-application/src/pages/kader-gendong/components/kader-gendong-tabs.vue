@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+import ListDraftSurat from './draft-surat/list-draft-surat.vue';
 import BuatSuratTugas from './buat-surat-tugas/buat-surat-tugas.vue';
 
 
@@ -43,7 +44,7 @@ const createSurat = surat => {
     </VWindowItem>
 
     <VWindowItem value="draft-surat">
-      2
+      <ListDraftSurat />
     </VWindowItem>
 
     <VWindowItem value="histori-surat">
