@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watch } from "vue"
 import debounce from "just-debounce";
-import DraftItem from "./draft-item.vue";
+import DraftSuratTugasItem from "./draft-surat-tugas-item.vue";
 
 
 const listPenandaTangan = ref(['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']);
@@ -46,7 +46,7 @@ watch(draftSearch, () => {
 	</VRow>
 	<VRow>
 		<VCol v-for="draft in drafts" :key="draft.id" cols="12" sm="6" md="4" lg="3">
-			<DraftItem :draft="draft" :list-penanda-tangan="listPenandaTangan" />
+			<DraftSuratTugasItem :draft="draft" :list-penanda-tangan="listPenandaTangan" />
 		</VCol>
 	</VRow>
 
