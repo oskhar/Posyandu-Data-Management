@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
+
 class SuratRequest extends CoreRequest
 {
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -13,11 +14,20 @@ class SuratRequest extends CoreRequest
     public function rules(): array
     {
         switch ($this->getMethod()) {
+            case 'GET':
+                return [
+                    "search" => "nullable|string",
+                    "length" => "required|integer",
+                ];
             case 'POST':
                 return [
                     "penanda_tangan" => "required|string",
                     "tanggal_surat" => "required|date",
-                    "nomor" => "required|string",
+                    "nomor" => [
+                        "required",
+                        "string",
+                        Rule::unique('surat', 'nomor') // Validasi unique
+                    ],
                     "ditugaskan" => "required|array",
                     "kalimat_pembuka" => "string",
                     "isi_surat" => "string",
@@ -26,5 +36,11 @@ class SuratRequest extends CoreRequest
             default:
                 return [];
         }
+    }
+    public function messages(): array
+    {
+        return [
+            'nomor.unique' => 'Nomor ini sudah ditambahkan sebelumnya',
+        ];
     }
 }

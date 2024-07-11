@@ -7,28 +7,84 @@ use App\Models\PenugasanModel;
 use App\Models\PenugasanSuratModel;
 use App\Models\SuratModel;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
-use Ramsey\Uuid\Type\Integer;
 
 class SuratController extends Controller
 {
-    public function get(): JsonResponse
+    public function get(SuratRequest $request): JsonResponse
     {
+        $data = $request->validated();
+
+        $query = SuratModel::select(
+            "surat.id",
+            "surat.nomor",
+            "surat.penanda_tangan",
+            "surat.tanggal_surat",
+            "admin.nama_lengkap as pembuat_surat",
+            "surat.kalimat_pembuka",
+            "surat.isi_surat",
+            "surat.kalimat_penutup",
+            "surat.created_at",
+        )->join("admin", "admin.id", "surat.admin_id")
+            ->where("surat.is_draft", false);
+
+        if (!empty($data["search"])) {
+            $query->where(function ($query) use ($data) {
+                $query->where("surat.penanda_tangan", "like", "%{$data["search"]}%")
+                    ->orWhere("admin.nama_lengkap", "like", "%{$data["search"]}%")
+                    ->orWhere("surat.isi_surat", "like", "%{$data["search"]}%");
+            });
+        }
+
+        $surat = $query->paginate($data["length"]);
+
+        $tmp_data = $surat->getCollection()->map(function ($item) {
+            $item["ditugaskan"] = PenugasanModel::select(
+                "penugasan.nama",
+                "penugasan.jabatan",
+                "penugasan.alamat",
+            )->join("penugasan_surat", "penugasan_surat.penugasan_id", "penugasan.id")
+                ->where('penugasan_surat.surat_id', $item->id)
+                ->get();
+
+            /**
+             * String blob pdf
+             *
+             */
+            $pdf = Pdf::loadView("SuratPDF", $item->toArray());
+
+            /**
+             * Mendapatkan PDF string
+             *
+             */
+            $pdfContent = $pdf->output();
+
+            /**
+             * Convert PDF content to base64
+             *
+             */
+            $pdfBase64 = base64_encode($pdfContent);
+
+            return [
+                "penanda_tangan" => $item->penanda_tangan,
+                "nomor" => $item->nomor,
+                "pembuat_surat" => $item->pembuat_surat,
+                "isi_surat" => $item->isi_surat,
+                "tanggal_surat" => $item->tanggal_surat,
+                "created_at" => Carbon::parse($item->created_at)->format('d-m-Y H:i:s'),
+                "file" => $pdfBase64
+            ];
+        });
+
+        $surat = $surat->setCollection($tmp_data);
+
         /**
          * Mengembalikan response
          *
          */
-        return response()->json(
-            SuratModel::select(
-                "surat.penanda_tangan",
-                "admin.nama_lengkap as pembuat_surat",
-                "surat.isi_surat",
-                "surat.tanggal_surat",
-                "surat.created_at",
-            )->join("admin", "admin.id", "surat.admin_id")
-                ->get()
-        )->setStatusCode(200);
+        return response()->json($surat)->setStatusCode(200);
     }
 
     public function show($id): JsonResponse
@@ -45,9 +101,9 @@ class SuratController extends Controller
          *
          */
         $data = [
+            "nomor" => $surat->nomor,
             "penanda_tangan" => $surat->penanda_tangan,
             "tanggal_surat" => $surat->tanggal_surat,
-            "nomor" => $surat->nomor,
             "kalimat_pembuka" => $surat->kalimat_pembuka,
             "isi_surat" => $surat->isi_surat,
             "kalimat_penutup" => $surat->kalimat_penutup,

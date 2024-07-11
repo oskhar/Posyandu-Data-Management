@@ -30,6 +30,7 @@ class SuratModel extends Model
         "kalimat_pembuka",
         "isi_surat",
         "kalimat_penutup",
+        "is_draft",
     ];
 
     public function penugasan()
