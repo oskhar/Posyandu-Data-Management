@@ -41,7 +41,7 @@ watch(draftSearch, () => {
 <template>
 	<VRow>
 		<VCol cols="12">
-			<VTextField v-model="draftSearch" append-inner-icon="bx-search" label="Cari Draft Surat" />
+			<VTextField v-model="draftSearch" prepend-inner-icon="bx-search" label="Cari Draft Surat" />
 		</VCol>
 	</VRow>
 	<VRow>

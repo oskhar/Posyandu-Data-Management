@@ -39,7 +39,7 @@ watch(historySearch, () => {
 <template>
 	<VRow>
 		<VCol cols="12">
-			<VTextField v-model="historySearch" append-inner-icon="bx-search" label="Cari Histori Surat" />
+			<VTextField v-model="historySearch" prepend-inner-icon="bx-search" label="Cari Histori Surat" />
 		</VCol>
 	</VRow>
 	<VRow>
