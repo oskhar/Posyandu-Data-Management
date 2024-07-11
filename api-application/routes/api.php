@@ -13,6 +13,7 @@ use App\Http\Controllers\GambarController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\PosyanduController;
 use App\Http\Controllers\StatistikController;
+use App\Http\Controllers\SuratController;
 use App\Http\Controllers\WilayahController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -31,13 +32,13 @@ use Tests\Unit\ExampleTest;
 
 /**
  * Endpoint privat Bearer protected
- * 
+ *
  */
 Route::group(['middleware' => 'auth:sanctum'], function ($router) {
 
     /**
      * Endpoint untuk autentikasi
-     * 
+     *
      */
     Route::post('/auth', [AuthController::class, 'authData']);
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -45,7 +46,7 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
 
     /**
      * Endpoint untuk edukasi
-     * 
+     *
      */
     Route::post('/edukasi', [EdukasiController::class, 'post']);
     Route::put('/edukasi', [EdukasiController::class, 'put']);
@@ -53,7 +54,7 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
 
     /**
      * Endpoint untuk berita
-     * 
+     *
      */
     Route::post('/berita', [BeritaController::class, 'post']);
     Route::put('/berita', [BeritaController::class, 'put']);
@@ -61,20 +62,20 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
 
     /**
      * Endpoint untuk gambar
-     * 
+     *
      */
     Route::post('/gambar', [GambarController::class, 'post']);
     Route::delete('/gambar', [GambarController::class, 'delete']);
 
     /**
      * Endpoint untuk posyandu
-     * 
+     *
      */
     Route::put('/posyandu', [PosyanduController::class, 'put']);
 
     /**
      * Endpoint untuk admin
-     * 
+     *
      */
     Route::get('/admin', [AdminController::class, 'get']);
     Route::post('/admin', [AdminController::class, 'post']);
@@ -83,7 +84,7 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
 
     /**
      * Endpoint untuk format-a
-     * 
+     *
      */
     Route::get('/format-a', [FormatAController::class, 'get']);
     Route::post('/format-a', [FormatAController::class, 'post']);
@@ -93,7 +94,7 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
 
     /**
      * Endpoint untuk format-b
-     * 
+     *
      */
     Route::get('/format-ba', [FormatBAController::class, 'get']);
     Route::post('/format-ba', [FormatBAController::class, 'post']);
@@ -102,7 +103,7 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
 
     /**
      * Endpoint untuk format-c
-     * 
+     *
      */
     Route::get('/format-c', [FormatCController::class, 'get']);
     Route::post('/format-c', [FormatCController::class, 'post']);
@@ -111,7 +112,7 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
 
     /**
      * Endpoint untuk format-d
-     * 
+     *
      */
     Route::get('/format-d', [FormatDController::class, 'get']);
     Route::post('/format-d', [FormatDController::class, 'post']);
@@ -120,7 +121,7 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
 
     /**
      * Endpoint untuk export file excel
-     * 
+     *
      */
     Route::prefix('export')->group(function () {
 
@@ -133,18 +134,26 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
 
     /**
      * Endpoint untuk mendapatkan data statistik
-     * 
+     *
      */
     Route::prefix('statistik')->group(function () {
 
         Route::get('/dashboard', [StatistikController::class, 'dashboard']);
 
     });
+
+    /**
+     * Endpoint untuk kader gendong
+     *
+     */
+    Route::get('/kader-gendong', [SuratController::class, 'get']);
+    Route::post('/kader-gendong', [SuratController::class, 'post']);
+    Route::get('/kader-gendong/{id}', [SuratController::class, 'show']);
 });
 
 /**
  * Endpoint public
- * 
+ *
  */
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -159,7 +168,7 @@ Route::get('/listtahun', [FormatBAController::class, 'getListTahun']);
 
 /**
  * API Wilayah Indonesia\
- * 
+ *
  */
 Route::prefix('indonesia')->group(function () {
 
@@ -172,6 +181,6 @@ Route::prefix('indonesia')->group(function () {
 
 /**
  * API Testing
- * 
+ *
  */
 Route::get('/testing', [FormatBAController::class, 'apiTesting']);

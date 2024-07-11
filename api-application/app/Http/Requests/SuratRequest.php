@@ -17,7 +17,7 @@ class SuratRequest extends CoreRequest
                 return [
                     "penanda_tangan" => "required|string",
                     "tanggal_surat" => "required|date",
-                    "nomor_telepon" => "required|string",
+                    "nomor" => "required|string",
                     "ditugaskan" => "required|array",
                     "kalimat_pembuka" => "string",
                     "isi_surat" => "string",
