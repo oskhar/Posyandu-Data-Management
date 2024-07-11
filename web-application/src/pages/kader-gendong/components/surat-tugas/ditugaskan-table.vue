@@ -1,7 +1,7 @@
 <script setup>
 import Swal from "sweetalert2";
 import { computed, ref } from 'vue';
-import { ditugaskanValidator } from "../validators";
+import { ditugaskanValidator } from "../../validators";
 import { getErrorMessage } from "@/utils/get-error-message";
 
 const { listDitugaskan, onAdd, onDelete } = defineProps({

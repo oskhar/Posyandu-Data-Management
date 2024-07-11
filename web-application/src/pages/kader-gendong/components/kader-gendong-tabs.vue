@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import BuatSuratTugas from './buat-surat-tugas.vue';
+import BuatSuratTugas from './surat-tugas/buat-surat-tugas.vue';
 
 const tabs = [
   {

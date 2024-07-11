@@ -2,7 +2,7 @@
 import DitugaskanTable from './ditugaskan-table.vue';
 import Swal from "sweetalert2";
 import { reactive, ref } from 'vue';
-import { suratTugasValidator } from '../validators';
+import { suratTugasValidator } from '../../validators';
 import { VTextField } from 'vuetify/lib/components/index.mjs';
 import { QuillEditor } from '@vueup/vue-quill';
 import { getErrorMessage } from '@/utils/get-error-message';
