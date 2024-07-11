@@ -15,7 +15,7 @@ Proyek kuliah sebagai wadah untuk berkolaborasi, memahami, dan mengembangkan kon
 - PHP -- version ^8.1 -- myversion 8.2.10
 - Laravel -- version 10.25.0
 - Vue -- version 3.3.4
-- Vuetify -- version 3.3.1
+- Vuetify -- version 3.6.0
 - NPM -- myversion 9.8.1
 - Composer -- myversion 2.5.2
 - vite -- version ^4.2.3
