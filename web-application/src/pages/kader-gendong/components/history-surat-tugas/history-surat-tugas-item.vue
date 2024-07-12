@@ -1,12 +1,16 @@
 <script setup>
+import { pdfBase64 } from '@/utils/pdf-base64';
 import { computed } from 'vue';
 
+/**
+ * @type {{surat: import("@/pages/kader-gendong/api/surat-tugas-api").SuratTugas}}
+ */
 const { surat } = defineProps({
 	surat: { type: Object, required: true },
 });
 
 
-const dialogActivator = computed(() => `surat-${surat.id}`)
+const dialogActivator = computed(() => `surat-${surat.nomor}`)
 </script>
 
 <template>
@@ -28,7 +32,7 @@ const dialogActivator = computed(() => `surat-${surat.id}`)
 		<template #default="{ isActive }">
 			<VCard prepend-icon="bx-file" title="Preview Surat">
 				<VCardText>
-					<iframe class="rounded mt-2 border-0" width="100%" height="500px" src="http://localhost:5173/README.pdf" />
+					<iframe class="rounded mt-2 border-0" width="100%" height="500px" :src="pdfBase64(surat.file)" />
 				</VCardText>
 				<VCardActions>
 					<VBtn class="ml-auto" color="error" @click="isActive.value = false">Tutup</VBtn>
