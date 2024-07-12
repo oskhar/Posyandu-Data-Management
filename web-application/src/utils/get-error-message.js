@@ -9,13 +9,12 @@ export function getErrorMessage(err, defaultMesssage = DEFAULT_ERROR_MESSAGE) {
 	if (isAxiosError(err)) {
 		const errResponse = err.response?.data;
 		
-		
 		if (isErrorApiResponse(errResponse)) {
-			if (errResponse.errors.message) {
-				return errResponse.errors.message;
+			if (typeof errResponse.errors === "object") {
+				return flattenApiErrorResponse(errResponse.errors)
 			}
 
-			if ('message' in errResponse && errResponse.message) {
+			if (errResponse.message) {
 				return errResponse.message;
 			}
 
@@ -47,4 +46,13 @@ export function isErrorApiResponse(
 	}
 
 	return 'errors' in response;
+}
+
+/**
+ * @param {Record<string, string[]>} errors 
+ */
+export function flattenApiErrorResponse(errors) {
+	return Object.entries(errors)
+	.map(([_, messages]) => `${messages.join('\n')}`)
+	.join('\n');
 }
