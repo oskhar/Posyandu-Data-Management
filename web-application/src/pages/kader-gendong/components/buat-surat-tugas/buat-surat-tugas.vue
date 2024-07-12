@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import { ref } from 'vue';
 import { suratTugasValidator } from '../../validators';
 import { getErrorMessage } from '@/utils/get-error-message';
+import { mysqlDateTime } from '@/utils/mysql-datetime';
 import FormSuratTugas from '../form-surat-tugas.vue';
 
 const emit = defineEmits(['create'])
@@ -14,7 +15,7 @@ const handleCreateSuratTugas = async suratData => {
 
 		const rawSurat = {
 			...suratData,
-			tanggal_surat: suratData.tanggal_surat.toISOString(),
+			tanggal_surat: mysqlDateTime(suratData.tanggal_surat),
 		}
 
 		const parsedSurat = await suratTugasValidator.parseAsync(rawSurat)

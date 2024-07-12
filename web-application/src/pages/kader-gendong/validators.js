@@ -13,7 +13,7 @@ export const suratTugasValidator = z.object({
   }).trim().min(1, "Penanda tangan tidak boleh kosong"),
   "tanggal_surat": z.string({
     required_error: "Tanggal surat tidak boleh kosong",
-  }).trim().datetime("Tanggal surat tidak valid"),
+  }).trim(),
   "nomor": z.string().trim().min(1, "Nomor surat tidak boleh kosong"),
   "kalimat_pembuka": z.string().trim().min(1, "Kalimat pembuka tidak boleh kosong"),
   "ditugaskan": z.array(ditugaskanValidator, "Yang ditugaskan tidak valid").min(1, "Yang ditugaskan tidak boleh kosong"),

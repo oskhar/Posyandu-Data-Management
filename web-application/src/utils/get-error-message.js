@@ -8,7 +8,8 @@ export const DEFAULT_ERROR_MESSAGE = 'Terjadi kesalahan, silahkan coba lagi';
 export function getErrorMessage(err, defaultMesssage = DEFAULT_ERROR_MESSAGE) {
 	if (isAxiosError(err)) {
 		const errResponse = err.response?.data;
-
+		
+		
 		if (isErrorApiResponse(errResponse)) {
 			if (errResponse.errors.message) {
 				return errResponse.errors.message;
