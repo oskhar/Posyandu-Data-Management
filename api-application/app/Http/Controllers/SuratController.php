@@ -155,6 +155,7 @@ class SuratController extends Controller
          */
         $surat = SuratModel::create([
             "admin_id" => Auth::user()->id,
+            "jabatan_penanda_tangan" => $data["jabatan_penanda_tangan"],
             "penanda_tangan" => $data["penanda_tangan"],
             "tanggal_surat" => $data["tanggal_surat"],
             "nomor" => $data["nomor"],

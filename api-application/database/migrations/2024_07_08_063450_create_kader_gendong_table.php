@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger('admin_id');
             $table->string('penanda_tangan');
+            $table->string('jabatan_penanda_tangan');
             $table->date('tanggal_surat');
             $table->string('nomor', 15);
             $table->text('kalimat_pembuka')->nullable();

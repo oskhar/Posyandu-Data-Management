@@ -25,6 +25,7 @@ class SuratModel extends Model
     protected $fillable = [
         "admin_id",
         "penanda_tangan",
+        "jabatan_penanda_tangan",
         "tanggal_surat",
         "nomor",
         "kalimat_pembuka",

@@ -103,6 +103,7 @@ class DrafSuratController extends Controller
         $surat = SuratModel::create([
             "admin_id" => Auth::user()->id,
             "penanda_tangan" => $data["penanda_tangan"],
+            "jabatan_penanda_tangan" => $data["jabatan_penanda_tangan"],
             "tanggal_surat" => $data["tanggal_surat"],
             "nomor" => $data["nomor"],
             "kalimat_pembuka" => $data["kalimat_pembuka"],
@@ -153,6 +154,7 @@ class DrafSuratController extends Controller
         $surat = SuratModel::findOrFail($id);
         $surat->update([
             "penanda_tangan" => $data["penanda_tangan"],
+            "jabatan_penanda_tangan" => $data["jabatan_penanda_tangan"],
             "tanggal_surat" => $data["tanggal_surat"],
             "nomor" => $data["nomor"],
             "kalimat_pembuka" => $data["kalimat_pembuka"],

@@ -1805,6 +1805,7 @@ paths:
               properties:
               example:
                 penanda_tangan: "string"
+                jabatan_penanda_tangan: "string"
                 tanggal_surat: "date"
                 nomor: "string"
                 kalimat_pembuka: "text"
@@ -1872,6 +1873,7 @@ paths:
                 current_page: 2
                 data:
                   array:
+                    id: "integer"
                     penanda_tangan: "string"
                     pembuat_surat: "string"
                     isi_surat: "text"
@@ -1933,6 +1935,7 @@ paths:
               properties:
               example:
                 penanda_tangan: "string"
+                jabatan_penanda_tangan: "string"
                 tanggal_surat: "date"
                 nomor: "string"
                 kalimat_pembuka: "text"
@@ -1988,6 +1991,7 @@ paths:
               properties:
               example:
                 penanda_tangan: "string"
+                jabatan_penanda_tangan: "string"
                 tanggal_surat: "date"
                 nomor: "string"
                 kalimat_pembuka: "text"

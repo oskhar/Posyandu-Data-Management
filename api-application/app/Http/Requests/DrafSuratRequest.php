@@ -24,6 +24,7 @@ class DrafSuratRequest extends CoreRequest
             case 'POST':
                 return [
                     "penanda_tangan" => "required|string",
+                    "jabatan_penanda_tangan" => "required|string",
                     "tanggal_surat" => "required|date",
                     "nomor" => [
                         "required",
@@ -38,6 +39,7 @@ class DrafSuratRequest extends CoreRequest
             case 'PUT':
                 return [
                     "penanda_tangan" => "required|string",
+                    "jabatan_penanda_tangan" => "required|string",
                     "tanggal_surat" => "required|date",
                     "nomor" => [
                         "required",
