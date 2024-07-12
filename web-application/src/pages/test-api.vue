@@ -72,7 +72,7 @@ export default {
     downloadSurat: async () => {
       try {
         const response = await axios.get(
-          `${config.urlServer}/api/kader-gendong/2`,
+          `${config.urlServer}/api/kader-gendong/15`,
           {
             headers: {
               Authorization: localStorage.getItem("tokenAuth"),
@@ -231,14 +231,14 @@ export default {
   },
   mounted() {
     // this.getEdukasi();
-    this.getSurat();
-    // this.postSurat();
+    // this.getSurat();
+    this.postSurat();
     // this.downloadSurat();
-    this.getDrafSurat();
+    // this.getDrafSurat();
     // this.postDrafSurat();
     // this.putDrafSurat();
     // this.postCetakDrafSurat();
-    this.deleteDrafSurat();
+    // this.deleteDrafSurat();
   },
 };
 </script>

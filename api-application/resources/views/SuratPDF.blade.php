@@ -49,11 +49,64 @@
         .center-align {
             text-align: center;
         }
+
+        .kop-surat {
+            width: 104%;
+            left: -10px;
+            border: none;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .kop-surat img {
+            width: 100px;
+            height: auto;
+        }
+
+        .kop-surat td {
+            text-align: center;
+            vertical-align: middle;
+            border: none
+        }
+
+        .kop-surat td h2 {
+            line-height: 0;
+        }
+
+        .kop-surat td p {
+            font-size: 0.95rem;
+            line-height: 0.2rem;
+        }
+
+        .kop-surat .left-image {
+            text-align: left;
+        }
+
+        .kop-surat .right-image {
+            text-align: right;
+        }
     </style>
 </head>
 
 <body>
-    <h1>KOP Posyandu</h1>
+    <table class="kop-surat">
+        <tr>
+            <td class="left-image">
+                <img src="./images/tangerang.png" alt="Logo kota tangerang">
+            </td>
+            <td>
+                <h2 style="font-weight: light">PEMERINTAH KOTA TANGERANG</h2>
+                <h2 style="font-weight: light">DINAS KESEHATAN</h2>
+                <h2>UPT PUSKESMAS PERIUK JAYA</h2>
+                <p>Jl. Periuk Jaya Permai 1 Kel. Periuk Jaya Kec. Periuk Kota Tangerang</p>
+                <p>Tlp.(021) 59586750 Email : puskesmasperiukjaya@gmail.com</p>
+            </td>
+            <td class="right-image">
+                <img src="./images/puskesmas.png" alt="Logo puskesmas">
+            </td>
+        </tr>
+    </table>
     <hr>
     <br>
     <p style="line-height: 50%">
