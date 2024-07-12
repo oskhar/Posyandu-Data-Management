@@ -13,18 +13,20 @@ const isAuthenticated = async () => {
 
     try {
       const response = await axios.post(url, {}, { headers });
-      const berhasil = response.status === 200;
-      return berhasil;
+
+      return response.status === 200;
     } catch (error) {
       localStorage.removeItem("tokenAuth");
       localStorage.removeItem("id_admin");
       console.error(error);
+
       return false;
     }
   } else {
     localStorage.removeItem("tokenAuth");
     localStorage.removeItem("id_admin");
     console.error("Auth Token tidak tersedia");
+
     return false;
   }
 };
@@ -161,6 +163,15 @@ const router = createRouter({
             {
               path: "laporan",
               component: () => import("../pages/laporan.vue"),
+            },
+          ],
+        },
+        {
+          path: "layanan/",
+          children: [
+            {
+              path: "kader-gendong",
+              component: () => import("../pages/kader-gendong/kader-gendong-page.vue"),
             },
           ],
         },

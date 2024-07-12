@@ -21,7 +21,7 @@
               <VProgressCircular v-if="isLoading" indeterminate color="primary" class="mt-5 float-center" size="50">
               </VProgressCircular>
 
-              <tr v-else v-for="(item, index) in  dataAdmin " :key="item.dessert">
+              <tr v-for="(item, index) in dataAdmin " v-else :key="item.dessert">
                 <td>
                   {{ (page - 1) * 20 + (index + 1) }}
                 </td>
@@ -32,18 +32,18 @@
                   {{ item.nama_lengkap }}
                 </td>
                 <td>
-                  <v-dialog v-model="dialogJabatan[index]" persistent width="1024">
-                    <template v-slot:activator="{ props }">
+                  <VDialog v-model="dialogJabatan[index]" persistent width="1024">
+                    <template #activator="{ props }">
                       <VBtn class="ml-2 text-none text-subtitle-1" v-bind="props" style="width: 210px" variant="tonal">
                         {{ listJabatan[item.id_jabatan] }}
                       </VBtn>
                     </template>
-                    <v-card>
-                      <v-card-title>
+                    <VCard>
+                      <VCardTitle>
                         <span class="text-h5">Ubah Jabatan</span>
-                      </v-card-title>
-                      <v-card-text>
-                        <v-container>
+                      </VCardTitle>
+                      <VCardText>
+                        <VContainer>
                           <VRow>
                             <VCol cols="12">
                               <VSelect v-model="dataAdmin[index].id_jabatan" :items="[
@@ -58,33 +58,33 @@
                               ]" placeholder="Pilih Jabatan" />
                             </VCol>
                           </VRow>
-                        </v-container>
-                      </v-card-text>
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn color="blue-darken-1" variant="text" @click="dialogJabatan[index] = false; fetchData()">
+                        </VContainer>
+                      </VCardText>
+                      <VCardActions>
+                        <VSpacer></VSpacer>
+                        <VBtn color="blue-darken-1" variant="text" @click="dialogJabatan[index] = false; fetchData()">
                           Tutup
-                        </v-btn>
-                        <v-btn color="success" variant="text" @click="putDataJabatan(index)">
+                        </VBtn>
+                        <VBtn color="success" variant="text" @click="putDataJabatan(index)">
                           Simpan
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
+                        </VBtn>
+                      </VCardActions>
+                    </VCard>
+                  </VDialog>
                 </td>
                 <td class="text-center">
-                  <v-dialog v-model="dialog[index]" persistent width="1024">
-                    <template v-slot:activator="{ props }">
+                  <VDialog v-model="dialog[index]" persistent width="1024">
+                    <template #activator="{ props }">
                       <VBtn color="primary" class="ml-2" v-bind="props" prepend-icon="bx-key">
                         password
                       </VBtn>
                     </template>
-                    <v-card>
-                      <v-card-title>
+                    <VCard>
+                      <VCardTitle>
                         <span class="text-h5">Ubah Password</span>
-                      </v-card-title>
-                      <v-card-text>
-                        <v-container>
+                      </VCardTitle>
+                      <VCardText>
+                        <VContainer>
                           <VRow>
                             <VCol cols="12">
                               <!-- 👉 First Name -->
@@ -107,22 +107,22 @@
                                   " />
                             </VCol>
                           </VRow>
-                        </v-container>
-                      </v-card-text>
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn color="blue-darken-1" variant="text" @click="dialog[index] = false">
+                        </VContainer>
+                      </VCardText>
+                      <VCardActions>
+                        <VSpacer></VSpacer>
+                        <VBtn color="blue-darken-1" variant="text" @click="dialog[index] = false">
                           Tutup
-                        </v-btn>
-                        <v-btn color="success" variant="text" @click="putData(index)">
+                        </VBtn>
+                        <VBtn color="success" variant="text" @click="putData(index)">
                           Simpan
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
+                        </VBtn>
+                      </VCardActions>
+                    </VCard>
+                  </VDialog>
                   <!-- <VBtn> </VBtn> -->
                   <VBtn class="ml-2" color="error" @click="deleteData(item.id_admin)">
-                    <v-icon>bx-trash</v-icon>
+                    <VIcon>bx-trash</VIcon>
                   </VBtn>
                 </td>
               </tr>
@@ -133,6 +133,7 @@
     </VCol>
   </VRow>
 </template>
+
 <script>
 import axios from "axios";
 import config from "@/@core/config.vue";
@@ -159,8 +160,11 @@ export default {
         6: 'PENIMBANGAN',
         7: 'PENCATATAN',
         8: 'PENYULUHAN',
-      }
+      },
     };
+  },
+  mounted() {
+    this.fetchData();
   },
   methods: {
     async fetchData() {
@@ -169,6 +173,7 @@ export default {
           Authorization: localStorage.getItem("tokenAuth"),
         },
       });
+
       this.dataAdmin = response.data.admin;
     },
 
@@ -187,8 +192,9 @@ export default {
             headers: {
               Authorization: localStorage.getItem("tokenAuth"),
             },
-          }
+          },
         );
+
         if (response.data.success) {
           Swal.fire({
             toast: true,
@@ -205,8 +211,9 @@ export default {
         }
       } catch (get) {
         const errorMessage = Object.values(get.response.data.errors).join(
-          " - "
+          " - ",
         );
+
         Swal.fire({
           toast: true,
           position: "top",
@@ -239,8 +246,9 @@ export default {
             headers: {
               Authorization: localStorage.getItem("tokenAuth"),
             },
-          }
+          },
         );
+
         if (response.data.success) {
           Swal.fire({
             toast: true,
@@ -257,8 +265,9 @@ export default {
         }
       } catch (get) {
         const errorMessage = Object.values(get.response.data.errors).join(
-          " - "
+          " - ",
         );
+
         Swal.fire({
           toast: true,
           position: "top",
@@ -283,6 +292,7 @@ export default {
           showCancelButton: true,
           denyButtonText: "Hapus",
         });
+
         if (ask.isDenied) {
           const response = await axios.delete(
             `${config.urlServer}/api/admin?id_admin=${id_admin}`,
@@ -290,8 +300,9 @@ export default {
               headers: {
                 Authorization: localStorage.getItem("tokenAuth"),
               },
-            }
+            },
           );
+
           if (response.data.success) {
             Swal.fire({
               toast: true,
@@ -310,8 +321,9 @@ export default {
         }
       } catch (get) {
         const errorMessage = Object.values(get.response.data.errors).join(
-          " - "
+          " - ",
         );
+
         Swal.fire({
           toast: true,
           position: "top",
@@ -327,9 +339,6 @@ export default {
         this.fetchData();
       }
     },
-  },
-  mounted() {
-    this.fetchData();
   },
 };
 </script>

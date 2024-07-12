@@ -1,4 +1,4 @@
-const path = require("node:path")
+const path = require("node:path");
 
 module.exports = {
   env: {
@@ -11,6 +11,7 @@ module.exports = {
     "plugin:import/recommended",
     "plugin:promise/recommended",
     "plugin:sonarjs/recommended",
+    "prettier",
 
     // 'plugin:unicorn/recommended',
   ],
@@ -29,16 +30,7 @@ module.exports = {
     "comma-spacing": ["error", { before: false, after: true }],
     "key-spacing": ["error", { afterColon: true }],
 
-    "vue/first-attribute-linebreak": [
-      "error",
-      {
-        singleline: "beside",
-        multiline: "below",
-      },
-    ],
-
-    // indentation (Already present in TypeScript)
-    indent: ["error", 2],
+    "vue/first-attribute-linebreak": "off",
 
     // Enforce trailing comma (Already present in TypeScript)
     "comma-dangle": ["error", "always-multiline"],
@@ -48,9 +40,6 @@ module.exports = {
 
     // Disable max-len
     "max-len": "off",
-
-    // we don't want it
-    semi: ["error", "never"],
 
     // add parens ony when required in arrow function
     "arrow-parens": ["error", "as-needed"],
@@ -258,4 +247,4 @@ module.exports = {
       },
     },
   },
-}
+};

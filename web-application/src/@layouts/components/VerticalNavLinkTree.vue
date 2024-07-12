@@ -4,26 +4,51 @@ const props = defineProps({
     type: null,
     required: true,
   },
-});
-let menuActive = ref(false);
+})
+
+let menuActive = ref(false)
+
 const active = () => {
-  menuActive.value = menuActive.value ? false : true;
-};
+  menuActive.value = menuActive.value ? false : true
+}
 </script>
 
 <template>
-  <li class="nav-link nav-treeview" :class="{ disabled: item.disable }">
-    <Component @click="active" :is="item.to ? 'RouterLink' : 'a'" :to="item.to" :href="item.href">
-      <VIcon :icon="menuActive ? 'bx-chevron-down' : 'bx-chevron-right'" class="nav-item-icon" />
+  <li
+    class="nav-link nav-treeview"
+    :class="{ disabled: item.disable }"
+  >
+    <Component
+      :is="item.to ? 'RouterLink' : 'a'"
+      :to="item.to"
+      :href="item.href"
+      @click="active"
+    >
+      <VIcon
+        :icon="menuActive ? 'bx-chevron-down' : 'bx-chevron-right'"
+        class="nav-item-icon"
+      />
       <!-- 👉 Title -->
       <span class="nav-item-title">
         {{ item.title }}
       </span>
     </Component>
   </li>
-  <li v-for="data in item.children" v-if="menuActive" class="nav-link" :class="{ disabled: item.disable }">
-    <Component :is="data.to ? 'RouterLink' : 'a'" :to="data.to" :href="data.href">
-      <VIcon icon="bx-minus" class="nav-item-icon" />
+  <li
+    v-for="data in item.children"
+    v-if="menuActive"
+    class="nav-link"
+    :class="{ disabled: item.disable }"
+  >
+    <Component
+      :is="data.to ? 'RouterLink' : 'a'"
+      :to="data.to"
+      :href="data.href"
+    >
+      <VIcon
+        icon="bx-minus"
+        class="nav-item-icon"
+      />
       <!-- 👉 Title -->
       <span class="nav-item-title">
         {{ data.title }}
