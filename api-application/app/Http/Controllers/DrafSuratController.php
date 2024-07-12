@@ -68,6 +68,7 @@ class DrafSuratController extends Controller
             $pdfBase64 = base64_encode($pdfContent);
 
             return [
+                "id" => $item->id,
                 "nomor" => $item->nomor,
                 "penanda_tangan" => $item->penanda_tangan,
                 "tanggal_surat" => $item->tanggal_surat,

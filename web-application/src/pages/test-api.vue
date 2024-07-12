@@ -138,7 +138,7 @@ export default {
       const data = {
         penanda_tangan: "Dr. Susilo Bambang",
         tanggal_surat: "2024-07-20",
-        nomor: "SPK/XI/2024",
+        nomor: "SPK/XX/2024",
         kalimat_pembuka: "<p>Dengan hormat,</p>",
         isi_surat: `<p>Sehubungan dengan program kerja sama antar posyandu yang membutuhkan kader gendong, kami menugaskan beberapa kader untuk membantu dalam kegiatan tersebut. Kegiatan ini akan dilaksanakan mulai tanggal 1 Agustus 2024 hingga 31 Agustus 2024. Diharapkan kader yang ditugaskan dapat bekerja sama dengan baik dan menjalankan tugas dengan penuh tanggung jawab.</p>`,
         kalimat_penutup:
@@ -232,9 +232,9 @@ export default {
   mounted() {
     // this.getEdukasi();
     // this.getSurat();
-    this.postSurat();
+    // this.postSurat();
     // this.downloadSurat();
-    // this.getDrafSurat();
+    this.getDrafSurat();
     // this.postDrafSurat();
     // this.putDrafSurat();
     // this.postCetakDrafSurat();

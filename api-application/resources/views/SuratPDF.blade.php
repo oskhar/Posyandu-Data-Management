@@ -96,9 +96,7 @@
                 <img src="./images/tangerang.png" alt="Logo kota tangerang">
             </td>
             <td>
-                <h2 style="font-weight: light">PEMERINTAH KOTA TANGERANG</h2>
-                <h2 style="font-weight: light">DINAS KESEHATAN</h2>
-                <h2>UPT PUSKESMAS PERIUK JAYA</h2>
+                <h2 style="font-weight: light">POSYANDU MELATI IX</h2>
                 <p>Jl. Periuk Jaya Permai 1 Kel. Periuk Jaya Kec. Periuk Kota Tangerang</p>
                 <p>Tlp.(021) 59586750 Email : puskesmasperiukjaya@gmail.com</p>
             </td>

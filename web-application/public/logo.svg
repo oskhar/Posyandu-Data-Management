@@ -9,8 +9,8 @@
    viewBox="0 0 15754 13000"
    version="1.1"
    id="svg10"
-   sodipodi:docname="logo.svg"
-   inkscape:export-filename="logo.png"
+   sodipodi:docname="logo-without-text.svg"
+   inkscape:export-filename="logo-3.png"
    inkscape:export-xdpi="1354.6666"
    inkscape:export-ydpi="1354.6666"
    inkscape:version="1.3.2 (091e20ef0f, 2023-11-25, custom)"
@@ -27,9 +27,9 @@
    inkscape:pagecheckerboard="0"
    inkscape:deskcolor="#d1d1d1"
    inkscape:document-units="mm"
-   inkscape:zoom="6.6275356"
-   inkscape:cx="47.755307"
-   inkscape:cy="35.00547"
+   inkscape:zoom="10.625713"
+   inkscape:cx="11.152193"
+   inkscape:cy="36.797532"
    inkscape:window-width="1920"
    inkscape:window-height="1048"
    inkscape:window-x="0"
@@ -59,11 +59,11 @@
    id="CorelCorpID_1Corel-Layer" />
   <path
    class="fil0"
-   d="M8824 7991c-216,305 -329,684 81,964l3 0c-52,-682 2235,-866 1920,-1949l-11 -28c-188,-410 -650,-492 -912,-262 -225,197 -207,557 -104,808 -268,-45 -805,223 -977,467z"
+   d="m 8824,7991 c -216,305 -329,684 81,964 h 3 c -52,-682 2235,-866 1920,-1949 l -11,-28 c -188,-410 -650,-492 -912,-262 -225,197 -207,557 -104,808 -268,-45 -805,223 -977,467 z"
    id="path1" />
   <path
    class="fil0"
-   d="M12341 4157c-1,-1 -1,-1 -2,-2l-4308 -4094c-40,-39 -93,-61 -149,-61 -56,0 -109,22 -149,61l-4316 4093c-1,1 -2,1 -2,2 -40,40 -62,94 -62,150 0,57 22,110 62,150 23,23 54,35 86,35l519 0 42 942c3,2084 1676,3777 3752,3813 -551,-226 -1812,-807 -2578,-1663 -334,-373 -575,-798 -621,-1269 -57,-571 179,-1103 585,-1448 749,-638 1902,-502 2475,326l3 28c-191,73 -374,180 -538,320 -450,384 -712,974 -649,1607 52,523 319,995 689,1409 226,252 491,483 769,690 205,-3 407,-23 603,-58 -370,-249 -1057,-765 -1432,-1385 -176,-292 -283,-607 -255,-928 35,-389 260,-715 575,-895 582,-332 1337,-95 1615,532 525,-776 1709,-628 2028,251 4,4 88,224 64,492 -7,76 -21,151 -42,224 338,-530 550,-1149 590,-1814 0,0 0,-1 0,-1 0,-2 0,-5 0,-7 4,-65 6,-130 7,-195 6,-280 5,-682 3,-970l551 0c32,0 63,-13 86,-35 83,-83 83,-218 0,-301zm-5203 200l0 0c-406,100 -817,-148 -917,-554 -100,-406 148,-817 554,-917 406,-100 817,148 917,554 100,406 -148,817 -554,917zm2117 1658l0 0c-417,32 -781,-281 -812,-698 -32,-417 281,-781 698,-812 417,-32 781,281 813,698 32,417 -281,781 -698,812z"
+   d="m 12341,4157 c -1,-1 -1,-1 -2,-2 L 8031,61.000004 C 7991,22.000004 7938,4.3501215e-6 7882,4.3501215e-6 7826,4.3501215e-6 7773,22.000004 7733,61.000004 L 3417,4154 c -1,1 -2,1 -2,2 -40,40 -62,94 -62,150 0,57 22,110 62,150 23,23 54,35 86,35 h 519 l 42,942 c 3,2084 1676,3777 3752,3813 -551,-226 -1812,-807 -2578,-1663 -334,-373 -575,-798 -621,-1269 -57,-571 179,-1103 585,-1448 749,-638 1902,-502 2475,326 l 3,28 c -191,73 -374,180 -538,320 -450,384 -712,974 -649,1607 52,523 319,995 689,1409 226,252 491,483 769,690 205,-3 407,-23 603,-58 -370,-249 -1057,-765 -1432,-1385 -176,-292 -283,-607 -255,-928 35,-389 260,-715 575,-895 582,-332 1337,-95 1615,532 525,-776 1709,-628 2028,251 4,4 88,224 64,492 -7,76 -21,151 -42,224 338,-530 550,-1149 590,-1814 0,0 0,-1 0,-1 0,-2 0,-5 0,-7 4,-65 6,-130 7,-195 6,-280 5,-682 3,-970 h 551 c 32,0 63,-13 86,-35 83,-83 83,-218 0,-301 z m -5203,200 v 0 c -406,100 -817,-148 -917,-554 -100,-406 148,-817 554,-917 406,-100 817,148 917,554 100,406 -148,817 -554,917 z m 2117,1658 v 0 c -417,32 -781,-281 -812,-698 -32,-417 281,-781 698,-812 417,-32 781,281 813,698 32,417 -281,781 -698,812 z"
    id="path2" />
   
   
@@ -75,23 +75,13 @@
   
  <text
    xml:space="preserve"
-   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2329.34px;font-family:Cantarell;-inkscape-font-specification:Cantarell;fill:#008cb5;fill-opacity:1;stroke:#008cb5;stroke-width:194.111;stroke-opacity:1"
-   x="4299.1343"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2329.34px;font-family:Poppins;-inkscape-font-specification:Poppins;fill:#008cb5;fill-opacity:1;stroke:#008cb5;stroke-width:194.111;stroke-opacity:1"
+   x="3995.1526"
    y="12066.187"
    id="text1"><tspan
      sodipodi:role="line"
      id="tspan1"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Cantarell;-inkscape-font-specification:Cantarell;fill:#008cb5;fill-opacity:1;stroke:#008cb5;stroke-width:194.111;stroke-opacity:1"
-     x="4299.1343"
-     y="12066.187">SiDilan</tspan></text><text
-   xml:space="preserve"
-   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1482.04297067px;font-family:'Andale Mono';-inkscape-font-specification:'Andale Mono';fill:#008cb5;fill-opacity:1;stroke:#008cb5;stroke-width:277.883;stroke-opacity:1"
-   x="3315.3689"
-   y="13154.552"
-   id="text2"><tspan
-     sodipodi:role="line"
-     id="tspan2"
-     style="stroke-width:277.883;font-size:1482.04297067px;-inkscape-font-specification:'Andale Mono';font-family:'Andale Mono';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
-     x="3315.3689"
-     y="13154.552">Sistem Informasi Posyandu RW Sembilan</tspan></text></g>
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Poppins;-inkscape-font-specification:Poppins;fill:#008cb5;fill-opacity:1;stroke:#008cb5;stroke-width:194.111;stroke-opacity:1"
+     x="3995.1526"
+     y="12066.187">SiDilan</tspan></text></g>
 </svg>
