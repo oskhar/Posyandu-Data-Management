@@ -1726,21 +1726,41 @@ paths:
       tags:
         - Layanan Kader Gendong
       summary: MELIHAT riwayat pencetakan surat
+      requestBody:
+        description: Data untuk mengubah template pagination
+        required: true
+        content:
+          application/json:
+            example:
+              search: "string"
+              length: "integer|required"
+              page: "integer"
       responses:
         200:
           description: OK
           content:
             application/json:
-              schema:
-                type: array
-                items:
-                  example:
-                    id: "integer"
+              example:
+                current_page: 2
+                data:
+                  array:
                     penanda_tangan: "string"
                     pembuat_surat: "string"
                     isi_surat: "text"
                     tanggal_surat: "date"
                     created_at: "datetime"
+                    file: "Blob base64"
+                first_page_url: "http://localhost:8000/api/kader-gendong?page=1"
+                from: 2
+                last_page: 8
+                last_page_url: "http://localhost:8000/api/kader-gendong?page=8"
+                links: Array(10) [ {…}, {…}, {…}, … ]
+                next_page_url: "http://localhost:8000/api/kader-gendong?page=3"
+                path: "http://localhost:8000/api/kader-gendong"
+                per_page: 1
+                prev_page_url: "http://localhost:8000/api/kader-gendong?page=1"
+                to: 2
+                total: 8
         400:
           description: BAD REQUEST
           content:
@@ -1776,7 +1796,7 @@ paths:
         - Layanan Kader Gendong
       summary: MENAMBAHKAN data surat kader
       requestBody:
-        description: Data Format 2 A untuk menambahkan data format-ba
+        description: Data surat untuk mencetak surat
         required: true
         content:
           application/json:
@@ -1810,7 +1830,7 @@ paths:
               example:
                 success:
                   message: "Data ... berhasil ditambahkan"
-                  file: "Blob string"
+                  file: "Blob base64"
         400:
           description: BAD REQUEST
           content:
@@ -1826,57 +1846,6 @@ paths:
               example:
                 errors:
                   message: "Data ... tidak valid"
-  /kader-gendong/{id_surat}:
-    get:
-      tags:
-        - Layanan Kader Gendong
-      summary: MELIHAT spesifik surat berdasarkan ID
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              example:
-                penanda_tangan: "string"
-                tanggal_surat: "date"
-                nomor: "string"
-                kalimat_pembuka: "text"
-                ditugaskan:
-                  nama: "string"
-                  jabatan: "string"
-                  alamat: "text"
-                isi_surat: "text"
-                kalimat_penutup: "text"
-        400:
-          description: BAD REQUEST
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-              example:
-                errors:
-                  message: "Data ... tidak valid"
-        404:
-          description: NOT FOUND
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-              example:
-                errors:
-                  message: "Data dengan id ... tidak ditemukan"
 
   # ==================================================================
 
@@ -1884,22 +1853,42 @@ paths:
     get:
       tags:
         - Layanan Kader Gendong
-      summary: MELIHAT riwayat pencetakan surat
+      summary: MELIHAT list draf surat
+      requestBody:
+        description: Data untuk mengubah template pagination
+        required: true
+        content:
+          application/json:
+            example:
+              search: "string"
+              length: "integer|required"
+              page: "integer"
       responses:
         200:
           description: OK
           content:
             application/json:
-              schema:
-                type: array
-                items:
-                  example:
-                    id: "integer"
+              example:
+                current_page: 2
+                data:
+                  array:
                     penanda_tangan: "string"
                     pembuat_surat: "string"
                     isi_surat: "text"
                     tanggal_surat: "date"
                     created_at: "datetime"
+                    file: "Blob base64"
+                first_page_url: "http://localhost:8000/api/kader-gendong?page=1"
+                from: 2
+                last_page: 8
+                last_page_url: "http://localhost:8000/api/kader-gendong?page=8"
+                links: Array(10) [ {…}, {…}, {…}, … ]
+                next_page_url: "http://localhost:8000/api/kader-gendong?page=3"
+                path: "http://localhost:8000/api/kader-gendong"
+                per_page: 1
+                prev_page_url: "http://localhost:8000/api/kader-gendong?page=1"
+                to: 2
+                total: 8
         400:
           description: BAD REQUEST
           content:
@@ -1933,9 +1922,9 @@ paths:
     post:
       tags:
         - Layanan Kader Gendong
-      summary: MENAMBAHKAN data surat kader
+      summary: MENAMBAHKAN data draf surat
       requestBody:
-        description: Data Format 2 A untuk menambahkan data format-ba
+        description: Data surat untuk ditambahkan ke draf
         required: true
         content:
           application/json:
@@ -1968,7 +1957,133 @@ paths:
                         type: string
               example:
                 success:
-                  message: "Draf ... berhasil ditambahkan"
+                  message: "Berhasil dimasukan dalam draf"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+  /kader-gendong/draf/{id}:
+    put:
+      tags:
+        - Layanan Kader Gendong
+      summary: MENGUBAH data draf surat
+      requestBody:
+        description: Data surat untuk update draf
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+              example:
+                penanda_tangan: "string"
+                tanggal_surat: "date"
+                nomor: "string"
+                kalimat_pembuka: "text"
+                ditugaskan:
+                  nama: "string"
+                  jabatan: "string"
+                  alamat: "text"
+                isi_surat: "text"
+                kalimat_penutup: "text"
+      responses:
+        200:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                success:
+                  message: "Draf berhasil diperbarui"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+    delete:
+      tags:
+        - Layanan Kader Gendong
+      summary: MENGHAPUS data dari draf surat
+      responses:
+        200:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                success:
+                  message: "Draf surat dan penugasan terkait berhasil dihapus"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+  /kader-gendong/draf/cetak/{id}:
+    post:
+      tags:
+        - Layanan Kader Gendong
+      summary: MEMINDAHKAN draf surat ke surat
+      responses:
+        200:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                success:
+                  message: "Draf berhasil dicetak sebagai surat"
         400:
           description: BAD REQUEST
           content:

@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->text('kalimat_pembuka')->nullable();
             $table->text('isi_surat')->nullable();
             $table->text('kalimat_penutup')->nullable();
+            $table->boolean('is_draft')->default(false);
             $table->timestamps();
 
             $table->foreign('admin_id')->references('id')->on('admin')->onDelete('cascade');
