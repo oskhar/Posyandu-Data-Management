@@ -1,5 +1,6 @@
 <script>
 import UserProfile from "@/components/UserProfile.vue";
+import { MENU_ITEMS } from "@/constants";
 import FooterGuest from "@/layouts/guest/footer-guest.vue";
 
 export default {
@@ -11,12 +12,7 @@ export default {
     return {
       fotoProfile: localStorage.getItem("foto_profile") && localStorage.getItem("tokenAuth") ? localStorage.getItem("foto_profile") : false,
       drawer: false,
-      menu: [
-        { text: "Home", route: "/" },
-        { text: "Edukasi", route: "/selengkapnya-card-edukasi" },
-        { text: "Berita", route: "/selengkapnya-card-beritaacara" },
-        { text: "Tentang", route: "/tentang-guest" },
-      ],
+      menu: MENU_ITEMS,
     }
   },
   mounted() {
@@ -45,28 +41,30 @@ export default {
 </script>
 
 <template>
-  <VAppBar :elevation="2" class="d-flex justify-space-between align-center px-5">
-    <!-- Logo di sebelah pojok kiri -->
-    <VAppBarNavIcon class="hide-md-and-up hamburger ma-0" @click="toggleDrawer"></VAppBarNavIcon>
+  <VAppBar :elevation="2">
+    <VRow>
+      <VCol cols="12" md="9" class="d-flex justify-space-between align-center px-5 mx-auto">
+        <!-- Logo di sebelah pojok kiri -->
+        <VAppBarNavIcon class="hide-md-and-up hamburger ma-0" @click="toggleDrawer"></VAppBarNavIcon>
 
-    <RouterLink to="/" class="mr-4">
-      <img class="hidden-sm-and-down" src="/logo.svg">
-    </RouterLink>
+        <RouterLink to="/" class="mr-4">
+          <img class="hidden-sm-and-down" src="/logo.svg">
+        </RouterLink>
 
-    <!-- Navigasi desktop -->
-    <VRow class="hidden-sm-and-down" dense>
-      <div v-for="(item, index) in menu" :key="index">
-        <VBtn text style="flex-grow: 0px" @click="navigate(item.route)">
-          {{ item.text }}
-        </VBtn>
-      </div>
+        <!-- Navigasi desktop -->
+        <VRow class="hidden-sm-and-down justify-center" dense>
+          <VBtn v-for="(item, index) in menu" :key="index" text style="flex-grow: 0px" @click="navigate(item.route)">
+            {{ item.text }}
+          </VBtn>
+        </VRow>
+
+        <!-- Tombol login di pojok kanan -->
+        <div class="ml-auto">
+          <UserProfile v-if="fotoProfile" class="hide-md-and-up" />
+          <VBtn v-else class="hide-md-and-up" @click="navigate('/login')">Login</VBtn>
+        </div>
+      </VCol>
     </VRow>
-
-    <!-- Tombol login di pojok kanan -->
-    <div class="ml-auto">
-      <UserProfile v-if="fotoProfile" class="hide-md-and-up" />
-      <VBtn v-else class="hide-md-and-up" @click="navigate('/login')">Login</VBtn>
-    </div>
   </VAppBar>
 
   <!-- Drawer untuk tampilan mobile -->
