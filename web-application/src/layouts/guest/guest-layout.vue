@@ -1,11 +1,11 @@
 <script>
 import UserProfile from "@/components/UserProfile.vue";
-import footerGuest from "@/layouts/guest/footer-guest.vue";
+import FooterGuest from "@/layouts/guest/footer-guest.vue";
 
 export default {
   components: {
     UserProfile,
-    footerGuest,
+    FooterGuest,
   },
   data() {
     return {
