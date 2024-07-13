@@ -27,6 +27,7 @@ class DrafSuratController extends Controller
             "surat.isi_surat",
             "surat.kalimat_penutup",
             "surat.created_at",
+            "surat.jabatan_penanda_tangan"
         )->join("admin", "admin.id", "surat.admin_id")
             ->where("surat.is_draft", true);
 
@@ -67,15 +68,7 @@ class DrafSuratController extends Controller
              */
             $pdfBase64 = base64_encode($pdfContent);
 
-            return [
-                "id" => $item->id,
-                "nomor" => $item->nomor,
-                "penanda_tangan" => $item->penanda_tangan,
-                "tanggal_surat" => $item->tanggal_surat,
-                "isi_surat" => $item->isi_surat,
-                "created_at" => Carbon::parse($item->created_at)->format('d-m-Y H:i:s'),
-                "file" => $pdfBase64
-            ];
+            return $item;
         });
 
         $surat = $surat->setCollection($tmp_data);
