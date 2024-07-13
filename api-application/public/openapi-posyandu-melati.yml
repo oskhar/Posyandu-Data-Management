@@ -1850,6 +1850,66 @@ paths:
 
   # ==================================================================
 
+  /kader-gendong/preview:
+    post:
+      tags:
+        - Layanan Kader Gendong
+      summary: MENAMBAHKAN data surat kader
+      requestBody:
+        description: Data surat untuk mencetak surat
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+              example:
+                penanda_tangan: "string"
+                jabatan_penanda_tangan: "string"
+                tanggal_surat: "date"
+                nomor: "string"
+                kalimat_pembuka: "text"
+                ditugaskan:
+                  nama: "string"
+                  jabatan: "string"
+                  alamat: "text"
+                isi_surat: "text"
+                kalimat_penutup: "text"
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                success:
+                  message: "Data ... berhasil ditambahkan"
+                  file: "Blob base64"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+
+  # ==================================================================
+
   /kader-gendong/draf:
     get:
       tags:

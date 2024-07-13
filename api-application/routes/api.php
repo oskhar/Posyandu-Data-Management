@@ -151,6 +151,7 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
 
         Route::get('/', [SuratController::class, 'get']);
         Route::post('/', [SuratController::class, 'post']);
+        Route::post('/preview', [SuratController::class, 'preview']);
         Route::get('/draf', [DrafSuratController::class, 'get']);
         Route::post('/draf', [DrafSuratController::class, 'post']);
         Route::post('/draf/cetak/{id}', [DrafSuratController::class, 'draftToSurat']);

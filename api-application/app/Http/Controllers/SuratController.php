@@ -8,6 +8,7 @@ use App\Models\PenugasanSuratModel;
 use App\Models\SuratModel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
@@ -85,6 +86,41 @@ class SuratController extends Controller
          *
          */
         return response()->json($surat)->setStatusCode(200);
+    }
+
+    public function preview(Request $request): JsonResponse
+    {
+        $data = $request->validate([
+            "nomor" => "required|string",
+            "penanda_tangan" => "required|string",
+            "tanggal_surat" => "required|string",
+            "kalimat_pembuka" => "required|string",
+            "isi_surat" => "required|string",
+            "kalimat_penutup" => "required|string",
+            "ditugaskan" => "required|array"
+        ]);
+
+        /**
+         * String blob pdf
+         *
+         */
+        $pdf = Pdf::loadView("SuratPDF", $data);
+
+        /**
+         * Mendapatkan PDF string
+         *
+         */
+        $pdfContent = $pdf->output();
+
+        /**
+         * Convert PDF content to base64
+         *
+         */
+        $pdfBase64 = base64_encode($pdfContent);
+
+        return response()->json(
+            $pdfBase64
+        )->setStatusCode(200);
     }
 
     public function show($id): JsonResponse
