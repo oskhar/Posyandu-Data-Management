@@ -56,7 +56,7 @@ const router = createRouter({
       children: [
         {
           path: "",
-          component: () => import("../pages/guest.vue"),
+          component: () => import("../pages/guest-home-page/guest-home-page.vue"),
         },
         {
           path: "selengkapnya-card-edukasi",
