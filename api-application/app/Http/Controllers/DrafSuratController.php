@@ -35,6 +35,7 @@ class DrafSuratController extends Controller
         if (!empty($data["search"])) {
             $query->where(function ($query) use ($data) {
                 $query->where("surat.penanda_tangan", "like", "%{$data["search"]}%")
+                    ->orWhere("surat.nomor", "like", "%{$data["search"]}%")
                     ->orWhere("admin.nama_lengkap", "like", "%{$data["search"]}%")
                     ->orWhere("surat.isi_surat", "like", "%{$data["search"]}%");
             });
