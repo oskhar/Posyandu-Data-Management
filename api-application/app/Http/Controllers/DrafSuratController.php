@@ -29,7 +29,8 @@ class DrafSuratController extends Controller
             "surat.created_at",
             "surat.jabatan_penanda_tangan"
         )->join("admin", "admin.id", "surat.admin_id")
-            ->where("surat.is_draft", true);
+            ->where("surat.is_draft", true)
+            ->where("surat.admin_id", Auth::user()->id);
 
         if (!empty($data["search"])) {
             $query->where(function ($query) use ($data) {
@@ -67,6 +68,9 @@ class DrafSuratController extends Controller
              *
              */
             $pdfBase64 = base64_encode($pdfContent);
+
+            $item["created_at"] = Carbon::parse($item->created_at)->format('d-m-Y H:i:s');
+            $item["file"] = $pdfBase64;
 
             return $item;
         });

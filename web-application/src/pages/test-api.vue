@@ -175,8 +175,9 @@ export default {
     postDrafSurat: async () => {
       const data = {
         penanda_tangan: "Dr. Susilo Bambang",
+        jabatan_penanda_tangan: "tesdoang",
         tanggal_surat: "2024-07-20",
-        nomor: "SPK/XX/2024",
+        nomor: "SPK/XX/2026",
         kalimat_pembuka: "<p>Dengan hormat,</p>",
         isi_surat: `<p>Sehubungan dengan program kerja sama antar posyandu yang membutuhkan kader gendong, kami menugaskan beberapa kader untuk membantu dalam kegiatan tersebut. Kegiatan ini akan dilaksanakan mulai tanggal 1 Agustus 2024 hingga 31 Agustus 2024. Diharapkan kader yang ditugaskan dapat bekerja sama dengan baik dan menjalankan tugas dengan penuh tanggung jawab.</p>`,
         kalimat_penutup:
@@ -214,7 +215,7 @@ export default {
       const data = {
         penanda_tangan: "Dr. Tesdoang",
         tanggal_surat: "2024-07-20",
-        nomor: "SPK/XI/2024",
+        nomor: "SPK/XI/2025",
         kalimat_pembuka: "<p>Dengan hormat,</p>",
         isi_surat: `<p>Sehubungan dengan program kerja sama antar posyandu yang membutuhkan kader gendong, kami menugaskan beberapa kader untuk membantu dalam kegiatan tersebut. Kegiatan ini akan dilaksanakan mulai tanggal 1 Agustus 2024 hingga 31 Agustus 2024. Diharapkan kader yang ditugaskan dapat bekerja sama dengan baik dan menjalankan tugas dengan penuh tanggung jawab.</p>`,
         kalimat_penutup:
@@ -271,10 +272,10 @@ export default {
     // this.getEdukasi();
     // this.getSurat();
     // this.postSurat();
-    this.previewSurat();
+    // this.previewSurat();
     // this.downloadSurat();
-    // this.getDrafSurat();
-    // this.postDrafSurat();
+    this.getDrafSurat();
+    this.postDrafSurat();
     // this.putDrafSurat();
     // this.postCetakDrafSurat();
     // this.deleteDrafSurat();
