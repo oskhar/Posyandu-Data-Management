@@ -1,56 +1,100 @@
 <script setup>
 import { QuillEditor } from "@vueup/vue-quill"
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import DOMPurify from 'dompurify';
 import DitugaskanTable from "./buat-surat-tugas/ditugaskan-table.vue";
+import { previewSuratTugasHandler } from "../handlers/surat-tugas-handler";
+import PreviewSuratTugas from "./preview-surat-tugas.vue";
+import { pdfBase64 } from "@/utils/pdf-base64";
 
-const { listPenandaTangan, surat } = defineProps({
-	listPenandaTangan: { type: Array, required: true },
-	surat: { type: Object },
-});
+const { surat } = defineProps({ surat: { type: Object } });
+const emit = defineEmits(['create', "createDraft"]);
 
-const emit = defineEmits(['create']);
+const isCreatingSuratTugas = ref(false);
+const isCreatingDraftSuratTugas = ref(false);
 
 const suratData = reactive(surat ?? {
-	penanda_tangan: listPenandaTangan[0],
-	tanggal_surat: new Date(),
-	nomor: '',
+	penanda_tangan: "",
+	tanggal_surat: null,
+	jabatan_penanda_tangan: "",
+	nomor: "",
 	kalimat_pembuka: '',
 	ditugaskan: [],
 	isi_surat: '',
 	kalimat_penutup: '',
 });
 
-const addDitugaskan = orang => suratData.ditugaskan.push(orang)
+const previewSuratTugasBase64 = ref(null);
+const isPreviewSuratActive = ref(false);
+const isPreviewSuratLoading = ref(false);
+
+const openPreviewSuratTugas = async () => {
+	try {
+		isPreviewSuratLoading.value = true;
+
+		const file = await previewSuratTugasHandler(suratData);
+
+		previewSuratTugasBase64.value = file;
+		isPreviewSuratActive.value = true;
+	} catch (error) {
+		previewSuratTugasBase64.value = null;
+		isPreviewSuratActive.value = false;
+	} finally {
+		isPreviewSuratLoading.value = false;
+	}
+}
+
+const closePreviewSuratTugas = isActive => {
+	isPreviewSuratActive.value = isActive;
+	previewSuratTugasBase64.value = null;
+}
+
+const addDitugaskan = orang => {
+	suratData.ditugaskan.push(orang);
+}
 
 const deleteDitugaskan = index => {
 	suratData.ditugaskan = suratData.ditugaskan.filter((_, i) => i !== index);
 };
 
-const handleCreateSuratTugas = () => {
+const emitCreateSuratTugas = async () => {
 	emit('create', {
 		...suratData,
 		kalimat_pembuka: DOMPurify.sanitize(suratData.kalimat_pembuka),
 		isi_surat: DOMPurify.sanitize(suratData.isi_surat),
 		kalimat_penutup: DOMPurify.sanitize(suratData.kalimat_penutup),
-	});
+	}, isCreatingSuratTugas);
 };
+
+const emitCreateDraftSuratTugas = async () => {
+	emit("createDraft", {
+		...suratData,
+		kalimat_pembuka: DOMPurify.sanitize(suratData.kalimat_pembuka),
+		isi_surat: DOMPurify.sanitize(suratData.isi_surat),
+		kalimat_penutup: DOMPurify.sanitize(suratData.kalimat_penutup),
+	}, isCreatingDraftSuratTugas);
+}
 </script>
 
 <template>
-	<VForm @submit.prevent="handleCreateSuratTugas">
+	<VForm>
 		<VCardItem>
 			<VCardTitle>Form Surat Tugas Posyandu</VCardTitle>
 		</VCardItem>
 
 		<VCardText>
-			<!-- Penanda tangan dan tanggal surat -->
+			<!-- Penanda tangan, jabatan, dan tanggal surat -->
 			<VRow>
-				<VCol cols="12" md="8">
-					<VCombobox v-model="suratData.penanda_tangan" :items="listPenandaTangan" label="Penanda Tangan" required />
+				<VCol cols="12" lg="4">
+					<VTextField v-model="suratData.penanda_tangan" label="Penanda Tangan" prepend-inner-icon="bx-user" required />
 				</VCol>
 
-				<VCol cols="12" md="4">
+				<VCol cols="12" md="6" lg="4">
+					<VTextField v-model="suratData.jabatan_penanda_tangan" label="Jabatan" prepend-inner-icon="bx-user-pin"
+						required />
+				</VCol>
+
+				<VCol cols="12" md="6" lg="4">
 					<VDateInput v-model="suratData.tanggal_surat" variant="outlined" label="Tanggal Surat" prepend-icon=""
 						prepend-inner-icon="$calendar" />
 				</VCol>
@@ -59,7 +103,7 @@ const handleCreateSuratTugas = () => {
 			<!-- Nomor surat -->
 			<VRow>
 				<VCol cols="12">
-					<VTextField v-model="suratData.nomor" label="Nomor Surat" required />
+					<VTextField v-model="suratData.nomor" label="Nomor Surat" prepend-inner-icon="bx-file" required />
 				</VCol>
 			</VRow>
 
@@ -78,8 +122,8 @@ const handleCreateSuratTugas = () => {
 			<VRow>
 				<VCol cols="12">
 					<h2 class="text-h6">Orang Yang Ditugaskan</h2>
-					<DitugaskanTable :on-add="addDitugaskan" :on-delete="deleteDitugaskan"
-						:list-ditugaskan="suratData.ditugaskan" />
+					<DitugaskanTable :list-ditugaskan="suratData.ditugaskan ?? []" @delete-from-table="deleteDitugaskan"
+						@add-to-table="addDitugaskan" />
 				</VCol>
 			</VRow>
 
@@ -106,11 +150,24 @@ const handleCreateSuratTugas = () => {
 			</VRow>
 		</VCardText>
 
-		<VCardActions>
-			<VBtn color="primary" variant="flat" type="submit">Buat</VBtn>
-			<VBtn color="primary" variant="outlined">Simpan Ke Draft</VBtn>
-			<VBtn color="primary" variant="outlined">Review</VBtn>
+		<VCardActions class="flex-wrap gap-2">
+			<VBtn color="primary" :loading="isCreatingSuratTugas" variant="flat" type="button" @click="emitCreateSuratTugas">
+				Buat Surat
+			</VBtn>
+
+			<VBtn color="primary" :loading="isCreatingDraftSuratTugas" variant="outlined" type="button"
+				@click="emitCreateDraftSuratTugas">
+				Simpan Ke Draft
+			</VBtn>
+
+			<VBtn :loading="isPreviewSuratLoading" color="primary" variant="outlined" @click="openPreviewSuratTugas">
+				Review
+			</VBtn>
+
 			<slot></slot>
+
+			<PreviewSuratTugas :is-dialog-active="isPreviewSuratActive" :base64-surat="pdfBase64
+				(previewSuratTugasBase64)" @update:is-dialog-active="closePreviewSuratTugas" />
 		</VCardActions>
 	</VForm>
 </template>
@@ -119,5 +176,9 @@ const handleCreateSuratTugas = () => {
 .fade-overlay {
 	background: linear-gradient(to bottom, transparent, rgb(var(--v-theme-surface)) 55%);
 	pointer-events: none;
+}
+
+.v-card-actions .v-btn~.v-btn:not(.v-btn-toggle .v-btn) {
+	margin-inline-start: 0;
 }
 </style>

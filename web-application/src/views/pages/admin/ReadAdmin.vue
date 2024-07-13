@@ -136,7 +136,7 @@
 
 <script>
 import axios from "axios";
-import config from "@/@core/config.vue";
+import config from "@/@core/config";
 import Swal from "sweetalert2";
 
 export default {

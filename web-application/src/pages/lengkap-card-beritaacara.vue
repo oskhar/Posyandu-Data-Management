@@ -2,17 +2,17 @@
   <VCard>
     <VCardItem>
       <div class="container">
-        <v-row class="text-xs-left" style="margin-top: 150px">
-          <v-col>
-            <h2 class="caption">Berita <font class="text-primary">Acara</font>
+        <VRow class="text-xs-left" style="margin-top: 150px">
+          <VCol>
+            <h2 class="caption">Berita <Font class="text-primary">Acara</Font>
             </h2>
 
             <p class="text-secondary">
               Informasi seputar BERITA & ACARA POSYANDU MELATI akan di tampilkan di
               sini
             </p>
-          </v-col>
-        </v-row>
+          </VCol>
+        </VRow>
 
         <VRow>
           <!-- 👉 Popular Uses Of The Internet -->
@@ -42,11 +42,11 @@
         <VRow>
           <VCol>
             <div class="text-center my-3 float-right" style="display: flex; justify-content: center">
-              <v-pagination v-model="page" :length="banyakPage" :total-visible="5" @click="fetchData"></v-pagination>
+              <VPagination v-model="page" :length="banyakPage" :total-visible="5" @click="fetchData"></VPagination>
             </div>
             <RouterLink to="./">
               <div>
-                <v-icon>bx-chevron-left</v-icon>
+                <VIcon>bx-chevron-left</VIcon>
                 Kembali
               </div>
             </RouterLink>
@@ -59,7 +59,7 @@
 
 <script>
 import axios from "axios";
-import config from "@/@core/config.vue";
+import config from "@/@core/config";
 
 export default {
   data() {
@@ -71,24 +71,27 @@ export default {
     };
   },
 
+  mounted() {
+    this.fetchData();
+  },
+
   methods: {
 
     async fetchData() {
       const banyakDataTampil = 9;
+
       const response = await axios.get(
-        `${config.urlServer}/api/berita?start=${this.page}&length=${banyakDataTampil}`
+        `${config.urlServer}/api/berita?start=${this.page}&length=${banyakDataTampil}`,
       );
-      this.dataBerita = response.data.berita.map((item) => {
+
+      this.dataBerita = response.data.berita.map(item => {
         item.id_berita = btoa(item.id_berita);
         item.gambar = this.imagePath + item.gambar;
+
         return item;
       });
       this.banyakPage = Math.ceil(response.data.jumlah_data / banyakDataTampil);
     },
-  },
-
-  mounted() {
-    this.fetchData();
   },
 };
 </script>

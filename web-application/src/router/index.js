@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import config from "@/@core/config.vue";
+import config from "@/@core/config";
 import axios from "axios";
 
 const isAuthenticated = async () => {

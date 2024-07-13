@@ -2,7 +2,7 @@
 // 👉 Images
 import posyanduImg from "@images/pages/3.png";
 import langit from "@images/pages/2.png";
-import config from "@/@core/config.vue";
+import config from "@/@core/config";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { ref } from "vue";
@@ -21,6 +21,9 @@ export default {
       isLoading: false,
     };
   },
+  mounted() {
+    this.fetchData();
+  },
   methods: {
     inputGambar() {
       document.getElementById("inputGambar").click();
@@ -29,6 +32,7 @@ export default {
       const files = file.target.files[0];
       if (files) {
         const fileReader = new FileReader();
+
         // Validasi tipe file sebelum menampilkan gambarnya
         if (
           files.type === "image/jpeg" ||
@@ -39,6 +43,7 @@ export default {
           fileReader.onload = async () => {
             if (typeof fileReader.result === "string") {
               this.posyandu.gambar_gedung = fileReader.result;
+
               const response = await axios.put(
                 `${this.urlServer}/api/posyandu`,
                 {
@@ -48,7 +53,7 @@ export default {
                   headers: {
                     Authorization: localStorage.getItem("tokenAuth"),
                   },
-                }
+                },
               );
             }
           };
@@ -62,6 +67,7 @@ export default {
     async putData() {
       try {
         this.isUpload = true;
+
         const data = {
           nama_posyandu: this.posyandu.nama_posyandu,
           kota: this.posyandu.kota,
@@ -80,8 +86,9 @@ export default {
             headers: {
               Authorization: localStorage.getItem("tokenAuth"),
             },
-          }
+          },
         );
+
         this.isUpload = false;
         if (response.data.success) {
           Swal.fire({
@@ -114,19 +121,18 @@ export default {
     },
     async fetchData() {
       this.isLoading = true;
+
       const response = await axios.get(`${config.urlServer}/api/posyandu`, {
         headers: {
           Authorization: localStorage.getItem("tokenAuth"),
         },
       });
+
       this.posyandu = response.data;
       this.posyandu.gambar_gedung =
         config.imagePath + this.posyandu.gambar_gedung;
       this.isLoading = false;
     },
-  },
-  mounted() {
-    this.fetchData();
   },
 };
 </script>
@@ -142,11 +148,11 @@ export default {
       padding-block: 5px;
       border-radius: 5px;
     ">
-    <font>Menyimpan... </font>
+    <Font>Menyimpan... </Font>
     <VProgressCircular indeterminate color="primary" class="ml-3 float-center">
     </VProgressCircular>
   </VRow>
-  <VRow cols="12" md="12" sm="12" v-if="isLoading" class="text-center">
+  <VRow v-if="isLoading" cols="12" md="12" sm="12" class="text-center">
     <VCol>
       <VProgressCircular indeterminate color="primary" class="mt-5" size="50">
       </VProgressCircular>
@@ -156,32 +162,32 @@ export default {
     <div class="d-flex w-100 align-content-center">
       <VRow class="mx-1">
         <VCol cols="12">
-          <v-row justify="center">
-            <v-dialog v-model="dialog" persistent width="1024">
-              <template v-slot:activator="{ props }">
+          <VRow justify="center">
+            <VDialog v-model="dialog" persistent width="1024">
+              <template #activator="{ props }">
                 <div style="width: 100%" class="py-5 px-3">
                   <h1 class="text-primary float-left">POSYANDU MELATI</h1>
-                  <v-btn color="primary" class="float-right" v-bind="props">
+                  <VBtn color="primary" class="float-right" v-bind="props">
                     Edit
-                  </v-btn>
+                  </VBtn>
                 </div>
               </template>
-              <v-card>
-                <v-card-title>
+              <VCard>
+                <VCardTitle>
                   <span class="text-h5">Edit Halaman</span>
-                </v-card-title>
-                <v-card-text>
-                  <v-container>
-                    <v-row>
-                      <v-col cols="12">
-                        <VTextarea label="Profil" v-model="posyandu.penyampaian_ketua" required></VTextarea>
-                      </v-col>
-                      <v-col cols="12">
-                        <VTextarea label="Visi" v-model="posyandu.visi" required></VTextarea>
-                      </v-col>
-                      <v-col cols="12">
-                        <VTextarea label="Misi" v-model="posyandu.misi" required></VTextarea>
-                      </v-col>
+                </VCardTitle>
+                <VCardText>
+                  <VContainer>
+                    <VRow>
+                      <VCol cols="12">
+                        <VTextarea v-model="posyandu.penyampaian_ketua" label="Profil" required></VTextarea>
+                      </VCol>
+                      <VCol cols="12">
+                        <VTextarea v-model="posyandu.visi" label="Visi" required></VTextarea>
+                      </VCol>
+                      <VCol cols="12">
+                        <VTextarea v-model="posyandu.misi" label="Misi" required></VTextarea>
+                      </VCol>
                       <VCol cols="12" md="9">
                         <div class="d-flex flex-column justify-center gap-5">
                           <div class="d-flex flex-wrap gap-2">
@@ -196,24 +202,24 @@ export default {
                         </div>
                         <VAvatar rounded="lg" size="200" class="me-1 mt-3" :image="posyandu.gambar_gedung" />
                       </VCol>
-                    </v-row>
-                  </v-container>
-                </v-card-text>
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
+                    </VRow>
+                  </VContainer>
+                </VCardText>
+                <VCardActions>
+                  <VSpacer></VSpacer>
+                  <VBtn color="blue-darken-1" variant="text" @click="dialog = false">
                     Tutup
-                  </v-btn>
-                  <v-btn color="blue-darken-1" variant="text" @click="
+                  </VBtn>
+                  <VBtn color="blue-darken-1" variant="text" @click="
                     putData();
                   dialog = false;
                   ">
                     Simpan
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-          </v-row>
+                  </VBtn>
+                </VCardActions>
+              </VCard>
+            </VDialog>
+          </VRow>
         </VCol>
       </VRow>
     </div>
@@ -221,7 +227,8 @@ export default {
       <img style="width: 100%; height: 500px; object-fit: cover" :src="posyandu.gambar_gedung" alt="" />
     </VCol>
     <VCol md="3" sm="12">
-      <img style="width: 250px; height: 250px; object-fit: cover" :src="imagePath + posyandu.foto_profile_ketua" alt="" />
+      <img style="width: 250px; height: 250px; object-fit: cover" :src="imagePath + posyandu.foto_profile_ketua"
+        alt="" />
     </VCol>
     <VCol md="9" sm="12">
       <VCard class="text-center text-sm-start">

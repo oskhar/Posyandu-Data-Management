@@ -4,7 +4,7 @@
       <div class="container">
         <VRow class="text-xs-left" style="margin-top: 150px">
           <VCol>
-            <h2 class="caption">Penyuluhan <font class="text-primary">Edukasi</font>
+            <h2 class="caption">Penyuluhan <Font class="text-primary">Edukasi</Font>
             </h2>
             <p class="text-secondary">
               Informasi seputar EDUKASI POSYANDU MELATI akan di tampilkan di
@@ -13,7 +13,7 @@
           </VCol>
         </VRow>
 
-        <V-row class="mt-5">
+        <VRow class="mt-5">
           <VCol v-for="(data) in dataEdukasi" cols="12" sm="6" md="4">
             <RouterLink :to="`./edukasi-guest?id_edukasi=${data.id_edukasi}`">
               <VCard>
@@ -37,16 +37,16 @@
               </VCard>
             </RouterLink>
           </VCol>
-        </V-row>
+        </VRow>
 
         <VRow>
           <VCol>
             <div class="text-center my-3 float-right">
-              <v-pagination v-model="page" :length="banyakPage" :total-visible="5" @click="fetchData"></v-pagination>
+              <VPagination v-model="page" :length="banyakPage" :total-visible="5" @click="fetchData"></VPagination>
             </div>
             <RouterLink to="./">
               <div>
-                <v-icon>bx-chevron-left</v-icon>
+                <VIcon>bx-chevron-left</VIcon>
                 Kembali
               </div>
             </RouterLink>
@@ -59,7 +59,7 @@
 
 <script>
 import axios from "axios";
-import config from "@/@core/config.vue";
+import config from "@/@core/config";
 
 export default {
   data() {
@@ -71,25 +71,28 @@ export default {
     };
   },
 
+  mounted() {
+    this.fetchData();
+  },
+
   methods: {
 
     async fetchData() {
       const banyakDataTampil = 9;
+
       const response = await axios.get(
-        `${config.urlServer}/api/edukasi?start=${this.page}&length=${banyakDataTampil}`
+        `${config.urlServer}/api/edukasi?start=${this.page}&length=${banyakDataTampil}`,
       );
-      this.dataEdukasi = response.data.edukasi.map((item) => {
+
+      this.dataEdukasi = response.data.edukasi.map(item => {
         item.id_edukasi = btoa(item.id_edukasi);
         item.gambar = this.imagePath + item.gambar;
+
         return item;
       });
       this.banyakPage = Math.ceil(response.data.jumlah_data / banyakDataTampil);
     },
 
-  },
-
-  mounted() {
-    this.fetchData();
   },
 };
 </script>

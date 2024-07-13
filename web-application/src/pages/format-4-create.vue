@@ -29,7 +29,8 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField id="ayah" v-model="nama_ayah" placeholder="Masukkan Nama Ayah..." persistent-placeholder />
+                  <VTextField id="ayah" v-model="nama_ayah" placeholder="Masukkan Nama Ayah..."
+                    persistent-placeholder />
                 </VCol>
               </VRow>
             </VCol>
@@ -41,7 +42,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField v-model="nama_ibu" id="ibu" placeholder="Masukkan Nama Ibu..." persistent-placeholder />
+                  <VTextField id="ibu" v-model="nama_ibu" placeholder="Masukkan Nama Ibu..." persistent-placeholder />
                 </VCol>
               </VRow>
             </VCol>
@@ -53,7 +54,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField v-model="nik_ayah" id="nik_ayah" placeholder="Masukkan NIK Ayah..."
+                  <VTextField id="nik_ayah" v-model="nik_ayah" placeholder="Masukkan NIK Ayah..."
                     persistent-placeholder />
                 </VCol>
               </VRow>
@@ -66,7 +67,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField v-model="nik_ibu" id="nik_ibu" placeholder="Masukkan NIK Ibu..." persistent-placeholder />
+                  <VTextField id="nik_ibu" v-model="nik_ibu" placeholder="Masukkan NIK Ibu..." persistent-placeholder />
                 </VCol>
               </VRow>
             </VCol>
@@ -78,7 +79,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField placeholder="" type="date" v-model="tanggal_meninggal_ibu" />
+                  <VTextField v-model="tanggal_meninggal_ibu" placeholder="" type="date" />
                 </VCol>
               </VRow>
             </VCol>
@@ -114,11 +115,11 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VAutocomplete placeholder="Pilih...." v-model="provinceId" :items="provinces" />
+                  <VAutocomplete v-model="provinceId" placeholder="Pilih...." :items="provinces" />
                 </VCol>
               </VRow>
             </VCol>
-            <VCol cols="12" v-if="regencies.length > 0">
+            <VCol v-if="regencies.length > 0" cols="12">
               <VRow no-gutters>
                 <!-- 👉 First Name -->
                 <VCol cols="12" md="3">
@@ -126,11 +127,11 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VAutocomplete placeholder="Pilih...." v-model="regencyId" :items="regencies" />
+                  <VAutocomplete v-model="regencyId" placeholder="Pilih...." :items="regencies" />
                 </VCol>
               </VRow>
             </VCol>
-            <VCol cols="12" v-if="districts.length > 0">
+            <VCol v-if="districts.length > 0" cols="12">
               <VRow no-gutters>
                 <!-- 👉 First Name -->
                 <VCol cols="12" md="3">
@@ -138,11 +139,11 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VAutocomplete placeholder="Pilih...." v-model="districtId" :items="districts" />
+                  <VAutocomplete v-model="districtId" placeholder="Pilih...." :items="districts" />
                 </VCol>
               </VRow>
             </VCol>
-            <VCol cols="12" v-if="villages.length > 0">
+            <VCol v-if="villages.length > 0" cols="12">
               <VRow no-gutters>
                 <!-- 👉 First Name -->
                 <VCol cols="12" md="3">
@@ -150,7 +151,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VAutocomplete placeholder="Pilih...." v-model="villageId" :items="villages" />
+                  <VAutocomplete v-model="villageId" placeholder="Pilih...." :items="villages" />
                 </VCol>
               </VRow>
             </VCol>
@@ -171,7 +172,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField v-model="umur" id="umur" placeholder="tahun.." persistent-placeholder type="number" />
+                  <VTextField id="umur" v-model="umur" placeholder="tahun.." persistent-placeholder type="number" />
                 </VCol>
               </VRow>
             </VCol>
@@ -183,7 +184,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField v-model="kelompok_dasawisma" id="dasawisma" placeholder="Kelompok dasawisma.."
+                  <VTextField id="dasawisma" v-model="kelompok_dasawisma" placeholder="Kelompok dasawisma.."
                     persistent-placeholder />
                 </VCol>
               </VRow>
@@ -196,7 +197,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField v-model="tanggal_pendaftaran" id="penggantian" placeholder="Tanggal Pendaftaran.."
+                  <VTextField id="penggantian" v-model="tanggal_pendaftaran" placeholder="Tanggal Pendaftaran.."
                     persistent-placeholder type="date" />
                 </VCol>
               </VRow>
@@ -209,7 +210,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField v-model="umur_kehamilan" id="umur_kehamilan" placeholder="bulan.." persistent-placeholder
+                  <VTextField id="umur_kehamilan" v-model="umur_kehamilan" placeholder="bulan.." persistent-placeholder
                     type="number" />
                 </VCol>
               </VRow>
@@ -222,7 +223,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField v-model="hamil_ke" id="lila" placeholder="Hamil ke berapa.." persistent-placeholder
+                  <VTextField id="lila" v-model="hamil_ke" placeholder="Hamil ke berapa.." persistent-placeholder
                     type="number" />
                 </VCol>
               </VRow>
@@ -235,7 +236,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField v-model="lila" id="lila" placeholder="cm.." persistent-placeholder type="number" />
+                  <VTextField id="lila" v-model="lila" placeholder="cm.." persistent-placeholder type="number" />
                 </VCol>
               </VRow>
             </VCol>
@@ -247,7 +248,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField v-model="pmt_pemulihan" id="pmt_pemulihan" placeholder="PMT Pemulihan.."
+                  <VTextField id="pmt_pemulihan" v-model="pmt_pemulihan" placeholder="PMT Pemulihan.."
                     persistent-placeholder />
                 </VCol>
               </VRow>
@@ -260,19 +261,19 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VSelect v-model="penimbangan" :items="[]" label="Penimbangan" placeholder="Pilih beberapa" multiple
-                    chips no-data-text="Masukan hasil penimbangan" id="penimbangan">
-                    <template v-slot:prepend-item>
-                      <v-list>
-                        <v-list-item-group>
-                          <v-list-item v-for="( month, index ) in  months " :key="index" ripple @mousedown.prevent
-                            class="mb-3">
+                  <VSelect id="penimbangan" v-model="penimbangan" :items="[]" label="Penimbangan"
+                    placeholder="Pilih beberapa" multiple chips no-data-text="Masukan hasil penimbangan">
+                    <template #prepend-item>
+                      <VList>
+                        <VListItemGroup>
+                          <VListItem v-for="( month, index ) in months " :key="index" ripple class="mb-3"
+                            @mousedown.prevent>
                             {{ month }}
-                            <VTextField v-model="penimbangan[index]" id="penimbangan" placeholder="kg.."
+                            <VTextField id="penimbangan" v-model="penimbangan[index]" placeholder="kg.."
                               persistent-placeholder type="number" />
-                          </v-list-item>
-                        </v-list-item-group>
-                      </v-list>
+                          </VListItem>
+                        </VListItemGroup>
+                      </VList>
                     </template>
                   </VSelect>
                 </VCol>
@@ -288,17 +289,17 @@
                 <VCol cols="12" md="9">
                   <VSelect v-model="pilihPilTambahDarah" :items="itemPilTambahDarah" label="pil tambah darah"
                     placeholder="Pilih beberapa" multiple chips>
-                    <template v-slot:prepend-item>
-                      <v-list-item ripple @mousedown.prevent @click="toggleHasil">
-                        <v-list-item-action>
-                          <v-icon
+                    <template #prepend-item>
+                      <VListItem ripple @mousedown.prevent @click="toggleHasil">
+                        <VListItemAction>
+                          <VIcon
                             :color="pilihPilTambahDarah.length === itemPilTambahDarah.length ? 'primary' : 'secondary'">
                             {{ iconHasil }}
-                          </v-icon>
-                          <font class="ml-2"> Pilih Semua </font>
-                        </v-list-item-action>
-                      </v-list-item>
-                      <v-divider class="mt-2"></v-divider>
+                          </VIcon>
+                          <Font class="ml-2"> Pilih Semua </Font>
+                        </VListItemAction>
+                      </VListItem>
+                      <VDivider class="mt-2"></VDivider>
                     </template>
                   </VSelect>
                 </VCol>
@@ -312,19 +313,19 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VSelect v-model="imunisasi" :items="[]" label="Penimbangan" placeholder="Pilih beberapa" multiple chips
-                    no-data-text="Masukan hasil imunisasi" id="imunisasi">
-                    <template v-slot:prepend-item>
-                      <v-list>
-                        <v-list-item-group>
-                          <v-list-item v-for="( month, index ) in  listImunisasi " :key="index" ripple @mousedown.prevent
-                            class="mb-3">
+                  <VSelect id="imunisasi" v-model="imunisasi" :items="[]" label="Penimbangan"
+                    placeholder="Pilih beberapa" multiple chips no-data-text="Masukan hasil imunisasi">
+                    <template #prepend-item>
+                      <VList>
+                        <VListItemGroup>
+                          <VListItem v-for="( month, index ) in listImunisasi " :key="index" ripple class="mb-3"
+                            @mousedown.prevent>
                             Imunisasi {{ month }}
-                            <VTextField v-model="imunisasi[index]" id="imunisasi" placeholder="kg.."
+                            <VTextField id="imunisasi" v-model="imunisasi[index]" placeholder="kg.."
                               persistent-placeholder type="date" />
-                          </v-list-item>
-                        </v-list-item-group>
-                      </v-list>
+                          </VListItem>
+                        </VListItemGroup>
+                      </VList>
                     </template>
                   </VSelect>
                 </VCol>
@@ -338,7 +339,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VCheckbox v-model="vit_a" id="vit_a" :label="`Ya`" />
+                  <VCheckbox id="vit_a" v-model="vit_a" label="Ya" />
                 </VCol>
               </VRow>
             </VCol>
@@ -350,7 +351,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField v-model="keterangan" id="keterangan" placeholder="Keterangan.." persistent-placeholder />
+                  <VTextField id="keterangan" v-model="keterangan" placeholder="Keterangan.." persistent-placeholder />
                 </VCol>
               </VRow>
             </VCol>
@@ -360,7 +361,7 @@
                 <VProgressCircular v-if="isLoading" indeterminate color="white">
                 </VProgressCircular>
 
-                <font v-else>Simpan</font>
+                <Font v-else>Simpan</Font>
               </VBtn>
             </VCol>
           </VRow>
@@ -372,7 +373,7 @@
 
 <script>
 import axios from "axios";
-import config from "@/@core/config.vue";
+import config from "@/@core/config";
 import Swal from "sweetalert2";
 import { ref } from "vue";
 
@@ -380,10 +381,10 @@ export default {
   data() {
     return {
       months: [
-        'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+        'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember',
       ],
       listImunisasi: [
-        'I', 'II', 'III', 'IV', 'V'
+        'I', 'II', 'III', 'IV', 'V',
       ],
       itemPilTambahDarah: [
         'BKS I',
@@ -429,6 +430,16 @@ export default {
       pilihPilTambahDarah: [],
     };
   },
+  computed: {
+    pilihSemuaHasil() {
+      return this.pilihPilTambahDarah.length === this.itemPilTambahDarah.length
+    },
+    iconHasil() {
+      if (this.pilihSemuaHasil) return 'mdi-close-box'
+
+      return 'mdi-checkbox-blank-outline'
+    },
+  },
   watch: {
     provinceId() {
       this.regencyId = null
@@ -450,20 +461,11 @@ export default {
     },
     villageId() {
       this.completed = true
-    }
+    },
   },
   mounted() {
     this.fetchProvinces();
     this.fetchListOrtu();
-  },
-  computed: {
-    pilihSemuaHasil() {
-      return this.pilihPilTambahDarah.length === this.itemPilTambahDarah.length
-    },
-    iconHasil() {
-      if (this.pilihSemuaHasil) return 'mdi-close-box'
-      return 'mdi-checkbox-blank-outline'
-    },
   },
   methods: {
     toggleHasil() {
@@ -483,68 +485,76 @@ export default {
             Authorization: localStorage.getItem("tokenAuth"),
           },
         });
+
       this.listOrangTua = response.data;
     },
     async fetchProvinces() {
       this.fetchingProvinces = true
+
       const response = await axios.get(`${config.urlServer}/api/indonesia/provinces`)
+
       this.fetchingProvinces = false
       this.provinces = response.data.map(item => {
-        let result = {
+        return {
           title: item.name,
-          value: item.id
+          value: item.id,
         }
-        return result
       })
     },
     async fetchRegencies() {
       if (!this.provinceId) {
         this.regencies = []
+
         return
       }
       this.fetchingRegencies = true
+
       const response = await axios.get(`${config.urlServer}/api/indonesia/regencies?province_id=${this.provinceId}`)
+
       this.fetchingRegencies = false
       this.regencies = response.data.map(item => {
-        let result = {
+        return {
           title: item.name,
-          value: item.id
+          value: item.id,
         }
-        return result
       })
     },
     async fetchDistricts() {
       if (!this.regencyId) {
         this.districts = []
+
         return
       }
 
       this.fetchingDistricts = true
+
       const response = await axios.get(`${config.urlServer}/api/indonesia/districts?regency_id=${this.regencyId}`)
+
       this.fetchingDistricts = false
       this.districts = response.data.map(item => {
-        let result = {
+        return {
           title: item.name,
-          value: item.id
+          value: item.id,
         }
-        return result
       })
     },
     async fetchVillages() {
       if (!this.districtId) {
         this.villages = []
+
         return
       }
 
       this.fetchingVillages = true
+
       const response = await axios.get(`${config.urlServer}/api/indonesia/villages?district_id=${this.districtId}`)
+
       this.fetchingVillages = false
       this.villages = response.data.map(item => {
-        let result = {
+        return {
           title: item.name,
-          value: item.id
+          value: item.id,
         }
-        return result
       })
     },
 
@@ -567,6 +577,7 @@ export default {
           title: "Data alamat tidak lengkap!!",
         });
         this.isLoading = false;
+
         return 0;
       }
 
@@ -594,6 +605,7 @@ export default {
           imunisasi: this.imunisasi,
           keterangan: this.keterangan,
         };
+
         const response = await axios.post(
           `${config.urlServer}/api/format-d`,
           data,
@@ -601,8 +613,9 @@ export default {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("tokenAuth")}`,
             },
-          }
+          },
         );
+
         if (response.data.success) {
           Swal.fire({
             toast: true,

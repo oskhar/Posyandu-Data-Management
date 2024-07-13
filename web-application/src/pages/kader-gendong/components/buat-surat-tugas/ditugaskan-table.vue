@@ -1,27 +1,31 @@
 <script setup>
 import Swal from "sweetalert2";
 import { computed, ref } from 'vue';
-import { ditugaskanValidator } from "../../validators";
+import { ditugaskanValidator } from "../../validators/surat-tugas-validator";
 import { getErrorMessage } from "@/utils/get-error-message";
 
 const { listDitugaskan, onAdd, onDelete } = defineProps({
 	listDitugaskan: { type: Array, required: true },
-	onAdd: { type: Function, required: true },
-	onDelete: { type: Function, required: true },
 })
+
+const emit = defineEmits(['addToTable', 'deleteFromTable']);
 
 // New data input refs
 const nama = ref('');
 const jabatan = ref('');
 const alamat = ref('');
 
+const isAddingToTable = ref(false);
 const isInputNotValid = computed(() => !nama.value.trim() || !jabatan.value.trim() || !alamat.value.trim());
 
-const handleOnAdd = async () => {
+
+const emitAddToTable = async () => {
 	try {
+		isAddingToTable.value = true;
 		if (isInputNotValid.value) {
 			return;
 		}
+
 
 		const parsedOrang = await ditugaskanValidator.parseAsync({
 			nama: nama.value,
@@ -29,22 +33,26 @@ const handleOnAdd = async () => {
 			alamat: alamat.value,
 		})
 
-
-		onAdd(parsedOrang);
+		emit("addToTable", parsedOrang);
 
 		nama.value = '';
 		jabatan.value = '';
 		alamat.value = '';
 
 	} catch (error) {
-		Swal.fire({
+		await Swal.fire({
 			icon: 'error',
 			title: 'Input Tidak Valid',
 			text: getErrorMessage(error, 'Nama, jabatan, dan alamat harus diisi!'),
 		})
-
+	} finally {
+		isAddingToTable.value = false;
 	}
 }
+
+const emitDeleteFromTable = rowIndex => {
+	emit("deleteFromTable", rowIndex);
+} 
 </script>
 
 <template>
@@ -71,7 +79,7 @@ const handleOnAdd = async () => {
 				<td>{{ orang.jabatan }}</td>
 				<td>{{ orang.alamat }}</td>
 				<td class="text-center">
-					<VBtn color="error" @click="onDelete(parseInt(index))">
+					<VBtn color="error" @click="emitDeleteFromTable(parseInt(index))">
 						<VIcon icon="bx-trash" start />
 						Hapus
 					</VBtn>
@@ -94,7 +102,7 @@ const handleOnAdd = async () => {
 					<VTextField v-model="alamat" class="pa-0" label="Alamat..." variant="plain"></VTextField>
 				</td>
 				<td class="text-center">
-					<VBtn :disabled="isInputNotValid" @click="handleOnAdd">
+					<VBtn :disabled="isInputNotValid || isAddingToTable" @click="emitAddToTable">
 						<VIcon icon="bx-user-plus" start />
 						Tambah
 					</VBtn>

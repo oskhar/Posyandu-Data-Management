@@ -57,8 +57,8 @@
                         </VBtn>
                       </div>
                     </div>
-                    <VAvatar rounded="lg" size="200" class="me-1 mt-3" :image="projectImageLocal.imageValue"
-                      v-show="projectImageLocal.imageValue !== ''" />
+                    <VAvatar v-show="projectImageLocal.imageValue !== ''" rounded="lg" size="200" class="me-1 mt-3"
+                      :image="projectImageLocal.imageValue" />
                   </VCol>
                 </VRow>
                 <!-- 👉 Upload Photo -->
@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import config from "@/@core/config.vue";
+import config from "@/@core/config";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -104,7 +104,7 @@ export default {
       projectImageLocal.value.imageValue = projectImage.imageValue;
     };
 
-    const changeAvatar = (file) => {
+    const changeAvatar = file => {
       const fileReader = new FileReader();
       const { files } = file.target;
       if (files && files.length) {
@@ -128,7 +128,7 @@ export default {
       }
     };
 
-    const submitData = async (formData) => {
+    const submitData = async formData => {
       try {
         formData.preventDefault();
         isLoading.value = true;
@@ -139,6 +139,7 @@ export default {
           "materi": materi.value,
           "gambar": projectImageLocal.value.imageValue,
         };
+
         const response = await axios.post(
           `${config.urlServer}/api/edukasi`,
           data,
@@ -146,8 +147,9 @@ export default {
             headers: {
               Authorization: localStorage.getItem("tokenAuth"),
             },
-          }
+          },
         );
+
         if (response.data.success) {
           await Swal.fire({
             toast: true,
@@ -180,6 +182,8 @@ export default {
       }
       isLoading.value = false;
     };
+
+
     return {
       refInputEl,
       judul,

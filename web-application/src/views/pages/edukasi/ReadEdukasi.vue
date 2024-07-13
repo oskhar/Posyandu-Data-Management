@@ -9,7 +9,7 @@
       padding-block: 5px;
       border-radius: 5px;
     ">
-    <font>Menyimpan... </font>
+    <Font>Menyimpan... </Font>
     <VProgressCircular indeterminate color="primary" class="ml-3 float-center">
     </VProgressCircular>
   </VRow>
@@ -23,15 +23,15 @@
       padding-block: 5px;
       border-radius: 5px;
     ">
-    <font>Menghapus... </font>
+    <Font>Menghapus... </Font>
     <VProgressCircular indeterminate color="primary" class="ml-3 float-center">
     </VProgressCircular>
   </VRow>
   <VRow>
-    <VCol cols="12" md="12" sm="12" v-if="isLoading" class="text-center">
+    <VCol v-if="isLoading" cols="12" md="12" sm="12" class="text-center">
       <VProgressCircular indeterminate color="primary" class="mt-5" size="50"></VProgressCircular>
     </VCol>
-    <VCol v-else v-for="(data, index) in dataEdukasi" cols="12" md="4" sm="12">
+    <VCol v-for="(data, index) in dataEdukasi" v-else cols="12" md="4" sm="12">
       <VCard>
         <VImg :src="data.gambar" cover style="height: 280px">
           <h2 v-if="data.gambar == imagePath + null" class="text-center text-secondary" style="margin-top: 25%">
@@ -50,9 +50,9 @@
           </p>
           <p>penulis: {{ data.nama_lengkap }}</p>
 
-          <v-row justify="center">
-            <v-dialog v-model="dialog[data.id_edukasi]" persistent width="1024">
-              <template v-slot:activator="{ props }">
+          <VRow justify="center">
+            <VDialog v-model="dialog[data.id_edukasi]" persistent width="1024">
+              <template #activator="{ props }">
                 <VRow class="mt-3">
                   <VCol>
                     <!-- <VBtn> Lihat </VBtn> -->
@@ -60,30 +60,31 @@
                     <VBtn color="primary" class="mx-3" v-bind="props">
                       Edit & Lihat
                     </VBtn>
-                    <VBtn color="error" @click="deleteEdukasi(data.id_edukasi)" class="float-right">
-                      <v-icon>bx-trash</v-icon>
+                    <VBtn color="error" class="float-right" @click="deleteEdukasi(data.id_edukasi)">
+                      <VIcon>bx-trash</VIcon>
                     </VBtn>
                   </VCol>
                 </VRow>
               </template>
-              <v-card>
-                <v-card-title>
+              <VCard>
+                <VCardTitle>
                   <div class="text-h5">Edit</div>
-                </v-card-title>
-                <v-card-text>
-                  <v-container>
+                </VCardTitle>
+                <VCardText>
+                  <VContainer>
                     <!-- <p class="">Perubahan Otomatis Tersimpan</p> -->
-                    <v-row>
-                      <v-col cols="12">
-                        <VTextField id="judul" v-model="data.judul" placeholder="Masukkan Judul" persistent-placeholder />
-                      </v-col>
-                      <v-col cols="12">
+                    <VRow>
+                      <VCol cols="12">
+                        <VTextField id="judul" v-model="data.judul" placeholder="Masukkan Judul"
+                          persistent-placeholder />
+                      </VCol>
+                      <VCol cols="12">
                         <VTextarea id="materi" v-model="data.materi" placeholder="Masukkan Isi Materi"
                           persistent-placeholder />
-                      </v-col>
-                      <v-col cols="12">
+                      </VCol>
+                      <VCol cols="12">
                         <!-- <VImg :src="urlServer + data.gambar" :width="110" /> -->
-                      </v-col>
+                      </VCol>
                       <VCol cols="12" md="9">
                         <div class="d-flex flex-column justify-center gap-5">
                           <div class="d-flex flex-wrap gap-2">
@@ -96,27 +97,27 @@
                               @change="changeAvatar($event, index)" />
                           </div>
                         </div>
-                        <VAvatar rounded="lg" size="200" class="me-1 mt-3" :image="data.gambar"
-                          v-show="data.gambar !== ''" />
+                        <VAvatar v-show="data.gambar !== ''" rounded="lg" size="200" class="me-1 mt-3"
+                          :image="data.gambar" />
                       </VCol>
-                    </v-row>
-                  </v-container>
-                </v-card-text>
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn color="blue-darken-1" variant="text" @click="dialog[data.id_edukasi] = false">
+                    </VRow>
+                  </VContainer>
+                </VCardText>
+                <VCardActions>
+                  <VSpacer></VSpacer>
+                  <VBtn color="blue-darken-1" variant="text" @click="dialog[data.id_edukasi] = false">
                     Tutup
-                  </v-btn>
-                  <v-btn color="blue-darken-1" variant="text" @click="
+                  </VBtn>
+                  <VBtn color="blue-darken-1" variant="text" @click="
                     putData(index);
                   dialog[data.id_edukasi] = false;
                   ">
                     Simpan
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-          </v-row>
+                  </VBtn>
+                </VCardActions>
+              </VCard>
+            </VDialog>
+          </VRow>
         </VCardText>
       </VCard>
     </VCol>
@@ -124,7 +125,7 @@
   <VRow>
     <VCol>
       <div class="text-center my-3 float-right">
-        <v-pagination v-model="page" :length="banyakPage" :total-visible="5" @click="fetchData"></v-pagination>
+        <VPagination v-model="page" :length="banyakPage" :total-visible="5" @click="fetchData"></VPagination>
       </div>
     </VCol>
   </VRow>
@@ -132,7 +133,7 @@
 
 <script>
 import axios from "axios";
-import config from "@/@core/config.vue";
+import config from "@/@core/config";
 import Swal from "sweetalert2";
 
 export default {
@@ -148,6 +149,10 @@ export default {
       isUpload: false,
       isDelete: false,
     };
+  },
+
+  mounted() {
+    this.fetchData();
   },
 
   methods: {
@@ -167,8 +172,9 @@ export default {
             headers: {
               Authorization: localStorage.getItem("tokenAuth"),
             },
-          }
+          },
         );
+
         this.isUpload = false;
         if (response.data.success) {
           Swal.fire({
@@ -210,14 +216,16 @@ export default {
       this.isLoading = true;
 
       const banyakDataTampil = 6;
+
       const response = await axios.get(
-        `${this.urlServer}/api/edukasi?start=${this.page}&length=${banyakDataTampil}`
+        `${this.urlServer}/api/edukasi?start=${this.page}&length=${banyakDataTampil}`,
       );
 
       this.isLoading = false;
 
-      this.dataEdukasi = response.data.edukasi.map((item) => {
+      this.dataEdukasi = response.data.edukasi.map(item => {
         item.gambar = this.imagePath + item.gambar;
+
         return item;
       });
       this.banyakPage = Math.ceil(response.data.jumlah_data / banyakDataTampil);
@@ -231,16 +239,19 @@ export default {
         showCancelButton: true,
         denyButtonText: "Hapus",
       });
+
       if (ask.isDenied) {
         this.isDelete = true;
+
         const response = await axios.delete(
           `${this.urlServer}/api/edukasi?id_edukasi=${id_edukasi}`,
           {
             headers: {
               Authorization: localStorage.getItem("tokenAuth"),
             },
-          }
+          },
         );
+
         this.isDelete = false;
         if (response.data.success) {
           Swal.fire({
@@ -264,6 +275,7 @@ export default {
       const files = file.target.files[0];
       if (files) {
         const fileReader = new FileReader();
+
         // Validasi tipe file sebelum menampilkan gambarnya
         if (
           files.type === "image/jpeg" ||
@@ -274,6 +286,7 @@ export default {
           fileReader.onload = async () => {
             if (typeof fileReader.result === "string") {
               this.dataEdukasi[indexEdukasi].gambar = fileReader.result;
+
               const response = await axios.put(
                 `${this.urlServer}/api/edukasi`,
                 {
@@ -284,7 +297,7 @@ export default {
                   headers: {
                     Authorization: localStorage.getItem("tokenAuth"),
                   },
-                }
+                },
               );
             }
           };
@@ -295,10 +308,6 @@ export default {
         }
       }
     },
-  },
-
-  mounted() {
-    this.fetchData();
   },
 };
 </script>

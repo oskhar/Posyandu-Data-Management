@@ -1,6 +1,6 @@
 <script setup>
 import axios from "axios";
-import config from "@/@core/config.vue";
+import config from "@/@core/config";
 import Swal from "sweetalert2";
 
 const isCurrentPasswordVisible = ref(false);
@@ -11,7 +11,7 @@ const newPassword = ref("");
 const confirmPassword = ref("");
 const isLoading = ref(false);
 
-const submitkan = async (formData) => {
+const submitkan = async formData => {
   formData.preventDefault();
   isLoading.value = true;
   try {
@@ -25,8 +25,9 @@ const submitkan = async (formData) => {
           baru_b: confirmPassword.value,
         },
       },
-      { headers: { Authorization: localStorage.getItem("tokenAuth") } }
+      { headers: { Authorization: localStorage.getItem("tokenAuth") } },
     );
+
     isLoading.value = false;
     Swal.fire({
       toast: true,
@@ -74,15 +75,15 @@ const passwordRequirements = ["Minimal 8 karakter"];
                 <VTextField v-model="currentPassword" :type="isCurrentPasswordVisible ? 'text' : 'password'"
                   :append-inner-icon="isCurrentPasswordVisible ? 'bx-hide' : 'bx-show'
                     " label="Password Saat Ini" placeholder="············" @click:append-inner="
-    isCurrentPasswordVisible = !isCurrentPasswordVisible
-    " />
+                      isCurrentPasswordVisible = !isCurrentPasswordVisible
+                      " />
               </VCol>
               <VCol cols="12" sm="4">
                 <!-- 👉 new password -->
                 <VTextField v-model="newPassword" :type="isNewPasswordVisible ? 'text' : 'password'" :append-inner-icon="isNewPasswordVisible ? 'bx-hide' : 'bx-show'
                   " label="Password Baru" placeholder="············" @click:append-inner="
-    isNewPasswordVisible = !isNewPasswordVisible
-    " />
+                    isNewPasswordVisible = !isNewPasswordVisible
+                    " />
               </VCol>
 
               <VCol cols="12" sm="4">
@@ -90,8 +91,8 @@ const passwordRequirements = ["Minimal 8 karakter"];
                 <VTextField v-model="confirmPassword" :type="isConfirmPasswordVisible ? 'text' : 'password'"
                   :append-inner-icon="isConfirmPasswordVisible ? 'bx-hide' : 'bx-show'
                     " label="Konfirmasi Password Baru" placeholder="············" @click:append-inner="
-    isConfirmPasswordVisible = !isConfirmPasswordVisible
-    " />
+                      isConfirmPasswordVisible = !isConfirmPasswordVisible
+                      " />
               </VCol>
             </VRow>
 

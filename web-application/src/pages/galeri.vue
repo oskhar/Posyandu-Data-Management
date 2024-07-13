@@ -9,7 +9,7 @@
       padding-block: 5px;
       border-radius: 5px;
     ">
-    <font>Menghapus... </font>
+    <Font>Menghapus... </Font>
     <VProgressCircular indeterminate color="primary" class="ml-3 float-center">
     </VProgressCircular>
   </VRow>
@@ -23,7 +23,7 @@
       padding-block: 5px;
       border-radius: 5px;
     ">
-    <font>Mengunggah... </font>
+    <Font>Mengunggah... </Font>
     <VProgressCircular indeterminate color="primary" class="ml-3 float-center">
     </VProgressCircular>
   </VRow>
@@ -40,10 +40,10 @@
     </VCol>
   </VRow>
   <VRow>
-    <VCol cols="12" md="12" sm="12" v-if="isLoadingPage" class="text-center">
+    <VCol v-if="isLoadingPage" cols="12" md="12" sm="12" class="text-center">
       <VProgressCircular indeterminate color="primary" class="mt-5" size="50"></VProgressCircular>
     </VCol>
-    <VCol v-else cols="6" md="3" sm="6" v-for="data in dataGambar">
+    <VCol v-for="data in dataGambar" v-else cols="6" md="3" sm="6">
       <VImg style="width: 100%; height: 200px" cover :src="data.gambar" alt="image"
         @click="lihatGambar(data.gambar, data.nama_lengkap, data.id_gambar)" />
       <!-- <h1>{{ data.id_gambar }}</h1> -->
@@ -52,16 +52,17 @@
   <VRow>
     <VCol>
       <div class="text-center my-3 float-right">
-        <v-pagination v-model="page" :length="banyakPage" :total-visible="5" @click="fetchData"></v-pagination>
+        <VPagination v-model="page" :length="banyakPage" :total-visible="5" @click="fetchData"></VPagination>
       </div>
     </VCol>
   </VRow>
 </template>
+
 <script>
 //import EditEdukasi from "./EditEdukasi.vue";
-import wallet from "@/assets/images/pages/1.png";
+import wallet from "@images/pages/1.png";
 import axios from "axios";
-import config from "@/@core/config.vue";
+import config from "@/@core/config";
 import { ref } from "vue";
 import Swal from "sweetalert2";
 
@@ -81,6 +82,10 @@ export default {
     };
   },
 
+  mounted() {
+    this.fetchData();
+  },
+
   methods: {
     inputGambar() {
       document.getElementById("inputGambar").click();
@@ -88,14 +93,18 @@ export default {
 
     async fetchData() {
       this.isLoadingPage = true;
+
       const banyakDataTampil = 12;
+
       const response = await axios.get(
-        `${this.urlServer}/api/gambar?start=${this.page}&length=${banyakDataTampil}`
+        `${this.urlServer}/api/gambar?start=${this.page}&length=${banyakDataTampil}`,
       );
-      this.dataGambar = response.data.gambar.map((item) => {
+
+      this.dataGambar = response.data.gambar.map(item => {
         item.gambar = ref(config.imagePath + item.gambar);
         item.refInput = ref();
         item.nama_lengkap = ref(item.nama_lengkap);
+
         return item;
       });
       this.banyakPage = Math.ceil(response.data.jumlah_data / banyakDataTampil);
@@ -112,16 +121,19 @@ export default {
         showCancelButton: true,
         denyButtonText: "Hapus",
       });
+
       if (ask.isDenied) {
         this.isDelete = true;
+
         const response = await axios.delete(
           `${this.urlServer}/api/gambar?id_gambar=${id_gambar}`,
           {
             headers: {
               Authorization: localStorage.getItem("tokenAuth"),
             },
-          }
+          },
         );
+
         this.isDelete = false;
         if (response.data.success) {
           Swal.fire({
@@ -147,6 +159,7 @@ export default {
       const files = file.target.files[0];
       if (files) {
         const fileReader = new FileReader();
+
         // Validasi tipe file sebelum menampilkan gambarnya
         if (
           files.type === "image/jpeg" ||
@@ -166,8 +179,9 @@ export default {
                   headers: {
                     Authorization: localStorage.getItem("tokenAuth"),
                   },
-                }
+                },
               );
+
               this.isLoading = false;
               if (response.data.success) {
                 Swal.fire({
@@ -193,10 +207,6 @@ export default {
         }
       }
     },
-  },
-
-  mounted() {
-    this.fetchData();
   },
 };
 </script>

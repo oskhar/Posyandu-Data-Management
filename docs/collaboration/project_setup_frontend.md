@@ -17,6 +17,10 @@ npm install
 > - [Error dan cara mengatasinya](../errors/npm_install.md)
 > - [Tempat diksusi tentang error](https://vitejs.dev/config/)
 
+### Mempersiapkan Environment Variables
+
+Copy file `.env.example` dan ubah namanya menjadi `.env`. Jika sudah, kita bisa mengisi variable-variable tersebut sesuai dengan lingkungan development kita.
+
 ### Compile and Hot-Reload for `Development`
 
 ```sh

@@ -1,6 +1,6 @@
 <script setup>
 import AnalyticsCongratulations from "@/views/dashboard/AnalyticsCongratulations.vue";
-import config from "@/@core/config.vue";
+import config from "@/@core/config";
 import { onMounted, ref } from "vue";
 import axios from "axios";
 

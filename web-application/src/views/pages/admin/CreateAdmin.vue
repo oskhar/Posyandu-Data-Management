@@ -58,7 +58,7 @@
                                     </VCol>
 
                                     <VCol cols="12" md="9">
-                                        <VSelect :items="listJabatan" id="id_jabatan" v-model="id_jabatan"
+                                        <VSelect id="id_jabatan" v-model="id_jabatan" :items="listJabatan"
                                             placeholder="Masukkan Jabatan" persistent-placeholder />
                                     </VCol>
                                 </VRow>
@@ -80,10 +80,10 @@
         </VCol>
     </VRow>
 </template>
-  
+
 <script>
 import axios from "axios";
-import config from "@/@core/config.vue";
+import config from "@/@core/config";
 import Swal from "sweetalert2";
 
 export default {
@@ -106,6 +106,7 @@ export default {
             const response = await axios.get(
                 `${config.urlServer}/api/jabatan`,
             );
+
             this.listJabatan = response.data;
         },
         async submitData(formData) {
@@ -114,10 +115,12 @@ export default {
                 this.isLoading = true;
 
                 const data = new FormData();
+
                 data.append("id_jabatan", this.id_jabatan);
                 data.append("email_admin", this.email_admin);
                 data.append("nama_lengkap", this.nama_lengkap);
                 data.append("password", this.password);
+
                 const response = await axios.post(
                     `${config.urlServer}/api/admin`,
                     data,
@@ -125,8 +128,9 @@ export default {
                         headers: {
                             Authorization: localStorage.getItem("tokenAuth"),
                         },
-                    }
+                    },
                 );
+
                 if (response.data.success) {
                     await Swal.fire({
                         toast: true,
@@ -145,6 +149,7 @@ export default {
                 window.location.href = "/data/admin";
             } catch (get) {
                 const errorMessage = Object.values(get.response.data.errors).join(" - ");
+
                 await Swal.fire({
                     toast: true,
                     position: "top",
@@ -163,4 +168,3 @@ export default {
     },
 };
 </script>
-  

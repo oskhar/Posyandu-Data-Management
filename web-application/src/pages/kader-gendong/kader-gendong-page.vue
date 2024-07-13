@@ -3,11 +3,10 @@ import { ref } from 'vue';
 import ListDraftSuratTugas from './components/draft-surat-tugas/list-draft-surat-tugas.vue';
 import BuatSuratTugas from './components/buat-surat-tugas/buat-surat-tugas.vue';
 import ListHistorySuratTugas from './components/history-surat-tugas/list-history-surat-tugas.vue';
-import { createSuratTugas } from './api/surat-tugas-api';
-import { getErrorMessage } from '@/utils/get-error-message';
-import Swal from 'sweetalert2';
-import { createDownload } from '@/utils/create-download';
+import { createSuratTugasHandler } from './handlers/surat-tugas-handler';
+import { createDraftSuratTugasHandler } from './handlers/draft-surat-tugas-handler';
 
+// Initialize data
 const tabs = [
   {
     title: "Buat Surat",
@@ -27,26 +26,6 @@ const tabs = [
 ];
 
 const activeTab = ref(tabs[0].tab);
-
-const createSurat = async surat => {
-  try {
-    const result = await createSuratTugas(surat);
-
-    createDownload(result.file)
-
-    await Swal.fire({
-      icon: 'success',
-      title: 'Berhasil membuat surat',
-      text: result.message,
-    })
-  } catch (error) {
-    await Swal.fire({
-      icon: 'error',
-      title: 'Gagal membuat surat tugas',
-      text: getErrorMessage(error, 'Gagal membuat surat tugas!'),
-    })
-  }
-}
 </script>
 
 <template>
@@ -59,16 +38,16 @@ const createSurat = async surat => {
   <VDivider />
 
   <VWindow v-model="activeTab" class="mt-5 disable-tab-transition">
-    <VWindowItem value="buat-surat">
-      <BuatSuratTugas @create="createSurat" />
+    <VWindowItem :value="tabs[0].tab">
+      <BuatSuratTugas v-if="activeTab === tabs[0].tab" />
     </VWindowItem>
 
-    <VWindowItem value="draft-surat">
-      <ListDraftSuratTugas />
+    <VWindowItem :value="tabs[1].tab">
+      <ListDraftSuratTugas v-if="activeTab === tabs[1].tab" />
     </VWindowItem>
 
-    <VWindowItem value="histori-surat">
-      <ListHistorySuratTugas />
+    <VWindowItem :value="tabs[2].tab">
+      <ListHistorySuratTugas v-if="activeTab === tabs[2].tab" />
     </VWindowItem>
   </VWindow>
 </template>
