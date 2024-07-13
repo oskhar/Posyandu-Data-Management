@@ -1933,11 +1933,17 @@ paths:
                 current_page: 2
                 data:
                   array:
-                    id: "integer"
                     penanda_tangan: "string"
-                    pembuat_surat: "string"
-                    isi_surat: "text"
+                    jabatan_penanda_tangan: "string"
                     tanggal_surat: "date"
+                    nomor: "string"
+                    kalimat_pembuka: "text"
+                    ditugaskan:
+                      nama: "string"
+                      jabatan: "string"
+                      alamat: "text"
+                    isi_surat: "text"
+                    kalimat_penutup: "text"
                     created_at: "datetime"
                     file: "Blob base64"
                 first_page_url: "http://localhost:8000/api/kader-gendong?page=1"
