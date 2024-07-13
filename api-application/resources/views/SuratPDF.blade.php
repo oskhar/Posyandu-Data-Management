@@ -111,9 +111,11 @@
         <p style="line-height: 50%;text-decoration:underline">Surat Penugasan Kader Gendong Posyandu</p>
         <p style="line-height: 50%">{{ $nomor }}</p>
     </center>
-    <br><br><br>
+    <br><br>
 
     <div>{!! $kalimat_pembuka !!}</div>
+
+    <br>
 
     <table>
         <thead>
@@ -135,6 +137,9 @@
     </table>
 
     <div>{!! $isi_surat !!}</div>
+
+    <br>
+
     <div>{!! $kalimat_penutup !!}</div>
     <br><br><br><br>
 

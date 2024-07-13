@@ -103,6 +103,8 @@ class SuratController extends Controller
             "jabatan_penanda_tangan" => "required|string"
         ]);
 
+        $data["tanggal_surat"] = Carbon::parse($data["tanggal_surat"])->format('Y-m-d');
+
         /**
          * String blob pdf
          *
@@ -220,6 +222,8 @@ class SuratController extends Controller
                 "penugasan_id" => $penugasan->id
             ]);
         }
+
+        $data["tanggal_surat"] = Carbon::parse($data["tanggal_surat"])->format('Y-m-d');
 
         /**
          * String blob pdf
