@@ -64,7 +64,6 @@ export default {
 
     <!-- Tombol login di pojok kanan -->
     <div class="ml-auto">
-
       <UserProfile v-if="fotoProfile" class="hide-md-and-up" />
       <VBtn v-else class="hide-md-and-up" @click="navigate('/login')">Login</VBtn>
     </div>
@@ -89,24 +88,13 @@ export default {
   <FooterGuest />
 </template>
 
-<style>
-@media screen and (min-width: 800px) {
+<style scoped>
+@media screen and (min-width: 960px) {
   .hamburger {
     display: none;
   }
 
   .hide-sm-and-down {
-    display: none;
-  }
-
-  #logo-mobile {
-    display: none;
-  }
-
-}
-
-@media screen and (max-width: 800px) {
-  #logo {
     display: none;
   }
 }
