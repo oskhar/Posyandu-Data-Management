@@ -1,6 +1,6 @@
 <script setup>
 import { QuillEditor } from "@vueup/vue-quill"
-import { nextTick, reactive, ref } from 'vue';
+import { reactive, ref } from 'vue';
 import DOMPurify from 'dompurify';
 import DitugaskanTable from "./buat-surat-tugas/ditugaskan-table.vue";
 import { previewSuratTugasHandler } from "../handlers/surat-tugas-handler";
@@ -58,32 +58,21 @@ const deleteDitugaskan = index => {
 };
 
 const emitCreateSuratTugas = async () => {
-	isCreatingSuratTugas.value = true;
-
 	emit('create', {
 		...suratData,
 		kalimat_pembuka: DOMPurify.sanitize(suratData.kalimat_pembuka),
 		isi_surat: DOMPurify.sanitize(suratData.isi_surat),
 		kalimat_penutup: DOMPurify.sanitize(suratData.kalimat_penutup),
-	});
-
-	await nextTick()
-
-	isCreatingSuratTugas.value = false;
+	}, isCreatingSuratTugas);
 };
 
 const emitCreateDraftSuratTugas = async () => {
-	isCreatingDraftSuratTugas.value = true;
 	emit("createDraft", {
 		...suratData,
 		kalimat_pembuka: DOMPurify.sanitize(suratData.kalimat_pembuka),
 		isi_surat: DOMPurify.sanitize(suratData.isi_surat),
 		kalimat_penutup: DOMPurify.sanitize(suratData.kalimat_penutup),
-	});
-
-	await nextTick()
-
-	isCreatingDraftSuratTugas.value = false;
+	}, isCreatingDraftSuratTugas);
 }
 </script>
 

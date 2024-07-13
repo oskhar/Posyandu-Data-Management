@@ -35,7 +35,7 @@ export const deleteDraftSuratTugas = async id => {
 }
 
 export const cetakDraftSuratTugas = async id => {
-	const { data } = await api.delete(`/kader-gendong/draf/cetak/${id}`);
+	const { data } = await api.post(`/kader-gendong/draf/cetak/${id}`);
  	
 	return data;
 }

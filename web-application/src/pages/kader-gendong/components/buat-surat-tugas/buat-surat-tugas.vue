@@ -4,11 +4,14 @@ import { suratTugasValidator } from '../../validators/surat-tugas-validator';
 import { getErrorMessage } from '@/utils/get-error-message';
 import { mysqlDateTime } from '@/utils/mysql-datetime';
 import FormSuratTugas from '../form-surat-tugas.vue';
+import { createSuratTugasHandler } from "../../handlers/surat-tugas-handler";
+import { createDraftSuratTugasHandler } from "../../handlers/draft-surat-tugas-handler";
 
-const emit = defineEmits(['create', "createDraft"])
 
-const emitCreateSuratTugas = async suratData => {
+const emitCreateSuratTugas = async (suratData, isCreatingSuratTugas) => {
 	try {
+		isCreatingSuratTugas.value = true;
+
 		const rawSurat = {
 			...suratData,
 			tanggal_surat: mysqlDateTime(suratData.tanggal_surat),
@@ -25,19 +28,24 @@ const emitCreateSuratTugas = async suratData => {
 		})
 
 		if (isConfirmed) {
-			emit("create", parsedSurat);
+			await createSuratTugasHandler(parsedSurat);
 		}
+
 	} catch (error) {
 		await Swal.fire({
 			icon: 'error',
 			title: 'Input Tidak Valid',
 			html: `<pre>${getErrorMessage(error, 'Gagal membuat surat tugas!')}</pre>`,
 		})
+	} finally {
+		isCreatingSuratTugas.value = false;
 	}
 };
 
-const emitCreateDraftSuratTugas = async suratData => {
+const emitCreateDraftSuratTugas = async (suratData, isCreatingDraftSuratTugas) => {
 	try {
+		isCreatingDraftSuratTugas.value = true;
+
 		const rawSurat = {
 			...suratData,
 			tanggal_surat: mysqlDateTime(suratData.tanggal_surat),
@@ -45,18 +53,16 @@ const emitCreateDraftSuratTugas = async suratData => {
 
 		const parsedSurat = await suratTugasValidator.parseAsync(rawSurat)
 
-		emit("createDraft", parsedSurat);
+		await createDraftSuratTugasHandler(parsedSurat)
 
-		await Swal.fire({
-			icon: 'success',
-			title: 'Draft surat berhasil disimpan',
-		})
 	} catch (error) {
 		await Swal.fire({
 			icon: 'error',
 			title: 'Input Tidak Valid',
 			html: `<pre>${getErrorMessage(error, 'Gagal membuat draft surat tugas!')}</pre>`,
 		})
+	} finally {
+		isCreatingDraftSuratTugas.value = false;
 	}
 };
 </script>

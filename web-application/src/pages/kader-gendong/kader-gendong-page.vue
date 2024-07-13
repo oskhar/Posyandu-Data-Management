@@ -39,8 +39,7 @@ const activeTab = ref(tabs[0].tab);
 
   <VWindow v-model="activeTab" class="mt-5 disable-tab-transition">
     <VWindowItem :value="tabs[0].tab">
-      <BuatSuratTugas v-if="activeTab === tabs[0].tab" @create="createSuratTugasHandler"
-        @create-draft="createDraftSuratTugasHandler" />
+      <BuatSuratTugas v-if="activeTab === tabs[0].tab" />
     </VWindowItem>
 
     <VWindowItem :value="tabs[1].tab">

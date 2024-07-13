@@ -1,5 +1,5 @@
 import Swal from "sweetalert2";
-import { createDraftSuratTugas, deleteDraftSuratTugas, editDraftSuratTugas } from "../api/draft-surat-tugas-api";
+import { cetakDraftSuratTugas, createDraftSuratTugas, deleteDraftSuratTugas, editDraftSuratTugas } from "../api/draft-surat-tugas-api";
 import { getErrorMessage } from "@/utils/get-error-message";
 
 export const createDraftSuratTugasHandler = async surat => {
@@ -51,4 +51,21 @@ export const deleteDraftSuratTugasHandler = async draftId => {
 			text: getErrorMessage(error, 'Gagal menghapus draft surat tugas!'),
 		});
 	}
+};
+
+export const cetakDraftSuratTugasHandler = async suratId => {
+  try {
+     await cetakDraftSuratTugas(suratId);
+
+    await Swal.fire({
+      icon: 'success',
+      title: 'Berhasil mencetak surat tugas dari draft ini',
+    });
+  } catch (error) {
+    await Swal.fire({
+      icon: 'error',
+      title: 'Gagal mencetak surat tugas dari draft ini!',
+      text: getErrorMessage(error, 'Gagal mencetak surat tugas dari draft ini!'),
+    });
+  }
 };
