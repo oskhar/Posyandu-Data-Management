@@ -14,14 +14,14 @@ const isCreatingSuratTugas = ref(false);
 const isCreatingDraftSuratTugas = ref(false);
 
 const suratData = reactive(surat ?? {
-	penanda_tangan: "dsadsad",
-	tanggal_surat: new Date(),
-	jabatan_penanda_tangan: "<p>asdasdas</p>",
-	nomor: crypto.randomUUID().slice(0, 10),
-	kalimat_pembuka: 'dsdsds',
-	ditugaskan: [{ nama: 'dsadsa', jabatan: 'wkwkk', alamat: 'dsadsa' }],
-	isi_surat: '<p>dsdls;dl</p>',
-	kalimat_penutup: '<p>epwqdoskjifnhubfih</p>',
+	penanda_tangan: "",
+	tanggal_surat: null,
+	jabatan_penanda_tangan: "",
+	nomor: "",
+	kalimat_pembuka: '',
+	ditugaskan: [],
+	isi_surat: '',
+	kalimat_penutup: '',
 });
 
 const previewSuratTugasBase64 = ref(null);
