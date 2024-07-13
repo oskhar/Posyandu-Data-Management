@@ -1,6 +1,7 @@
 <script setup>
 import { pdfBase64 } from '@/utils/pdf-base64';
-import { computed } from 'vue';
+import { ref } from 'vue';
+import PreviewSuratTugas from '../preview-surat-tugas.vue';
 
 /**
  * @type {{surat: import("@/pages/kader-gendong/api/surat-tugas-api").SuratTugas}}
@@ -9,12 +10,11 @@ const { surat } = defineProps({
 	surat: { type: Object, required: true },
 });
 
-
-const dialogActivator = computed(() => `surat-${surat.nomor}`)
+const isDialogActive = ref(false);
 </script>
 
 <template>
-	<VCard :id="dialogActivator" style="height: 312px;" class="cursor-pointer">
+	<VCard style="height: 312px;" class="cursor-pointer" @click="isDialogActive = true">
 		<VCardItem class="border-b-md pb-3">
 			<p class="text-subtitle-1 mb-1 font-black">No. Surat: {{ surat.nomor }}</p>
 			<p class="text-subtitle-2 mb-1 font-black">Penanda Tangan: {{ surat.penanda_tangan }}</p>
@@ -28,18 +28,8 @@ const dialogActivator = computed(() => `surat-${surat.nomor}`)
 		</VCardText>
 	</VCard>
 
-	<VDialog :activator="`#${dialogActivator}`" max-width="1024" persistent>
-		<template #default="{ isActive }">
-			<VCard prepend-icon="bx-file" title="Preview Surat">
-				<VCardText>
-					<iframe class="rounded mt-2 border-0" width="100%" height="500px" :src="pdfBase64(surat.file)" />
-				</VCardText>
-				<VCardActions>
-					<VBtn class="ml-auto" color="error" @click="isActive.value = false">Tutup</VBtn>
-				</VCardActions>
-			</VCard>
-		</template>
-	</VDialog>
+	<PreviewSuratTugas :is-dialog-active="isDialogActive" :base64-surat="pdfBase64(surat.file)"
+		@update:is-dialog-active="isDialogActive = $event" />
 </template>
 
 <style lang="scss" scoped>

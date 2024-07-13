@@ -11,6 +11,11 @@ export const suratTugasValidator = z.object({
     invalid_type_error: "Penanda tangan tidak valid",
     required_error: "Penanda tangan tidak boleh kosong",
   }).trim().min(1, "Penanda tangan tidak boleh kosong"),
+  
+  "jabatan_penanda_tangan": z.string({
+    invalid_type_error: "Jabatan penanda tangan tidak valid",
+    required_error: "Jabatan penanda tangan tidak boleh kosong",
+  }).trim().min(1, "Jabatan penanda tangan tidak boleh kosong"),
   "tanggal_surat": z.string({
     required_error: "Tanggal surat tidak boleh kosong",
   }).trim(),

@@ -1,18 +1,14 @@
 <script setup>
 import Swal from "sweetalert2";
-import { ref } from 'vue';
-import { suratTugasValidator } from '../../validators';
+import { suratTugasValidator } from '../../validators/surat-tugas-validator';
 import { getErrorMessage } from '@/utils/get-error-message';
 import { mysqlDateTime } from '@/utils/mysql-datetime';
 import FormSuratTugas from '../form-surat-tugas.vue';
 
-const emit = defineEmits(['create'])
+const emit = defineEmits(['create', "createDraft"])
 
-const listPenandaTangan = ref(['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']);
-
-const handleCreateSuratTugas = async suratData => {
+const emitCreateSuratTugas = async suratData => {
 	try {
-
 		const rawSurat = {
 			...suratData,
 			tanggal_surat: mysqlDateTime(suratData.tanggal_surat),
@@ -39,13 +35,37 @@ const handleCreateSuratTugas = async suratData => {
 		})
 	}
 };
+
+const emitCreateDraftSuratTugas = async suratData => {
+	try {
+		const rawSurat = {
+			...suratData,
+			tanggal_surat: mysqlDateTime(suratData.tanggal_surat),
+		}
+
+		const parsedSurat = await suratTugasValidator.parseAsync(rawSurat)
+
+		emit("createDraft", parsedSurat);
+
+		await Swal.fire({
+			icon: 'success',
+			title: 'Draft surat berhasil disimpan',
+		})
+	} catch (error) {
+		await Swal.fire({
+			icon: 'error',
+			title: 'Input Tidak Valid',
+			html: `<pre>${getErrorMessage(error, 'Gagal membuat draft surat tugas!')}</pre>`,
+		})
+	}
+};
 </script>
 
 <template>
 	<VRow>
 		<VCol cols="12">
 			<VCard>
-				<FormSuratTugas :list-penanda-tangan="listPenandaTangan" @create="handleCreateSuratTugas" />
+				<FormSuratTugas @create="emitCreateSuratTugas" @create-draft="emitCreateDraftSuratTugas" />
 			</VCard>
 		</VCol>
 	</VRow>

@@ -1,22 +1,41 @@
 <script setup>
-import { computed } from 'vue';
+import { nextTick, ref } from 'vue';
 import FormSuratTugas from '../form-surat-tugas.vue';
 
-const { draft, listPenandaTangan } = defineProps({
+const { draft } = defineProps({
 	draft: { type: Object, required: true },
-	listPenandaTangan: { type: Array, required: true },
 });
 
+const emit = defineEmits(['deleteDraft', 'editDraft']);
 
-const dialogActivator = computed(() => `draft-${draft.id}`)
 
-const editSurat = editedDraft => {
-	console.log('Edit surat', editedDraft);
+const isDeletingDraft = ref(false);
+
+const emitDeleteDraftSuratTugas = async id => {
+	isDeletingDraft.value = true;
+	emit('deleteDraft', id);
+
+	await nextTick()
+	isDeletingDraft.value = false;
 };
+
+const isEditingDraft = ref(false);
+
+const emitEditDraftSuratTugas = async draft => {
+	isEditingDraft.value = true;
+	emit('editDraft', draft);
+
+	await nextTick()
+
+	isEditingDraft.value = false;
+};
+
+
+const isDialogActive = ref(false);
 </script>
 
 <template>
-	<VCard :id="dialogActivator" style="height: 312px;" class="cursor-pointer">
+	<VCard style="height: 312px;" class="cursor-pointer" @click="isDialogActive = true">
 		<VCardItem class="border-b-md pb-3">
 			<p class="text-subtitle-1 mb-1 font-black">No. Surat: {{ draft.nomor }}</p>
 			<p class="text-subtitle-2 mb-1 font-black">Penanda Tangan: {{ draft.penanda_tangan }}</p>
@@ -30,11 +49,13 @@ const editSurat = editedDraft => {
 		</VCardText>
 	</VCard>
 
-	<VDialog :activator="`#${dialogActivator}`" max-width="1024" persistent>
+	<VDialog v-model="isDialogActive" max-width="1024" persistent>
 		<template #default="{ isActive }">
 			<VCard prepend-icon="bx-file" title="Edit Draft">
-				<FormSuratTugas :surat="draft" :list-penanda-tangan="listPenandaTangan" @create="editSurat">
-					<VBtn class="ml-auto" color="error" @click="isActive.value = false">Cancel</VBtn>
+				<FormSuratTugas :surat="draft" @create-draft="emitEditDraftSuratTugas">
+					<VBtn :disabled="isDeletingDraft" variant="outlined" color="error" style="margin: 0 !important;"
+						@click="emitDeleteDraftSuratTugas(draft.id)">Hapus Draft</VBtn>
+					<VBtn :disabled="isEditingDraft" class="ml-auto" color="error" @click="isActive.value = false">Cancel</VBtn>
 				</FormSuratTugas>
 			</VCard>
 		</template>
