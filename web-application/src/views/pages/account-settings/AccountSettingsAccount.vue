@@ -4,12 +4,7 @@
       <VCard title="Account Details">
         <VCardText class="d-flex">
           <!-- 👉 Avatar -->
-          <VAvatar
-            rounded="lg"
-            size="100"
-            class="me-6"
-            :image="dataAdmin.foto_profile"
-          />
+          <VAvatar rounded="lg" size="100" class="me-6" :image="dataAdmin.foto_profile" />
 
           <!-- 👉 Upload Photo -->
           <form class="d-flex flex-column justify-center gap-5">
@@ -19,15 +14,8 @@
                 <span class="d-none d-sm-block">Unggah foto baru</span>
               </VBtn>
 
-              <input
-                id="gambar"
-                ref="refInputEl"
-                type="file"
-                name="file"
-                accept=".jpeg,.png,.jpg,GIF"
-                hidden
-                @input="changeAvatar($event)"
-              />
+              <input id="gambar" ref="refInputEl" type="file" name="file" accept=".jpeg,.png,.jpg,GIF" hidden
+                @input="changeAvatar($event)" />
             </div>
 
             <p class="text-body-1 mb-0">Diperbolehkan JPG atau PNG.</p>
@@ -42,69 +30,39 @@
             <VRow>
               <!-- 👉 First Name -->
               <VCol md="6" cols="12">
-                <VTextField
-                  v-model="dataAdmin.nama_lengkap"
-                  label="Nama Lengkap"
-                />
+                <VTextField v-model="dataAdmin.nama_lengkap" label="Nama Lengkap" />
               </VCol>
 
               <!-- 👉 Email -->
               <VCol cols="12" md="6">
-                <VTextField
-                  v-model="dataAdmin.email_admin"
-                  label="E-mail"
-                  type="email"
-                />
+                <VTextField v-model="dataAdmin.email_admin" label="E-mail" type="email" />
               </VCol>
 
               <!-- 👉 Phone -->
               <VCol cols="12" md="6">
-                <VTextField
-                  v-model="dataAdmin.no_telp"
-                  label="Nomor Telepon"
-                  type="number"
-                  placeholder="858 8888 5555"
-                  prefix="+62"
-                />
+                <VTextField v-model="dataAdmin.no_telp" label="Nomor Telepon" type="number" placeholder="858 8888 5555"
+                  prefix="+62" />
               </VCol>
 
               <!-- 👉 Address -->
               <VCol cols="12" md="6">
-                <VTextField
-                  v-model="dataAdmin.alamat"
-                  label="Alamat"
-                  placeholder="123 Main St, New York, NY 10001"
-                />
+                <VTextField v-model="dataAdmin.alamat" label="Alamat" placeholder="123 Main St, New York, NY 10001" />
               </VCol>
 
               <!-- 👉 tanggalLahir -->
               <VCol cols="12" md="6">
-                <VTextField
-                  v-model="dataAdmin.tanggal_lahir"
-                  label="Tanggal Lahir"
-                  placeholder=""
-                  type="date"
-                />
+                <VTextField v-model="dataAdmin.tanggal_lahir" label="Tanggal Lahir" placeholder="" type="date" />
               </VCol>
 
               <!-- 👉 kelamin -->
               <VCol cols="12" md="6">
-                <VSelect
-                  v-model="dataAdmin.jenis_kelamin"
-                  label="Kelamin"
-                  placeholder="L"
-                  :items="['L', 'P']"
-                />
+                <VSelect v-model="dataAdmin.jenis_kelamin" label="Kelamin" placeholder="L" :items="['L', 'P']" />
               </VCol>
 
               <!-- 👉 Form Actions -->
               <VCol cols="12" md="9">
                 <VBtn type="submit" :disabled="isLoading">
-                  <VProgressCircular
-                    v-if="isLoading"
-                    indeterminate
-                    color="white"
-                  >
+                  <VProgressCircular v-if="isLoading" indeterminate color="white">
                   </VProgressCircular>
 
                   <span v-else>Simpan</span>
@@ -117,9 +75,10 @@
     </VCol>
   </VRow>
 </template>
+
 <script>
 import axios from "axios";
-import config from "@/@core/config.vue";
+import config from "@/@core/config";
 import avatar1 from "@images/avatars/avatar-1.png";
 import { ref } from "vue";
 import Swal from "sweetalert2";
@@ -127,6 +86,7 @@ import Swal from "sweetalert2";
 let isLoading = ref(false);
 
 export default {
+  components: {},
   data() {
     return {
       urlServer: config.urlServer,
@@ -138,7 +98,6 @@ export default {
       isLoading: isLoading,
     };
   },
-  components: {},
   mounted() {
     this.fetchData();
   },
@@ -164,8 +123,9 @@ export default {
             headers: {
               Authorization: localStorage.getItem("tokenAuth"),
             },
-          }
+          },
         );
+
         if (response.data.success) {
           await Swal.fire({
             toast: true,
@@ -199,14 +159,15 @@ export default {
     async fetchData() {
       const response = await axios.get(
         `${config.urlServer}/api/admin?id_admin=${localStorage.getItem(
-          "id_admin"
+          "id_admin",
         )}`,
         {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
           },
-        }
+        },
       );
+
       this.dataAdmin = response.data;
       this.dataAdmin.foto_profile =
         this.imagePath + this.dataAdmin.foto_profile;
@@ -222,6 +183,7 @@ export default {
       const files = file.target.files[0];
       if (files) {
         const fileReader = new FileReader();
+
         // Validasi tipe file sebelum menampilkan gambarnya
         if (
           files.type === "image/jpeg" ||
@@ -232,6 +194,7 @@ export default {
           fileReader.onload = async () => {
             try {
               this.dataAdmin.foto_profile = fileReader.result;
+
               const response = await axios.put(
                 `${this.urlServer}/api/admin`,
                 {
@@ -240,7 +203,7 @@ export default {
                 },
                 {
                   headers: { Authorization: localStorage.getItem("tokenAuth") },
-                }
+                },
               );
 
               if (response.data.success) {

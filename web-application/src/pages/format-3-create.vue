@@ -17,11 +17,7 @@
           </VRow>
           <VRow v-if="data_tersedia">
             <VCol cols="12">
-              <VAutocomplete
-                v-model="pilihOrangTua"
-                label="Nama WUS & PUS...."
-                :items="listOrangTua"
-              ></VAutocomplete>
+              <VAutocomplete v-model="pilihOrangTua" label="Nama WUS & PUS...." :items="listOrangTua"></VAutocomplete>
             </VCol>
           </VRow>
           <VRow v-else>
@@ -33,12 +29,8 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField
-                    id="ayah"
-                    v-model="nama_ayah"
-                    placeholder="Masukkan Nama Ayah..."
-                    persistent-placeholder
-                  />
+                  <VTextField id="ayah" v-model="nama_ayah" placeholder="Masukkan Nama Ayah..."
+                    persistent-placeholder />
                   <sup class="text-error">*Wajib diisi</sup>
                 </VCol>
               </VRow>
@@ -51,12 +43,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField
-                    v-model="nama_ibu"
-                    id="ibu"
-                    placeholder="Masukkan Nama Ibu..."
-                    persistent-placeholder
-                  />
+                  <VTextField id="ibu" v-model="nama_ibu" placeholder="Masukkan Nama Ibu..." persistent-placeholder />
                   <sup class="text-error">*Wajib diisi</sup>
                 </VCol>
               </VRow>
@@ -69,12 +56,8 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField
-                    v-model="nik_ayah"
-                    id="nik_ayah"
-                    placeholder="Masukkan NIK Ayah..."
-                    persistent-placeholder
-                  />
+                  <VTextField id="nik_ayah" v-model="nik_ayah" placeholder="Masukkan NIK Ayah..."
+                    persistent-placeholder />
                 </VCol>
               </VRow>
             </VCol>
@@ -86,12 +69,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField
-                    v-model="nik_ibu"
-                    id="nik_ibu"
-                    placeholder="Masukkan NIK Ibu..."
-                    persistent-placeholder
-                  />
+                  <VTextField id="nik_ibu" v-model="nik_ibu" placeholder="Masukkan NIK Ibu..." persistent-placeholder />
                 </VCol>
               </VRow>
             </VCol>
@@ -99,17 +77,11 @@
               <VRow no-gutters>
                 <!-- 👉 First Name -->
                 <VCol cols="12" md="3">
-                  <label for="tanggal-meninggal-ibu"
-                    >Tanggal Meninggal Ibu</label
-                  >
+                  <label for="tanggal-meninggal-ibu">Tanggal Meninggal Ibu</label>
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField
-                    placeholder=""
-                    type="date"
-                    v-model="tanggal_meninggal_ibu"
-                  />
+                  <VTextField v-model="tanggal_meninggal_ibu" placeholder="" type="date" />
                 </VCol>
               </VRow>
             </VCol>
@@ -121,11 +93,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField
-                    v-model="no_telp"
-                    placeholder="08xx"
-                    persistent-placeholder
-                  />
+                  <VTextField v-model="no_telp" placeholder="08xx" persistent-placeholder />
                 </VCol>
               </VRow>
             </VCol>
@@ -137,11 +105,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField
-                    v-model="rt_rw"
-                    placeholder="Masukkan RT/RW..."
-                    persistent-placeholder
-                  />
+                  <VTextField v-model="rt_rw" placeholder="Masukkan RT/RW..." persistent-placeholder />
                 </VCol>
               </VRow>
             </VCol>
@@ -153,15 +117,11 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VAutocomplete
-                    placeholder="Pilih...."
-                    v-model="provinceId"
-                    :items="provinces"
-                  />
+                  <VAutocomplete v-model="provinceId" placeholder="Pilih...." :items="provinces" />
                 </VCol>
               </VRow>
             </VCol>
-            <VCol cols="12" v-if="regencies.length > 0">
+            <VCol v-if="regencies.length > 0" cols="12">
               <VRow no-gutters>
                 <!-- 👉 First Name -->
                 <VCol cols="12" md="3">
@@ -169,15 +129,11 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VAutocomplete
-                    placeholder="Pilih...."
-                    v-model="regencyId"
-                    :items="regencies"
-                  />
+                  <VAutocomplete v-model="regencyId" placeholder="Pilih...." :items="regencies" />
                 </VCol>
               </VRow>
             </VCol>
-            <VCol cols="12" v-if="districts.length > 0">
+            <VCol v-if="districts.length > 0" cols="12">
               <VRow no-gutters>
                 <!-- 👉 First Name -->
                 <VCol cols="12" md="3">
@@ -185,15 +141,11 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VAutocomplete
-                    placeholder="Pilih...."
-                    v-model="districtId"
-                    :items="districts"
-                  />
+                  <VAutocomplete v-model="districtId" placeholder="Pilih...." :items="districts" />
                 </VCol>
               </VRow>
             </VCol>
-            <VCol cols="12" v-if="villages.length > 0">
+            <VCol v-if="villages.length > 0" cols="12">
               <VRow no-gutters>
                 <!-- 👉 First Name -->
                 <VCol cols="12" md="3">
@@ -201,11 +153,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VAutocomplete
-                    placeholder="Pilih...."
-                    v-model="villageId"
-                    :items="villages"
-                  />
+                  <VAutocomplete v-model="villageId" placeholder="Pilih...." :items="villages" />
                 </VCol>
               </VRow>
             </VCol>
@@ -226,13 +174,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField
-                    v-model="umur"
-                    id="umur"
-                    placeholder="tahun.."
-                    persistent-placeholder
-                    type="number"
-                  />
+                  <VTextField id="umur" v-model="umur" placeholder="tahun.." persistent-placeholder type="number" />
                   <sup class="text-error">*Wajib diisi</sup>
                 </VCol>
               </VRow>
@@ -245,12 +187,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField
-                    v-model="tahapan_ks"
-                    id="ks"
-                    placeholder="Tahapan KS.."
-                    persistent-placeholder
-                  />
+                  <VTextField id="ks" v-model="tahapan_ks" placeholder="Tahapan KS.." persistent-placeholder />
                   <sup class="text-error">*Wajib diisi</sup>
                 </VCol>
               </VRow>
@@ -263,12 +200,8 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField
-                    v-model="kelompok_dasawisma"
-                    id="dasawisma"
-                    placeholder="Kelompok dasawisma.."
-                    persistent-placeholder
-                  />
+                  <VTextField id="dasawisma" v-model="kelompok_dasawisma" placeholder="Kelompok dasawisma.."
+                    persistent-placeholder />
                   <sup class="text-error">*Wajib diisi</sup>
                 </VCol>
               </VRow>
@@ -281,13 +214,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField
-                    v-model="lila"
-                    id="lila"
-                    placeholder="cm.."
-                    persistent-placeholder
-                    type="number"
-                  />
+                  <VTextField id="lila" v-model="lila" placeholder="cm.." persistent-placeholder type="number" />
                   <sup class="text-error">*Wajib diisi</sup>
                 </VCol>
               </VRow>
@@ -300,18 +227,12 @@
                 </VCol>
 
                 <VCol cols="6" md="4">
-                  <VTextField
-                    placeholder="Hidup.."
-                    v-model="jumlah_anak_hidup"
-                  />
+                  <VTextField v-model="jumlah_anak_hidup" placeholder="Hidup.." />
                   <sup class="text-error">*Wajib diisi</sup>
                 </VCol>
 
                 <VCol cols="6" class="ml-5" md="4">
-                  <VTextField
-                    placeholder="Meninggal.."
-                    v-model="jumlah_anak_meninggal"
-                  />
+                  <VTextField v-model="jumlah_anak_meninggal" placeholder="Meninggal.." />
                   <sup class="text-error">*Wajib diisi</sup>
                 </VCol>
               </VRow>
@@ -324,34 +245,21 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VSelect
-                    v-model="pilihImunisasi"
-                    :items="itemImunisasi"
-                    label="imunisasi"
-                    placeholder="Pilih beberapa"
-                    multiple
-                    chips
-                  >
-                    <template v-slot:prepend-item>
-                      <v-list-item
-                        ripple
-                        @mousedown.prevent
-                        @click="toggleHasil"
-                      >
-                        <v-list-item-action>
-                          <v-icon
-                            :color="
-                              pilihImunisasi.length === itemImunisasi.length
-                                ? 'primary'
-                                : 'secondary'
-                            "
-                          >
+                  <VSelect v-model="pilihImunisasi" :items="itemImunisasi" label="imunisasi"
+                    placeholder="Pilih beberapa" multiple chips>
+                    <template #prepend-item>
+                      <VListItem ripple @mousedown.prevent @click="toggleHasil">
+                        <VListItemAction>
+                          <VIcon :color="pilihImunisasi.length === itemImunisasi.length
+                              ? 'primary'
+                              : 'secondary'
+                            ">
                             {{ iconHasil }}
-                          </v-icon>
-                          <font class="ml-2"> Pilih Semua </font>
-                        </v-list-item-action>
-                      </v-list-item>
-                      <v-divider class="mt-2"></v-divider>
+                          </VIcon>
+                          <Font class="ml-2"> Pilih Semua </Font>
+                        </VListItemAction>
+                      </VListItem>
+                      <VDivider class="mt-2"></VDivider>
                     </template>
                   </VSelect>
                 </VCol>
@@ -365,12 +273,8 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField
-                    v-model="jenis_kontrasepsi"
-                    id="kontrasepsi"
-                    placeholder="jenis.."
-                    persistent-placeholder
-                  />
+                  <VTextField id="kontrasepsi" v-model="jenis_kontrasepsi" placeholder="jenis.."
+                    persistent-placeholder />
                   <sup class="text-error">*Wajib diisi</sup>
                 </VCol>
               </VRow>
@@ -383,13 +287,8 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField
-                    v-model="tanggal_penggantian"
-                    id="penggantian"
-                    placeholder="Tanggal Penggantian.."
-                    persistent-placeholder
-                    type="date"
-                  />
+                  <VTextField id="penggantian" v-model="tanggal_penggantian" placeholder="Tanggal Penggantian.."
+                    persistent-placeholder type="date" />
                   <sup class="text-error">*Wajib diisi</sup>
                 </VCol>
               </VRow>
@@ -402,12 +301,8 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField
-                    v-model="penggantian_jenis_kontrasepsi"
-                    id="kontrasepsi"
-                    placeholder="jenis kontrasepsi.."
-                    persistent-placeholder
-                  />
+                  <VTextField id="kontrasepsi" v-model="penggantian_jenis_kontrasepsi" placeholder="jenis kontrasepsi.."
+                    persistent-placeholder />
                   <sup class="text-error">*Wajib diisi</sup>
                 </VCol>
               </VRow>
@@ -420,12 +315,8 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField
-                    v-model="keterangan"
-                    id="keterangan"
-                    placeholder="berikan keterangan.."
-                    persistent-placeholder
-                  />
+                  <VTextField id="keterangan" v-model="keterangan" placeholder="berikan keterangan.."
+                    persistent-placeholder />
                   <sup class="text-error">*Wajib diisi</sup>
                 </VCol>
               </VRow>
@@ -436,7 +327,7 @@
                 <VProgressCircular v-if="isLoading" indeterminate color="white">
                 </VProgressCircular>
 
-                <font v-else>Simpan</font>
+                <Font v-else>Simpan</Font>
               </VBtn>
             </VCol>
           </VRow>
@@ -448,7 +339,7 @@
 
 <script>
 import axios from "axios";
-import config from "@/@core/config.vue";
+import config from "@/@core/config";
 import Swal from "sweetalert2";
 import { ref } from "vue";
 
@@ -500,6 +391,16 @@ export default {
       ],
     };
   },
+  computed: {
+    pilihSemuaHasil() {
+      return this.pilihImunisasi.length === this.itemImunisasi.length;
+    },
+    iconHasil() {
+      if (this.pilihSemuaHasil) return "mdi-close-box";
+
+      return "mdi-checkbox-blank-outline";
+    },
+  },
   watch: {
     provinceId() {
       this.regencyId = null;
@@ -527,15 +428,6 @@ export default {
     this.fetchProvinces();
     this.fetchListOrtu();
   },
-  computed: {
-    pilihSemuaHasil() {
-      return this.pilihImunisasi.length === this.itemImunisasi.length;
-    },
-    iconHasil() {
-      if (this.pilihSemuaHasil) return "mdi-close-box";
-      return "mdi-checkbox-blank-outline";
-    },
-  },
   methods: {
     toggleHasil() {
       this.$nextTick(() => {
@@ -553,78 +445,86 @@ export default {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
           },
-        }
+        },
       );
+
       this.listOrangTua = response.data;
     },
     async fetchProvinces() {
       this.fetchingProvinces = true;
+
       const response = await axios.get(
-        `${config.urlServer}/api/indonesia/provinces`
+        `${config.urlServer}/api/indonesia/provinces`,
       );
+
       this.fetchingProvinces = false;
-      this.provinces = response.data.map((item) => {
-        let result = {
+      this.provinces = response.data.map(item => {
+        return {
           title: item.name,
           value: item.id,
         };
-        return result;
       });
     },
     async fetchRegencies() {
       if (!this.provinceId) {
         this.regencies = [];
+
         return;
       }
       this.fetchingRegencies = true;
+
       const response = await axios.get(
-        `${config.urlServer}/api/indonesia/regencies?province_id=${this.provinceId}`
+        `${config.urlServer}/api/indonesia/regencies?province_id=${this.provinceId}`,
       );
+
       this.fetchingRegencies = false;
-      this.regencies = response.data.map((item) => {
-        let result = {
+      this.regencies = response.data.map(item => {
+        return {
           title: item.name,
           value: item.id,
         };
-        return result;
       });
     },
     async fetchDistricts() {
       if (!this.regencyId) {
         this.districts = [];
+
         return;
       }
 
       this.fetchingDistricts = true;
+
       const response = await axios.get(
-        `${config.urlServer}/api/indonesia/districts?regency_id=${this.regencyId}`
+        `${config.urlServer}/api/indonesia/districts?regency_id=${this.regencyId}`,
       );
+
       this.fetchingDistricts = false;
-      this.districts = response.data.map((item) => {
-        let result = {
+      this.districts = response.data.map(item => {
+        return {
           title: item.name,
           value: item.id,
         };
-        return result;
       });
     },
     async fetchVillages() {
       if (!this.districtId) {
         this.villages = [];
+
         return;
       }
 
       this.fetchingVillages = true;
+
       const response = await axios.get(
-        `${config.urlServer}/api/indonesia/villages?district_id=${this.districtId}`
+        `${config.urlServer}/api/indonesia/villages?district_id=${this.districtId}`,
       );
+
       this.fetchingVillages = false;
-      this.villages = response.data.map((item) => {
-        let result = {
+      this.villages = response.data.map(item => {
+        return {
           title: item.name,
           value: item.id,
         };
-        return result;
       });
     },
 
@@ -632,15 +532,11 @@ export default {
       this.isLoading = true;
       let tempat_tinggal = null;
       if (this.completed) {
-        tempat_tinggal = `${
-          this.provinces.find((item) => item.value === this.provinceId).title
-        }, ${
-          this.regencies.find((item) => item.value === this.regencyId).title
-        }, ${
-          this.districts.find((item) => item.value === this.districtId).title
-        }, ${
-          this.villages.find((item) => item.value === this.villageId).title
-        }`;
+        tempat_tinggal = `${this.provinces.find(item => item.value === this.provinceId).title
+          }, ${this.regencies.find(item => item.value === this.regencyId).title
+          }, ${this.districts.find(item => item.value === this.districtId).title
+          }, ${this.villages.find(item => item.value === this.villageId).title
+          }`;
       } else if (!this.data_tersedia) {
         await Swal.fire({
           toast: true,
@@ -655,6 +551,7 @@ export default {
           title: "Data alamat tidak lengkap!!",
         });
         this.isLoading = false;
+
         return 0;
       }
 
@@ -681,6 +578,7 @@ export default {
           penggantian_jenis_kontrasepsi: this.penggantian_jenis_kontrasepsi,
           keterangan: this.keterangan,
         };
+
         const response = await axios.post(
           `${config.urlServer}/api/format-c`,
           data,
@@ -688,8 +586,9 @@ export default {
             headers: {
               Authorization: localStorage.getItem("tokenAuth"),
             },
-          }
+          },
         );
+
         if (response.data.success) {
           Swal.fire({
             toast: true,

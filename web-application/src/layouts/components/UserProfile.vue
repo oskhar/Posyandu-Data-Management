@@ -1,11 +1,12 @@
 <script setup>
 import avatar1 from "@images/avatars/avatar-1.png";
 import axios from "axios";
-import config from "@/@core/config.vue";
+import config from "@/@core/config";
 
 const fotoProfile = localStorage.getItem("foto_profile");
 const namaLengkap = localStorage.getItem("nama_lengkap");
 const jabatan = localStorage.getItem("jabatan");
+
 const logout = async () => {
   const response = await axios.post(
     `${config.urlServer}/api/logout`,
@@ -14,8 +15,9 @@ const logout = async () => {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("tokenAuth"),
       },
-    }
+    },
   );
+
   localStorage.clear();
   window.location.href = "/login";
 };

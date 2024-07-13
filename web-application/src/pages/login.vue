@@ -1,7 +1,7 @@
 <script setup>
 import logo from "@images/logo.svg?raw";
 import axios from "axios";
-import config from "@/@core/config.vue";
+import config from "@/@core/config";
 import Swal from "sweetalert2";
 
 let isLoading = ref(false);
@@ -12,7 +12,7 @@ const form = ref({
   remember: false,
 });
 
-const login = async (formLogin) => {
+const login = async formLogin => {
   formLogin.preventDefault();
   isLoading.value = true;
   try {
@@ -20,11 +20,12 @@ const login = async (formLogin) => {
       email_admin: form.value.email,
       password: form.value.password,
     });
+
     localStorage.setItem("tokenAuth", "Bearer " + response.data.token);
     localStorage.setItem("id_admin", response.data.id_admin);
     localStorage.setItem(
       "foto_profile",
-      config.imagePath + response.data.foto_profile
+      config.imagePath + response.data.foto_profile,
     );
     localStorage.setItem("nama_lengkap", response.data.nama_lengkap);
     localStorage.setItem("jabatan", response.data.jabatan);
@@ -79,7 +80,7 @@ const isPasswordVisible = ref(false);
 
             <!-- password -->
             <VCol cols="12">
-              <VTextField class="mb-5" v-model="form.password" label="Password" placeholder="············"
+              <VTextField v-model="form.password" class="mb-5" label="Password" placeholder="············"
                 :type="isPasswordVisible ? 'text' : 'password'"
                 :append-inner-icon="isPasswordVisible ? 'bx-hide' : 'bx-show'"
                 @click:append-inner="isPasswordVisible = !isPasswordVisible" />
@@ -97,7 +98,7 @@ const isPasswordVisible = ref(false);
                 <VProgressCircular v-if="isLoading" indeterminate color="white">
                 </VProgressCircular>
 
-                <font v-else>masuk</font>
+                <Font v-else>masuk</Font>
               </VBtn>
             </VCol>
             <!-- auth providers -->
@@ -110,7 +111,7 @@ const isPasswordVisible = ref(false);
 
       <RouterLink to="./">
         <div>
-          <v-icon>bx-chevron-left</v-icon>
+          <VIcon>bx-chevron-left</VIcon>
           Halaman Depan
         </div>
       </RouterLink>

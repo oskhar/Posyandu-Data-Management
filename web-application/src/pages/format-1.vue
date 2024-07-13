@@ -417,7 +417,7 @@
 <script>
 import axios from "axios";
 import AnalyticsBarCharts from "@/views/dashboard/AnalyticsBarCharts.vue";
-import config from "@/@core/config.vue";
+import config from "@/@core/config";
 import { ref } from "vue";
 import Swal from "sweetalert2";
 import VueApexCharts from "vue3-apexcharts";

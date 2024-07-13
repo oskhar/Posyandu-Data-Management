@@ -10,7 +10,7 @@
           <p>Penulis: <span class="text-primary">{{ dataEdukasi.nama_lengkap }}</span></p>
           <RouterLink to="./">
             <div>
-              <v-icon>bx-chevron-left</v-icon>
+              <VIcon>bx-chevron-left</VIcon>
               Halaman Depan
             </div>
           </RouterLink>
@@ -19,9 +19,10 @@
     </VCol>
   </VRow>
 </template>
+
 <script>
-import axios from 'axios';
-import config from '@/@core/config.vue';
+import axios from '@axios';
+import config from '@/@core/config';
 
 export default {
   data() {
@@ -29,6 +30,9 @@ export default {
       dataEdukasi: {},
       imagePath: config.imagePath,
     }
+  },
+  mounted() {
+    this.fetchData();
   },
   methods: {
     async fetchData() {
@@ -41,14 +45,12 @@ export default {
       if (queryParams.get("id_edukasi")) {
         const idEdukasi = atob(queryParams.get("id_edukasi"));
         const response = await axios.get(`${config.urlServer}/api/edukasi?id_edukasi=${idEdukasi}`);
+
         this.dataEdukasi = response.data;
       } else {
         window.location.href = "./";
       }
-    }
+    },
   },
-  mounted() {
-    this.fetchData();
-  }
 }
 </script>

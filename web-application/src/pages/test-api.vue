@@ -1,10 +1,23 @@
 <template></template>
 
 <script>
-import config from "@/@core/config.vue";
+import config from "@/@core/config";
 import axios from "axios";
 
 export default {
+  mounted() {
+    // this.getEdukasi();
+    // this.getSurat();
+    // this.postSurat();
+    // this.previewSurat();
+    // this.downloadSurat();
+    this.getDrafSurat();
+    this.postDrafSurat();
+
+    // this.putDrafSurat();
+    // this.postCetakDrafSurat();
+    // this.deleteDrafSurat();
+  },
   methods: {
     // Data EDUKASI
     getEdukasi: async () => {
@@ -14,8 +27,9 @@ export default {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
           },
-        }
+        },
       );
+
       console.log(response);
     },
 
@@ -27,8 +41,9 @@ export default {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
           },
-        }
+        },
       );
+
       console.log(response);
     },
     postSurat: async () => {
@@ -58,6 +73,7 @@ export default {
           },
         ],
       };
+
       const response = await axios.post(
         `${config.urlServer}/api/kader-gendong`,
         data,
@@ -65,8 +81,9 @@ export default {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
           },
-        }
+        },
       );
+
       console.log(response);
     },
     previewSurat: async () => {
@@ -96,6 +113,7 @@ export default {
           },
         ],
       };
+
       const response = await axios.post(
         `${config.urlServer}/api/kader-gendong/preview`,
         data,
@@ -103,8 +121,9 @@ export default {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
           },
-        }
+        },
       );
+
       console.log(response);
     },
     downloadSurat: async () => {
@@ -116,7 +135,7 @@ export default {
               Authorization: localStorage.getItem("tokenAuth"),
             },
             responseType: "json", // Mengharapkan respons dalam format JSON
-          }
+          },
         );
 
         // Mendapatkan konten base64 dari respons
@@ -147,6 +166,7 @@ export default {
         // Membuat URL blob dan elemen link untuk mengunduh file
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement("a");
+
         link.href = url;
         link.setAttribute("download", namaFile);
         document.body.appendChild(link);
@@ -168,8 +188,9 @@ export default {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
           },
-        }
+        },
       );
+
       console.log(response);
     },
     postDrafSurat: async () => {
@@ -200,6 +221,7 @@ export default {
           },
         ],
       };
+
       const response = await axios.post(
         `${config.urlServer}/api/kader-gendong/draf`,
         data,
@@ -207,8 +229,9 @@ export default {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
           },
-        }
+        },
       );
+
       console.log(response);
     },
     putDrafSurat: async () => {
@@ -233,6 +256,7 @@ export default {
           },
         ],
       };
+
       const response = await axios.put(
         `${config.urlServer}/api/kader-gendong/draf/15`,
         data,
@@ -240,8 +264,9 @@ export default {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
           },
-        }
+        },
       );
+
       console.log(response);
     },
     deleteDrafSurat: async () => {
@@ -251,8 +276,9 @@ export default {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
           },
-        }
+        },
       );
+
       console.log(response);
     },
     postCetakDrafSurat: async () => {
@@ -263,22 +289,11 @@ export default {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
           },
-        }
+        },
       );
+
       console.log(response);
     },
-  },
-  mounted() {
-    // this.getEdukasi();
-    // this.getSurat();
-    // this.postSurat();
-    // this.previewSurat();
-    // this.downloadSurat();
-    this.getDrafSurat();
-    this.postDrafSurat();
-    // this.putDrafSurat();
-    // this.postCetakDrafSurat();
-    // this.deleteDrafSurat();
   },
 };
 </script>

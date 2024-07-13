@@ -29,7 +29,8 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField id="ayah" v-model="nama_ayah" placeholder="Masukkan Nama Ayah..." persistent-placeholder />
+                  <VTextField id="ayah" v-model="nama_ayah" placeholder="Masukkan Nama Ayah..."
+                    persistent-placeholder />
                   <sup class="text-error">*Wajib diisi</sup>
                 </VCol>
               </VRow>
@@ -42,7 +43,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField v-model="nama_ibu" id="ibu" placeholder="Masukkan Nama Ibu..." persistent-placeholder />
+                  <VTextField id="ibu" v-model="nama_ibu" placeholder="Masukkan Nama Ibu..." persistent-placeholder />
                   <sup class="text-error">*Wajib diisi</sup>
                 </VCol>
               </VRow>
@@ -55,7 +56,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField v-model="nik_ayah" id="nik_ayah" placeholder="Masukkan NIK Ayah..."
+                  <VTextField id="nik_ayah" v-model="nik_ayah" placeholder="Masukkan NIK Ayah..."
                     persistent-placeholder />
                 </VCol>
               </VRow>
@@ -68,7 +69,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField v-model="nik_ibu" id="nik_ibu" placeholder="Masukkan NIK Ibu..." persistent-placeholder />
+                  <VTextField id="nik_ibu" v-model="nik_ibu" placeholder="Masukkan NIK Ibu..." persistent-placeholder />
                 </VCol>
               </VRow>
             </VCol>
@@ -80,7 +81,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField placeholder="" type="date" v-model="tanggal_meninggal_ibu" />
+                  <VTextField v-model="tanggal_meninggal_ibu" placeholder="" type="date" />
                 </VCol>
               </VRow>
             </VCol>
@@ -116,11 +117,11 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VAutocomplete placeholder="Pilih...." v-model="provinceId" :items="provinces" />
+                  <VAutocomplete v-model="provinceId" placeholder="Pilih...." :items="provinces" />
                 </VCol>
               </VRow>
             </VCol>
-            <VCol cols="12" v-if="regencies.length > 0">
+            <VCol v-if="regencies.length > 0" cols="12">
               <VRow no-gutters>
                 <!-- 👉 First Name -->
                 <VCol cols="12" md="3">
@@ -128,11 +129,11 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VAutocomplete placeholder="Pilih...." v-model="regencyId" :items="regencies" />
+                  <VAutocomplete v-model="regencyId" placeholder="Pilih...." :items="regencies" />
                 </VCol>
               </VRow>
             </VCol>
-            <VCol cols="12" v-if="districts.length > 0">
+            <VCol v-if="districts.length > 0" cols="12">
               <VRow no-gutters>
                 <!-- 👉 First Name -->
                 <VCol cols="12" md="3">
@@ -140,11 +141,11 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VAutocomplete placeholder="Pilih...." v-model="districtId" :items="districts" />
+                  <VAutocomplete v-model="districtId" placeholder="Pilih...." :items="districts" />
                 </VCol>
               </VRow>
             </VCol>
-            <VCol cols="12" v-if="villages.length > 0">
+            <VCol v-if="villages.length > 0" cols="12">
               <VRow no-gutters>
                 <!-- 👉 First Name -->
                 <VCol cols="12" md="3">
@@ -152,7 +153,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VAutocomplete placeholder="Pilih...." v-model="villageId" :items="villages" />
+                  <VAutocomplete v-model="villageId" placeholder="Pilih...." :items="villages" />
                 </VCol>
               </VRow>
             </VCol>
@@ -173,7 +174,8 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField v-model="nama_bayi" id="bayi" placeholder="Masukkan Nama Bayi..." persistent-placeholder />
+                  <VTextField id="bayi" v-model="nama_bayi" placeholder="Masukkan Nama Bayi..."
+                    persistent-placeholder />
                   <sup class="text-error">*Wajib diisi</sup>
                 </VCol>
               </VRow>
@@ -186,7 +188,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VCheckbox v-model="bayi_memiliki_nik" :label="`Ya`" />
+                  <VCheckbox v-model="bayi_memiliki_nik" label="Ya" />
                 </VCol>
               </VRow>
             </VCol>
@@ -198,7 +200,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField v-model="nik_bayi" id="nik_bayi" placeholder="Masukkan NIK bayi..."
+                  <VTextField id="nik_bayi" v-model="nik_bayi" placeholder="Masukkan NIK bayi..."
                     persistent-placeholder />
                 </VCol>
               </VRow>
@@ -237,7 +239,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField placeholder="" type="date" v-model="tanggal_lahir" />
+                  <VTextField v-model="tanggal_lahir" placeholder="" type="date" />
                   <sup class="text-error">*Wajib diisi</sup>
                 </VCol>
               </VRow>
@@ -250,7 +252,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VTextField placeholder="" type="date" v-model="tanggal_meninggal_bayi" />
+                  <VTextField v-model="tanggal_meninggal_bayi" placeholder="" type="date" />
                 </VCol>
               </VRow>
             </VCol>
@@ -288,7 +290,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VCheckbox v-model="memiliki_kia" :label="`Ya`" />
+                  <VCheckbox v-model="memiliki_kia" label="Ya" />
                 </VCol>
               </VRow>
             </VCol>
@@ -300,7 +302,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VCheckbox v-model="imd" :label="`Ya`" />
+                  <VCheckbox v-model="imd" label="Ya" />
                 </VCol>
               </VRow>
             </VCol>
@@ -312,7 +314,7 @@
                 </VCol>
 
                 <VCol cols="12" md="9">
-                  <VCheckbox v-model="memiliki_kms" :label="`Ya`" />
+                  <VCheckbox v-model="memiliki_kms" label="Ya" />
                 </VCol>
               </VRow>
             </VCol>
@@ -330,11 +332,11 @@
             </VCol>
             <!-- 👉 submit and reset button -->
             <VCol offset-md="3" cols="12" md="9" class="d-flex gap-4">
-              <VBtn @click="submitData" :disabled="isLoading">
+              <VBtn :disabled="isLoading" @click="submitData">
                 <VProgressCircular v-if="isLoading" indeterminate color="white">
                 </VProgressCircular>
 
-                <font v-else>Simpan</font>
+                <Font v-else>Simpan</Font>
               </VBtn>
             </VCol>
           </VRow>
@@ -346,7 +348,7 @@
 
 <script>
 import axios from "axios";
-import config from "@/@core/config.vue";
+import config from "@/@core/config";
 import Swal from "sweetalert2";
 import { ref } from "vue";
 
@@ -413,7 +415,7 @@ export default {
     },
     villageId() {
       this.completed = true
-    }
+    },
   },
   mounted() {
     this.fetchProvinces();
@@ -428,68 +430,76 @@ export default {
             Authorization: localStorage.getItem("tokenAuth"),
           },
         });
+
       this.listOrangTua = response.data;
     },
     async fetchProvinces() {
       this.fetchingProvinces = true
+
       const response = await axios.get(`${config.urlServer}/api/indonesia/provinces`)
+
       this.fetchingProvinces = false
       this.provinces = response.data.map(item => {
-        let result = {
+        return {
           title: item.name,
-          value: item.id
+          value: item.id,
         }
-        return result
       })
     },
     async fetchRegencies() {
       if (!this.provinceId) {
         this.regencies = []
+
         return
       }
       this.fetchingRegencies = true
+
       const response = await axios.get(`${config.urlServer}/api/indonesia/regencies?province_id=${this.provinceId}`)
+
       this.fetchingRegencies = false
       this.regencies = response.data.map(item => {
-        let result = {
+        return {
           title: item.name,
-          value: item.id
+          value: item.id,
         }
-        return result
       })
     },
     async fetchDistricts() {
       if (!this.regencyId) {
         this.districts = []
+
         return
       }
 
       this.fetchingDistricts = true
+
       const response = await axios.get(`${config.urlServer}/api/indonesia/districts?regency_id=${this.regencyId}`)
+
       this.fetchingDistricts = false
       this.districts = response.data.map(item => {
-        let result = {
+        return {
           title: item.name,
-          value: item.id
+          value: item.id,
         }
-        return result
       })
     },
     async fetchVillages() {
       if (!this.districtId) {
         this.villages = []
+
         return
       }
 
       this.fetchingVillages = true
+
       const response = await axios.get(`${config.urlServer}/api/indonesia/villages?district_id=${this.districtId}`)
+
       this.fetchingVillages = false
       this.villages = response.data.map(item => {
-        let result = {
+        return {
           title: item.name,
-          value: item.id
+          value: item.id,
         }
-        return result
       })
     },
     resetData() {
@@ -540,6 +550,7 @@ export default {
           title: "Data alamat tidak lengkap!!",
         });
         this.isLoading = false;
+
         return 0;
       }
       try {
@@ -567,6 +578,7 @@ export default {
           keterangan: this.keterangan,
           tempat_tinggal: tempat_tinggal,
         };
+
         const response = await axios.post(
           `${config.urlServer}/api/format-a`,
           data,
@@ -574,8 +586,9 @@ export default {
             headers: {
               Authorization: localStorage.getItem("tokenAuth"),
             },
-          }
+          },
         );
+
         if (response.data.success) {
           Swal.fire({
             toast: true,

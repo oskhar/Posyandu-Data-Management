@@ -44,7 +44,7 @@
                   </VCol>
 
                   <VCol cols="12" md="9">
-                    <VTextField type="date" id="tanggalPelaksanaan" v-model="tanggal_pelaksanaan"
+                    <VTextField id="tanggalPelaksanaan" v-model="tanggal_pelaksanaan" type="date"
                       placeholder="Masukkan tanggal" persistent-placeholder :rules="[
                         (input) => !!input || 'Tanggal acara tidak boleh kosong'
                       ]" />
@@ -74,8 +74,8 @@
                         </VBtn>
                       </div>
                     </div>
-                    <VAvatar rounded="lg" size="200" class="me-1 mt-3" :image="projectImageLocal.imageValue"
-                      v-show="projectImageLocal.imageValue !== ''" />
+                    <VAvatar v-show="projectImageLocal.imageValue !== ''" rounded="lg" size="200" class="me-1 mt-3"
+                      :image="projectImageLocal.imageValue" />
                   </VCol>
                 </VRow>
                 <!-- 👉 Upload Photo -->
@@ -87,7 +87,7 @@
                   <VProgressCircular v-if="isLoading" indeterminate color="white">
                   </VProgressCircular>
 
-                  <font v-else>Simpan</font>
+                  <Font v-else>Simpan</Font>
                 </VBtn>
               </VCol>
             </VRow>
@@ -99,7 +99,7 @@
 </template>
 
 <script>
-import config from "@/@core/config.vue";
+import config from "@/@core/config";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -121,7 +121,7 @@ export default {
       projectImageLocal.value.imageValue = projectImage.imageValue;
     };
 
-    const changeAvatar = (file) => {
+    const changeAvatar = file => {
       const fileReader = new FileReader();
       const { files } = file.target;
       if (files && files.length) {
@@ -145,7 +145,7 @@ export default {
       }
     };
 
-    const submitData = async (formData) => {
+    const submitData = async formData => {
       try {
         formData.preventDefault();
         isLoading.value = true;
@@ -157,6 +157,7 @@ export default {
           "tanggal_pelaksanaan": tanggal_pelaksanaan.value,
           "gambar": projectImageLocal.value.imageValue,
         };
+
         const response = await axios.post(
           `${config.urlServer}/api/berita`,
           data,
@@ -164,8 +165,9 @@ export default {
             headers: {
               Authorization: localStorage.getItem("tokenAuth"),
             },
-          }
+          },
         );
+
         if (response.data.success) {
           await Swal.fire({
             toast: true,
@@ -199,6 +201,8 @@ export default {
       }
       isLoading.value = false;
     };
+
+
     return {
       refInputEl,
       judul,

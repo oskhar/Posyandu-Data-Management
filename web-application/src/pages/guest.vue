@@ -10,10 +10,10 @@
       filter: brightness(0.6)" :src="imagePath + posyandu.gambar_gedung" alt="" />
     <!-- Isi halaman utama Anda di sini -->
     <div style="position: absolute;top: 200px;width: 100vw;">
-      <center>
+      <Center>
         <h3 class="text-white text-h5">SELAMAT DATANG DI</h3>
         <h1 class="text-white text-h3">POSYANDU MELATI</h1>
-      </center>
+      </Center>
     </div>
   </main>
   <!-- CARD 3 -->
@@ -106,19 +106,20 @@
       <VCardItem>
         <VRow>
           <VCol cols="11" md="9" lg="9" class="mx-auto py-5">
-            <cardEdukasi />
-            <cardBeritaAcara />
+            <CardEdukasi />
+            <CardBeritaAcara />
           </VCol>
         </VRow>
       </VCardItem>
     </VCard>
     <VRow>
       <VCol cols="11" md="9" lg="9" class="mx-auto">
-        <cardGaleri />
+        <CardGaleri />
       </VCol>
     </VRow>
   </section>
 </template>
+
 <script>
 import cardEdukasi from "./card-edukasi.vue";
 import cardBeritaAcara from "./card-berita-acara.vue";
@@ -126,7 +127,8 @@ import cardGaleri from "./card-galeri-guest.vue";
 import langit from "@images/pages/2.png";
 
 import axios from "axios";
-import config from "@/@core/config.vue";
+import config from "@/@core/config";
+
 export default {
   components: {
     cardEdukasi,
@@ -144,40 +146,44 @@ export default {
       posyandu: {},
     };
   },
-  methods: {
-    async fetchEdukasi() {
-      const response = await axios.get(`${this.urlServer}/api/edukasi?start=0&length=0`);
-      this.statEdukasi = response.data.jumlah_data;
-    },
-
-    async fetchBerita() {
-      const response = await axios.get(`${this.urlServer}/api/berita?start=0&length=0`);
-      this.statBerita = response.data.jumlah_data;
-    },
-
-    async fetchGambar() {
-      const response = await axios.get(`${this.urlServer}/api/gambar?start=0&length=0`);
-      this.statGambar = response.data.jumlah_data;
-    },
-
-    async fetchBayi() {
-      const response = await axios.get(`${this.urlServer}/api/jumlah-bayi`);
-      this.statBayi = response.data;
-    },
-
-    async fetchPosyandu() {
-      const responsePosyandu = await axios.get(`${config.urlServer}/api/posyandu`);
-      this.posyandu = responsePosyandu.data;
-    },
-
-  },
   mounted() {
     this.fetchBerita();
     this.fetchEdukasi();
     this.fetchGambar();
     this.fetchBayi();
     this.fetchPosyandu();
-  }
+  },
+  methods: {
+    async fetchEdukasi() {
+      const response = await axios.get(`${this.urlServer}/api/edukasi?start=0&length=0`);
+
+      this.statEdukasi = response.data.jumlah_data;
+    },
+
+    async fetchBerita() {
+      const response = await axios.get(`${this.urlServer}/api/berita?start=0&length=0`);
+
+      this.statBerita = response.data.jumlah_data;
+    },
+
+    async fetchGambar() {
+      const response = await axios.get(`${this.urlServer}/api/gambar?start=0&length=0`);
+
+      this.statGambar = response.data.jumlah_data;
+    },
+
+    async fetchBayi() {
+      const response = await axios.get(`${this.urlServer}/api/jumlah-bayi`);
+
+      this.statBayi = response.data;
+    },
+
+    async fetchPosyandu() {
+      const responsePosyandu = await axios.get(`${config.urlServer}/api/posyandu`);
+
+      this.posyandu = responsePosyandu.data;
+    },
+
+  },
 };
 </script>
-

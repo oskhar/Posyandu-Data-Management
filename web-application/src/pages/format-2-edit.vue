@@ -19,108 +19,108 @@
               <VCol>
                 <p class="mb-4">
                   Nama:
-                  <font class="float-right">{{ dataEdit.bayi.nama }}</font>
+                  <Font class="float-right">{{ dataEdit.bayi.nama }}</Font>
                 </p>
                 <hr class="text-primary mb-5" style="border-style: dashed;opacity: 0.5;">
                 <p class="mb-4">
                   Nama Ayah:
-                  <font class="float-right">{{ dataEdit.bayi.nama_ayah }}</font>
+                  <Font class="float-right">{{ dataEdit.bayi.nama_ayah }}</Font>
                 </p>
                 <hr class="text-primary mb-5" style="border-style: dashed;opacity: 0.5;">
                 <p class="mb-4">
                   Nama Ibu:
-                  <font class="float-right">{{ dataEdit.bayi.nama_ibu }}</font>
+                  <Font class="float-right">{{ dataEdit.bayi.nama_ibu }}</Font>
                 </p>
                 <hr class="text-primary mb-5" style="border-style: dashed;opacity: 0.5;">
                 <p class="mb-4">
                   Tanggal Lahir:
-                  <font class="float-right">{{
+                  <Font class="float-right">{{
                     dataEdit.bayi.tanggal_lahir
-                  }}</font>
+                    }}</Font>
                 </p>
                 <hr class="text-primary mb-5" style="border-style: dashed;opacity: 0.5;">
                 <p class="mb-4">
-                  Jenis Kelamin:<font class="float-right">
+                  Jenis Kelamin:<Font class="float-right">
                     {{ dataEdit.bayi.jenis_kelamin == "L" ? "Laki Laki" : "Perempuan" }}
-                  </font>
+                  </Font>
                 </p>
                 <hr class="text-primary mb-5" style="border-style: dashed;opacity: 0.5;">
                 <p class="mb-4">
-                  BB Saat Lahir :<font class="float-right">
+                  BB Saat Lahir :<Font class="float-right">
                     {{
                       dataEdit.bayi.berat_lahir
-                      ? dataEdit.bayi.berat_lahir + " KG"
-                      : "-"
+                        ? dataEdit.bayi.berat_lahir + " KG"
+                        : "-"
                     }}
-                  </font>
+                  </Font>
                 </p>
               </VCol>
               <VCol cols="12">
-                <v-dialog v-model="dialog" persistent width="1024">
-                  <template v-slot:activator="{ props }">
-                    <v-btn color="primary" class="ml-2" v-bind="props" prepend-icon="bx-edit">
+                <VDialog v-model="dialog" persistent width="1024">
+                  <template #activator="{ props }">
+                    <VBtn color="primary" class="ml-2" v-bind="props" prepend-icon="bx-edit">
                       Keterangan
-                    </v-btn>
+                    </VBtn>
                   </template>
-                  <v-card>
+                  <VCard>
                     <VCardTitle>
                       <span class="text-h5">Ubah Data</span>
                     </VCardTitle>
                     <VCardItem>
-                      <v-container>
+                      <VContainer>
                         <VRow>
                           <VCol cols="12">
                             <VSelect v-model="pilihHasil" :items="itemHasil" label="Hasil penimbangan"
                               placeholder="Pilih beberapa" multiple chips>
-                              <template v-slot:prepend-item>
-                                <v-list-item ripple @mousedown.prevent @click="toggleHasil">
-                                  <v-list-item-action>
-                                    <v-icon :color="pilihHasil.length === itemHasil.length ? 'primary' : 'secondary'">
+                              <template #prepend-item>
+                                <VListItem ripple @mousedown.prevent @click="toggleHasil">
+                                  <VListItemAction>
+                                    <VIcon :color="pilihHasil.length === itemHasil.length ? 'primary' : 'secondary'">
                                       {{ iconHasil }}
-                                    </v-icon>
-                                    <font class="ml-2"> Pilih Semua </font>
-                                  </v-list-item-action>
-                                </v-list-item>
-                                <v-divider class="mt-2"></v-divider>
+                                    </VIcon>
+                                    <Font class="ml-2"> Pilih Semua </Font>
+                                  </VListItemAction>
+                                </VListItem>
+                                <VDivider class="mt-2"></VDivider>
                               </template>
                             </VSelect>
                           </VCol>
                           <VCol cols="12">
                             <VSelect v-model="pilihPelayanan" :items="itemPelayanan" label="Pelayanan yang diberikan"
                               placeholder="Pilih beberapa" multiple chips>
-                              <template v-slot:prepend-item>
-                                <v-list-item ripple @mousedown.prevent @click="togglePelayanan">
-                                  <v-list-item-action>
-                                    <v-icon
+                              <template #prepend-item>
+                                <VListItem ripple @mousedown.prevent @click="togglePelayanan">
+                                  <VListItemAction>
+                                    <VIcon
                                       :color="pilihPelayanan.length === itemPelayanan.length ? 'primary' : 'secondary'">
                                       {{ iconPelayanan }}
-                                    </v-icon>
-                                    <font class="ml-2"> Pilih Semua </font>
-                                  </v-list-item-action>
-                                </v-list-item>
-                                <v-divider class="mt-2"></v-divider>
+                                    </VIcon>
+                                    <Font class="ml-2"> Pilih Semua </Font>
+                                  </VListItemAction>
+                                </VListItem>
+                                <VDivider class="mt-2"></VDivider>
                               </template>
                             </VSelect>
                           </VCol>
                         </VRow>
-                      </v-container>
+                      </VContainer>
                     </VCardItem>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn color="secondary" variant="text" @click="dialog = false">
+                    <VCardActions>
+                      <VSpacer></VSpacer>
+                      <VBtn color="secondary" variant="text" @click="dialog = false">
                         Tutup
-                      </v-btn>
-                      <v-btn color="primary" variant="text" @click="
+                      </VBtn>
+                      <VBtn color="primary" variant="text" @click="
                         submitKeterangan();
                       dialog = false;
                       ">
                         Simpan
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
+                      </VBtn>
+                    </VCardActions>
+                  </VCard>
+                </VDialog>
               </VCol>
-              <VCol cols="12" v-for="(item, index) in dataEdit.penimbangan">
+              <VCol v-for="(item, index) in dataEdit.penimbangan" cols="12">
                 <hr class="mb-5" style="opacity: 0.3;">
                 <h4 class="my-5">{{ item.judul }}</h4>
                 <VRow>
@@ -131,7 +131,7 @@
                       ]" :error-messages="errorField.includes(index) ? errorFieldMessage : ''" />
                   </VCol>
                   <VCol v-if="index <= 6" cols="12" sm="12" md="6" lg="6">
-                    <VSelect :error="errorField.includes(index)" v-model="dataEdit.penimbangan[index].asi_eksklusif"
+                    <VSelect v-model="dataEdit.penimbangan[index].asi_eksklusif" :error="errorField.includes(index)"
                       label="Asi Eksklusif" placeholder="Masukkan Asi Ekslusif" :items="['Ya', 'Tidak', 'Alpa']" />
                   </VCol>
                   <VCol cols="12" sm="12" md="6" lg="6">
@@ -141,8 +141,8 @@
                       ]" :error-messages="errorField.includes(index) ? errorFieldMessage : ''" />
                   </VCol>
                   <VCol cols="12" sm="12" md="6" lg="6">
-                    <VTextField v-model="dataEdit.penimbangan[index].lingkar_kepala" type="number" label="Lingkar Kepala"
-                      placeholder="Masukkan Lingkar Kepala" :rules="[
+                    <VTextField v-model="dataEdit.penimbangan[index].lingkar_kepala" type="number"
+                      label="Lingkar Kepala" placeholder="Masukkan Lingkar Kepala" :rules="[
                         (input) => (input >= 0) || 'Lingkar Kepala tidak bisa negatif'
                       ]" :error-messages="errorField.includes(index) ? errorFieldMessage : ''" />
                   </VCol>
@@ -157,7 +157,7 @@
                       :items="['Berdiri', 'Telentang']" />
                   </VCol>
                   <VCol v-if="index > 5" cols="12" sm="12" md="6" lg="6">
-                    <VCheckbox v-model="dataEdit.penimbangan[index].vit_a" :label="`Mendapatkan Vitamin A`" />
+                    <VCheckbox v-model="dataEdit.penimbangan[index].vit_a" label="Mendapatkan Vitamin A" />
                   </VCol>
 
                   <VCol cols="12" sm="12" md="12">
@@ -170,13 +170,13 @@
               </VCol>
               <VCol cols=" 12" class="d-flex gap-4">
 
-                <VBtn :disabled="isLoading[index]" type="submit" :id="index" @click="submitData()" style="width: 100%;">
+                <VBtn :id="index" :disabled="isLoading[index]" type="submit" style="width: 100%;" @click="submitData">
                   <VProgressCircular v-if="isLoading[index]" indeterminate color="white" :for="index">
                   </VProgressCircular>
 
-                  <font v-else>
+                  <Font v-else>
                     simpan
-                  </font>
+                  </Font>
                 </VBtn>
               </VCol>
             </VRow>
@@ -190,7 +190,7 @@
 <script>
 import VueApexCharts from "vue3-apexcharts";
 import axios from "axios";
-import config from "@/@core/config.vue";
+import config from "@/@core/config";
 import Swal from "sweetalert2";
 
 export default {
@@ -234,13 +234,13 @@ export default {
           height: 350,
           type: "line",
           zoom: {
-            enabled: false
+            enabled: false,
           },
         },
         toolBar: {
           tools: {
             download: '<img src="/static/icons/download.png" class="ico-download" width="20">',
-          }
+          },
         },
         colors: [
           "#FF5252", // rgb(var(--v-theme-error))
@@ -261,10 +261,10 @@ export default {
           },
           categories: this.categories,
           labels: {
-            formatter: (value) => {
+            formatter: value => {
               return `${value - 1}`
             },
-          }
+          },
         },
         markers: {
           size: 6,
@@ -290,15 +290,13 @@ export default {
       },
     };
   },
-  mounted() {
-    this.fetchData();
-  },
   computed: {
     pilihSemuaHasil() {
       return this.pilihHasil.length === this.itemHasil.length
     },
     iconHasil() {
       if (this.pilihSemuaHasil) return 'mdi-close-box'
+
       return 'mdi-checkbox-blank-outline'
     },
     pilihSemuaPelayanan() {
@@ -306,8 +304,12 @@ export default {
     },
     iconPelayanan() {
       if (this.pilihSemuaPelayanan) return 'mdi-close-box'
+
       return 'mdi-checkbox-blank-outline'
     },
+  },
+  mounted() {
+    this.fetchData();
   },
   methods: {
     toggleHasil() {
@@ -346,14 +348,16 @@ export default {
       // Mendapatkan nilai dari parameter tertentu
       if (queryParams.get("id_bayi")) {
         const idBayi = queryParams.get("id_bayi");
+
         const response = await axios.get(
           `${config.urlServer}/api/format-ba?id_bayi=${idBayi}`,
           {
             headers: {
               Authorization: localStorage.getItem("tokenAuth"),
             },
-          }
+          },
         );
+
         this.pilihHasil = response.data.hasil_penimbangan;
         this.pilihPelayanan = response.data.pelayanan;
         this.series = response.data.series;
@@ -375,11 +379,13 @@ export default {
         // Mendapatkan nilai dari parameter tertentu
         if (queryParams.get("id_bayi")) {
           const idBayi = queryParams.get("id_bayi");
+
           const data = {
             id_bayi: idBayi,
             hasil_penimbangan: this.pilihHasil,
             pelayanan: this.pilihPelayanan,
           }
+
           const response = await axios.put(
             `${config.urlServer}/api/format-ba`,
             data,
@@ -387,8 +393,9 @@ export default {
               headers: {
                 Authorization: localStorage.getItem("tokenAuth"),
               },
-            }
+            },
           );
+
           if (response.data.success) {
             Swal.fire({
               toast: true,
@@ -407,8 +414,9 @@ export default {
 
       } catch (get) {
         const errorMessage = Object.values(get.response.data.errors).join(
-          " - "
+          " - ",
         );
+
         Swal.fire({
           toast: true,
           position: "top",
@@ -433,10 +441,12 @@ export default {
         const queryString = window.location.search;
         const queryParams = new URLSearchParams(queryString);
         const idBayi = queryParams.get("id_bayi");
+
         const data = {
           penimbangan: this.dataEdit.penimbangan,
           id_bayi: idBayi,
         };
+
         const response = await axios.post(
           `${config.urlServer}/api/format-ba`,
           data,
@@ -444,8 +454,9 @@ export default {
             headers: {
               Authorization: localStorage.getItem("tokenAuth"),
             },
-          }
+          },
         );
+
         if (response.data.success) {
           Swal.fire({
             toast: true,
@@ -480,8 +491,9 @@ export default {
 
       } catch (get) {
         const errorMessage = Object.values(get.response.data.errors).join(
-          " - "
+          " - ",
         );
+
         Swal.fire({
           toast: true,
           position: "top",
@@ -496,7 +508,7 @@ export default {
         });
         this.isLoading = false;
       }
-    }
+    },
   },
 };
 </script>

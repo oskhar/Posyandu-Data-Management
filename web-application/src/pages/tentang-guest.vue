@@ -1,24 +1,20 @@
 <template>
   <!-- Konten halaman -->
   <main>
-    <img
-      style="
+    <img style="
         width: 100vw;
         height: 550px;
         object-fit: cover;
         position: relative;
         top: 0px;
         filter: brightness(0.6);
-      "
-      :src="imagePath + posyandu.gambar_gedung"
-      alt=""
-    />
+      " :src="imagePath + posyandu.gambar_gedung" alt="" />
     <!-- Isi halaman utama Anda di sini -->
     <div style="position: absolute; top: 200px; width: 100vw">
-      <center>
+      <Center>
         <h3 class="text-white text-h5">SELAMAT DATANG DI</h3>
         <h1 class="text-white text-h3">POSYANDU MELATI</h1>
-      </center>
+      </Center>
     </div>
   </main>
   <VRow style="margin-top: 200px">
@@ -40,17 +36,12 @@
         <VCol cols="12" md="4" sm="12">
           <VCard class="pt-5">
             <VCardItem>
-              <img
-                style="
+              <img style="
                   width: 250px;
                   height: 250px;
                   object-fit: cover;
                   border-radius: 4px;
-                "
-                class="mx-auto d-block"
-                :src="imagePath + posyandu.foto_profile_ketua"
-                alt=""
-              />
+                " class="mx-auto d-block" :src="imagePath + posyandu.foto_profile_ketua" alt="" />
               <div class="text-center mt-3">
                 <h2 style="line-height: 0.8rem">
                   {{ posyandu.nama_lengkap_ketua }}
@@ -84,7 +75,7 @@
       <VCardItem>
         <h2 class="caption text-center">
           Struktur Keorganisasian
-          <font class="text-primary">Posyanndu Melati</font>
+          <Font class="text-primary">Posyanndu Melati</Font>
         </h2>
         <p class="text-secondary text-center">
           Informasi seputar Struktur Organisasi yang terdapat pada posyandu
@@ -97,17 +88,12 @@
     <VCol v-for="item in perlevel" cols="6" md="3" lg="3" class="mx-auto mt-5">
       <VCard>
         <VCardItem>
-          <img
-            style="
+          <img style="
               width: 150px;
               height: 150px;
               object-fit: cover;
               border-radius: 4px;
-            "
-            class="mx-auto d-block"
-            :src="imagePath + item.foto_profile"
-            alt=""
-          />
+            " class="mx-auto d-block" :src="imagePath + item.foto_profile" alt="" />
           <div class="text-center mt-3">
             <h2 style="line-height: 1.5rem">{{ item.nama_lengkap }}</h2>
             <p>{{ item.nama_jabatan }}</p>
@@ -116,9 +102,8 @@
         </VCardItem>
       </VCard>
     </VCol>
-    <div style="width: 100%" v-if="index != strukurAdmin.length - 1">
-      <div
-        style="
+    <div v-if="index != strukurAdmin.length - 1" style="width: 100%">
+      <div style="
           height: 5px;
           width: 50%;
           background-color: rgba(
@@ -126,9 +111,7 @@
             var(--v-high-emphasis-opacity)
           );
           border-radius: 2px;
-        "
-        class="mx-auto"
-      ></div>
+        " class="mx-auto"></div>
     </div>
   </VRow>
   <div class="my-5"></div>
@@ -136,7 +119,7 @@
 
 <script>
 import axios from "axios";
-import config from "@/@core/config.vue";
+import config from "@/@core/config";
 
 export default {
   data() {
@@ -146,21 +129,23 @@ export default {
       posyandu: {},
     };
   },
+  mounted() {
+    this.fetchData();
+  },
   methods: {
     async fetchData() {
       const responsePosyandu = await axios.get(
-        `${config.urlServer}/api/posyandu`
+        `${config.urlServer}/api/posyandu`,
       );
+
       this.posyandu = responsePosyandu.data;
 
       const responseStruktur = await axios.get(
-        `${config.urlServer}/api/struktur-admin`
+        `${config.urlServer}/api/struktur-admin`,
       );
+
       this.strukurAdmin = responseStruktur.data;
     },
-  },
-  mounted() {
-    this.fetchData();
   },
 };
 </script>

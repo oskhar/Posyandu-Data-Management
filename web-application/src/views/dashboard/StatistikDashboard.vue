@@ -31,7 +31,7 @@
       <VProgressCircular size="45" :model-value="tabData[currentTab].gambarLoss">
         <span class="text-xs text-medium-emphasis">{{
           tabData[currentTab].gambarLossAmount
-        }}</span>
+          }}</span>
       </VProgressCircular>
 
       <div>
@@ -41,11 +41,12 @@
         </h6>
         <span class="text-sm text-disabled">{{
           tabData[currentTab].compareToLastWeek
-        }}</span>
+          }}</span>
       </div>
     </VCardText>
   </VCard>
 </template>
+
 <script>
 import VueApexCharts from "vue3-apexcharts";
 import { useTheme } from "vuetify";
@@ -53,7 +54,7 @@ import statsVerticalChart from "@images/cards/chart-success.png";
 import statsVerticalPaypal from "@images/cards/paypal-error.png";
 import statsVerticalWallet from "@images/cards/wallet-primary.png";
 import { hexToRgb } from "@layouts/utils";
-import config from "@/@core/config.vue";
+import config from "@/@core/config";
 import axios from "axios";
 
 export default {
@@ -67,12 +68,16 @@ export default {
     const vuetifyTheme = useTheme();
     const currentTheme = vuetifyTheme.current.value.colors;
     const variableTheme = vuetifyTheme.current.value.variables;
+
     const disabledTextColor = `rgba(${hexToRgb(
-      String(currentTheme["on-surface"])
+      String(currentTheme["on-surface"]),
     )},${variableTheme["disabled-opacity"]})`;
+
     const borderColor = `rgba(${hexToRgb(
-      String(variableTheme["border-color"])
+      String(variableTheme["border-color"]),
     )},${variableTheme["border-opacity"]})`;
+
+
     return {
       currentTab: "berita",
       tabData: {
@@ -218,6 +223,9 @@ export default {
       },
     };
   },
+  async mounted() {
+    this.fetchData();
+  },
   methods: {
     async fetchData() {
       const response = await axios.get(
@@ -226,8 +234,9 @@ export default {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
           },
-        }
+        },
       );
+
       this.series = {
         berita: [
           {
@@ -273,9 +282,6 @@ export default {
         },
       };
     },
-  },
-  async mounted() {
-    this.fetchData();
   },
 };
 </script>
