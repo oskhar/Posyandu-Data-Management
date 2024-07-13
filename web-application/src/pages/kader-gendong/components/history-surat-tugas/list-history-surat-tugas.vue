@@ -19,12 +19,10 @@ const searchHistory = async () => {
 		const results = await getListSuratTugas({
 			page: page.value,
 			search: historySearch.value,
-			length: 16,
 		})
 
 		listHistorySurat.value = results.data;
 		links.value = results.links;
-		page.value = results.current_page;
 	} catch (error) {
 		await Swal.fire({
 			icon: 'error',
@@ -45,6 +43,7 @@ const changeHistoryPage = newPage => {
 
 onMounted(searchHistory)
 watch(historySearch, debouncedSearchHistory)
+watch(historySearch, () => page.value = 1)
 </script>
 
 <template>
@@ -69,7 +68,8 @@ watch(historySearch, debouncedSearchHistory)
 
 	<VRow>
 		<VCol cols="12">
-			<VPagination size="x-large" :length="links.length - 2" @update:model-value="changeHistoryPage"></VPagination>
+			<VPagination v-model="page" :disabled="isSearching" size="x-large" :length="links.length - 2"
+				@update:model-value="changeHistoryPage"></VPagination>
 		</VCol>
 	</VRow>
 </template>
