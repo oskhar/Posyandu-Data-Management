@@ -52,7 +52,7 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      component: () => import("../layouts/guest-layout.vue"),
+      component: () => import("../layouts/guest/guest-layout.vue"),
       children: [
         {
           path: "",
@@ -83,7 +83,7 @@ const router = createRouter({
     {
       path: "/",
       beforeEnter: requireAuth,
-      component: () => import("../layouts/default.vue"),
+      component: () => import("../layouts/admin/admin-dashboard-layout.vue"),
       children: [
         {
           path: "test-api-kader-gendong",
@@ -193,7 +193,7 @@ const router = createRouter({
     {
       path: "/",
       beforeEnter: requireGuest,
-      component: () => import("../layouts/blank.vue"),
+      component: () => import("../layouts/blank-layout.vue"),
       children: [
         {
           path: "login",

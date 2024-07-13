@@ -1,6 +1,6 @@
 <script>
-import UserProfile from "@/layouts/components/UserProfile.vue";
-import footerGuest from "@/pages/footer-guest.vue";
+import UserProfile from "@/components/UserProfile.vue";
+import footerGuest from "@/layouts/guest/footer-guest.vue";
 
 export default {
   components: {
