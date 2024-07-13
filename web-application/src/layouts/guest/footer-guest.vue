@@ -1,5 +1,5 @@
 <template>
-  <v-footer class="bg-indigo-lighten-1 text-center d-flex flex-column bg-primary mt-5">
+  <VFooter class="bg-indigo-lighten-1 text-center d-flex flex-column bg-primary mt-5">
     <div class="pt-3">
       Posyandu Melati
       <p>
@@ -9,7 +9,7 @@
     </div>
 
     <div>
-      <strong> &copy 2023 Kreatifqode</strong>
+      <strong> &copy; 2023 Kreatifqode</strong>
     </div>
-  </v-footer>
+  </VFooter>
 </template>
