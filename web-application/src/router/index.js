@@ -65,7 +65,7 @@ const router = createRouter({
         },
         {
           path: "selengkapnya-card-beritaacara",
-          component: () => import("../pages/lengkap-card-beritaacara.vue"),
+          component: () => import("../pages/guest-berita-acara-page/guest-berita-acara-page.vue"),
         },
         {
           path: "tentang-guest",
