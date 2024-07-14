@@ -54,7 +54,8 @@ export default {
               <VMenu open-on-hover open-on-focus location="bottom center" origin="auto" activator="parent">
                 <VList class="text-primary">
                   <VListItem v-for="(child, childIndex) in item.childrens" :key="childIndex" :to="child.route" exact>
-                    <VListItemContent>{{ child.text }}</VListItemContent>
+                    <VListItemContent style="text-transform: uppercase !important; font-size: 14px;">{{ child.text }}
+                    </VListItemContent>
                   </VListItem>
                 </VList>
               </VMenu>
@@ -98,16 +99,17 @@ export default {
             </VExpansionPanel>
           </VExpansionPanels>
         </VListItem>
-        <VListItem v-else class="text-primary" :to="item.route" exact>
+        <VListItem v-else class=" text-primary" :to="item.route" exact>
           <VListItemContent>{{ item.text }}</VListItemContent>
         </VListItem>
       </template>
     </VList>
   </VNavigationDrawer>
 
-  <a href="https://api.whatsapp.com/send?phone=628129084810&text=hello" target="_blank" rel="noopener noreferrer"
-    class="position-fixed" style="z-index: 10; right: 52px; bottom: 32px">
-    <VFab icon="bx-message-rounded-dots" location="bottom end" size="56" fixed app />
+  <a href="https://api.whatsapp.com/send?phone=628129084810&text=Halo Posyandu Melati, Saya butuh bantuan pada website SiDilan."
+    target="_blank" rel="noopener noreferrer" class="wa-help-button position-fixed"
+    style="z-index: 10; right: 60px; bottom: 36px">
+    <VFab icon="mdi-whatsapp" location="bottom end" size="52" fixed app color="#25D366" />
     <VTooltip class="text-subtitle-1" activator="parent" location="start">Butuh bantuan? Klik tombol
       ini!
     </VTooltip>
@@ -135,5 +137,9 @@ export default {
 
 .list-item-accordion>.v-expansion-panel-text__wrapper {
   padding: 0;
+}
+
+.wa-help-button .v-icon {
+  color: white !important;
 }
 </style>
