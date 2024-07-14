@@ -2154,6 +2154,7 @@ paths:
               example:
                 success:
                   message: "Draf berhasil dicetak sebagai surat"
+                  file: "Blob base64"
         400:
           description: BAD REQUEST
           content:
