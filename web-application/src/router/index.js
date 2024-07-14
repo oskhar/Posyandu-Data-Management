@@ -61,7 +61,7 @@ const router = createRouter({
         },
         {
           path: "selengkapnya-card-edukasi",
-          component: () => import("../pages/lengkap-card-edukasi.vue"),
+          component: () => import("../pages/guest-edukasi-page/guest-edukasi-page.vue"),
         },
         {
           path: "selengkapnya-card-beritaacara",
