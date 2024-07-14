@@ -34,3 +34,19 @@ export const FOOTER_MENU_ITEMS = [
 		],
 	},
 ]
+
+
+export const DEFAULT_POSYANDU_DATA = {
+  nama_posyandu: '',
+  kota: '',
+  kecamatan: '',
+  kelurahan: '',
+  rt_rw: '',
+  penyampaian_ketua: '',
+  gambar_gedung: '',
+  visi: '',
+  misi: '',
+  foto_profile_ketua: '',
+  jabatan_ketua: "",
+  nama_lengkap_ketua: "",
+}

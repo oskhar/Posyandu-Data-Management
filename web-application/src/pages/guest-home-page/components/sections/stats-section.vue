@@ -18,7 +18,7 @@ const { statsBerita, statsEdukasi, statsBayi, statsGambar } = defineProps({
 								<VIcon>bx-news</VIcon>
 							</h1>
 							<h2 class="mb-1 text-h5 text-no-wrap">
-								Berita Acara
+								Berita & Acara
 							</h2>
 							<h5 class="text-h5 text-no-wrap mb-3">
 								{{ statsBerita }}
