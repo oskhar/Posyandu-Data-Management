@@ -5,8 +5,6 @@ const { namaLengkapKetua, sambutanKetua, fotoProfileKetua, jabatanKetua } = defi
 	fotoProfileKetua: { type: String, required: true },
 	jabatanKetua: { type: String, required: true },
 })
-
-console.log(sambutanKetua);
 </script>
 
 <template>

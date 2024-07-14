@@ -105,6 +105,23 @@ export default {
     </VList>
   </VNavigationDrawer>
 
+  <!-- Tombol butuh bantuan -->
+  <!--
+    <VTooltip text="Tooltip">
+    <template #activator="{ props }"> 
+  -->
+  <a href="https://api.whatsapp.com/send?phone=628122928303&text=hello" target="_blank" rel="noopener noreferrer"
+    class="position-fixed" style="z-index: 10; right: 52px; bottom: 32px">
+    <VFab icon="bx-message-rounded-dots" location="bottom end" size="56" fixed app />
+    <VTooltip class="text-subtitle-1" activator="parent" location="start">Butuh bantuan? Klik tombol
+      ini!
+    </VTooltip>
+  </a>
+
+  <!--
+    </template>
+    </VTooltip> 
+  -->
   <RouterView />
 
   <FooterGuest />
