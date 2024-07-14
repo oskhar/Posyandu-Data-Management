@@ -1,8 +1,17 @@
 export const MENU_ITEMS = [
 	{ text: "Home", route: "/" },
+	{ text: "Tentang", route: "/tentang-guest" },
+	{ 
+		text: "Layanan", 
+		childrens: [
+			{ text: "Screening Balita", route: "/layanan/screening-balita" },
+			{ text: "Screening Remaja", route: "/layanan/screening-remaja" },
+			{ text: "Resliting", route: "/layanan/remaja-peduling-stunting" },
+			{ text: "SiKambing", route: "/layanan/sikambing" },
+		], 
+	},
 	{ text: "Edukasi", route: "/selengkapnya-card-edukasi" },
 	{ text: "Berita", route: "/selengkapnya-card-beritaacara" },
-	{ text: "Tentang", route: "/tentang-guest" },
 ]
 
 export const FOOTER_MENU_ITEMS = [
