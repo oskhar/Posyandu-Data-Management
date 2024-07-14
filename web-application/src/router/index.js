@@ -48,6 +48,7 @@ const requireGuest = async (to, from, next) => {
 };
 
 const router = createRouter({
+  scrollBehavior: () => ({ top: 0 }),
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
