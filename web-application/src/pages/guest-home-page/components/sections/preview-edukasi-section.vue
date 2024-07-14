@@ -35,22 +35,14 @@ onMounted(async () => {
 			</p>
 
 			<VRow v-if="isLoading">
-				<VCol cols="12" sm="6" lg="4">
-					<VSkeletonLoader class="mx-auto border" type="image, article" />
-				</VCol>
-				<VCol cols="12" sm="6" lg="4">
-					<VSkeletonLoader class="mx-auto border" type="image, article" />
-				</VCol>
-				<VCol cols="12" sm="6" lg="4">
+				<VCol v-for="i in 3" :key="i" cols="12" sm="6" lg="4">
 					<VSkeletonLoader class="mx-auto border" type="image, article" />
 				</VCol>
 			</VRow>
 
 			<VRow v-else class="mt-5">
 				<VCol v-for="(data) in dataEdukasi" :key="data.id_edukasi" cols="12" sm="6" lg="4">
-					<RouterLink :to="`./edukasi-guest?id_edukasi=${data.id_edukasi}`">
-						<CardEdukasi :data-edukasi="data" />
-					</RouterLink>
+					<CardEdukasi :data-edukasi="data" />
 				</VCol>
 
 				<VCol v-if="dataEdukasi.length === 0" cols="12">
