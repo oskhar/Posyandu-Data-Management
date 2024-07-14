@@ -69,7 +69,7 @@ const router = createRouter({
         },
         {
           path: "tentang-guest",
-          component: () => import("../pages/tentang-guest.vue"),
+          component: () => import("../pages/guest-tentang-page/guest-tentang-page.vue"),
         },
         {
           path: "edukasi-guest",
