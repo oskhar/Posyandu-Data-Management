@@ -29,11 +29,20 @@ onMounted(async () => {
 <template>
 	<VRow tag="section" class="px-5">
 		<VCol cols="12" md="9" class="mx-auto">
-			<h2 class="text-primary text-h5 font-weight-bold">Berita & Acara</h2>
-			<p class="text-secondary text-subtitle-1">
-				Informasi seputar Berita & Acara Posyandu Melati akan di tampilkan di
-				sini
-			</p>
+			<VRow class="flex-wrap">
+				<VCol cols="12" md="9">
+					<h2 class="text-primary text-h5 font-weight-bold">Berita & Acara</h2>
+					<p class="text-secondary text-subtitle-1">
+						Informasi seputar Berita & Acara Posyandu Melati akan di tampilkan di
+						sini
+					</p>
+				</VCol>
+				<VCol cols="12" md="3" class="d-flex justify-end align-center">
+					<VBtn variant="tonal" prepend-icon="bx-paper-plane" to="/selengkapnya-card-berita">
+						Lihat Semua
+					</VBtn>
+				</VCol>
+			</VRow>
 
 			<VRow v-if="isLoading">
 				<VCol v-for="i in 3" :key="i" cols="12" sm="6" lg="4">
