@@ -1,5 +1,5 @@
 <script setup>
-import logo from "@images/logo.svg?raw";
+import logo from "@images/logo.svg";
 import axios from "axios";
 import config from "@/@core/config";
 import Swal from "sweetalert2";
@@ -60,7 +60,7 @@ const isPasswordVisible = ref(false);
       <VCardItem class="justify-center">
         <template #prepend>
           <div class="d-flex">
-            <div class="d-flex text-primary" v-html="logo" />
+            <img class="d-flex text-primary" :src="logo" />
           </div>
         </template>
 
