@@ -2,6 +2,9 @@
 import avatar1 from "@images/avatars/avatar-1.png";
 import axios from "axios";
 import config from "@/@core/config";
+import { useRouter } from "vue-router";
+
+const router = useRouter()
 
 const fotoProfile = localStorage.getItem("foto_profile");
 const namaLengkap = localStorage.getItem("nama_lengkap");
@@ -19,7 +22,7 @@ const logout = async () => {
   );
 
   localStorage.clear();
-  window.location.href = "/login";
+  router.push("/login");
 };
 </script>
 
@@ -52,7 +55,7 @@ const logout = async () => {
             <VDivider class="my-2" />
 
             <!-- 👉 Profile -->
-            <VListItem link to="/dashboard">
+            <VListItem link to="/admin/dashboard">
               <template #prepend>
                 <VIcon class="me-2" icon="bx-home" size="22" />
               </template>
@@ -61,7 +64,7 @@ const logout = async () => {
             </VListItem>
 
             <!-- 👉 Profile -->
-            <VListItem link to="/account-settings">
+            <VListItem link to="/admin/account-settings">
               <template #prepend>
                 <VIcon class="me-2" icon="bx-user" size="22" />
               </template>

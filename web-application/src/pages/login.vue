@@ -3,7 +3,9 @@ import logo from "@images/logo.svg?raw";
 import axios from "axios";
 import config from "@/@core/config";
 import Swal from "sweetalert2";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 let isLoading = ref(false);
 
 const form = ref({
@@ -31,7 +33,7 @@ const login = async formLogin => {
     localStorage.setItem("jabatan", response.data.jabatan);
 
 
-    window.location.href = "/dashboard";
+    router.push("/admin/dashboard");
   } catch (error) {
     Swal.fire({
       toast: true,

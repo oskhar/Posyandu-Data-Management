@@ -120,7 +120,7 @@
                   </VCard>
                 </VDialog>
               </VCol>
-              <VCol v-for="(item, index) in dataEdit.penimbangan" cols="12">
+              <VCol v-for="(item, index) in dataEdit.penimbangan" :key="index" cols="12">
                 <hr class="mb-5" style="opacity: 0.3;">
                 <h4 class="my-5">{{ item.judul }}</h4>
                 <VRow>
@@ -367,7 +367,7 @@ export default {
         }
         console.log(response.data.penimbangan)
       } else {
-        window.location.href = "/dashboard";
+        window.location.href = "/admin/dashboard";
       }
     },
     async submitKeterangan() {

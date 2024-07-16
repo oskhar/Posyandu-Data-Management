@@ -20,41 +20,41 @@
       <VerticalNavLink :item="{
         title: 'Dashboard',
         icon: 'bx-home',
-        to: '/dashboard',
+        to: '/admin/dashboard',
       }" />
       <VerticalNavLink :item="{
         title: 'Berita Acara',
         icon: 'bx-news',
-        to: '/berita-acara',
+        to: '/admin/berita-acara',
       }" />
       <VerticalNavLink :item="{
         title: 'Edukasi',
         icon: 'bx-book',
-        to: '/edukasi',
+        to: '/admin/edukasi',
       }" />
       <VerticalNavLink :item="{
         title: 'Gambar',
         icon: 'bx-image',
-        to: '/galeri',
+        to: '/admin/galeri',
       }" />
       <VerticalNavLinkTree :item="{
         title: 'Master Data',
         children: [
           {
             title: 'Data Admin',
-            to: '/data/admin',
+            to: '/admin/data/admin',
           },
           {
             title: 'Data Bayi',
-            to: '/data/format-1',
+            to: '/admin/data/format-1',
           },
           {
             title: 'WUS & PUS',
-            to: '/data/format-3',
+            to: '/admin/data/format-3',
           },
           {
             title: 'Ibu Hamil',
-            to: '/data/format-4',
+            to: '/admin/data/format-4',
           },
         ],
       }" />
@@ -63,23 +63,23 @@
         children: [
           {
             title: 'Kader Gendong',
-            to: '/layanan/kader-gendong',
+            to: '/admin/layanan/kader-gendong',
           },
           {
             title: 'Screening',
-            to: '/data/format-2',
+            to: '/admin/data/format-2',
           },
         ],
       }" />
       <VerticalNavLink :item="{
         title: 'Tentang',
         icon: 'bx-info-circle',
-        to: '/tentang',
+        to: '/admin/tentang',
       }" />
       <VerticalNavLink :item="{
         title: 'Profil',
         icon: 'bx-user',
-        to: '/account-settings',
+        to: '/admin/account-settings',
       }" />
     </template>
 

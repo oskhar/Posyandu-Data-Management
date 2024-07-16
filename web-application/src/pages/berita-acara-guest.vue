@@ -1,3 +1,36 @@
+<script>
+import { api } from '@/lib/api';
+
+export default {
+  data() {
+    return {
+      dataBerita: {},
+    }
+  },
+  mounted() {
+    this.fetchData();
+  },
+  methods: {
+    async fetchData() {
+
+      // Membuat objek URLSearchParams dari query string
+      const queryString = window.location.search;
+      const queryParams = new URLSearchParams(queryString);
+
+      // Mendapatkan nilai dari parameter tertentu
+      if (queryParams.get("id_berita")) {
+        const idBerita = atob(queryParams.get("id_berita"));
+        const response = await api.get(`/berita?id_berita=${idBerita}`);
+
+        this.dataBerita = response.data;
+      } else {
+        this.$router.push("/");
+      }
+    },
+  },
+}
+</script>
+
 <template>
   <VRow style="margin-block: 70px;">
     <VCol cols="11" md="9" lg="9" class="mx-auto mt-5">
@@ -23,38 +56,3 @@
     </VCol>
   </VRow>
 </template>
-
-<script>
-import axios from '@axios';
-import config from '@/@core/config';
-
-export default {
-  data() {
-    return {
-      dataBerita: {},
-      imagePath: config.imagePath,
-    }
-  },
-  mounted() {
-    this.fetchData();
-  },
-  methods: {
-    async fetchData() {
-
-      // Membuat objek URLSearchParams dari query string
-      const queryString = window.location.search;
-      const queryParams = new URLSearchParams(queryString);
-
-      // Mendapatkan nilai dari parameter tertentu
-      if (queryParams.get("id_berita")) {
-        const idBerita = atob(queryParams.get("id_berita"));
-        const response = await axios.get(`${config.urlServer}/api/berita?id_berita=${idBerita}`);
-
-        this.dataBerita = response.data;
-      } else {
-        window.location.href = "./";
-      }
-    },
-  },
-}
-</script>
