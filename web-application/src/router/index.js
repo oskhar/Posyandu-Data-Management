@@ -204,11 +204,11 @@ const router = createRouter({
       children: [
         {
           path: "login",
-          component: () => import("../pages/login.vue"),
+          component: () => import("../pages/authentications/login-page.vue"),
         },
         {
           path: "register",
-          component: () => import("../pages/register.vue"),
+          component: () => import("../pages/authentications/register-page.vue"),
         },
         {
           path: "/:pathMatch(.*)*",
