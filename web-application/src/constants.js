@@ -1,12 +1,12 @@
 export const MENU_ITEMS = [
 	{ text: "Home", route: "/" },
-	{ text: "Tentang", route: "/tentang-guest" },
+	{ text: "Tentang", route: "/tentang" },
 	{ 
 		text: "Layanan", 
 		childrens: [
 			{ text: "Screening Balita", route: "/layanan/screening-balita" },
 			{ text: "Screening Remaja", route: "/layanan/screening-remaja" },
-			{ text: "Resliting", route: "/layanan/remaja-peduling-stunting" },
+			{ text: "Resliting", route: "/layanan/remaja-peduli-stunting" },
 			{ text: "SiKambing", route: "/layanan/sikambing" },
 		], 
 	},
@@ -21,7 +21,7 @@ export const FOOTER_MENU_ITEMS = [
 			{ text: "Home", route: "/" },
 			{ text: "Edukasi", route: "/selengkapnya-card-edukasi" },
 			{ text: "Berita", route: "/selengkapnya-card-beritaacara" },
-			{ text: "Tentang", route: "/tentang-guest" },
+			{ text: "Tentang", route: "/tentang" },
 		],
 	},
 	{
@@ -29,7 +29,7 @@ export const FOOTER_MENU_ITEMS = [
 		items: [
 			{ text: "Screening Balita", route: "/layanan/screening-balita" },
 			{ text: "Screening Remaja", route: "/layanan/screening-remaja" },
-			{ text: "Resliting", route: "/layanan/remaja-peduling-stunting" },
+			{ text: "Resliting", route: "/layanan/remaja-peduli-stunting" },
 			{ text: "SiKambing", route: "/layanan/sikambing" },
 		],
 	},

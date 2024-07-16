@@ -41,7 +41,7 @@ const requireAuth = async (to, from, next) => {
 
 const requireGuest = async (to, from, next) => {
   if (await isAuthenticated()) {
-    next("/dashboard"); // Pengguna belum terautentikasi, alihkan ke halaman login.
+    next("/admin/dashboard"); // Pengguna belum terautentikasi, alihkan ke halaman login.
   } else {
     next(); // Pengguna sudah terautentikasi, lanjutkan ke rute yang diminta.
   }
@@ -68,21 +68,27 @@ const router = createRouter({
           component: () => import("../pages/guest-berita-acara-page/guest-berita-acara-page.vue"),
         },
         {
-          path: "tentang-guest",
+          path: "tentang",
           component: () => import("../pages/guest-tentang-page/guest-tentang-page.vue"),
         },
         {
-          path: "edukasi-guest",
-          component: () => import("../pages/edukasi-guest.vue"),
+          path: "edukasi",
+          component: () => import("../pages/edukasi.vue"),
         },
         {
-          path: "berita-acara-guest",
-          component: () => import("../pages/berita-acara-guest.vue"),
+          path: "berita-acara",
+          component: () => import("../pages/berita-acara.vue"),
+        },
+        {
+          path: "layanan",
+          children: [
+            { path: "remaja-peduli-stunting", component: () => import("../pages/resliting-page/resliting-page.vue") },
+          ],
         },
       ],
     },
     {
-      path: "/",
+      path: "/admin/",
       beforeEnter: requireAuth,
       component: () => import("../layouts/admin/admin-dashboard-layout.vue"),
       children: [

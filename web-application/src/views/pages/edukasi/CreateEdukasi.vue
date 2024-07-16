@@ -165,7 +165,7 @@ export default {
           });
         }
 
-        window.location.href = "/edukasi";
+        window.location.href = "/admin/edukasi";
       } catch (error) {
         Swal.fire({
           toast: true,

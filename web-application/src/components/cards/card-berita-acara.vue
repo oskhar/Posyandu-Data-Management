@@ -7,7 +7,7 @@ const { dataBerita } = defineProps({
 </script>
 
 <template>
-	<VCard :to="`/edukasi-guest?id_berita=${dataBerita.id_berita}`">
+	<VCard :to="`/edukasi?id_berita=${dataBerita.id_berita}`">
 		<VImg :src="dataBerita.gambar" cover style="height: 200px">
 			<h2 v-if="dataBerita.gambar === getFullImagePath(null)" class="text-center text-secondary">
 				Tidak Ada Foto
