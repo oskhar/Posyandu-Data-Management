@@ -48,5 +48,9 @@ class JabatanSeeder extends Seeder
             'nama' => 'PENYULUHAN',
             'level' => '4'
         ]);
+        \DB::table('jabatan')->insert([
+            'nama' => 'KERJASAMA KADER',
+            'level' => '5'
+        ]);
     }
 }
