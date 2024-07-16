@@ -39,7 +39,7 @@ return new class extends Migration {
             $table->foreign("tantangan_id")->references("id")->on("tantangan")->onDelete("cascade");
             $table->foreign("user_id")->references("id")->on("user")->onDelete("cascade");
         });
-        Schema::create("penilaian_submission", function (Blueprint $table) {
+        Schema::create("penilaian", function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("submission_id");
             $table->unsignedBigInteger("admin_id");
@@ -57,7 +57,7 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('penilaian_submission');
+        Schema::dropIfExists('penilaian');
         Schema::dropIfExists('submission');
         Schema::dropIfExists('tantangan');
         Schema::dropIfExists('user');
