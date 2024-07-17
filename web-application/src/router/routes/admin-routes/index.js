@@ -8,10 +8,6 @@ export const adminRoutes =  {
 	component: () => import("../../../layouts/admin/admin-dashboard-layout.vue"),
 	children: [
 		{
-			path: "test-api",
-			component: () => import("../../../pages/test-api.vue"),
-		},
-		{
 			path: "dashboard",
 			component: () => import("../../../pages/dashboard.vue"),
 		},
