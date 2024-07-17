@@ -1,3 +1,5 @@
+export const WA_POSYANDU = '628129084810'
+
 export const MENU_ITEMS = [
 	{ text: "Home", route: "/" },
 	{ text: "Tentang", route: "/tentang" },
