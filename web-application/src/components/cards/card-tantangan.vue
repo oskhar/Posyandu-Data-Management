@@ -7,7 +7,7 @@ const { dataTantangan } = defineProps({
 </script>
 
 <template>
-	<VCard :to="`/layanan/remaja-peduli-stunting/tantangan/${dataTantangan.id_edukasi}`">
+	<VCard :to="`/layanan/remaja-peduli-stunting/tantangan/${dataTantangan.id}`">
 		<VImg :src="dataTantangan.gambar" cover style="height: 200px">
 			<h2 v-if="dataTantangan.gambar === getFullImagePath(null)" class="text-center text-secondary">
 				Tidak Ada Foto
@@ -16,10 +16,14 @@ const { dataTantangan } = defineProps({
 
 		<VCardItem>
 			<VCardTitle>{{ dataTantangan.judul }}</VCardTitle>
-			<sup>
-				<VIcon class="text-primary">bx-calendar</VIcon> {{ dataTantangan.tanggal_mulai }} - {{
-					dataTantangan.tanggal_selesai }}
-			</sup>
+			<div class="text-caption d-flex gap-1 align-center">
+				<VIcon class="text-primary">bx-calendar</VIcon>
+				<div class="d-flex gap-1">
+					<span>Mulai: {{ dataTantangan.tanggal_mulai }}</span>
+					/
+					<span>Akhir: {{ dataTantangan.tanggal_selesai }}</span>
+				</div>
+			</div>
 		</VCardItem>
 
 		<VCardText>
