@@ -2198,6 +2198,7 @@ paths:
                     judul: "string"
                     gambar: "Blob base64"
                     deskripsi: "text"
+                    overview: "string"
                     tanggal_mulai: "date"
                     tanggal_selesai: "date"
                 first_page_url: "http://localhost:8000/api/resleting/tantangan?page=1"
