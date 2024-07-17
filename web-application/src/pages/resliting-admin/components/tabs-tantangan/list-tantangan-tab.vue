@@ -3,7 +3,7 @@ import { ref, watch } from "vue"
 import debounce from "just-debounce";
 import Swal from "sweetalert2";
 import { getErrorMessage } from "@/utils/get-error-message";
-import { getListTantangan } from "../../api/resliting-admin-api";
+import { getListTantangan } from "../../api/tantangan-api";
 import CardTantangan from "@/components/cards/card-tantangan.vue";
 
 const listTantangan = ref([]);

@@ -29,7 +29,7 @@ export const validateFileInput = (file, fileType, fileSize = 10 * 1024 * 1024) =
 /**
  * @param {string} base64 
  */
-export const createDownload = base64 => {
+export const createDownload = (base64, fileType = "application/pdf", fileExtension = "pdf") => {
 	// Mengonversi base64 menjadi blob
 	const byteCharacters = atob(base64);
 	const byteNumbers = new Array(byteCharacters.length);
@@ -37,7 +37,7 @@ export const createDownload = base64 => {
 		byteNumbers[i] = byteCharacters.charCodeAt(i);
 	}
 	const byteArray = new Uint8Array(byteNumbers);
-	const blob = new Blob([byteArray], { type: "application/pdf" });
+	const blob = new Blob([byteArray], { type: fileType });
 
 	// Membuat objek Date yang merepresentasikan waktu saat ini
 	const currentDate = new Date();
@@ -50,7 +50,7 @@ export const createDownload = base64 => {
 	const minutes = currentDate.getMinutes();
 	const seconds = currentDate.getSeconds();
 	const currentDateTime = `_${year}-${month}-${day}_${hours}:${minutes}:${seconds}`;
-	const namaFile = `Surat Tugas - ${currentDateTime}.pdf`;
+	const namaFile = `${currentDateTime}.${fileExtension}`;
 
 	// Membuat URL blob dan elemen link untuk mengunduh file
 	const url = window.URL.createObjectURL(blob);

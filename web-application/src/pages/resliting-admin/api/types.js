@@ -37,4 +37,13 @@
  * @property {number} total
  */
 
+
+/**
+ * @typedef {Object} Submission
+ * @property {number} id
+ * @property {number} tantangan_id
+ * @property {string} file
+ * @property {string} link
+ * @property {} status
+ */
 export {}

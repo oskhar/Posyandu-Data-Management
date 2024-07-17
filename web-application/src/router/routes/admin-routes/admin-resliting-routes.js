@@ -13,10 +13,6 @@ export const adminReslitingRoutes = {
 					path: "",
 					component: () => import('../../../pages/resliting-admin/detail-tantangan.page.vue'),
 				},
-				{
-					path: "submissions",
-					component: () => import('../../../pages/resliting-admin/submission-tantangan-page.vue'),
-				},
 			],
 		},
 	],

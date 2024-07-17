@@ -1,122 +1,22 @@
 <script setup>
-import { getSwalErrorMessage } from '@/utils/get-error-message';
-import CreateTantanganForm from './components/create-tantangan-form.vue';
-import { mysqlDateTime } from '@/utils/mysql-datetime';
-import Swal from 'sweetalert2';
-import { tantanganValidator } from './validators/tantangan-validator';
-import { deleteTantangan, getSingleTantangan } from './api/resliting-admin-api';
-import { DEFAULT_TANTANGAN } from '@/constants';
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import EditTantanganTab from './components/tabs-detail-tantangan/edit-tantangan-tab.vue';
+import SubmissionTantanganTab from './components/tabs-detail-tantangan/submission-tantangan-tab.vue';
 
-const route = useRoute();
-const router = useRouter()
-const isLoading = ref(true);
-const dataTantangan = ref(DEFAULT_TANTANGAN)
+const tabs = [
+	{
+		title: "Edit Tantangan",
+		icon: "bx-file",
+		tab: "edit-tantangan",
+	},
+	{
+		title: "Submission",
+		icon: "bx-folder-open",
+		tab: "submission",
+	},
+];
 
-const fetchData = async () => {
-	try {
-		isLoading.value = true
-
-		const idTantangan = route.params.id
-
-		const result = await getSingleTantangan(idTantangan)
-
-		dataTantangan.value = {
-			...result,
-			tanggal_mulai: new Date(result.tanggal_mulai),
-			tanggal_selesai: new Date(result.tanggal_selesai),
-		}
-
-
-	} catch (error) {
-		await Swal.fire({
-			icon: "error",
-			html: getSwalErrorMessage(error, "Terjadi kesalahan saat loading data tantangan!"),
-			showCloseButton: true,
-		});
-	} finally {
-		isLoading.value = false
-	}
-}
-
-
-const handleEditTantangan = async (tantanganData, isEditingTantangan) => {
-	try {
-		isEditingTantangan.value = true;
-
-		const rawTantangan = {
-			...tantanganData,
-			tanggal_mulai: mysqlDateTime(tantanganData.tanggal_mulai),
-			tanggal_selesai: mysqlDateTime(tantanganData.tanggal_selesai),
-		}
-
-		const parsedTantangan = await tantanganValidator.parseAsync(rawTantangan)
-
-		const { isConfirmed } = await Swal.fire({
-			title: 'Edit Tantangan',
-			text: 'Apakah Anda yakin ingin mengubah tantangan ini?',
-			icon: 'question',
-			showCancelButton: true,
-			showConfirmButton: true,
-		});
-
-		if (isConfirmed) {
-			const idTantangan = route.params.id;
-			const result = await editTantangan(idTantangan, parsedTantangan);
-
-			await Swal.fire({
-				icon: 'success',
-				title: 'Berhasil mengubah tantangan',
-				text: result.message,
-			});
-		}
-
-	} catch (error) {
-		await Swal.fire({
-			icon: 'error',
-			title: 'Input Tidak Valid',
-			html: getSwalErrorMessage(error, 'Gagal mengubah tantangan!'),
-		})
-	} finally {
-		isEditingTantangan.value = false;
-	}
-}
-
-const handleDeleteTantangan = async () => {
-	try {
-		const { isConfirmed } = await Swal.fire({
-			title: 'Hapus Tantangan',
-			text: 'Apakah Anda yakin ingin menghapus tantangan ini?',
-			icon: 'question',
-			showCancelButton: true,
-			showConfirmButton: true,
-		});
-
-		if (isConfirmed) {
-			const idTantangan = route.params.id;
-			const result = await deleteTantangan(idTantangan);
-
-			await Swal.fire({
-				icon: 'success',
-				title: 'Berhasil menghapus tantangan',
-				text: result.message,
-			});
-
-			router.push("/admin/layanan/remaja-peduli-stunting/tantangan")
-		}
-
-	} catch (error) {
-		await Swal.fire({
-			icon: 'error',
-			title: 'Gagal menghapus tantangan',
-			html: getSwalErrorMessage(error, 'Gagal menghapus tantangan!'),
-		})
-	}
-
-}
-
-onMounted(fetchData)
+const activeTab = ref(tabs[0].tab);
 </script>
 
 <template>
@@ -126,10 +26,21 @@ onMounted(fetchData)
 	</VBtn>
 
 
-	<VSkeletonLoader v-if="isLoading" type="article" />
-	<CreateTantanganForm v-else :title="`Edit tantangan ${dataTantangan.judul || '...'}`" :tantangan="dataTantangan"
-		@create-tantangan="handleEditTantangan">
+	<VTabs v-model="activeTab" show-arrows>
+		<VTab v-for="item in tabs" :key="item.icon" :value="item.tab">
+			<VIcon size="20" start :icon="item.icon" />
+			{{ item.title }}
+		</VTab>
+	</VTabs>
+	<VDivider />
 
-		<VBtn color="error" @click="handleDeleteTantangan">Hapus Tantangan</VBtn>
-	</CreateTantanganForm>
+	<VWindow v-model="activeTab" class="mt-5 disable-tab-transition">
+		<VWindowItem :value="tabs[0].tab">
+			<EditTantanganTab v-if="activeTab === tabs[0].tab" />
+		</VWindowItem>
+
+		<VWindowItem :value="tabs[1].tab">
+			<SubmissionTantanganTab v-if="activeTab === tabs[1].tab" />
+		</VWindowItem>
+	</VWindow>
 </template>

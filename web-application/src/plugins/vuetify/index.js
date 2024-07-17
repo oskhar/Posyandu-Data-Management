@@ -1,5 +1,6 @@
 import { createVuetify } from 'vuetify'
 import { VDateInput } from 'vuetify/labs/VDateInput'
+import { VNumberInput } from 'vuetify/labs/VNumberInput'
 import { VBtn } from 'vuetify/components/VBtn'
 import { VFab } from 'vuetify/labs/VFab'
 import defaults from './defaults'
@@ -14,6 +15,7 @@ export default createVuetify({
   components: {
     VFab,
     VDateInput,
+    VNumberInput,
   },
   aliases: {
     IconBtn: VBtn,
