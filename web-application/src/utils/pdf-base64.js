@@ -1,1 +1,0 @@
-export const pdfBase64 = base64 => `data:application/pdf;base64,${base64}`

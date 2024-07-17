@@ -9,4 +9,8 @@ export const reslitingRoutes = [
 		path: "remaja-peduli-stunting/tantangan",
 		component: () => import("../../../pages/resliting-tantangan-page/resliting-tantangan-page.vue"),
 	},
+	{
+		path: "remaja-peduli-stunting/tantangan/:id",
+		component: () => import("../../../pages/resliting-tantangan-page/detail-resliting-tantangan-page.vue"),
+	},
 ]

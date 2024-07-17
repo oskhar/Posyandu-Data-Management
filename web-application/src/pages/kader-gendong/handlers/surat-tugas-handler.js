@@ -1,4 +1,4 @@
-import { createDownload } from "@/utils/create-download";
+import { createDownload } from "@/utils/file";
 import Swal from "sweetalert2";
 import { createSuratTugas, previewSuratTugas } from "../api/surat-tugas-api";
 import { getErrorMessage } from "@/utils/get-error-message";
