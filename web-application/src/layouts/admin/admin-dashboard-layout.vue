@@ -66,6 +66,10 @@
             to: '/admin/layanan/kader-gendong',
           },
           {
+            title: 'Resliting',
+            to: '/admin/layanan/remaja-peduli-stunting/tantangan',
+          },
+          {
             title: 'Screening',
             to: '/admin/data/format-2',
           },

@@ -26,6 +26,10 @@ export function getErrorMessage(err, defaultMesssage = DEFAULT_ERROR_MESSAGE) {
 	return defaultMesssage;
 }
 
+export function getSwalErrorMessage(err, defaultMesssage = DEFAULT_ERROR_MESSAGE) {
+	return `<pre>${getErrorMessage(err, defaultMesssage)}</pre>`;
+}
+
 export function isErrorApiResponse(response) {
 	if (typeof response !== 'object' || response === null) {
 		return false;
