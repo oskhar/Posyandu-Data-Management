@@ -1,13 +1,14 @@
 <script setup>
 import { getFullImagePath } from '@/utils/get-full-image-path';
 
-const { dataTantangan } = defineProps({
+const { dataTantangan, to } = defineProps({
 	dataTantangan: { type: Object, required: true },
+	to: { type: String },
 })
 </script>
 
 <template>
-	<VCard :to="`/layanan/remaja-peduli-stunting/tantangan/${dataTantangan.id}`">
+	<VCard :to="to || `/layanan/remaja-peduli-stunting/tantangan/${dataTantangan.id}`">
 		<VImg :src="dataTantangan.gambar" cover style="height: 200px">
 			<h2 v-if="dataTantangan.gambar === getFullImagePath(null)" class="text-center text-secondary">
 				Tidak Ada Foto

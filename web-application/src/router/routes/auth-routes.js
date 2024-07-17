@@ -1,4 +1,4 @@
-import { requireGuest } from "../middlewares/middleware";
+import { requireGuest } from "../middlewares";
 
 /** @type { import("vue-router").RouteRecordRaw } */
 export const authRoutes = {
