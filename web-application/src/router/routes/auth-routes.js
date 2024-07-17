@@ -1,9 +1,9 @@
-import { requireGuest } from "../middlewares";
+import { requireAdmin } from "../middlewares";
 
 /** @type { import("vue-router").RouteRecordRaw } */
 export const authRoutes = {
 	path: "/",
-	beforeEnter: requireGuest,
+	beforeEnter: requireAdmin,
 	component: () => import("../../layouts/blank-layout.vue"),
 	children: [
 		{

@@ -38,7 +38,7 @@ export const requireAuth = async (to, from, next) => {
   }
 };
 
-export const requireGuest = async (to, from, next) => {
+export const requireAdmin = async (to, from, next) => {
   if (await isAuthenticated()) {
     next("/admin/dashboard"); // Pengguna sudah terautentikasi, alihkan ke halaman dashboard admin.
   } else {
