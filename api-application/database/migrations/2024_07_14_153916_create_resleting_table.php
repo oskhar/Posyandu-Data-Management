@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->string("email")->unique();
             $table->string("password");
             $table->integer("poin");
+            $table->rememberToken();
             $table->timestamps();
         });
         Schema::create("tantangan", function (Blueprint $table) {
