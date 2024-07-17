@@ -23,9 +23,10 @@ return new class extends Migration {
         });
         Schema::create("tantangan", function (Blueprint $table) {
             $table->id();
-            $table->string("judul");
+            $table->string("judul")->unique();
             $table->string("gambar")->nullable();
             $table->text("deskripsi");
+            $table->text("overview");
             $table->date("tanggal_mulai");
             $table->date("tanggal_selesai");
             $table->timestamps();

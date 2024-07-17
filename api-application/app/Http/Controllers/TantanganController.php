@@ -19,6 +19,7 @@ class TantanganController extends Controller
             "judul",
             "gambar",
             "deskripsi",
+            "overview",
             "tanggal_mulai",
             "tanggal_selesai",
             "created_at"
@@ -48,6 +49,7 @@ class TantanganController extends Controller
             ]
         ])->setStatusCode(201);
     }
+
     public function put(TantanganRequest $request, $id): JsonResponse
     {
         $data = $request->validated();
@@ -61,6 +63,7 @@ class TantanganController extends Controller
             ]
         ])->setStatusCode(200);
     }
+
     public function delete($id): JsonResponse
     {
         TantanganModel::findOrFail($id)
@@ -81,6 +84,7 @@ class TantanganController extends Controller
             "tantangan.judul",
             "tantangan.gambar",
             "tantangan.deskripsi",
+            "tantangan.overview",
             "tantangan.tanggal_mulai",
             "tantangan.tanggal_selesai",
             "tantangan.created_at"

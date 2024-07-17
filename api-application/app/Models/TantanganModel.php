@@ -25,6 +25,7 @@ class TantanganModel extends Model
         "judul",
         "gambar",
         "deskripsi",
+        "overview",
         "tanggal_mulai",
         "tanggal_selesai",
     ];

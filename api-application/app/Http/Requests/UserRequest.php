@@ -18,6 +18,13 @@ class UserRequest extends CoreRequest
                     "search" => "nullable|string",
                     "length" => "required|integer",
                 ];
+            case 'POST':
+                return [
+                    "nama" => "required|string",
+                    "email" => "required|string",
+                    "password" => "required|string",
+                    "whatsapp" => "required|string",
+                ];
             case 'PUT':
                 return [
                     "nama" => "required|string",

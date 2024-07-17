@@ -2538,6 +2538,7 @@ paths:
                 judul: "string"
                 gambar: "link|nullable"
                 deskripsi: "text"
+                overview: "string"
                 tanggal_mulai: "date"
                 tanggal_selesai: "date"
       responses:
@@ -2588,6 +2589,7 @@ paths:
                 judul: "string"
                 gambar: "link|nullable"
                 deskripsi: "text"
+                overview: "string"
                 tanggal_mulai: "date"
                 tanggal_selesai: "date"
       responses:

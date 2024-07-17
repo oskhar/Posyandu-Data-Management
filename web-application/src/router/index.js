@@ -86,8 +86,12 @@ const router = createRouter({
       component: () => import("../layouts/default.vue"),
       children: [
         {
-          path: "test-api",
-          component: () => import("../pages/test-api.vue"),
+          path: "test-api-kader-gendong",
+          component: () => import("../pages/test-api-kader-gendong.vue"),
+        },
+        {
+          path: "test-api-resleting",
+          component: () => import("../pages/test-api-resleting.vue"),
         },
         {
           path: "dashboard",
@@ -171,7 +175,8 @@ const router = createRouter({
           children: [
             {
               path: "kader-gendong",
-              component: () => import("../pages/kader-gendong/kader-gendong-page.vue"),
+              component: () =>
+                import("../pages/kader-gendong/kader-gendong-page.vue"),
             },
           ],
         },

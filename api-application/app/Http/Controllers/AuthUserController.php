@@ -210,6 +210,20 @@ class AuthUserController extends Controller
             ]
         ])->setStatusCode(200);
     }
+    public function register(UserRequest $request): JsonResponse
+    {
+        $data = $request->validated();
+
+        $data['password'] = Hash::make($data['password']);
+
+        UserModel::create($data);
+
+        return response()->json([
+            "success" => [
+                "message" => "Data user berhasil diperbarui"
+            ]
+        ])->setStatusCode(201);
+    }
     public function put(UserRequest $request): JsonResponse
     {
         $data = $request->validated();

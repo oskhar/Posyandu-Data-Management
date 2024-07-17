@@ -21,17 +21,27 @@ class TantanganRequest extends CoreRequest
                 ];
             case 'POST':
                 return [
-                    "judul" => "required|string",
+                    "judul" => [
+                        "required",
+                        "string",
+                        Rule::unique("tantangan", "judul")
+                    ],
                     "gambar" => "string",
                     "deskripsi" => "required|string",
+                    "overview" => "required|string",
                     "tanggal_mulai" => "required|date",
                     "tanggal_selesai" => "required|date",
                 ];
             case 'PUT':
                 return [
-                    "judul" => "required|string",
+                    "judul" => [
+                        "required",
+                        "string",
+                        Rule::unique("tantangan", "judul")->ignore($this->route('id'))
+                    ],
                     "gambar" => "string",
                     "deskripsi" => "required|string",
+                    "overview" => "required|string",
                     "tanggal_mulai" => "required|date",
                     "tanggal_selesai" => "required|date",
                 ];

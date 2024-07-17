@@ -191,8 +191,8 @@ Route::group(['middleware' => ['auth:sanctum', 'checkUserType:admin']], function
 
         Route::get('/tantangan', [TantanganController::class, 'get']);
         Route::post('/tantangan', [TantanganController::class, 'post']);
-        Route::put('/tantangan{id}', [TantanganController::class, 'put']);
-        Route::delete('/tantangan{id}', [TantanganController::class, 'delete']);
+        Route::put('/tantangan/{id}', [TantanganController::class, 'put']);
+        Route::delete('/tantangan/{id}', [TantanganController::class, 'delete']);
 
     });
 
@@ -206,6 +206,7 @@ Route::group(['middleware' => ['auth:sanctum', 'checkUserType:admin']], function
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/user/login', [AuthUserController::class, 'login']);
+Route::post('/user/register', [AuthUserController::class, 'register']);
 
 Route::get('/edukasi', [EdukasiController::class, 'get']);
 Route::get('/jumlah-bayi', [FormatAController::class, 'jumlah_bayi']);
