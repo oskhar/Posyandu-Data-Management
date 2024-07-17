@@ -184,6 +184,19 @@ class AuthUserController extends Controller
          * baru adalah password yang sama
          *
          */
+        if ($data['new_password'] == $data['old_password']) {
+            throw new HttpResponseException(response()->json([
+                'errors' => [
+                    'message' => 'Tidak boleh menggunakan password sebelumnya!'
+                ]
+            ])->setStatusCode(400));
+        }
+
+        /**
+         * Memeriksa apakah kedua password
+         * baru adalah password yang sama
+         *
+         */
         if (strlen($data['new_password']) < 6) {
             throw new HttpResponseException(response()->json([
                 'errors' => [
@@ -210,6 +223,7 @@ class AuthUserController extends Controller
             ]
         ])->setStatusCode(200);
     }
+
     public function register(UserRequest $request): JsonResponse
     {
         $data = $request->validated();
@@ -220,7 +234,7 @@ class AuthUserController extends Controller
 
         return response()->json([
             "success" => [
-                "message" => "Data user berhasil diperbarui"
+                "message" => "Register berhasil"
             ]
         ])->setStatusCode(201);
     }
