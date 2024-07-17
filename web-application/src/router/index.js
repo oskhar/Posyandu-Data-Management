@@ -10,7 +10,7 @@ const router = createRouter({
     guestRoutes,
     adminRoutes,
     authRoutes,
-    {    
+    {
       path: "/:pathMatch(.*)*",
       component: () => import("../pages/[...all].vue"),
     },
