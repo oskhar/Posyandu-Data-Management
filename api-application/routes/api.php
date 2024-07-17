@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AuthUserController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\DrafSuratController;
 use App\Http\Controllers\EdukasiController;
@@ -45,6 +46,14 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
     Route::post('/auth', [AuthController::class, 'authData']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::put('/reset-password', [AuthController::class, 'resetPassword']);
+
+    /**
+     * Endpoint untuk autentikasi user
+     *
+     */
+    Route::post('/user/auth', [AuthUserController::class, 'authData']);
+    Route::post('/user/logout', [AuthUserController::class, 'logout']);
+    Route::put('/user/reset-password', [AuthUserController::class, 'resetPassword']);
 
     /**
      * Endpoint untuk edukasi
@@ -184,6 +193,8 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
  */
 Route::post('/login', [AuthController::class, 'login']);
 
+Route::post('/user/login', [AuthUserController::class, 'login']);
+
 Route::get('/edukasi', [EdukasiController::class, 'get']);
 Route::get('/jumlah-bayi', [FormatAController::class, 'jumlah_bayi']);
 Route::get('/berita', [BeritaController::class, 'get']);
@@ -194,7 +205,7 @@ Route::get('/struktur-admin', [AdminController::class, 'strukturAdmin']);
 Route::get('/listtahun', [FormatBAController::class, 'getListTahun']);
 
 /**
- * API Wilayah Indonesia\
+ * API Wilayah Indonesia
  *
  */
 Route::prefix('indonesia')->group(function () {
