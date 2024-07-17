@@ -16,8 +16,8 @@ const isAuthenticated = async () => {
 
       return response.status === 200;
     } catch (error) {
-      localStorage.removeItem("tokenAuth");
-      localStorage.removeItem("id_admin");
+      // localStorage.removeItem("tokenAuth");
+      // localStorage.removeItem("id_admin");
       console.error(error);
 
       return false;
@@ -55,6 +55,10 @@ const router = createRouter({
       component: () => import("../layouts/guest-layout.vue"),
       children: [
         {
+          path: "test-api-resleting",
+          component: () => import("../pages/test-api-resleting.vue"),
+        },
+        {
           path: "",
           component: () => import("../pages/guest.vue"),
         },
@@ -88,10 +92,6 @@ const router = createRouter({
         {
           path: "test-api-kader-gendong",
           component: () => import("../pages/test-api-kader-gendong.vue"),
-        },
-        {
-          path: "test-api-resleting",
-          component: () => import("../pages/test-api-resleting.vue"),
         },
         {
           path: "dashboard",

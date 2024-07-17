@@ -28,6 +28,10 @@ class CheckUserType
             return $next($request);
         }
 
-        return response()->json(['message' => 'Unauthorized'], 403);
+        return response()->json([
+            "errors" => [
+                'message' => 'Unauthorized'
+            ]
+        ], 403);
     }
 }

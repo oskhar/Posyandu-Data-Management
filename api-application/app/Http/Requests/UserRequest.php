@@ -2,6 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+
 class UserRequest extends CoreRequest
 {
 
@@ -21,14 +24,22 @@ class UserRequest extends CoreRequest
             case 'POST':
                 return [
                     "nama" => "required|string",
-                    "email" => "required|string",
+                    "email" => [
+                        "required",
+                        "string",
+                        Rule::unique("user", "email")
+                    ],
                     "password" => "required|string",
                     "whatsapp" => "required|string",
                 ];
             case 'PUT':
                 return [
                     "nama" => "required|string",
-                    "email" => "required|string",
+                    "email" => [
+                        "required",
+                        "string",
+                        Rule::unique("user", "email")->ignore(Auth::user()->id)
+                    ],
                     "password" => "required|string",
                     "whatsapp" => "required|string",
                     "foto_profile" => "string",

@@ -27,7 +27,7 @@ class SuratRequest extends CoreRequest
                     "nomor" => [
                         "required",
                         "string",
-                        Rule::unique('surat', 'nomor') // Validasi unique
+                        Rule::unique('surat', 'nomor')
                     ],
                     "ditugaskan" => "required|array",
                     "kalimat_pembuka" => "string",
