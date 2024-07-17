@@ -17,10 +17,9 @@ use App\Http\Controllers\PosyanduController;
 use App\Http\Controllers\StatistikController;
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\TantanganController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WilayahController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Tests\Unit\ExampleTest;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,10 +33,24 @@ use Tests\Unit\ExampleTest;
 */
 
 /**
- * Endpoint privat Bearer protected
+ * Endpoint privat Bearer protected user
  *
  */
-Route::group(['middleware' => 'auth:sanctum'], function ($router) {
+Route::group(['middleware' => ['auth:sanctum', 'checkUserType:user']], function ($router) {
+    /**
+     * Endpoint untuk autentikasi user
+     *
+     */
+    Route::post('/user/auth', [AuthUserController::class, 'authData']);
+    Route::post('/user/logout', [AuthUserController::class, 'logout']);
+    Route::put('/user/reset-password', [AuthUserController::class, 'resetPassword']);
+});
+
+/**
+ * Endpoint privat Bearer protected admin
+ *
+ */
+Route::group(['middleware' => ['auth:sanctum', 'checkUserType:admin']], function ($router) {
 
     /**
      * Endpoint untuk autentikasi
@@ -48,12 +61,11 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
     Route::put('/reset-password', [AuthController::class, 'resetPassword']);
 
     /**
-     * Endpoint untuk autentikasi user
+     * Endpoint untuk user
      *
      */
-    Route::post('/user/auth', [AuthUserController::class, 'authData']);
-    Route::post('/user/logout', [AuthUserController::class, 'logout']);
-    Route::put('/user/reset-password', [AuthUserController::class, 'resetPassword']);
+    Route::get('/user', [UserController::class, 'get']);
+    Route::delete('/user', [UserController::class, 'delete']);
 
     /**
      * Endpoint untuk edukasi

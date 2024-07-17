@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string("nama");
             $table->string("email")->unique();
+            $table->string("foto_profile");
             $table->string("password");
             $table->string("whatsapp");
             $table->integer("poin")->default(0);

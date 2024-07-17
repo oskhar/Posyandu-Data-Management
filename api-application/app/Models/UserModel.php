@@ -26,6 +26,7 @@ class UserModel extends Model
         "email",
         "password",
         "whatsapp",
+        "foto_profile",
         "poin",
     ];
 }

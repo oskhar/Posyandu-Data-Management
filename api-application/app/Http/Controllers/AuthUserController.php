@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\UserModel;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
@@ -206,6 +207,19 @@ class AuthUserController extends Controller
         return response()->json([
             'success' => [
                 'message' => 'Password berhasil diubah'
+            ]
+        ])->setStatusCode(200);
+    }
+    public function put(UserRequest $request): JsonResponse
+    {
+        $data = $request->validated();
+
+        UserModel::findOrFail(Auth::user()->id)
+            ->update($data);
+
+        return response()->json([
+            "success" => [
+                "message" => "Data user berhasil diperbarui"
             ]
         ])->setStatusCode(200);
     }
