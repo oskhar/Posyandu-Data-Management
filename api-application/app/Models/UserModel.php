@@ -25,6 +25,7 @@ class UserModel extends Model
         "nama",
         "email",
         "password",
+        "whatsapp",
         "poin",
     ];
 }

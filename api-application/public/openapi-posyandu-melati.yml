@@ -2354,6 +2354,7 @@ paths:
                 current_page: 2
                 data:
                   array:
+                    id: "integer"
                     judul: "string"
                     gambar: "link"
                     deskripsi: "text"
@@ -2558,6 +2559,7 @@ paths:
                 current_page: 2
                 data:
                   array:
+                    id: "integer"
                     tantangan_id: "integer"
                     file: "Blob base64"
                     link: "string"
@@ -2758,6 +2760,7 @@ paths:
                 current_page: 2
                 data:
                   array:
+                    id: "integer"
                     submission_id: "integer"
                     feedback: "text"
                     peringkat: "integer"
@@ -2955,6 +2958,7 @@ paths:
                 current_page: 2
                 data:
                   array:
+                    id: "integer"
                     judul: "string"
                     gambar: "link"
                     deskripsi: "text"

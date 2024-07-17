@@ -15,7 +15,8 @@ return new class extends Migration {
             $table->string("nama");
             $table->string("email")->unique();
             $table->string("password");
-            $table->integer("poin");
+            $table->string("whatsapp");
+            $table->integer("poin")->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

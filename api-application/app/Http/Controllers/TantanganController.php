@@ -15,6 +15,7 @@ class TantanganController extends Controller
         $data = $request->validated();
 
         $query = TantanganModel::select(
+            "id",
             "judul",
             "gambar",
             "deskripsi",
@@ -76,6 +77,7 @@ class TantanganController extends Controller
         $data = $request->validated();
 
         $query = TantanganModel::select(
+            "tantangan.id",
             "tantangan.judul",
             "tantangan.gambar",
             "tantangan.deskripsi",

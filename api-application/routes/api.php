@@ -15,6 +15,7 @@ use App\Http\Controllers\ImportController;
 use App\Http\Controllers\PosyanduController;
 use App\Http\Controllers\StatistikController;
 use App\Http\Controllers\SuratController;
+use App\Http\Controllers\TantanganController;
 use App\Http\Controllers\WilayahController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -160,6 +161,21 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
         Route::get('/{id}', [SuratController::class, 'show']);
 
     });
+
+    /**
+     * Endpoint untuk kader gendong
+     *
+     */
+    Route::prefix('resleting')->group(function () {
+
+        Route::get('/tantangan', [TantanganController::class, 'get']);
+        Route::post('/tantangan', [TantanganController::class, 'post']);
+        Route::put('/tantangan{id}', [TantanganController::class, 'put']);
+        Route::delete('/tantangan{id}', [TantanganController::class, 'delete']);
+
+    });
+
+    Route::get('/user/tantangan', [TantanganController::class, 'user']);
 });
 
 /**
