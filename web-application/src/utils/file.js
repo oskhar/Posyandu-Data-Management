@@ -15,6 +15,8 @@ export const convertBlobToBase64 = blob => new Promise((resolve, reject) => {
 	reader.onerror = reject
 })
 
+export const convertBase64ToDataUri = (base64, mimeType) => `data:${mimeType};base64,${base64}`
+
 /**
  * @param {File} file 
  * @returns {boolean}

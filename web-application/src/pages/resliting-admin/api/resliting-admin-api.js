@@ -70,4 +70,8 @@ export const editListTantangan = async (id, tantangan) => {
 export const deleteTantangan = async id => {
   // TODO: Implement createListTantangan
   console.log(id);
+
+  return {
+    message: "Tantangan berhasil dihapus",
+  }
 }
