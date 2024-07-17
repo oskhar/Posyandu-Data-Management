@@ -1,34 +1,20 @@
-<script>
+<script setup>
 import { api } from '@/lib/api';
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
 
-export default {
-  data() {
-    return {
-      dataEdukasi: {},
-    }
-  },
-  mounted() {
-    this.fetchData();
-  },
-  methods: {
-    async fetchData() {
+const route = useRoute();
+const dataEdukasi = ref({})
 
-      // Membuat objek URLSearchParams dari query string
-      const queryString = window.location.search;
-      const queryParams = new URLSearchParams(queryString);
 
-      // Mendapatkan nilai dari parameter tertentu
-      if (queryParams.get("id_edukasi")) {
-        const idEdukasi = atob(queryParams.get("id_edukasi"));
-        const response = await api.get(`/edukasi?id_edukasi=${idEdukasi}`);
+async function fetchData() {
+  const idEdukasi = route.params.id
+  const response = await api.get(`/edukasi?id_edukasi=${idEdukasi}`);
 
-        this.dataEdukasi = response.data;
-      } else {
-        this.$router.push("/");
-      }
-    },
-  },
+  dataEdukasi.value = response.data;
 }
+
+onMounted(fetchData)
 </script>
 
 <template>

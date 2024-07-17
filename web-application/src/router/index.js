@@ -6,7 +6,7 @@ const isAuthenticated = async () => {
   const url = `${config.urlServer}/api/auth`;
   const token = localStorage.getItem("tokenAuth");
 
-  if (token) { 
+  if (token) {
     const headers = {
       Authorization: token,
     };
@@ -41,9 +41,9 @@ const requireAuth = async (to, from, next) => {
 
 const requireGuest = async (to, from, next) => {
   if (await isAuthenticated()) {
-    next("/admin/dashboard"); // Pengguna belum terautentikasi, alihkan ke halaman login.
+    next("/admin/dashboard"); // Pengguna sudah terautentikasi, alihkan ke halaman dashboard admin.
   } else {
-    next(); // Pengguna sudah terautentikasi, lanjutkan ke rute yang diminta.
+    next(); // Pengguna belum terautentikasi, lanjutkan ke rute yang diminta.
   }
 };
 
@@ -60,24 +60,24 @@ const router = createRouter({
           component: () => import("../pages/guest-home-page/guest-home-page.vue"),
         },
         {
-          path: "selengkapnya-card-edukasi",
+          path: "edukasi",
           component: () => import("../pages/guest-edukasi-page/guest-edukasi-page.vue"),
         },
         {
-          path: "selengkapnya-card-beritaacara",
+          path: "edukasi/:id",
+          component: () => import("../pages/guest-edukasi-page/detail-guest-edukasi-page.vue"),
+        },
+        {
+          path: "berita-acara",
           component: () => import("../pages/guest-berita-acara-page/guest-berita-acara-page.vue"),
+        },
+        {
+          path: "berita-acara/:id",
+          component: () => import("../pages/guest-berita-acara-page/detail-guest-berita-acara-page.vue"),
         },
         {
           path: "tentang",
           component: () => import("../pages/guest-tentang-page/guest-tentang-page.vue"),
-        },
-        {
-          path: "edukasi",
-          component: () => import("../pages/edukasi.vue"),
-        },
-        {
-          path: "berita-acara",
-          component: () => import("../pages/berita-acara.vue"),
         },
         {
           path: "layanan",
@@ -88,7 +88,7 @@ const router = createRouter({
       ],
     },
     {
-      path: "/admin/",
+      path: "/admin",
       beforeEnter: requireAuth,
       component: () => import("../layouts/admin/admin-dashboard-layout.vue"),
       children: [
@@ -121,7 +121,7 @@ const router = createRouter({
           component: () => import("../pages/galeri.vue"),
         },
         {
-          path: "data/",
+          path: "data",
           children: [
             {
               path: "admin",
@@ -178,7 +178,7 @@ const router = createRouter({
           ],
         },
         {
-          path: "layanan/",
+          path: "layanan",
           children: [
             {
               path: "kader-gendong",

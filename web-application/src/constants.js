@@ -12,8 +12,8 @@ export const MENU_ITEMS = [
 			{ text: "SiKambing", route: "/layanan/sikambing" },
 		], 
 	},
-	{ text: "Edukasi", route: "/selengkapnya-card-edukasi" },
-	{ text: "Berita", route: "/selengkapnya-card-beritaacara" },
+	{ text: "Edukasi", route: "/edukasi" },
+	{ text: "Berita", route: "/berita-acara" },
 ]
 
 export const FOOTER_MENU_ITEMS = [
@@ -21,8 +21,8 @@ export const FOOTER_MENU_ITEMS = [
 		title: "Menu",
 		items: [
 			{ text: "Home", route: "/" },
-			{ text: "Edukasi", route: "/selengkapnya-card-edukasi" },
-			{ text: "Berita", route: "/selengkapnya-card-beritaacara" },
+			{ text: "Edukasi", route: "/edukasi" },
+			{ text: "Berita", route: "/berita-acara" },
 			{ text: "Tentang", route: "/tentang" },
 		],
 	},
