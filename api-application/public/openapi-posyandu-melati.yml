@@ -325,6 +325,53 @@ paths:
               example:
                 errors:
                   message: "Anda tidak memiliki akses!"
+  /user:
+    put:
+      tags:
+        - Autentikasi user
+      summary: MELAKUKAN perubahan data user
+      requestBody:
+        description: Data user yang ingin diubah
+        required: true
+        content:
+          application/json:
+            example:
+              nama: "string"
+              email: "string"
+              password: "string"
+              whatsapp: "string"
+              foto_profile: "string"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                success:
+                  message: "Password berhasil diubah"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
   /user/reset-password:
     put:
       tags:
@@ -2694,7 +2741,6 @@ paths:
                 tantangan_id: "integer"
                 file: "Blob base64|nullable"
                 link: "string|nullable"
-                status: "string"
       responses:
         201:
           description: CREATED
@@ -2743,7 +2789,6 @@ paths:
                 tantangan_id: "integer"
                 file: "Blob base64|nullable"
                 link: "string|nullable"
-                status: "string"
       responses:
         200:
           description: OK
