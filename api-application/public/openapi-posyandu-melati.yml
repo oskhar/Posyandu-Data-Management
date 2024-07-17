@@ -7,6 +7,8 @@ servers:
 tags:
   - name: Autentikasi admin
     description: Untuk melakukan Autentikasi
+  - name: Autentikasi user
+    description: Untuk melakukan Autentikasi sebagai user
   - name: Data edukasi
     description: Untuk mengola data edukasi
   - name: Data berita acara
@@ -128,6 +130,236 @@ paths:
                 properties:
                   id_admin:
                     type: integer
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+  /user/register:
+    post:
+      tags:
+        - Autentikasi user
+      summary: MEMBUAT akun user
+      requestBody:
+        description: Data yang akan ditambahkan dalam akun
+        required: true
+        content:
+          application/json:
+            example:
+              nama: "string"
+              email: "string"
+              password: "string"
+              whatsapp: "string"
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              example:
+                success:
+                  message: "Akun anda telah terdaftar"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+  /user/login:
+    post:
+      tags:
+        - Autentikasi user
+      summary: MELAKUKAN login
+      requestBody:
+        description: Autentikasi user untuk melakukan login
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                  nama:
+                    type: string
+                  email:
+                    type: string
+                  whatsapp:
+                    type: string
+                  poin:
+                    type: string
+                  token:
+                    type: string
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+  /user/logout:
+    post:
+      tags:
+        - Autentikasi user
+      summary: MELAKUKAN logout
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                success:
+                  message: "Berhasil logout"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+  /user/auth:
+    post:
+      tags:
+        - Autentikasi user
+      summary: MEMERIKSA Autentikasi
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  nama:
+                    type: string
+                  email:
+                    type: string
+                  whatsapp:
+                    type: string
+                  poin:
+                    type: string
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+        401:
+          description: UNAUTHORIZED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Anda tidak memiliki akses!"
+  /user/reset-password:
+    put:
+      tags:
+        - Autentikasi user
+      summary: MELAKUKAN perubahan password
+      requestBody:
+        description: Autentikasi user untuk melakukan login
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                old_password:
+                  type: string
+                new_password:
+                  type: string
+                confirm_password:
+                  type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                success:
+                  message: "Password berhasil diubah"
         400:
           description: BAD REQUEST
           content:
@@ -2195,8 +2427,9 @@ paths:
                 current_page: 2
                 data:
                   array:
+                    id: "integer"
                     judul: "string"
-                    gambar: "Blob base64"
+                    gambar: "link"
                     deskripsi: "text"
                     overview: "string"
                     tanggal_mulai: "date"
@@ -2256,7 +2489,7 @@ paths:
               properties:
               example:
                 judul: "string"
-                gambar: "Blob base64|nullable"
+                gambar: "link|nullable"
                 deskripsi: "text"
                 tanggal_mulai: "date"
                 tanggal_selesai: "date"
@@ -2306,7 +2539,7 @@ paths:
               properties:
               example:
                 judul: "string"
-                gambar: "Blob base64|nullable"
+                gambar: "link|nullable"
                 deskripsi: "text"
                 tanggal_mulai: "date"
                 tanggal_selesai: "date"
@@ -2399,6 +2632,7 @@ paths:
                 current_page: 2
                 data:
                   array:
+                    id: "integer"
                     tantangan_id: "integer"
                     file: "Blob base64"
                     link: "string"
@@ -2599,6 +2833,7 @@ paths:
                 current_page: 2
                 data:
                   array:
+                    id: "integer"
                     submission_id: "integer"
                     feedback: "text"
                     peringkat: "integer"
@@ -2773,3 +3008,74 @@ paths:
               example:
                 errors:
                   message: "Data ... tidak valid"
+  /user/tantangan:
+    get:
+      tags:
+        - Layanan Resleting
+      summary: MELIHAT seluruh tantangan resleting
+      requestBody:
+        description: Data untuk mengubah template pagination
+        required: true
+        content:
+          application/json:
+            example:
+              search: "string"
+              length: "integer|required"
+              page: "integer"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              example:
+                current_page: 2
+                data:
+                  array:
+                    id: "integer"
+                    judul: "string"
+                    gambar: "link"
+                    deskripsi: "text"
+                    overview: "string"
+                    tanggal_mulai: "date"
+                    tanggal_selesai: "date"
+                first_page_url: "http://localhost:8000/api/resleting/tantangan?page=1"
+                from: 2
+                last_page: 8
+                last_page_url: "http://localhost:8000/api/resleting/tantangan?page=8"
+                links: Array(10) [ {…}, {…}, {…}, … ]
+                next_page_url: "http://localhost:8000/api/resleting/tantangan?page=3"
+                path: "http://localhost:8000/api/resleting/tantangan"
+                per_page: 1
+                prev_page_url: "http://localhost:8000/api/resleting/tantangan?page=1"
+                to: 2
+                total: 8
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+        404:
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data dengan id ... tidak ditemukan"

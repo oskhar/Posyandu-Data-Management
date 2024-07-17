@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AuthUserController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\DrafSuratController;
 use App\Http\Controllers\EdukasiController;
@@ -15,10 +16,10 @@ use App\Http\Controllers\ImportController;
 use App\Http\Controllers\PosyanduController;
 use App\Http\Controllers\StatistikController;
 use App\Http\Controllers\SuratController;
+use App\Http\Controllers\TantanganController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WilayahController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Tests\Unit\ExampleTest;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,10 +33,24 @@ use Tests\Unit\ExampleTest;
 */
 
 /**
- * Endpoint privat Bearer protected
+ * Endpoint privat Bearer protected user
  *
  */
-Route::group(['middleware' => 'auth:sanctum'], function ($router) {
+Route::group(['middleware' => ['auth:sanctum', 'checkUserType:user']], function ($router) {
+    /**
+     * Endpoint untuk autentikasi user
+     *
+     */
+    Route::post('/user/auth', [AuthUserController::class, 'authData']);
+    Route::post('/user/logout', [AuthUserController::class, 'logout']);
+    Route::put('/user/reset-password', [AuthUserController::class, 'resetPassword']);
+});
+
+/**
+ * Endpoint privat Bearer protected admin
+ *
+ */
+Route::group(['middleware' => ['auth:sanctum', 'checkUserType:admin']], function ($router) {
 
     /**
      * Endpoint untuk autentikasi
@@ -44,6 +59,13 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
     Route::post('/auth', [AuthController::class, 'authData']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::put('/reset-password', [AuthController::class, 'resetPassword']);
+
+    /**
+     * Endpoint untuk user
+     *
+     */
+    Route::get('/user', [UserController::class, 'get']);
+    Route::delete('/user', [UserController::class, 'delete']);
 
     /**
      * Endpoint untuk edukasi
@@ -160,6 +182,21 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
         Route::get('/{id}', [SuratController::class, 'show']);
 
     });
+
+    /**
+     * Endpoint untuk kader gendong
+     *
+     */
+    Route::prefix('resleting')->group(function () {
+
+        Route::get('/tantangan', [TantanganController::class, 'get']);
+        Route::post('/tantangan', [TantanganController::class, 'post']);
+        Route::put('/tantangan{id}', [TantanganController::class, 'put']);
+        Route::delete('/tantangan{id}', [TantanganController::class, 'delete']);
+
+    });
+
+    Route::get('/user/tantangan', [TantanganController::class, 'user']);
 });
 
 /**
@@ -167,6 +204,8 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
  *
  */
 Route::post('/login', [AuthController::class, 'login']);
+
+Route::post('/user/login', [AuthUserController::class, 'login']);
 
 Route::get('/edukasi', [EdukasiController::class, 'get']);
 Route::get('/jumlah-bayi', [FormatAController::class, 'jumlah_bayi']);
@@ -178,7 +217,7 @@ Route::get('/struktur-admin', [AdminController::class, 'strukturAdmin']);
 Route::get('/listtahun', [FormatBAController::class, 'getListTahun']);
 
 /**
- * API Wilayah Indonesia\
+ * API Wilayah Indonesia
  *
  */
 Route::prefix('indonesia')->group(function () {
