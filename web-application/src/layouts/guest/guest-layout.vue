@@ -1,7 +1,8 @@
 <script>
 import UserProfile from "@/components/UserProfile.vue";
-import { MENU_ITEMS } from "@/constants";
+import { MENU_ITEMS, WA_POSYANDU } from "@/constants";
 import FooterGuest from "@/layouts/guest/footer-guest.vue";
+import { getWhatsappLink } from "@/utils/send-whatsapp";
 
 export default {
   components: {
@@ -22,6 +23,7 @@ export default {
     window.removeEventListener("resize", this.closeDrawerOnResize);
   },
   methods: {
+    getWhatsappLink,
     toggleDrawer() {
       this.drawer = !this.drawer;
     },
@@ -106,7 +108,7 @@ export default {
     </VList>
   </VNavigationDrawer>
 
-  <a href="https://api.whatsapp.com/send?phone=628129084810&text=Halo Posyandu Melati, Saya butuh bantuan pada website SiDilan."
+  <a :href="getWhatsappLink(WA_POSYANDU, 'Halo Posyandu Melati, Saya butuh bantuan pada website SiDilan.')"
     target="_blank" rel="noopener noreferrer" class="wa-help-button position-fixed"
     style="z-index: 10; right: 60px; bottom: 36px">
     <VFab icon="mdi-whatsapp" location="bottom end" size="52" fixed app color="#25D366" />

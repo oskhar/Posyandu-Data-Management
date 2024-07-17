@@ -6,7 +6,7 @@ const isAuthenticated = async () => {
   const url = `${config.urlServer}/api/auth`;
   const token = localStorage.getItem("tokenAuth");
 
-  if (token) {
+  if (token) { 
     const headers = {
       Authorization: token,
     };
@@ -82,7 +82,7 @@ const router = createRouter({
         {
           path: "layanan",
           children: [
-            { path: "remaja-peduli-stunting", component: () => import("../pages/resliting-page/resliting-page.vue") },
+            { path: "remaja-peduli-stunting", component: () => import("../pages/resliting-landing-page/resliting-landing-page.vue") },
           ],
         },
       ],

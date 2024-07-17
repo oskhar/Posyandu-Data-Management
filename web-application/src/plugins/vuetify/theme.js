@@ -7,6 +7,7 @@ const theme = {
       dark: false,
       colors: {
         'primary': '#696CFF',
+        'primary-faded': '#B0B2FF',
         'on-primary': '#fff',
         'secondary': '#8592A3',
         'on-secondary': '#fff',
