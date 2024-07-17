@@ -96,7 +96,7 @@
 import VerticalNavLayout from "@layouts/components/VerticalNavLayout.vue"
 import VerticalNavLink from "@layouts/components/VerticalNavLink.vue"
 import VerticalNavLinkTree from "@layouts/components/VerticalNavLinkTree.vue"
-import UserProfile from "@/components/UserProfile.vue"
+import UserProfile from "@/layouts/admin/admin-user-profile.vue"
 
 export default {
   components: {
