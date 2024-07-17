@@ -7,6 +7,8 @@ servers:
 tags:
   - name: Autentikasi admin
     description: Untuk melakukan Autentikasi
+  - name: Autentikasi user
+    description: Untuk melakukan Autentikasi sebagai user
   - name: Data edukasi
     description: Untuk mengola data edukasi
   - name: Data berita acara
@@ -143,6 +145,163 @@ paths:
               example:
                 errors:
                   message: "Data ... tidak valid"
+  /user/register:
+    post:
+      tags:
+        - Autentikasi user
+      summary: MEMBUAT akun user
+      requestBody:
+        description: Data yang akan ditambahkan dalam akun
+        required: true
+        content:
+          application/json:
+            example:
+              nama: "string"
+              email: "string"
+              password: "string"
+              whatsapp: "string"
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              example:
+                success:
+                  message: "Akun anda telah terdaftar"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+  /user/login:
+    post:
+      tags:
+        - Autentikasi user
+      summary: MELAKUKAN login
+      requestBody:
+        description: Autentikasi user untuk melakukan login
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                  token:
+                    type: string
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+  /user/logout:
+    post:
+      tags:
+        - Autentikasi user
+      summary: MELAKUKAN logout
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                success:
+                  message: "Berhasil logout"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+  /user/auth:
+    post:
+      tags:
+        - Autentikasi user
+      summary: MEMERIKSA Autentikasi
+      responses:
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+        401:
+          description: UNAUTHORIZED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Anda tidak memiliki akses!"
   /edukasi:
     get:
       tags:
