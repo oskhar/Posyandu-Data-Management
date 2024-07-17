@@ -9,6 +9,8 @@ tags:
     description: Untuk melakukan Autentikasi
   - name: Autentikasi user
     description: Untuk melakukan Autentikasi sebagai user
+  - name: Data user
+    description: Untuk mengola data user
   - name: Data edukasi
     description: Untuk mengola data edukasi
   - name: Data berita acara
@@ -326,6 +328,60 @@ paths:
                 errors:
                   message: "Anda tidak memiliki akses!"
   /user:
+    get:
+      tags:
+        - Data user
+      summary: MELIHAT seluruh akun milik user
+      requestBody:
+        description: Data untuk mengubah template pagination
+        required: true
+        content:
+          application/json:
+            example:
+              search: "string"
+              length: "integer|required"
+              page: "integer"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              example:
+                current_page: 2
+                data:
+                  array:
+                    id: "integer"
+                    nama: "string"
+                    email: "string"
+                    password: "string"
+                    whatsapp: "string"
+                    foto_profile: "link"
+                first_page_url: "http://localhost:8000/api/resleting/tantangan?page=1"
+                from: 2
+                last_page: 8
+                last_page_url: "http://localhost:8000/api/resleting/tantangan?page=8"
+                links: Array(10) [ {…}, {…}, {…}, … ]
+                next_page_url: "http://localhost:8000/api/resleting/tantangan?page=3"
+                path: "http://localhost:8000/api/resleting/tantangan"
+                per_page: 1
+                prev_page_url: "http://localhost:8000/api/resleting/tantangan?page=1"
+                to: 2
+                total: 8
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
     put:
       tags:
         - Autentikasi user
@@ -340,7 +396,7 @@ paths:
               email: "string"
               password: "string"
               whatsapp: "string"
-              foto_profile: "string"
+              foto_profile: "link"
       responses:
         200:
           description: OK
@@ -407,6 +463,42 @@ paths:
               example:
                 success:
                   message: "Password berhasil diubah"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+  /user/{id}:
+    delete:
+      tags:
+        - Data user
+      summary: MENGHAPUS data user
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                success:
+                  message: "Akun berhasil dihapus!"
         400:
           description: BAD REQUEST
           content:
