@@ -13,7 +13,7 @@ export const adminRoutes =  {
 		},
 		{
 			path: "account-settings",
-			component: () => import("../../../pages/account-settings.vue"),
+			component: () => import("../../../pages/admin-account-settings-page/admin-account-account-settings.vue"),
 		},
 		{
 			path: "berita-acara",
