@@ -52,3 +52,12 @@ export const DEFAULT_POSYANDU_DATA = {
   jabatan_ketua: "",
   nama_lengkap_ketua: "",
 }
+
+export const DEFAULT_TANTANGAN = {
+	judul: "",
+	overview: "",
+	deskripsi: "",
+	gambar: null,
+	tanggal_mulai: null,
+	tanggal_selesai: null,
+}

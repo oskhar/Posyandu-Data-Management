@@ -2,7 +2,6 @@
 import { mysqlDateTime } from '@/utils/mysql-datetime';
 import CreateTantanganForm from '../create-tantangan-form.vue';
 import Swal from 'sweetalert2';
-import { createTantanganHandler } from '../../handlers/tantangan-handler';
 import { tantanganValidator } from '../../validators/tantangan-validator';
 import { getSwalErrorMessage } from '@/utils/get-error-message';
 
@@ -28,7 +27,14 @@ const createTantangan = async (tantanganData, isCreatingTantangan, resetFormTant
 		});
 
 		if (isConfirmed) {
-			await createTantanganHandler(parsedTantangan);
+			const result = await createTantangan(parsedTantangan);
+
+			await Swal.fire({
+				icon: 'success',
+				title: 'Berhasil membuat tantangan',
+				text: result.message,
+			});
+
 			resetFormTantangan()
 		}
 
