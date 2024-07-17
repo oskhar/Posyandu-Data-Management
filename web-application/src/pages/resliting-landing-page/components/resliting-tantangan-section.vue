@@ -37,7 +37,7 @@ onMounted(async () => {
 					</p>
 				</VCol>
 				<VCol cols="12" md="3" class="d-flex justify-end align-center">
-					<VBtn variant="tonal" prepend-icon="bx-paper-plane" to="/layanan/remaja-peduli-stunting/Tantangans">
+					<VBtn variant="tonal" prepend-icon="bx-paper-plane" to="/layanan/remaja-peduli-stunting/tantangan">
 						Lihat Semua
 					</VBtn>
 				</VCol>
