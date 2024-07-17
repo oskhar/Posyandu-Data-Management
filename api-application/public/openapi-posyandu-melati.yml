@@ -213,6 +213,14 @@ paths:
                     properties:
                       message:
                         type: string
+                  nama:
+                    type: string
+                  email:
+                    type: string
+                  whatsapp:
+                    type: string
+                  poin:
+                    type: string
                   token:
                     type: string
         400:
@@ -272,6 +280,21 @@ paths:
         - Autentikasi user
       summary: MEMERIKSA Autentikasi
       responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  nama:
+                    type: string
+                  email:
+                    type: string
+                  whatsapp:
+                    type: string
+                  poin:
+                    type: string
         400:
           description: BAD REQUEST
           content:
@@ -302,6 +325,56 @@ paths:
               example:
                 errors:
                   message: "Anda tidak memiliki akses!"
+  /user/reset-password:
+    put:
+      tags:
+        - Autentikasi user
+      summary: MELAKUKAN perubahan password
+      requestBody:
+        description: Autentikasi user untuk melakukan login
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                old_password:
+                  type: string
+                new_password:
+                  type: string
+                confirm_password:
+                  type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                success:
+                  message: "Password berhasil diubah"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
   /edukasi:
     get:
       tags:
