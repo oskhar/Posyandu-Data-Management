@@ -1,3 +1,29 @@
+/**
+ * 
+ * @param {Blob} blob 
+ * @returns {Promise<string>}
+ */
+export const convertBlobToBase64 = blob => new Promise((resolve, reject) => {
+	const reader = new FileReader()
+
+	reader.readAsDataURL(blob)	
+
+	reader.onloadend = () => resolve(reader.result.split(',')[1])
+	reader.onerror = reject
+})
+
+/**
+ * @param {File} file 
+ * @returns {boolean}
+ */
+export const validateFileInput = (file, fileType, fileSize = 10 * 1024 * 1024) => {
+	return file && file.type === fileType && file.size <= fileSize
+};
+
+
+/**
+ * @param {string} base64 
+ */
 export const createDownload = base64 => {
 	// Mengonversi base64 menjadi blob
 	const byteCharacters = atob(base64);
@@ -34,3 +60,9 @@ export const createDownload = base64 => {
 	window.URL.revokeObjectURL(url);
 	document.body.removeChild(link);
 }
+
+/**
+ * @param {string} base64 
+ * @returns {string}
+ */
+export const pdfBase64 = base64 => `data:application/pdf;base64,${base64}`

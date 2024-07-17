@@ -1,5 +1,5 @@
 <script setup>
-import { pdfBase64 } from '@/utils/pdf-base64';
+import { pdfBase64 } from '@/utils/file';
 import { ref } from 'vue';
 import PreviewSuratTugas from '../preview-surat-tugas.vue';
 
