@@ -35,6 +35,7 @@ class DrafSuratController extends Controller
         if (!empty($data["search"])) {
             $query->where(function ($query) use ($data) {
                 $query->where("surat.penanda_tangan", "like", "%{$data["search"]}%")
+                    ->orWhere("surat.nomor", "like", "%{$data["search"]}%")
                     ->orWhere("admin.nama_lengkap", "like", "%{$data["search"]}%")
                     ->orWhere("surat.isi_surat", "like", "%{$data["search"]}%");
             });
@@ -245,14 +246,61 @@ class DrafSuratController extends Controller
 
     public function draftToSurat($id): JsonResponse
     {
-        // Coba untuk menemukan surat dengan ID yang diberikan
-        SuratModel::where("id", $id)->update([
+        /**
+         * Query untuk mengambil data surat
+         *
+         * @var SuratModel
+         */
+        $surat = SuratModel::findOrFail($id);
+
+
+        $surat->update([
             "is_draft" => false
         ]);
+
+        /**
+         * Mendapatkan data untuk PDF
+         *
+         */
+        $data = [
+            "nomor" => $surat->nomor,
+            "penanda_tangan" => $surat->penanda_tangan,
+            "jabatan_penanda_tangan" => $surat->jabatan_penanda_tangan,
+            "tanggal_surat" => $surat->tanggal_surat,
+            "kalimat_pembuka" => $surat->kalimat_pembuka,
+            "isi_surat" => $surat->isi_surat,
+            "kalimat_penutup" => $surat->kalimat_penutup,
+            'ditugaskan' => PenugasanModel::select(
+                "penugasan.nama",
+                "penugasan.jabatan",
+                "penugasan.alamat",
+            )->join("penugasan_surat", "penugasan_surat.penugasan_id", "penugasan.id")
+                ->where('penugasan_surat.surat_id', $surat->id)
+                ->get()
+        ];
+
+        /**
+         * String blob pdf
+         *
+         */
+        $pdf = Pdf::loadView("SuratPDF", $data);
+
+        /**
+         * Mendapatkan PDF string
+         *
+         */
+        $pdfContent = $pdf->output();
+
+        /**
+         * Convert PDF content to base64
+         *
+         */
+        $pdfBase64 = base64_encode($pdfContent);
 
         return response()->json([
             "success" => [
                 "message" => "Draf berhasil dicetak sebagai surat",
+                "file" => $pdfBase64
             ]
         ])->setStatusCode(200);
     }

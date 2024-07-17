@@ -28,12 +28,14 @@ class SuratController extends Controller
             "surat.isi_surat",
             "surat.kalimat_penutup",
             "surat.created_at",
+            "surat.jabatan_penanda_tangan"
         )->join("admin", "admin.id", "surat.admin_id")
             ->where("surat.is_draft", false);
 
         if (!empty($data["search"])) {
             $query->where(function ($query) use ($data) {
                 $query->where("surat.penanda_tangan", "like", "%{$data["search"]}%")
+                    ->orWhere("surat.nomor", "like", "%{$data["search"]}%")
                     ->orWhere("admin.nama_lengkap", "like", "%{$data["search"]}%")
                     ->orWhere("surat.isi_surat", "like", "%{$data["search"]}%");
             });
@@ -93,12 +95,15 @@ class SuratController extends Controller
         $data = $request->validate([
             "nomor" => "required|string",
             "penanda_tangan" => "required|string",
-            "tanggal_surat" => "required|string",
+            "tanggal_surat" => "required|date",
             "kalimat_pembuka" => "required|string",
             "isi_surat" => "required|string",
             "kalimat_penutup" => "required|string",
-            "ditugaskan" => "required|array"
+            "ditugaskan" => "required|array",
+            "jabatan_penanda_tangan" => "required|string"
         ]);
+
+        $data["tanggal_surat"] = Carbon::parse($data["tanggal_surat"])->format('Y-m-d');
 
         /**
          * String blob pdf
@@ -217,6 +222,8 @@ class SuratController extends Controller
                 "penugasan_id" => $penugasan->id
             ]);
         }
+
+        $data["tanggal_surat"] = Carbon::parse($data["tanggal_surat"])->format('Y-m-d');
 
         /**
          * String blob pdf

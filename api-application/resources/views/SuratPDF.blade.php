@@ -75,7 +75,7 @@
         }
 
         .kop-surat td p {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             line-height: 0.2rem;
         }
 
@@ -97,25 +97,25 @@
             </td>
             <td>
                 <h2 style="font-weight: light">POSYANDU MELATI IX</h2>
-                <p>Jl. Periuk Jaya Permai 1 Kel. Periuk Jaya Kec. Periuk Kota Tangerang</p>
-                <p>Tlp.(021) 59586750 Email : puskesmasperiukjaya@gmail.com</p>
+                <p>Jl. Vila mutiara pluit RT 02 rw 09 Kel. Periuk Jaya Kec. Periuk Kota Tangerang</p>
+                <p>Tlp.(081) 29084810 Email : masih kosong</p>
             </td>
             <td class="right-image">
-                <img src="./images/puskesmas.png" alt="Logo puskesmas">
+                <img src="./images/posyandu.png" alt="Logo puskesmas">
             </td>
         </tr>
     </table>
     <hr>
     <br>
-    <p style="line-height: 50%">
-        Hal : <span style="float: right;">Surat Penugasan Kader Gendong Posyandu</span>
-    </p>
-    <p style="line-height: 50%">
-        Nomor : <span style="float: right;">{{ $nomor }}</span>
-    </p>
-    <br><br><br>
+    <center>
+        <p style="line-height: 50%;text-decoration:underline">Surat Penugasan Kader Gendong Posyandu</p>
+        <p style="line-height: 50%">{{ $nomor }}</p>
+    </center>
+    <br><br>
 
-    <p>{!! $kalimat_pembuka !!}</p>
+    <div>{!! $kalimat_pembuka !!}</div>
+
+    <br>
 
     <table>
         <thead>
@@ -136,14 +136,42 @@
         </tbody>
     </table>
 
-    <p>{!! $isi_surat !!}</p>
-    <p>{!! $kalimat_penutup !!}</p>
+    <div>{!! $isi_surat !!}</div>
+
+    <br>
+
+    <div>{!! $kalimat_penutup !!}</div>
     <br><br><br><br>
 
-    <p class="right-align">{{ $penanda_tangan }}</p>
-    <br><br>
-    <p class="right-align" style="line-height: 50%;">__________</p>
-    <p class="right-align">{{ $tanggal_surat }}</p>
+    <p style="line-height:50%;text-align: right">Dibuat di : Tangerang</p>
+    @php
+        $bulan_labels = [
+            'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember',
+        ];
+        $tanggal_surat = explode('-', $tanggal_surat);
+        $tanggal_surat =
+            $tanggal_surat[2] . ' ' . $bulan_labels[((int) $tanggal_surat[1]) - 1] . ' ' . $tanggal_surat[0];
+
+    @endphp
+    <p style="line-height:50%;text-align: right">Pada tanggal : {{ $tanggal_surat }}</p>
+    <div style="float: right">
+        <center>
+            <p>{{ $jabatan_penanda_tangan }}</p>
+            <br><br>
+            <p style="text-decoration: overline">{{ $penanda_tangan }}</p>
+        </center>
+    </div>
 </body>
 
 </html>
