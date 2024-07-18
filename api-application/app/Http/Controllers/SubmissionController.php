@@ -75,15 +75,28 @@ class SubmissionController extends Controller
         ])->setStatusCode(201);
     }
 
-    public function put(SubmissionRequest $request): JsonResponse
+    public function put(SubmissionRequest $request, $id): JsonResponse
     {
         $data = $request->validated();
 
-        SubmissionModel::update($data);
+        SubmissionModel::findOrFail($id)
+            ->update($data);
 
         return response()->json([
             "success" => [
-                "message" => "Submission berhasil dinilai"
+                "message" => "Submission berhasil dinilai!"
+            ]
+        ])->setStatusCode(200);
+    }
+
+    public function delete($id): JsonResponse
+    {
+
+        SubmissionModel::findOrFail($id)->delete();
+
+        return response()->json([
+            "success" => [
+                "message" => "Submission berhasil ditarik kembali!"
             ]
         ])->setStatusCode(200);
     }
