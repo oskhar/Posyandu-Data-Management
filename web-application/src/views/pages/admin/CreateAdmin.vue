@@ -146,7 +146,7 @@ export default {
                     });
                 }
 
-                window.location.href = "/data/admin";
+                window.location.href = "/admin/data/admin";
             } catch (get) {
                 const errorMessage = Object.values(get.response.data.errors).join(" - ");
 
