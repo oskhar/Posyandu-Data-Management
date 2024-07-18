@@ -2665,6 +2665,53 @@ paths:
                 errors:
                   message: "Data ... tidak valid"
   /resleting/tantangan/{id}:
+    get:
+      tags:
+        - Layanan Resleting
+      summary: MELIHAT seluruh tantangan resleting
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              example:
+                judul: "string"
+                gambar: "link"
+                deskripsi: "text"
+                overview: "string"
+                tanggal_mulai: "date"
+                tanggal_selesai: "date"
+                user_submitted: "boolean|optional"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+        404:
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data dengan id ... tidak ditemukan"
     put:
       tags:
         - Layanan Resleting
