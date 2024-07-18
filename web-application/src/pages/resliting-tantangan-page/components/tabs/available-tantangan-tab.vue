@@ -17,13 +17,14 @@ const searchTantangan = async () => {
 	try {
 		isSearching.value = true;
 
-		const { listDataTantangan, pages } = await fetchDataTantangan({
+		const { data, current_page, links } = await fetchDataTantangan({
 			page: page.value,
 			search: searchQuery.value,
 		});
 
-		dataTantangan.value = listDataTantangan;
-		banyakPage.value = pages;
+		dataTantangan.value = data;
+		banyakPage.value = links.length;
+		page.value = current_page;
 
 	} catch (error) {
 		await Swal.fire({

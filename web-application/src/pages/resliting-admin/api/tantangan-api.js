@@ -1,57 +1,49 @@
+import { api } from "@/lib/api";
 import { getFullImagePath } from "@/utils/get-full-image-path";
 
 /**
  * @param {{search: string; length: number; page: number}} param0 
- * @returns {import("./types").TantanganResponse}
  */
 export const getListTantangan = async ({
 	page = 1,
 	search = "",
 	lengthPerPage = 6,
 }) => {
-	// TODO: Implement getListTantangan
-	return {
-    links: new Array(10).fill(""),
-    current_page: page,
-    data: Array.from({ length: lengthPerPage }, () => (
-      {
-        id: 1,
-        gambar: getFullImagePath("/images/upload/default.png"),
-        judul: crypto.randomUUID(),
-        deskripsi: "Sebuah tantangan kebugaran yang bertujuan untuk meningkatkan kesehatan dan kebugaran fisik peserta dalam waktu satu bulan.",
-        tanggal_mulai: "2024-07-01",
-        tanggal_selesai: "2024-07-31",
-        created_at: "2024-06-01T10:00:00Z",
-      }
-    )),
-  }
+	const { data } = await api.get('/resleting/tantangan', {
+    params: { page, length: lengthPerPage, search },
+  }) 
+
+  /** @type {import("./types").TantanganResponse} */
+	const dataResponse = data;
+
+  dataResponse.data = dataResponse.data.map(item => ({ ...item, gambar: getFullImagePath(item.gambar) }));
+
+  return dataResponse;
 }
 
 
+/**
+ * @param {string} id 
+ */
 export const getSingleTantangan = async id => {
-	// TODO: Implement getSingleTantangan
-  return {
-    id: 1,
-    gambar: getFullImagePath("/images/upload/default.png"),
-    judul: crypto.randomUUID(),
-    deskripsi: "Sebuah tantangan kebugaran yang bertujuan untuk meningkatkan kesehatan dan kebugaran fisik peserta dalam waktu satu bulan.",
-    tanggal_mulai: "2024-07-01",
-    tanggal_selesai: "2024-07-31",
-    created_at: "2024-06-01T10:00:00Z",
-  }
+  const { data } = await api.get(`/resleting/tantangan/${id}`);
+
+  /** @type {  import("./types").Tantangan} */
+	const dataResponse = data;
+
+  dataResponse.gambar = getFullImagePath(dataResponse.gambar) 
+
+
+	return dataResponse;
 }
 
 /**
  * @param {import("./types").CreateTantangan} tantangan 
  */
 export const createTantangan = async tantangan => {
-	// TODO: Implement createTantangan
-  console.log(tantangan);
+	const { data } = await api.post("/resleting/tantangan", tantangan);
 
-
-  return {
-    message: "Tantangan berhasil dibuat",
-  }
+  return data;
 }
 
 
@@ -60,18 +52,16 @@ export const createTantangan = async tantangan => {
  * @param {import("./types").CreateTantangan} tantangan 
  */
 export const editListTantangan = async (id, tantangan) => {
-	// TODO: Implement createListTantangan
-  console.log(tantangan);
+	const { data } = await api.put(`/resleting/tantangan/${id}`, tantangan);
+
+  return data;
 }
 
 /**
  * @param {string} id 
  */
 export const deleteTantangan = async id => {
-  // TODO: Implement createListTantangan
-  console.log(id);
+	const { data } = await api.delete(`/resleting/tantangan/${id}`);
 
-  return {
-    message: "Tantangan berhasil dihapus",
-  }
+  return data;
 }

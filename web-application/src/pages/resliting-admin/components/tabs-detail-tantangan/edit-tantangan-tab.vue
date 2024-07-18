@@ -4,7 +4,7 @@ import CreateTantanganForm from '../create-tantangan-form.vue';
 import { mysqlDateTime } from '@/utils/mysql-datetime';
 import Swal from 'sweetalert2';
 import { tantanganValidator } from '../../validators/tantangan-validator';
-import { deleteTantangan, getSingleTantangan } from '../../api/tantangan-api';
+import { deleteTantangan, editListTantangan, getSingleTantangan } from '../../api/tantangan-api';
 import { DEFAULT_TANTANGAN } from '@/constants';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -35,6 +35,8 @@ const fetchData = async () => {
 			html: getSwalErrorMessage(error, "Terjadi kesalahan saat loading data tantangan!"),
 			showCloseButton: true,
 		});
+
+		router.push("/admin/layanan/remaja-peduli-stunting/tantangan")
 	} finally {
 		isLoading.value = false
 	}
@@ -63,12 +65,11 @@ const handleEditTantangan = async (tantanganData, isEditingTantangan) => {
 
 		if (isConfirmed) {
 			const idTantangan = route.params.id;
-			const result = await editTantangan(idTantangan, parsedTantangan);
+			const result = await editListTantangan(idTantangan, parsedTantangan);
 
 			await Swal.fire({
 				icon: 'success',
 				title: 'Berhasil mengubah tantangan',
-				text: result.message,
 			});
 		}
 
@@ -95,12 +96,12 @@ const handleDeleteTantangan = async () => {
 
 		if (isConfirmed) {
 			const idTantangan = route.params.id;
-			const result = await deleteTantangan(idTantangan);
+
+			await deleteTantangan(idTantangan);
 
 			await Swal.fire({
 				icon: 'success',
 				title: 'Berhasil menghapus tantangan',
-				text: result.message,
 			});
 
 			router.push("/admin/layanan/remaja-peduli-stunting/tantangan")
@@ -113,7 +114,6 @@ const handleDeleteTantangan = async () => {
 			html: getSwalErrorMessage(error, 'Gagal menghapus tantangan!'),
 		})
 	}
-
 }
 
 onMounted(fetchData)
@@ -121,7 +121,8 @@ onMounted(fetchData)
 
 <template>
 	<VSkeletonLoader v-if="isLoading" type="article" />
-	<CreateTantanganForm v-else :title="`Edit tantangan ${dataTantangan.judul || '...'}`" :tantangan="dataTantangan"
+	<CreateTantanganForm v-else main-action-title="Edit Tantangan"
+		:title="`Edit tantangan ${dataTantangan.judul || '...'}`" :tantangan="dataTantangan"
 		@create-tantangan="handleEditTantangan">
 
 		<VBtn color="error" @click="handleDeleteTantangan">Hapus Tantangan</VBtn>

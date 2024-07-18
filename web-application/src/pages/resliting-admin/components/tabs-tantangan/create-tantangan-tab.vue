@@ -4,9 +4,10 @@ import CreateTantanganForm from '../create-tantangan-form.vue';
 import Swal from 'sweetalert2';
 import { tantanganValidator } from '../../validators/tantangan-validator';
 import { getSwalErrorMessage } from '@/utils/get-error-message';
+import { createTantangan } from '../../api/tantangan-api';
 
 
-const createTantangan = async (tantanganData, isCreatingTantangan, resetFormTantangan) => {
+const createTantanganHandler = async (tantanganData, isCreatingTantangan, resetFormTantangan) => {
 	try {
 		isCreatingTantangan.value = true;
 
@@ -27,12 +28,10 @@ const createTantangan = async (tantanganData, isCreatingTantangan, resetFormTant
 		});
 
 		if (isConfirmed) {
-			const result = await createTantangan(parsedTantangan);
-
+			await createTantangan(parsedTantangan);
 			await Swal.fire({
 				icon: 'success',
 				title: 'Berhasil membuat tantangan',
-				text: result.message,
 			});
 
 			resetFormTantangan()
@@ -51,5 +50,5 @@ const createTantangan = async (tantanganData, isCreatingTantangan, resetFormTant
 </script>
 
 <template>
-	<CreateTantanganForm @create-tantangan="createTantangan" />
+	<CreateTantanganForm @create-tantangan="createTantanganHandler" />
 </template>

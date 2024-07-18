@@ -10,7 +10,6 @@ export const convertBlobToBase64 = blob => new Promise((resolve, reject) => {
 
 	reader.onloadend = () => {
 		resolve(reader.result.split(',')[1])
-		console.log(reader.result)
 	}
 	reader.onerror = reject
 })

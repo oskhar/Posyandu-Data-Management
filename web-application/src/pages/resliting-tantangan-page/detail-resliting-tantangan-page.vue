@@ -67,7 +67,7 @@ onMounted(fetchData)
 							Ikuti Tantangan
 						</VBtn>
 
-						<DetailTantanganFormDialog activator="#ikuti-tantangan" />
+						<DetailTantanganFormDialog :tantangan-id="Number(route.params.id)" activator="#ikuti-tantangan" />
 					</div>
 				</VCol>
 			</VRow>
