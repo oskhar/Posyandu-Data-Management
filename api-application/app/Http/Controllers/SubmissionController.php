@@ -15,7 +15,29 @@ class SubmissionController extends Controller
     {
         $data = $request->validated();
 
-        return response()->json()->setStatusCode(200);
+        $query = SubmissionModel::select(
+            "submission.id",
+            "submission.tantangan_id",
+            "submission.file",
+            "submission.link",
+            "penilaian.feedback",
+            "penilaian.peringkat",
+            "penilaian.status",
+            "user.nama as nama_user"
+        )->join("penilaian", "penilaian.submission_id", "submission.id")
+            ->join("user", "user.id", "submission.user_id");
+
+        if (!empty($data["search"])) {
+            $query->where("user.nama", "like", "%{$data["search"]}%");
+        }
+
+        if (!empty($data["tantangan_id"])) {
+            $query->where("submission.tantangan_id", $data["tantangan_id"]);
+        }
+
+        $submission = $query->paginate($data["length"]);
+
+        return response()->json($submission)->setStatusCode(200);
     }
     public function post(SubmissionRequest $request): JsonResponse
     {
@@ -51,5 +73,18 @@ class SubmissionController extends Controller
                 "message" => "Sumbission berhasil dikirim!"
             ]
         ])->setStatusCode(201);
+    }
+
+    public function put(SubmissionRequest $request): JsonResponse
+    {
+        $data = $request->validated();
+
+        SubmissionModel::update($data);
+
+        return response()->json([
+            "success" => [
+                "message" => "Submission berhasil dinilai"
+            ]
+        ])->setStatusCode(200);
     }
 }

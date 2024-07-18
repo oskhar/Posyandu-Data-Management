@@ -396,7 +396,7 @@ paths:
               email: "string"
               password: "string"
               whatsapp: "string"
-              foto_profile: "link"
+              foto_profile: "Blob base64"
       responses:
         200:
           description: OK

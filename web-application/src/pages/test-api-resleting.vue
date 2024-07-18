@@ -8,18 +8,19 @@ export default {
   mounted() {
     // this.deleteTantangan();
     // this.getTantangan();
-    // this.loginUser();
-    this.authUser();
-    this.putUser();
+    // this.registerUser();
 
-    // this.resetPasswordUser();
+    // this.loginUser();
+    // this.authUser();
+    // this.putUser();
+    this.resetPasswordUser();
   },
   methods: {
     // Data AUTENTIKASI USER
     registerUser: async () => {
       const data = {
         email: "user@gmail.com",
-        password: "123456",
+        password: "1234568",
         nama: "user",
         whatsapp: "98765434567",
       };
@@ -31,7 +32,7 @@ export default {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
           },
-        },
+        }
       );
 
       console.log(response);
@@ -39,7 +40,7 @@ export default {
     loginUser: async () => {
       const data = {
         email: "user@gmail.com",
-        password: "123456",
+        password: "1234568",
       };
 
       const response = await axios.post(
@@ -49,7 +50,7 @@ export default {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
           },
-        },
+        }
       );
 
       localStorage.setItem("tokenAuth", "Bearer " + response.data.token);
@@ -66,7 +67,7 @@ export default {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
           },
-        },
+        }
       );
 
       console.log(response);
@@ -74,7 +75,7 @@ export default {
     putUser: async () => {
       const data = {
         email: "user@gmail.com",
-        password: "123456",
+        password: "1234568",
         nama: "user",
         whatsapp: "98765434567",
         foto_profile: "tes foto",
@@ -91,8 +92,8 @@ export default {
     resetPasswordUser: async () => {
       const data = {
         old_password: "1234568",
-        new_password: "1234568",
-        confirm_password: "1234568",
+        new_password: "123456",
+        confirm_password: "123456",
       };
 
       const response = await axios.put(
@@ -102,7 +103,7 @@ export default {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
           },
-        },
+        }
       );
 
       console.log(response);
@@ -116,7 +117,7 @@ export default {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
           },
-        },
+        }
       );
 
       console.log(response);
@@ -140,7 +141,7 @@ export default {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
           },
-        },
+        }
       );
 
       console.log(response);
@@ -165,7 +166,7 @@ export default {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
           },
-        },
+        }
       );
 
       console.log(response);
@@ -177,7 +178,7 @@ export default {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
           },
-        },
+        }
       );
 
       console.log(response);
