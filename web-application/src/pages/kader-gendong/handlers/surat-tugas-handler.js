@@ -23,16 +23,3 @@ export const createSuratTugasHandler = async surat => {
 	}
 };
 
-
-export const previewSuratTugasHandler = async surat => {
-	try {
-		return await previewSuratTugas(surat);
-		
-	} catch (error) {
-		await Swal.fire({
-			icon: 'error',
-			title: 'Gagal mengambil preview surat tugas',
-			text: getErrorMessage(error, 'Gagal mengambil preview surat tugas!'),
-		});
-	}
-}
