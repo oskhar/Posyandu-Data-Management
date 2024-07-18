@@ -110,7 +110,7 @@
                                 </td>
                                 <td class="text-center">
                                     <VBtn color="primary" class="ml-2"
-                                        :href="`/data/format-2-edit?id_bayi=${item.id_bayi}`">
+                                        :href="`/admin/data/format-2-edit?id_bayi=${item.id_bayi}`">
                                         <VIcon>bx-edit</VIcon>
                                     </VBtn>
                                 </td>

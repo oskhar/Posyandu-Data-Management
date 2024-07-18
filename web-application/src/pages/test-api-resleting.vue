@@ -11,6 +11,7 @@ export default {
     // this.loginUser();
     this.authUser();
     this.putUser();
+
     // this.resetPasswordUser();
   },
   methods: {
@@ -30,7 +31,7 @@ export default {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
           },
-        }
+        },
       );
 
       console.log(response);
@@ -48,7 +49,7 @@ export default {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
           },
-        }
+        },
       );
 
       localStorage.setItem("tokenAuth", "Bearer " + response.data.token);
@@ -65,7 +66,7 @@ export default {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
           },
-        }
+        },
       );
 
       console.log(response);
@@ -101,7 +102,7 @@ export default {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
           },
-        }
+        },
       );
 
       console.log(response);

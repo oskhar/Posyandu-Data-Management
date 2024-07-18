@@ -22,7 +22,7 @@
                             </VTextField>
                         </VCol>
                         <VCol cols="12">
-                            <VBtn class="mb-3" href="/data/format-4-create" prepend-icon="bx-plus">
+                            <VBtn class="mb-3" href="/admin/data/format-4-create" prepend-icon="bx-plus">
                                 Tambah
                             </VBtn>
                             <!--
