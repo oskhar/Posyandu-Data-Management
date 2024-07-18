@@ -2665,6 +2665,53 @@ paths:
                 errors:
                   message: "Data ... tidak valid"
   /resleting/tantangan/{id}:
+    get:
+      tags:
+        - Layanan Resleting
+      summary: MELIHAT seluruh tantangan resleting
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              example:
+                judul: "string"
+                gambar: "link"
+                deskripsi: "text"
+                overview: "string"
+                tanggal_mulai: "date"
+                tanggal_selesai: "date"
+                user_submitted: "boolean|optional"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+        404:
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data dengan id ... tidak ditemukan"
     put:
       tags:
         - Layanan Resleting
@@ -2764,6 +2811,7 @@ paths:
               search: "string"
               length: "integer|required"
               page: "integer"
+              tantangan_id: "integer"
       responses:
         200:
           description: OK
@@ -2852,7 +2900,7 @@ paths:
                         type: string
               example:
                 success:
-                  message: "Tantangan berhasil ditambahkan"
+                  message: "Sumbission berhasil dikirim!"
         400:
           description: BAD REQUEST
           content:
@@ -2882,9 +2930,6 @@ paths:
               type: object
               properties:
               example:
-                tantangan_id: "integer"
-                file: "Blob base64|nullable"
-                link: "string|nullable"
                 feedback: "text|nullable"
                 peringkat: "integer"
       responses:
@@ -2902,7 +2947,7 @@ paths:
                         type: string
               example:
                 success:
-                  message: "Tantangan berhasil diperbarui"
+                  message: "Submission berhasil dinilai!"
         400:
           description: BAD REQUEST
           content:
@@ -2937,7 +2982,7 @@ paths:
                         type: string
               example:
                 success:
-                  message: "Tantangan telah dihapus!"
+                  message: "Submission berhasil ditarik kembali!"
         400:
           description: BAD REQUEST
           content:

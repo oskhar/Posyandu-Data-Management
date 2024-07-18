@@ -48,6 +48,7 @@ Route::group(['middleware' => ['auth:sanctum', 'checkUserType:user']], function 
     Route::put('/user/reset-password', [AuthUserController::class, 'resetPassword']);
 
     Route::post('/submission', [SubmissionController::class, 'post']);
+    Route::delete('/submission/{id}', [SubmissionController::class, 'delete']);
 });
 
 /**
@@ -198,7 +199,6 @@ Route::group(['middleware' => ['auth:sanctum', 'checkUserType:admin']], function
 
         Route::get('/submission', [SubmissionController::class, 'get']);
         Route::put('/submission/{id}', [SubmissionController::class, 'put']);
-        Route::delete('/submission/{id}', [SubmissionController::class, 'delete']);
 
     });
 
