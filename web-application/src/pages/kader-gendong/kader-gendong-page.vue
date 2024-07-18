@@ -3,8 +3,6 @@ import { ref } from 'vue';
 import ListDraftSuratTugas from './components/draft-surat-tugas/list-draft-surat-tugas.vue';
 import BuatSuratTugas from './components/buat-surat-tugas/buat-surat-tugas.vue';
 import ListHistorySuratTugas from './components/history-surat-tugas/list-history-surat-tugas.vue';
-import { createSuratTugasHandler } from './handlers/surat-tugas-handler';
-import { createDraftSuratTugasHandler } from './handlers/draft-surat-tugas-handler';
 
 // Initialize data
 const tabs = [

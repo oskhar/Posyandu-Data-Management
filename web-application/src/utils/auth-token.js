@@ -8,10 +8,11 @@ export const setAdminToken = ({ authToken, idAdmin, fotoProfile, namaLengkap, ja
 	localStorage.setItem("jabatan", jabatan);
 }
 
-export const setUserToken = ({ authToken, nama, whatsapp }) => {
+export const setUserToken = ({ authToken, nama, whatsapp, poin }) => {
 	localStorage.setItem("tokenAuth", "Bearer " + authToken);
 	localStorage.setItem("nama_lengkap", nama);
 	localStorage.setItem("whatsapp", whatsapp);
+	localStorage.setItem("poin", poin);
 }
 
 export const clearAdminToken = () => {
@@ -26,4 +27,12 @@ export const clearUserToken = () => {
 	localStorage.removeItem("tokenAuth");
 	localStorage.removeItem("nama_lengkap");
 	localStorage.removeItem("whatsapp");
+}
+
+export const isAdminLoggedIn = () => {
+	return localStorage.getItem("tokenAuth") && localStorage.getItem("id_admin");
+}
+
+export const isUserLoggedIn = () => {
+	return localStorage.getItem("tokenAuth") && localStorage.getItem("id_admin") === null
 }

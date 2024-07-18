@@ -8,14 +8,11 @@ const { gambarGedung } = defineProps({
 	<VRow tag="section" class="mt-12 position-relative">
 		<VCol cols="12">
 			<VCarousel hide-delimiters cycle show-arrows="hover" class="position-relative">
-				<VCarouselItem src="https://cdn.vuetifyjs.com/images/cards/docks.jpg" cover
-					gradient="rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)" />
+				<VCarouselItem src="/slideshow.jpeg" cover gradient="rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)" />
 
-				<VCarouselItem src="https://cdn.vuetifyjs.com/images/cards/hotel.jpg" cover
-					gradient="rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)" />
+				<VCarouselItem src="/slideshow.jpeg" cover gradient="rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)" />
 
-				<VCarouselItem src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" cover
-					gradient="rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)" />
+				<VCarouselItem src="/slideshow.jpeg" cover gradient="rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)" />
 
 			</VCarousel>
 

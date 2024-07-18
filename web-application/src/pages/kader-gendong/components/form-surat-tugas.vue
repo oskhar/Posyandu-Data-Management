@@ -5,7 +5,7 @@ import DOMPurify from 'dompurify';
 import DitugaskanTable from "./buat-surat-tugas/ditugaskan-table.vue";
 import { previewSuratTugasHandler } from "../handlers/surat-tugas-handler";
 import PreviewSuratTugas from "./preview-surat-tugas.vue";
-import { pdfBase64 } from "@/utils/pdf-base64";
+import { pdfBase64 } from "@/utils/file";
 
 const { surat } = defineProps({ surat: { type: Object } });
 const emit = defineEmits(['create', "createDraft"]);

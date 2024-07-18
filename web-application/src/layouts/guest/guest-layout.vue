@@ -1,17 +1,20 @@
 <script>
-import UserProfile from "@/components/UserProfile.vue";
+import GuestUserProfile from "@/layouts/guest/guest-user-profile.vue";
+import AdminUserProfile from "@/layouts/admin/admin-user-profile.vue";
 import { MENU_ITEMS, WA_POSYANDU } from "@/constants";
 import FooterGuest from "@/layouts/guest/footer-guest.vue";
 import { getWhatsappLink } from "@/utils/send-whatsapp";
+import { isUserLoggedIn, isAdminLoggedIn } from "@/utils/auth-token"
 
 export default {
   components: {
-    UserProfile,
+    GuestUserProfile,
+    AdminUserProfile,
     FooterGuest,
   },
   data() {
     return {
-      fotoProfile: localStorage.getItem("foto_profile") && localStorage.getItem("tokenAuth") ? localStorage.getItem("foto_profile") : false,
+      WA_POSYANDU,
       drawer: false,
       menu: MENU_ITEMS,
     };
@@ -23,6 +26,8 @@ export default {
     window.removeEventListener("resize", this.closeDrawerOnResize);
   },
   methods: {
+    isAdminLoggedIn,
+    isUserLoggedIn,
     getWhatsappLink,
     toggleDrawer() {
       this.drawer = !this.drawer;
@@ -70,7 +75,8 @@ export default {
 
         <!-- Tombol login di pojok kanan -->
         <div class="ml-auto">
-          <UserProfile v-if="fotoProfile" class="hide-md-and-up" />
+          <AdminUserProfile v-if="isAdminLoggedIn()" class="hide-md-and-up" />
+          <GuestUserProfile v-else-if="isUserLoggedIn()" class="hide-md-and-up" />
           <VBtn v-else class="hide-md-and-up" to="/login" exact>Login</VBtn>
         </div>
       </VCol>

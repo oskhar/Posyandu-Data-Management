@@ -28,11 +28,12 @@ const handleLoginAdmin = async () => {
     });
 
     setAdminToken({
-      authToken: response.data.token,
-      idAdmin: response.data.id_admin,
-      fotoProfile: response.data.foto_profile,
-      namaLengkap: response.data.nama_lengkap,
-      jabatan: response.data.jabatan,
+      authToken: response.token,
+      idAdmin: response.id_admin,
+      fotoProfile: response.foto_profile,
+      namaLengkap: response.nama_lengkap,
+      jabatan: response.jabatan,
+      poin: response.poin,
     })
 
     router.push("/admin/dashboard");

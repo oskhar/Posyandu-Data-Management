@@ -11,6 +11,11 @@ export const guestRoutes = {
 			component: () => import("../../../pages/guest-home-page/guest-home-page.vue"),
 		},
 		{
+			path: "/account-settings",
+			beforeEnter: requireUserLogin,
+			component: () => import("../../../pages/guest-account-settings-page/guest-account-settings-page.vue"),
+		},
+		{
 			path: "edukasi",
 			component: () => import("../../../pages/guest-edukasi-page/guest-edukasi-page.vue"),
 		},
@@ -33,16 +38,6 @@ export const guestRoutes = {
 		{
 			path: "layanan",
 			children: [...reslitingRoutes],
-		},
-	],
-
-	path: "/",
-	beforeEnter: requireUserLogin,
-	component: () => import("../../../layouts/guest/guest-layout.vue"),
-	children: [
-		{
-			path: "/account-settings",
-			component: () => import("../../../pages/guest-account-settings-page/guest-account-settings-page.vue"),
 		},
 	],
 }
