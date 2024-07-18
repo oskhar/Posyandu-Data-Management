@@ -161,4 +161,15 @@ class TantanganController extends Controller
 
         return response()->json($tantangan)->setStatusCode(200);
     }
+
+    public function getSpesific($id): JsonResponse
+    {
+
+
+        return response()->json(
+            TantanganModel::select(
+
+            )
+        )->setStatusCode(200);
+    }
 }

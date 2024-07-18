@@ -87,9 +87,4 @@ class SubmissionController extends Controller
             ]
         ])->setStatusCode(200);
     }
-
-    public function getSpesific($id): JsonResponse
-    {
-        return response()->json();
-    }
 }
