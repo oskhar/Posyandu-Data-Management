@@ -215,7 +215,7 @@ Route::post('/user/login', [AuthUserController::class, 'login']);
 Route::post('/user/register', [AuthUserController::class, 'register']);
 
 Route::get('/resleting/tantangan', [TantanganController::class, 'get']);
-Route::get('/resleting/submission/{id}', [SubmissionController::class, 'getSpesific'])->middleware('check.submission.status');
+Route::get('/resleting/tantangan/{id}', [TantanganController::class, 'getSpesific']);
 
 Route::get('/format-ba', [FormatBAController::class, 'get']);
 
