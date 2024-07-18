@@ -48,7 +48,7 @@ const logout = async () => {
             <VListItemTitle class="font-weight-semibold">
               {{ namaLengkap }}
             </VListItemTitle>
-            <VListItemSubtitle>{{ poinUser }}</VListItemSubtitle>
+            <VListItemSubtitle>Poin: {{ poinUser }}</VListItemSubtitle>
           </VListItem>
           <VDivider class="my-2" />
 

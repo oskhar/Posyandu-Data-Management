@@ -1,7 +1,7 @@
 <script setup>
-import axios from "axios";
-import config from "@/@core/config";
 import Swal from "sweetalert2";
+import { api } from "@/lib/api";
+import { getSwalErrorMessage } from "@/utils/get-error-message";
 
 const isCurrentPasswordVisible = ref(false);
 const isNewPasswordVisible = ref(false);
@@ -13,48 +13,33 @@ const isLoading = ref(false);
 
 const submitkan = async formData => {
   formData.preventDefault();
-  isLoading.value = true;
+
   try {
-    const response = await axios.put(
-      `${config.urlServer}/api/admin`,
+    isLoading.value = true;
+
+    const response = await api.put(
+      `/user/reset-password`,
       {
-        id_admin: localStorage.getItem("id_admin"),
-        password: {
-          lama: currentPassword.value,
-          baru_a: newPassword.value,
-          baru_b: confirmPassword.value,
-        },
+        old_password: currentPassword.value,
+        new_password: newPassword.value,
+        confirm_password: confirmPassword.value,
       },
-      { headers: { Authorization: localStorage.getItem("tokenAuth") } },
     );
 
-    isLoading.value = false;
-    Swal.fire({
-      toast: true,
-      position: "top",
-      iconColor: "white",
-      color: "white",
-      background: "rgb(var(--v-theme-success))",
-      showConfirmButton: false,
-      timerProgressBar: true,
-      timer: 2000,
+    await Swal.fire({
       icon: "success",
+      showCloseButton: true,
       title: response.data.success.message,
     });
+
   } catch (error) {
-    isLoading.value = false;
-    Swal.fire({
-      toast: true,
-      position: "top",
-      iconColor: "white",
-      color: "white",
-      background: "rgb(var(--v-theme-error))",
-      showConfirmButton: false,
-      timerProgressBar: true,
-      timer: 4000,
+    await Swal.fire({
       icon: "error",
-      title: "Error. Tidak Dapat Mengubah Password",
+      showCloseButton: true,
+      html: getSwalErrorMessage(error),
     });
+  } finally {
+    isLoading.value = false;
   }
 };
 
