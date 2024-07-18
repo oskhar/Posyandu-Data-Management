@@ -46,6 +46,8 @@ Route::group(['middleware' => ['auth:sanctum', 'checkUserType:user']], function 
     Route::post('/user/logout', [AuthUserController::class, 'logout']);
     Route::put('/user', [AuthUserController::class, 'put']);
     Route::put('/user/reset-password', [AuthUserController::class, 'resetPassword']);
+
+    Route::post('/submission', [SubmissionController::class, 'post']);
 });
 
 /**
@@ -190,13 +192,11 @@ Route::group(['middleware' => ['auth:sanctum', 'checkUserType:admin']], function
      */
     Route::prefix('resleting')->group(function () {
 
-        Route::get('/tantangan', [TantanganController::class, 'get']);
         Route::post('/tantangan', [TantanganController::class, 'post']);
         Route::put('/tantangan/{id}', [TantanganController::class, 'put']);
         Route::delete('/tantangan/{id}', [TantanganController::class, 'delete']);
 
         Route::get('/submission', [SubmissionController::class, 'get']);
-        Route::post('/submission', [SubmissionController::class, 'post']);
         Route::put('/submission/{id}', [SubmissionController::class, 'put']);
         Route::delete('/submission/{id}', [SubmissionController::class, 'delete']);
 
@@ -213,6 +213,9 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/user/login', [AuthUserController::class, 'login']);
 Route::post('/user/register', [AuthUserController::class, 'register']);
+
+Route::get('/resleting/tantangan', [TantanganController::class, 'get']);
+Route::get('/resleting/submission/{id}', [SubmissionController::class, 'getSpesific'])->middleware('check.submission.status');
 
 Route::get('/format-ba', [FormatBAController::class, 'get']);
 
