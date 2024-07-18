@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TantanganRequest;
+use App\Models\SubmissionModel;
 use App\Models\TantanganModel;
+use App\Models\UserModel;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -162,14 +165,42 @@ class TantanganController extends Controller
         return response()->json($tantangan)->setStatusCode(200);
     }
 
-    public function getSpesific($id): JsonResponse
+    public function getSpesific(Request $request, $id): JsonResponse
     {
+        // Query dasar tanpa join
+        $query = TantanganModel::select(
+            "judul",
+            "gambar",
+            "deskripsi",
+            "overview",
+            "tanggal_mulai",
+            "tanggal_selesai",
+            "created_at"
+        )->where("tantangan.id", $id);
 
+        // Periksa apakah ada token
+        $token = $request->bearerToken();
+
+        if ($token) {
+            // Autentikasi pengguna berdasarkan token
+            $user = Auth::user();
+
+            if ($user instanceof \App\Models\UserModel) {
+                $query->leftJoin('submission', function ($join) use ($user) {
+                    $join->on('submission.tantangan_id', '=', 'tantangan.id')
+                        ->where('submission.user_id', '=', $user->id);
+                })
+                    ->addSelect([
+                        'user_submitted' => SubmissionModel::select('id')
+                            ->whereColumn('submission.tantangan_id', 'tantangan.id')
+                            ->where('submission.user_id', $user->id)
+                            ->limit(1)
+                    ]);
+            }
+        }
 
         return response()->json(
-            TantanganModel::select(
-
-            )
+            $query->first()
         )->setStatusCode(200);
     }
 }
