@@ -1,10 +1,10 @@
-import { requireAuth } from "../../middlewares";
+import { requireAdminLogin } from "../../middlewares";
 import { adminReslitingRoutes } from "./admin-resliting-routes";
 
 /** @type { import("vue-router").RouteRecordRaw } */
 export const adminRoutes =  {
 	path: "/admin",
-	beforeEnter: requireAuth,
+	beforeEnter: requireAdminLogin,
 	component: () => import("../../../layouts/admin/admin-dashboard-layout.vue"),
 	children: [
 		{

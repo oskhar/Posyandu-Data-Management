@@ -39,11 +39,17 @@ export function isErrorApiResponse(response) {
 }
 
 /**
- * @param {Record<string, string[]>} errors 
+ * @param {Record<string, string[] | string>} errors 
  */
 export function flattenApiErrorResponse(errors) {
 	return Object.entries(errors)
-	.map(([_, messages]) => `${messages.join('\n')}`)
+	.map(([_, messages]) =>{
+		if (typeof messages === 'string') {
+			return messages;
+		}
+
+		return `${messages.join('\n')}`
+	})
 	.join('\n');
 }
 

@@ -1,79 +1,111 @@
 <script setup>
-import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
 import logo from '@images/logo.svg'
+import Swal from 'sweetalert2';
+import { useRouter } from 'vue-router';
+import { registerUser } from './api/authentication-api';
+import { getApiResponse } from '@/utils/get-api-response';
+import { getSwalErrorMessage } from '@/utils/get-error-message';
+import { onMounted } from 'vue';
+import { clearAdminToken, clearUserToken } from '@/utils/auth-token';
+
+const router = useRouter();
 
 const form = ref({
-  username: '',
+  nama: '',
   email: '',
   password: '',
-  privacyPolicies: false,
+  whatsapp: '',
 })
 
 const isPasswordVisible = ref(false)
+
+
+const handleRegisterUser = async () => {
+  try {
+    const response = await registerUser({
+      nama: form.value.nama,
+      email: form.value.email,
+      password: form.value.password,
+      whatsapp: form.value.whatsapp,
+    });
+
+    await Swal.fire({
+      icon: 'success',
+      title: 'Berhasil!',
+      text: getApiResponse(response).message,
+      showCloseButton: true,
+    });
+
+    router.push("/login");
+  } catch (error) {
+    await Swal.fire({
+      icon: "error",
+      title: "Gagal Registrasi",
+      html: getSwalErrorMessage(error),
+      showCloseButton: true,
+    });
+  }
+}
+
+onMounted(() => {
+  clearAdminToken();
+  clearUserToken();
+})
 </script>
 
 <template>
   <div class="auth-wrapper d-flex align-center justify-center pa-4">
     <VCard class="auth-card pa-4 pt-7" max-width="448">
+      <VBtn to="/" variant="text">
+        <div>
+          <VIcon>bx-chevron-left</VIcon>
+          Halaman Depan
+        </div>
+      </VBtn>
+
+
       <VCardItem class="justify-center">
-        <template #prepend>
-          <div class="d-flex">
-            <img class="d-flex text-primary" :src="logo" />
-          </div>
-        </template>
-
-
+        <img class="d-flex text-primary" :src="logo" />
       </VCardItem>
 
       <VCardText class="pt-2">
-        <h5 class="text-h5 mb-1">
-          Mulai dari sini 🚀
-        </h5>
+        <h5 class="text-h5 mb-1">Selamat datang di Posyandu!👋🏻</h5>
+        <p class="mb-0">Mohon sign-in ke akun anda</p>
       </VCardText>
 
       <VCardText>
-        <VForm @submit.prevent="$router.push('/')">
+        <VForm @submit.prevent="handleRegisterUser">
           <VRow>
-            <!-- Username -->
+            <!-- Nama -->
             <VCol cols="12">
-              <VTextField v-model="form.username" autofocus label="Username" placeholder="Posyandu" />
+              <VTextField v-model="form.nama" autofocus label="Nama" />
             </VCol>
+
             <!-- email -->
             <VCol cols="12">
-              <VTextField v-model="form.email" label="Email" placeholder="posyandu@email.com" type="email" />
+              <VTextField v-model="form.email" label="Email" type="email" />
+            </VCol>
+
+            <!-- No.Whatsapp -->
+            <VCol cols="12">
+              <VTextField v-model="form.whatsapp" label="No. Whatsapp" placeholder="0812123456" type="email" />
             </VCol>
 
             <!-- password -->
             <VCol cols="12">
-              <VTextField v-model="form.password" label="Password" placeholder="············"
-                :type="isPasswordVisible ? 'text' : 'password'"
+              <VTextField v-model="form.password" label="Password" :type="isPasswordVisible ? 'text' : 'password'"
                 :append-inner-icon="isPasswordVisible ? 'bx-hide' : 'bx-show'"
                 @click:append-inner="isPasswordVisible = !isPasswordVisible" />
 
               <VBtn block type="submit" class="mt-5">
-                Sign up
+                Register
               </VBtn>
             </VCol>
 
-            <!-- login instead -->
-            <VCol cols="12" class="text-center text-base">
-              <span>Sudah punya akun?</span>
-              <RouterLink class="text-primary ms-2" to="/login">
-                Sign in
-              </RouterLink>
-            </VCol>
-
-            <VCol cols="12" class="d-flex align-center">
-              <VDivider />
-              <span class="mx-4">atau</span>
-              <VDivider />
-            </VCol>
-
-            <!-- auth providers -->
-            <VCol cols="12" class="text-center">
-              <AuthProvider />
-            </VCol>
           </VRow>
+          <VBtn variant="text" class="w-100 mt-4" to="/login">
+            Sudah punya akun? Login
+          </VBtn>
         </VForm>
       </VCardText>
     </VCard>

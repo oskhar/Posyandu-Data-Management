@@ -1,3 +1,4 @@
+import { requireUserLogin } from "@/router/middlewares";
 import { reslitingRoutes } from "./resliting-routes";
 
 /** @type { import("vue-router").RouteRecordRaw } */
@@ -32,6 +33,16 @@ export const guestRoutes = {
 		{
 			path: "layanan",
 			children: [...reslitingRoutes],
+		},
+	],
+
+	path: "/",
+	beforeEnter: requireUserLogin,
+	component: () => import("../../../layouts/guest/guest-layout.vue"),
+	children: [
+		{
+			path: "/account-settings",
+			component: () => import("../../../pages/guest-account-settings-page/guest-account-settings-page.vue"),
 		},
 	],
 }
