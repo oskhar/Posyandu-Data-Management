@@ -82,21 +82,21 @@ const changeAvatar = async event => {
 
     dataUser.value.foto_profile = foto_profile_data_uri
 
-    const response = await api.put(`/user`, {
+    const { data } = await api.put(`/user`, {
       nama: dataUser.value.nama,
       whatsapp: dataUser.value.whatsapp,
       foto_profile: foto_profile_base64,
     });
 
-    if (response.data.success) {
+    if (data.success) {
       await Swal.fire({
-        icon: "error",
+        icon: "success",
         showCloseButton: true,
-        html: getSwalErrorMessage(error),
+        html: data.success.message,
       });
 
       await fetchData();
-      localStorage.setItem("foto_profile", fileReader.result);
+      localStorage.setItem("foto_profile", foto_profile_base64);
     }
   } catch (error) {
     await Swal.fire({
