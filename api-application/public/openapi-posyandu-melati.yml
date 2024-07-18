@@ -2777,6 +2777,8 @@ paths:
                     tantangan_id: "integer"
                     file: "Blob base64"
                     link: "string"
+                    feedback: "text|nullable"
+                    peringkat: "integer"
                     status: "string"
                 first_page_url: "http://localhost:8000/api/resleting/submission?page=1"
                 from: 2
@@ -2883,6 +2885,8 @@ paths:
                 tantangan_id: "integer"
                 file: "Blob base64|nullable"
                 link: "string|nullable"
+                feedback: "text|nullable"
+                peringkat: "integer"
       responses:
         200:
           description: OK
@@ -2918,204 +2922,6 @@ paths:
       tags:
         - Layanan Resleting
       summary: MENGHAPUS data submission
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-              example:
-                success:
-                  message: "Tantangan telah dihapus!"
-        400:
-          description: BAD REQUEST
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-              example:
-                errors:
-                  message: "Data ... tidak valid"
-  /resleting/penilaian:
-    get:
-      tags:
-        - Layanan Resleting
-      summary: MELIHAT semua penilaian
-      requestBody:
-        description: Data untuk mengubah template pagination
-        required: true
-        content:
-          application/json:
-            example:
-              search: "string"
-              length: "integer|required"
-              page: "integer"
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              example:
-                current_page: 2
-                data:
-                  array:
-                    id: "integer"
-                    submission_id: "integer"
-                    feedback: "text"
-                    peringkat: "integer"
-                first_page_url: "http://localhost:8000/api/resleting/penilaian?page=1"
-                from: 2
-                last_page: 8
-                last_page_url: "http://localhost:8000/api/resleting/penilaian?page=8"
-                links: Array(10) [ {…}, {…}, {…}, … ]
-                next_page_url: "http://localhost:8000/api/resleting/penilaian?page=3"
-                path: "http://localhost:8000/api/resleting/penilaian"
-                per_page: 1
-                prev_page_url: "http://localhost:8000/api/resleting/penilaian?page=1"
-                to: 2
-                total: 8
-        400:
-          description: BAD REQUEST
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-              example:
-                errors:
-                  message: "Data ... tidak valid"
-        404:
-          description: NOT FOUND
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-              example:
-                errors:
-                  message: "Data dengan id ... tidak ditemukan"
-    post:
-      tags:
-        - Layanan Resleting
-      summary: MENAMBAHKAN penilaian hasil
-      requestBody:
-        description: Data surat untuk ditambahkan ke draf
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-              example:
-                submission_id: "integer"
-                feedback: "text|nullable"
-                peringkat: "integer"
-      responses:
-        201:
-          description: CREATED
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-              example:
-                success:
-                  message: "Tantangan berhasil ditambahkan"
-        400:
-          description: BAD REQUEST
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-              example:
-                errors:
-                  message: "Data ... tidak valid"
-  /resleting/penilaian/{id}:
-    put:
-      tags:
-        - Layanan Resleting
-      summary: MENGUBAH data penilaian
-      requestBody:
-        description: Data surat untuk update draf
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-              example:
-                submission_id: "integer"
-                feedback: "text|nullable"
-                peringkat: "integer"
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-              example:
-                success:
-                  message: "Tantangan berhasil diperbarui"
-        400:
-          description: BAD REQUEST
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-              example:
-                errors:
-                  message: "Data ... tidak valid"
-    delete:
-      tags:
-        - Layanan Resleting
-      summary: MENGHAPUS data penilaian
       responses:
         200:
           description: OK
