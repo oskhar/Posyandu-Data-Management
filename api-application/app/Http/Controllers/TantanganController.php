@@ -169,13 +169,13 @@ class TantanganController extends Controller
     {
         // Query dasar tanpa join
         $query = TantanganModel::select(
-            "judul",
-            "gambar",
-            "deskripsi",
-            "overview",
-            "tanggal_mulai",
-            "tanggal_selesai",
-            "created_at"
+            "tantangan.judul",
+            "tantangan.gambar",
+            "tantangan.deskripsi",
+            "tantangan.overview",
+            "tantangan.tanggal_mulai",
+            "tantangan.tanggal_selesai",
+            "tantangan.created_at"
         )->where("tantangan.id", $id);
 
         // Periksa apakah ada token
@@ -183,19 +183,16 @@ class TantanganController extends Controller
 
         if ($token) {
             // Autentikasi pengguna berdasarkan token
-            $user = Auth::user();
+            $user = Auth::guard('sanctum')->user();
 
             if ($user instanceof \App\Models\UserModel) {
+                // Tambahkan join dan select tambahan
                 $query->leftJoin('submission', function ($join) use ($user) {
                     $join->on('submission.tantangan_id', '=', 'tantangan.id')
                         ->where('submission.user_id', '=', $user->id);
-                })
-                    ->addSelect([
-                        'user_submitted' => SubmissionModel::select('id')
-                            ->whereColumn('submission.tantangan_id', 'tantangan.id')
-                            ->where('submission.user_id', $user->id)
-                            ->limit(1)
-                    ]);
+                })->addSelect([
+                            'user_submitted' => \DB::raw('(SELECT COUNT(*) FROM submission WHERE submission.tantangan_id = tantangan.id AND submission.user_id = ' . $user->id . ') as user_submitted')
+                        ]);
             }
         }
 
@@ -203,4 +200,6 @@ class TantanganController extends Controller
             $query->first()
         )->setStatusCode(200);
     }
+
+
 }
