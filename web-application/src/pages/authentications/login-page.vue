@@ -33,7 +33,6 @@ const handleLoginAdmin = async () => {
       fotoProfile: response.foto_profile,
       namaLengkap: response.nama_lengkap,
       jabatan: response.jabatan,
-      poin: response.poin,
     })
 
     router.push("/admin/dashboard");
@@ -54,7 +53,12 @@ const handleLoginUser = async () => {
       password: form.value.password,
     });
 
-    setUserToken({ authToken: response.token, nama: response.nama, whatsapp: response.whatsapp });
+    setUserToken({
+      authToken: response.token,
+      nama: response.nama,
+      whatsapp: response.whatsapp,
+      poin: response.poin || 0,
+    });
     router.push("/");
   } catch (error) {
     await Swal.fire({
