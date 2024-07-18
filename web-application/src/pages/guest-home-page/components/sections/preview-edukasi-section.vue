@@ -3,6 +3,7 @@ import { onMounted, ref } from "vue";
 import { fetchPreviewEdukasi } from "../../api/guest-home-page-api";
 import Swal from "sweetalert2";
 import CardEdukasi from "@/components/cards/card-edukasi.vue";
+import { getSwalErrorMessage } from "@/utils/get-error-message";
 
 const isLoading = ref(true);
 const dataEdukasi = ref([]);
@@ -15,7 +16,7 @@ onMounted(async () => {
 	} catch (error) {
 		await Swal.fire({
 			icon: "error",
-			text: getErrorMessage(error, "Terjadi kesalahan saat loading data edukasi!"),
+			html: getSwalErrorMessage(error, "Terjadi kesalahan saat loading data edukasi!"),
 			showCloseButton: true,
 		});
 	} finally {
