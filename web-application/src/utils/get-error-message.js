@@ -26,6 +26,10 @@ export function getErrorMessage(err, defaultMesssage = DEFAULT_ERROR_MESSAGE) {
 	return defaultMesssage;
 }
 
+export function getSwalErrorMessage(err, defaultMesssage = DEFAULT_ERROR_MESSAGE) {
+	return `<pre>${getErrorMessage(err, defaultMesssage)}</pre>`;
+}
+
 export function isErrorApiResponse(response) {
 	if (typeof response !== 'object' || response === null) {
 		return false;
@@ -35,11 +39,17 @@ export function isErrorApiResponse(response) {
 }
 
 /**
- * @param {Record<string, string[]>} errors 
+ * @param {Record<string, string[] | string>} errors 
  */
 export function flattenApiErrorResponse(errors) {
 	return Object.entries(errors)
-	.map(([_, messages]) => `${messages.join('\n')}`)
+	.map(([_, messages]) =>{
+		if (typeof messages === 'string') {
+			return messages;
+		}
+
+		return `${messages.join('\n')}`
+	})
 	.join('\n');
 }
 

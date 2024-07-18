@@ -118,7 +118,7 @@ const finalizeDraft = async (suratData, isCreatingSuratTugas) => {
 	</VRow>
 
 	<VRow v-if="!isSearching">
-		<VCol v-for="draft in drafts" :key="draft.nomor" cols="12" sm="6" md="4" lg="3">
+		<VCol v-for="(draft, index) in drafts" :key="index" cols="12" sm="6" md="4" lg="3">
 			<DraftSuratTugasItem :draft="draft" @finalize-draft="finalizeDraft" @edit-draft="editDraftSurat"
 				@delete-draft="deleteDraftSurat" />
 		</VCol>

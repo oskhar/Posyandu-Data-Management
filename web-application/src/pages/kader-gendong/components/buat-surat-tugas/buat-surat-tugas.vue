@@ -8,7 +8,7 @@ import { createSuratTugasHandler } from "../../handlers/surat-tugas-handler";
 import { createDraftSuratTugasHandler } from "../../handlers/draft-surat-tugas-handler";
 
 
-const emitCreateSuratTugas = async (suratData, isCreatingSuratTugas) => {
+const emitCreateSuratTugas = async (suratData, isCreatingSuratTugas, resetFormSuratTugas) => {
 	try {
 		isCreatingSuratTugas.value = true;
 
@@ -29,6 +29,7 @@ const emitCreateSuratTugas = async (suratData, isCreatingSuratTugas) => {
 
 		if (isConfirmed) {
 			await createSuratTugasHandler(parsedSurat);
+			resetFormSuratTugas()
 		}
 
 	} catch (error) {
@@ -42,7 +43,7 @@ const emitCreateSuratTugas = async (suratData, isCreatingSuratTugas) => {
 	}
 };
 
-const emitCreateDraftSuratTugas = async (suratData, isCreatingDraftSuratTugas) => {
+const emitCreateDraftSuratTugas = async (suratData, isCreatingDraftSuratTugas, resetFormSuratTugas) => {
 	try {
 		isCreatingDraftSuratTugas.value = true;
 
@@ -54,6 +55,8 @@ const emitCreateDraftSuratTugas = async (suratData, isCreatingDraftSuratTugas) =
 		const parsedSurat = await suratTugasValidator.parseAsync(rawSurat)
 
 		await createDraftSuratTugasHandler(parsedSurat)
+
+		resetFormSuratTugas()
 
 	} catch (error) {
 		await Swal.fire({

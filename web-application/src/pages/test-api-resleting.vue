@@ -115,7 +115,7 @@ export default {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
           },
-        }
+        },
       );
 
       console.log(response);
@@ -139,7 +139,7 @@ export default {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
           },
-        }
+        },
       );
 
       console.log(response);
@@ -164,7 +164,7 @@ export default {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
           },
-        }
+        },
       );
 
       console.log(response);
@@ -176,7 +176,7 @@ export default {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),
           },
-        }
+        },
       );
 
       console.log(response);

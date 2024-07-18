@@ -183,7 +183,7 @@ export default {
           });
         }
 
-        window.location.href = "/berita-acara";
+        window.location.href = "/admin/berita-acara";
       } catch (error) {
         Swal.fire({
           toast: true,

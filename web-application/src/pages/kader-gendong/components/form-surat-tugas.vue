@@ -57,13 +57,24 @@ const deleteDitugaskan = index => {
 	suratData.ditugaskan = suratData.ditugaskan.filter((_, i) => i !== index);
 };
 
+const resetFormSuratTugas = () => {
+	suratData.penanda_tangan = "";
+	suratData.tanggal_surat = null;
+	suratData.jabatan_penanda_tangan = "";
+	suratData.nomor = "";
+	suratData.kalimat_pembuka = '';
+	suratData.ditugaskan = [];
+	suratData.isi_surat = '';
+	suratData.kalimat_penutup = '';
+};
+
 const emitCreateSuratTugas = async () => {
 	emit('create', {
 		...suratData,
 		kalimat_pembuka: DOMPurify.sanitize(suratData.kalimat_pembuka),
 		isi_surat: DOMPurify.sanitize(suratData.isi_surat),
 		kalimat_penutup: DOMPurify.sanitize(suratData.kalimat_penutup),
-	}, isCreatingSuratTugas);
+	}, isCreatingSuratTugas, resetFormSuratTugas);
 };
 
 const emitCreateDraftSuratTugas = async () => {
@@ -72,7 +83,7 @@ const emitCreateDraftSuratTugas = async () => {
 		kalimat_pembuka: DOMPurify.sanitize(suratData.kalimat_pembuka),
 		isi_surat: DOMPurify.sanitize(suratData.isi_surat),
 		kalimat_penutup: DOMPurify.sanitize(suratData.kalimat_penutup),
-	}, isCreatingDraftSuratTugas);
+	}, isCreatingDraftSuratTugas, resetFormSuratTugas);
 }
 </script>
 
