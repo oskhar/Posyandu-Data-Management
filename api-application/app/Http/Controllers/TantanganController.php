@@ -116,7 +116,67 @@ class TantanganController extends Controller
     {
         $data = $request->validated();
 
-        TantanganModel::findOrFail($id)
+        $tantangan = TantanganModel::findOrFail($id);
+
+        if (!empty($data['gambar']) && $data['gambar'] != $tantangan->gambar) {
+            /**
+             * 'upload' adalah subfolder tempat gambar akan disimpan
+             * di sistem penyimpanan yang Anda konfigurasi
+             */
+            $base64Parts = explode(",", $data['gambar']);
+            $base64Image = end($base64Parts);
+
+            $decodedImage = base64_decode($base64Image);
+
+            /**
+             * Membuat instance Intervention Image
+             *
+             */
+            $img = Image::make($decodedImage);
+
+            /**
+             * Tentukan ekstensi yang diinginkan
+             * (jpg, jpeg, atau png)
+             *
+             */
+            $extension = 'jpg';
+
+            /**
+             * Mengidentifikasi tipe MIME gambar
+             *
+             */
+            $mime = finfo_buffer(finfo_open(), $decodedImage, FILEINFO_MIME_TYPE);
+
+            /**
+             * Jika tipe MIME adalah gambar JPEG,
+             * maka set ekstensi menjadi 'jpg'
+             *
+             */
+            if ($mime === 'image/jpeg') {
+                $extension = 'jpeg';
+            }
+
+            /**
+             * Jika tipe MIME adalah gambar PNG,
+             * maka set ekstensi menjadi 'png'
+             *
+             */
+            if ($mime === 'image/png') {
+                $extension = 'png';
+            }
+
+            $namaFile = Auth::user()->id . Carbon::now()->format('Y-m-d') . '_' . time() . '.' . $extension;
+
+            /**
+             * Simpan gambar ke folder
+             *
+             */
+            $path = 'images/upload/' . $namaFile;
+            $img->save(public_path($path), 80);
+            $data['gambar'] = '/' . $path;
+        }
+
+        $tantangan
             ->update($data);
 
         return response()->json([
@@ -169,13 +229,13 @@ class TantanganController extends Controller
     {
         // Query dasar tanpa join
         $query = TantanganModel::select(
-            "judul",
-            "gambar",
-            "deskripsi",
-            "overview",
-            "tanggal_mulai",
-            "tanggal_selesai",
-            "created_at"
+            "tantangan.judul",
+            "tantangan.gambar",
+            "tantangan.deskripsi",
+            "tantangan.overview",
+            "tantangan.tanggal_mulai",
+            "tantangan.tanggal_selesai",
+            "tantangan.created_at"
         )->where("tantangan.id", $id);
 
         // Periksa apakah ada token
@@ -183,19 +243,16 @@ class TantanganController extends Controller
 
         if ($token) {
             // Autentikasi pengguna berdasarkan token
-            $user = Auth::user();
+            $user = Auth::guard('sanctum')->user();
 
             if ($user instanceof \App\Models\UserModel) {
+                // Tambahkan join dan select tambahan
                 $query->leftJoin('submission', function ($join) use ($user) {
                     $join->on('submission.tantangan_id', '=', 'tantangan.id')
                         ->where('submission.user_id', '=', $user->id);
-                })
-                    ->addSelect([
-                        'user_submitted' => SubmissionModel::select('id')
-                            ->whereColumn('submission.tantangan_id', 'tantangan.id')
-                            ->where('submission.user_id', $user->id)
-                            ->limit(1)
-                    ]);
+                })->addSelect([
+                            'user_submitted' => \DB::raw('(SELECT COUNT(*) FROM submission WHERE submission.tantangan_id = tantangan.id AND submission.user_id = ' . $user->id . ') as user_submitted')
+                        ]);
             }
         }
 
@@ -203,4 +260,6 @@ class TantanganController extends Controller
             $query->first()
         )->setStatusCode(200);
     }
+
+
 }
