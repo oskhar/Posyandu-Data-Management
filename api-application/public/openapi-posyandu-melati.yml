@@ -2900,7 +2900,7 @@ paths:
                         type: string
               example:
                 success:
-                  message: "Tantangan berhasil ditambahkan"
+                  message: "Sumbission berhasil dikirim!"
         400:
           description: BAD REQUEST
           content:
@@ -2947,7 +2947,7 @@ paths:
                         type: string
               example:
                 success:
-                  message: "Tantangan berhasil diperbarui"
+                  message: "Submission berhasil dinilai!"
         400:
           description: BAD REQUEST
           content:
@@ -2982,7 +2982,7 @@ paths:
                         type: string
               example:
                 success:
-                  message: "Tantangan telah dihapus!"
+                  message: "Submission berhasil ditarik kembali!"
         400:
           description: BAD REQUEST
           content:
