@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 class SubmissionRequest extends CoreRequest
 {
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -21,14 +20,14 @@ class SubmissionRequest extends CoreRequest
                 ];
             case 'POST':
                 return [
-                    "tantangan_id" => "string|required",
-                    "file" => "string|required",
-                    "link" => "string|required",
+                    "tantangan_id" => "required|string",
+                    "file" => "nullable|string|required_without_all:link",
+                    "link" => "nullable|string|required_without_all:file",
                 ];
             case 'PUT':
                 return [
-                    "feedback" => "string|required",
-                    "peringkat" => "integer|required",
+                    "feedback" => "required|string",
+                    "peringkat" => "required|integer",
                 ];
             default:
                 return [];
