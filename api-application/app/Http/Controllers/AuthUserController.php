@@ -305,6 +305,8 @@ class AuthUserController extends Controller
             $data['foto_profile'] = '/' . $path;
         }
 
+        $user->update($data);
+
         return response()->json([
             "success" => [
                 "message" => "Data user berhasil diperbarui"
