@@ -2764,6 +2764,7 @@ paths:
               search: "string"
               length: "integer|required"
               page: "integer"
+              tantangan_id: "integer"
       responses:
         200:
           description: OK
@@ -2882,9 +2883,6 @@ paths:
               type: object
               properties:
               example:
-                tantangan_id: "integer"
-                file: "Blob base64|nullable"
-                link: "string|nullable"
                 feedback: "text|nullable"
                 peringkat: "integer"
       responses:

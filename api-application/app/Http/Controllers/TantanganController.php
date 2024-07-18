@@ -176,8 +176,7 @@ class TantanganController extends Controller
             $data['gambar'] = '/' . $path;
         }
 
-        $tantangan
-            ->update($data);
+        $tantangan->update($data);
 
         return response()->json([
             "success" => [
