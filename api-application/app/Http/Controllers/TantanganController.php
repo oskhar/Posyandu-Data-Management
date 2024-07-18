@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TantanganRequest;
 use App\Models\TantanganModel;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class TantanganController extends Controller
 {
@@ -40,6 +41,64 @@ class TantanganController extends Controller
     public function post(TantanganRequest $request): JsonResponse
     {
         $data = $request->validated();
+
+        if (!empty($data['gambar'])) {
+            /**
+             * 'upload' adalah subfolder tempat gambar akan disimpan
+             * di sistem penyimpanan yang Anda konfigurasi
+             */
+            $base64Parts = explode(",", $data['gambar']);
+            $base64Image = end($base64Parts);
+
+            $decodedImage = base64_decode($base64Image);
+
+            /**
+             * Membuat instance Intervention Image
+             *
+             */
+            $img = Image::make($decodedImage);
+
+            /**
+             * Tentukan ekstensi yang diinginkan
+             * (jpg, jpeg, atau png)
+             *
+             */
+            $extension = 'jpg';
+
+            /**
+             * Mengidentifikasi tipe MIME gambar
+             *
+             */
+            $mime = finfo_buffer(finfo_open(), $decodedImage, FILEINFO_MIME_TYPE);
+
+            /**
+             * Jika tipe MIME adalah gambar JPEG,
+             * maka set ekstensi menjadi 'jpg'
+             *
+             */
+            if ($mime === 'image/jpeg') {
+                $extension = 'jpeg';
+            }
+
+            /**
+             * Jika tipe MIME adalah gambar PNG,
+             * maka set ekstensi menjadi 'png'
+             *
+             */
+            if ($mime === 'image/png') {
+                $extension = 'png';
+            }
+
+            $namaFile = Auth::user()->id . Carbon::now()->format('Y-m-d') . '_' . time() . '.' . $extension;
+
+            /**
+             * Simpan gambar ke folder
+             *
+             */
+            $path = 'images/upload/' . $namaFile;
+            $img->save(public_path($path), 80);
+            $data['gambar'] = '/' . $path;
+        }
 
         TantanganModel::create($data);
 

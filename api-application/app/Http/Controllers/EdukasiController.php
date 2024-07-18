@@ -6,7 +6,6 @@ use App\Http\Requests\EdukasiRequest;
 use App\Models\EdukasiModel;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Carbon;
 
@@ -18,13 +17,13 @@ class EdukasiController extends Controller
         /**
          * Melakukan validasi apakah request
          * yang diberikan sudah sesuai
-         * 
+         *
          */
         $data = $request->validated();
 
         /**
          * Membuat query dasar
-         * 
+         *
          */
         $query = EdukasiModel::select(
             'edukasi.id as id_edukasi',
@@ -42,27 +41,27 @@ class EdukasiController extends Controller
         /**
          * Langsung mengembalikan data response
          * jika request id terdeteksi
-         * 
+         *
          */
         if (!empty($data['id_edukasi'])) {
 
             /**
              * Mengambil query data sesuai id
-             * 
+             *
              */
             $query = $query->where('edukasi.id', $data['id_edukasi']);
 
             /**
              * Mengambil data dari query dan
              * akan dijadikan response
-             * 
+             *
              */
             $edukasi = $query->first();
 
             /**
              * Mengembalikan nilai yang diminta
              * sesuai request yang diberikan
-             * 
+             *
              */
             return response()->json(
                 $edukasi
@@ -72,13 +71,13 @@ class EdukasiController extends Controller
         /**
          * Melakukan filtering atau penyaringan
          * data pada kondisi tertentu
-         * 
+         *
          */
         if (!empty($data['search'])) {
 
             /**
              * Memfilter data sesuai request search
-             * 
+             *
              */
             $query = $query->where('edukasi.judul', 'LIKE', '%' . $data['search'] . '%');
 
@@ -86,13 +85,13 @@ class EdukasiController extends Controller
 
         /**
          * Mengambil banyaknya data yang diambil
-         * 
+         *
          */
         $count = $query->count();
 
         /**
          * Memeriksa apakah data ingin difilter
-         * 
+         *
          */
         if (isset($data['start']) && isset($data['length'])) {
             $query = $query->offset(($data['start'] - 1) * $data['length'])
@@ -102,14 +101,14 @@ class EdukasiController extends Controller
         /**
          * Mengambil data dari query dan
          * akan dijadikan response
-         * 
+         *
          */
         $edukasi = $query->get();
 
         /**
          * Memeberikan data yang diminta
          * melalui response
-         * 
+         *
          */
         return response()->json([
             'jumlah_data' => $count,
@@ -122,7 +121,7 @@ class EdukasiController extends Controller
         /**
          * Memeriksa apakah request sesuai
          * dengan ketentuan berlaku
-         * 
+         *
          */
         $data = $request->validated();
 
@@ -138,27 +137,27 @@ class EdukasiController extends Controller
 
             /**
              * Membuat instance Intervention Image
-             * 
+             *
              */
             $img = Image::make($decodedImage);
 
             /**
              * Tentukan ekstensi yang diinginkan
              * (jpg, jpeg, atau png)
-             * 
+             *
              */
             $extension = 'jpg';
 
             /**
              * Mengidentifikasi tipe MIME gambar
-             * 
+             *
              */
             $mime = finfo_buffer(finfo_open(), $decodedImage, FILEINFO_MIME_TYPE);
 
             /**
-             * Jika tipe MIME adalah gambar JPEG, 
+             * Jika tipe MIME adalah gambar JPEG,
              * maka set ekstensi menjadi 'jpg'
-             * 
+             *
              */
             if ($mime === 'image/jpeg') {
                 $extension = 'jpeg';
@@ -167,7 +166,7 @@ class EdukasiController extends Controller
             /**
              * Jika tipe MIME adalah gambar PNG,
              * maka set ekstensi menjadi 'png'
-             * 
+             *
              */
             if ($mime === 'image/png') {
                 $extension = 'png';
@@ -177,7 +176,7 @@ class EdukasiController extends Controller
 
             /**
              * Simpan gambar ke folder
-             * 
+             *
              */
             $path = 'images/upload/' . $namaFile;
             $img->save(public_path($path), 80);
@@ -186,14 +185,14 @@ class EdukasiController extends Controller
 
         /**
          * Melakukan penambahan data ke database
-         * 
+         *
          */
         EdukasiModel::create($data);
 
         /**
          * Mengembalikan response setelah
          * melakukan penambahan data
-         * 
+         *
          */
         return response()->json([
             'success' => [
@@ -207,13 +206,13 @@ class EdukasiController extends Controller
         /**
          * Memeriksa apakah request
          * sesuai dengan ketentua
-         * 
+         *
          */
         $data = $request->validated();
 
         /**
          * Memeriksa apakah request judul kosong
-         * 
+         *
          */
         if (!empty($data['judul'])) {
             if ($data['judul'] == "") {
@@ -230,7 +229,7 @@ class EdukasiController extends Controller
         /**
          * Mendapatkan data tujuan yang ingin
          * diupdate menggunakan id request
-         * 
+         *
          */
         $edukasi = EdukasiModel::where('id', $data['id_edukasi'])->first();
         unset($data['id_edukasi']);
@@ -247,27 +246,27 @@ class EdukasiController extends Controller
 
             /**
              * Membuat instance Intervention Image
-             * 
+             *
              */
             $img = Image::make($decodedImage);
 
             /**
              * Tentukan ekstensi yang diinginkan
              * (jpg, jpeg, atau png)
-             * 
+             *
              */
             $extension = 'jpg';
 
             /**
              * Mengidentifikasi tipe MIME gambar
-             * 
+             *
              */
             $mime = finfo_buffer(finfo_open(), $decodedImage, FILEINFO_MIME_TYPE);
 
             /**
-             * Jika tipe MIME adalah gambar JPEG, 
+             * Jika tipe MIME adalah gambar JPEG,
              * maka set ekstensi menjadi 'jpg'
-             * 
+             *
              */
             if ($mime === 'image/jpeg') {
                 $extension = 'jpeg';
@@ -276,7 +275,7 @@ class EdukasiController extends Controller
             /**
              * Jika tipe MIME adalah gambar PNG,
              * maka set ekstensi menjadi 'png'
-             * 
+             *
              */
             if ($mime === 'image/png') {
                 $extension = 'png';
@@ -286,7 +285,7 @@ class EdukasiController extends Controller
 
             /**
              * Simpan gambar ke folder
-             * 
+             *
              */
             $path = 'images/upload/' . $namaFile;
             $img->save(public_path($path), 80);
@@ -295,14 +294,14 @@ class EdukasiController extends Controller
 
         /**
          * Melakukan update data
-         * 
+         *
          */
         $edukasi->update($data);
 
         /**
          * Mengembalikan response setelah
          * melakukan update data
-         * 
+         *
          */
         return response()->json([
             'success' => [
@@ -316,27 +315,27 @@ class EdukasiController extends Controller
         /**
          * Memeriksa apakah request
          * yang diberikan sesuai
-         * 
+         *
          */
         $data = $request->validated();
 
         /**
          * Mendapatkan data yang dituju
          * menggunakan request id
-         * 
+         *
          */
         $edukasi = EdukasiModel::where('id', $data['id_edukasi']);
 
         /**
          * Melakukan penghapusan data
-         * 
+         *
          */
         $edukasi->delete();
 
         /**
          * Mengembalikan response setelah
          * melakukan delete data
-         * 
+         *
          */
         return response()->json([
             'success' => [

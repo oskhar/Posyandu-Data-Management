@@ -15,6 +15,7 @@ use App\Http\Controllers\GambarController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\PosyanduController;
 use App\Http\Controllers\StatistikController;
+use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\TantanganController;
 use App\Http\Controllers\UserController;
@@ -120,7 +121,6 @@ Route::group(['middleware' => ['auth:sanctum', 'checkUserType:admin']], function
      * Endpoint untuk format-b
      *
      */
-    Route::get('/format-ba', [FormatBAController::class, 'get']);
     Route::post('/format-ba', [FormatBAController::class, 'post']);
     Route::put('/format-ba', [FormatBAController::class, 'put']);
     Route::delete('/format-ba', [FormatBAController::class, 'delete']);
@@ -195,6 +195,11 @@ Route::group(['middleware' => ['auth:sanctum', 'checkUserType:admin']], function
         Route::put('/tantangan/{id}', [TantanganController::class, 'put']);
         Route::delete('/tantangan/{id}', [TantanganController::class, 'delete']);
 
+        Route::get('/submission', [SubmissionController::class, 'get']);
+        Route::post('/submission', [SubmissionController::class, 'post']);
+        Route::put('/submission/{id}', [SubmissionController::class, 'put']);
+        Route::delete('/submission/{id}', [SubmissionController::class, 'delete']);
+
     });
 
     Route::get('/user/tantangan', [TantanganController::class, 'user']);
@@ -208,6 +213,8 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/user/login', [AuthUserController::class, 'login']);
 Route::post('/user/register', [AuthUserController::class, 'register']);
+
+Route::get('/format-ba', [FormatBAController::class, 'get']);
 
 Route::get('/edukasi', [EdukasiController::class, 'get']);
 Route::get('/jumlah-bayi', [FormatAController::class, 'jumlah_bayi']);

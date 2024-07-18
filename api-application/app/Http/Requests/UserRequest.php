@@ -35,12 +35,6 @@ class UserRequest extends CoreRequest
             case 'PUT':
                 return [
                     "nama" => "required|string",
-                    "email" => [
-                        "required",
-                        "string",
-                        Rule::unique("user", "email")->ignore(Auth::user()->id)
-                    ],
-                    "password" => "required|string",
                     "whatsapp" => "required|string",
                     "foto_profile" => "string",
                 ];

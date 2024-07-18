@@ -118,6 +118,7 @@ class AuthUserController extends Controller
             'email',
             'whatsapp',
             'poin',
+            'foto_profile',
         ])->findOrFail(Auth::user()->id);
 
         /**

@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import { adminRoutes } from "./routes/admin-routes";
 import { authRoutes } from "./routes/auth-routes";
 import { guestRoutes } from "./routes/guest-routes";
+import { testRoutes } from "./routes/test-routes";
 
 const router = createRouter({
   scrollBehavior: () => ({ top: 0 }),
@@ -10,6 +11,7 @@ const router = createRouter({
     guestRoutes,
     adminRoutes,
     authRoutes,
+    testRoutes,
     {
       path: "/:pathMatch(.*)*",
       component: () => import("../pages/[...all].vue"),

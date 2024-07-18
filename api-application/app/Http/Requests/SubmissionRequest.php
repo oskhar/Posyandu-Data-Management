@@ -16,6 +16,7 @@ class SubmissionRequest extends CoreRequest
             case 'GET':
                 return [
                     "search" => "nullable|string",
+                    "tantangan_id" => "nullable|integer",
                     "length" => "required|integer",
                 ];
             case 'POST':
@@ -23,6 +24,11 @@ class SubmissionRequest extends CoreRequest
                     "tantangan_id" => "string|required",
                     "file" => "string|required",
                     "link" => "string|required",
+                ];
+            case 'PUT':
+                return [
+                    "feedback" => "string|required",
+                    "peringkat" => "integer|required",
                 ];
             default:
                 return [];
