@@ -42,17 +42,43 @@ export const isUserAuthenticated = async () => {
 };
 
 export const requireAdminLogin = async (to, from, next) => {
-  if (!(await isAdminAuthenticated())) {
+  const isAdmin = await isAdminAuthenticated();
+  const isUser = await isUserAuthenticated(); 
+
+  if (!isAdmin && !isUser) {
     next("/login");
-  } else {
+    
+    return;
+  } 
+    
+  if (isUser && !isAdmin) {
+    next("/");
+    
+    return;
+  }
+
+  if (isAdmin && !isUser) {
     next();
   }
 };
 
 export const requireUserLogin = async (to, from, next) => {
-  if (!(await isUserAuthenticated())) {
+  const isAdmin = await isAdminAuthenticated();
+  const isUser = await isUserAuthenticated(); 
+
+  if (!isAdmin && !isUser) {
     next("/login");
-  } else {
+    
+    return;
+  } 
+    
+  if (!isUser && isAdmin) {
+    next("/dashboard");
+    
+    return;
+  }
+
+  if (!isAdmin && isUser) {
     next();
   }
 };
