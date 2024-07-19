@@ -12,6 +12,8 @@ const { activator, tantanganId } = defineProps({
 	tantanganId: { type: String, required: true },
 })
 
+const emit = defineEmits(['finishSubmit'])
+
 
 const submissionValidator = z.object({
 	file: z.string().trim().nullable(),
@@ -63,8 +65,8 @@ const handleSubmit = async () => {
 
 		const data = await submissionValidator.parseAsync(formWithBase64File);
 
-		console.log(tantanganId);
 		await sendSubmissionTantangan({ tantangan_id: tantanganId, ...data });
+		emit("finishSubmit");
 
 		await Swal.fire({
 			icon: "success",

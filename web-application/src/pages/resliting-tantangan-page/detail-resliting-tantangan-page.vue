@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, reactive, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { fetchDataDetailTantangan } from './api/resliting-tantangan-page-api';
 import Swal from 'sweetalert2';
@@ -8,16 +8,16 @@ import DetailTantanganFormDialog from './components/detail-tantangan-form-dialog
 
 const route = useRoute();
 const isLoading = ref(true);
-const dataTantangan = ref({})
+
+const dataTantangan = reactive({});
 
 async function fetchData() {
 	try {
-		isLoading.value = true
+		isLoading.value = true;
 
-		const idTantangan = route.params.id
+		const idTantangan = route.params.id;
 
-		dataTantangan.value = await fetchDataDetailTantangan(idTantangan)
-
+		Object.assign(dataTantangan, await fetchDataDetailTantangan(idTantangan));
 	} catch (error) {
 		await Swal.fire({
 			icon: "error",
@@ -25,13 +25,13 @@ async function fetchData() {
 			showCloseButton: true,
 		});
 	} finally {
-		isLoading.value = false
+		isLoading.value = false;
 	}
 }
 
-
-onMounted(fetchData)
+onMounted(fetchData);
 </script>
+
 
 <template>
 	<VRow tag="section" class="px-5 mb-4" style="margin-top: 90px;">
@@ -63,11 +63,15 @@ onMounted(fetchData)
 				<VCol cols="12" md="3" lg="2">
 					<VSkeletonLoader v-if="isLoading" type="button" />
 					<div v-else>
-						<VBtn id="ikuti-tantangan" class="w-100">
+						<VBtn v-if="!dataTantangan.user_submitted" id="ikuti-tantangan" class="w-100">
 							Ikuti Tantangan
 						</VBtn>
+						<VBtn v-else disabled class="w-100">
+							Tantangan Telah Diikuti
+						</VBtn>
 
-						<DetailTantanganFormDialog :tantangan-id="route.params.id" activator="#ikuti-tantangan" />
+						<DetailTantanganFormDialog :tantangan-id="route.params.id" activator="#ikuti-tantangan"
+							@finish-submit="fetchData" />
 					</div>
 				</VCol>
 			</VRow>
