@@ -7,7 +7,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 
-class DataWargaImport implements ToCollection
+class FormatAImport implements ToCollection
 {
     function parseDate($dateString)
     {
