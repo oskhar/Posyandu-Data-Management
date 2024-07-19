@@ -36,7 +36,7 @@ export const adminRoutes = {
       children: [
         {
           path: "admin",
-          component: () => import("../../../pages/admin.vue"),
+          component: () => import("../../../pages/admin-management-page.vue"),
         },
         {
           path: "format-1",
