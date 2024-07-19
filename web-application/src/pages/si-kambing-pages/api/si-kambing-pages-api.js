@@ -1,3 +1,4 @@
+import { getFullImagePath } from "@/utils/get-full-image-path";
 import { useProdukStore } from "@/utils/kambing-fake-store";
 
 /**
@@ -12,12 +13,23 @@ export const fetchListProduk = async ({
 	const produkStore = useProdukStore();
 
 	return new Promise(resolve => {
-		setTimeout(() => resolve(produkStore.searchProduk({ tags, search, page, length: lengthPerPage })), 1000);
+		const produk = produkStore.searchProduk({ tags, search, page, length: lengthPerPage })
+
+		produk.listProduk = produk.listProduk.map(item => ({ ...item, gambar: getFullImagePath(item.gambar) }))
+
+		setTimeout(() => resolve(produk), 1000);
 	})
 }
 
 export const fetchDetailProduk = async id => {
+	const parsedId = parseInt(id);
 	const produkStore = useProdukStore();
 
-	return new Promise(resolve => resolve(produkStore.readProduk(id)))
+	return new Promise(resolve => {
+		const produk = produkStore.readProduk(parsedId)
+
+		produk.gambar = getFullImagePath(produk.gambar)
+
+		setTimeout(() => resolve(produk), 1000);	
+	})
 }

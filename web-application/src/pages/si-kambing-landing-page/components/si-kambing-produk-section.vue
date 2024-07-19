@@ -2,8 +2,8 @@
 import { onMounted, ref } from "vue";
 import Swal from "sweetalert2";
 import { getErrorMessage } from "@/utils/get-error-message";
-import CardTantangan from "@/components/cards/card-tantangan.vue";
 import { fetchProdukPreviews } from "../api/si-kambing-landing-page-api";
+import CardProduk from "@/components/cards/card-produk.vue";
 
 const isLoading = ref(true);
 const dataProduk = ref([]);
@@ -53,7 +53,7 @@ onMounted(async () => {
 
 			<VRow v-else class="mt-5">
 				<VCol v-for="(data) in dataProduk" :key="data.id" cols="12" sm="6" lg="4">
-					<CardTantangan :data-tantangan="data" />
+					<CardProduk :data-produk="data" />
 				</VCol>
 
 				<VCol v-if="dataProduk.length === 0" cols="12">
