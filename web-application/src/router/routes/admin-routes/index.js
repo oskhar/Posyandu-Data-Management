@@ -1,5 +1,6 @@
 import { requireAdminLogin } from "../../middlewares";
 import { adminReslitingRoutes } from "./admin-resliting-routes";
+import { adminSiKambingRoutes } from "./admin-sikambing-routes";
 
 /** @type { import("vue-router").RouteRecordRaw } */
 export const adminRoutes = {
@@ -91,6 +92,8 @@ export const adminRoutes = {
       path: "layanan",
       children: [
         adminReslitingRoutes,
+
+        // adminSiKambingRoutes,
         {
           path: "kader-gendong",
           component: () =>
