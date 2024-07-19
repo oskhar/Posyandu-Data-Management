@@ -34,7 +34,9 @@ const openPreviewSuratTugas = async () => {
 	try {
 		isPreviewSuratLoading.value = true;
 
-		const { file } = await previewSuratTugas(suratData);
+		const file = await previewSuratTugas(suratData);
+
+		console.log("🚀 ~ openPreviewSuratTugas ~ file:", file)
 
 		previewSuratTugasBase64.value = file;
 		isPreviewSuratActive.value = true;
