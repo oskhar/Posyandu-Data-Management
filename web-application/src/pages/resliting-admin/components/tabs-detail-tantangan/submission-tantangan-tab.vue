@@ -6,6 +6,10 @@ import Swal from 'sweetalert2';
 import debounce from 'just-debounce';
 import { onMounted, ref, watch, computed } from 'vue';
 
+const { tantanganId } = defineProps({
+	tantanganId: { type: String, required: true },
+})
+
 const lengthPerPage = ref(6);
 
 const listSubmission = ref([]);
@@ -20,6 +24,7 @@ const searchSubmission = async () => {
 		isSearching.value = true;
 
 		const results = await getSubmissions({
+			tantanganId,
 			page: page.value,
 			search: submissionSearch.value,
 			lengthPerPage: lengthPerPage.value,

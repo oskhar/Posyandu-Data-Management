@@ -2,6 +2,10 @@
 import { ref } from 'vue';
 import EditTantanganTab from './components/tabs-detail-tantangan/edit-tantangan-tab.vue';
 import SubmissionTantanganTab from './components/tabs-detail-tantangan/submission-tantangan-tab.vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+
 
 const tabs = [
 	{
@@ -40,7 +44,7 @@ const activeTab = ref(tabs[0].tab);
 		</VWindowItem>
 
 		<VWindowItem :value="tabs[1].tab">
-			<SubmissionTantanganTab v-if="activeTab === tabs[1].tab" />
+			<SubmissionTantanganTab v-if="activeTab === tabs[1].tab" :tantangan-id="route.params.id" />
 		</VWindowItem>
 	</VWindow>
 </template>
