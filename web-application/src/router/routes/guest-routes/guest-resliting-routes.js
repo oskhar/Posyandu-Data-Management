@@ -1,6 +1,6 @@
 
 /** @type { import("vue-router").RouteRecordRaw[] } */
-export const reslitingRoutes = [
+export const guestReslitingRoutes = [
 	{ 
 		path: "remaja-peduli-stunting", 
 		component: () => import("../../../pages/resliting-landing-page/resliting-landing-page.vue"), 	

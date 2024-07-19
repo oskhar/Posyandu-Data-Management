@@ -24,7 +24,7 @@ const tabs = [
 
 <template>
 	<VRow class="mt-16 mb-8">
-		<VCol cols="9" class="mx-auto">
+		<VCol cols="12" md="9" class="mx-auto px-5">
 			<VTabs v-model="activeTab" show-arrows>
 				<VTab v-for="item in tabs" :key="item.icon" :value="item.tab">
 					<VIcon size="20" start :icon="item.icon" />

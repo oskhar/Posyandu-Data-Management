@@ -10,23 +10,27 @@ import { tantanganValidator } from '../validators/tantangan-validator';
 import { mysqlDateTime } from '@/utils/mysql-datetime';
 import { DEFAULT_TANTANGAN } from '@/constants';
 
-const { tantangan } = defineProps({ tantangan: { type: Object }, title: { type: String } });
+const { tantangan, title, mainActionTitle } = defineProps({
+	tantangan: { type: Object },
+	title: { type: String },
+	mainActionTitle: { type: String },
+});
 
 const emit = defineEmits(['createTantangan']);
 
 
-const tantanganData = ref({ ...tantangan } ?? DEFAULT_TANTANGAN);
+const tantanganData = reactive({ ...tantangan } ?? DEFAULT_TANTANGAN);
 const previewPicture = ref(tantangan?.gambar ? tantangan.gambar : null);
 const isCreatingTantangan = ref(false);
 
 const isFormValid = computed(() => {
 	const rawTantangan = {
 		...tantanganData,
-		tanggal_mulai: mysqlDateTime(tantanganData.value.tanggal_mulai),
-		tanggal_selesai: mysqlDateTime(tantanganData.value.tanggal_selesai),
+		tanggal_mulai: mysqlDateTime(tantanganData.tanggal_mulai),
+		tanggal_selesai: mysqlDateTime(tantanganData.tanggal_selesai),
 	};
 
-	const { success } = tantanganValidator.safeParse(rawTantangan);
+	const { success, error } = tantanganValidator.safeParse(rawTantangan);
 
 
 	return success;
@@ -35,26 +39,26 @@ const isFormValid = computed(() => {
 const resetFormTantangan = () => {
 	if (tantangan) {
 		previewPicture.value = tantangan.gambar;
-		tantanganData.value.gambar = tantangan.gambar;
-		tantanganData.value.judul = tantangan.judul;
-		tantanganData.value.overview = tantangan.overview;
-		tantanganData.value.deskripsi = tantangan.deskripsi;
-		tantanganData.value.tanggal_mulai = new Date(tantangan.tanggal_mulai);
-		tantanganData.value.tanggal_selesai = new Date(tantangan.tanggal_selesai);
+		tantanganData.gambar = tantangan.gambar;
+		tantanganData.judul = tantangan.judul;
+		tantanganData.overview = tantangan.overview;
+		tantanganData.deskripsi = tantangan.deskripsi;
+		tantanganData.tanggal_mulai = new Date(tantangan.tanggal_mulai);
+		tantanganData.tanggal_selesai = new Date(tantangan.tanggal_selesai);
 	} else {
 		previewPicture.value = null;
-		tantanganData.value.judul = "";
-		tantanganData.value.overview = "";
-		tantanganData.value.deskripsi = "";
-		tantanganData.value.gambar = null;
-		tantanganData.value.tanggal_mulai = null;
-		tantanganData.value.tanggal_selesai = null;
+		tantanganData.judul = "";
+		tantanganData.overview = "";
+		tantanganData.deskripsi = "";
+		tantanganData.gambar = null;
+		tantanganData.tanggal_mulai = null;
+		tantanganData.tanggal_selesai = null;
 	}
 };
 
 const handleChangeGambar = async file => {
 	if (!file) {
-		tantanganData.value.gambar = null;
+		tantanganData.gambar = null;
 
 		return;
 	}
@@ -78,7 +82,7 @@ const handleChangeGambar = async file => {
 	const base64 = await convertBlobToBase64(file);
 	const previewBase64 = `data:${file.type};base64,${base64}`;
 
-	tantanganData.value.gambar = base64;
+	tantanganData.gambar = base64;
 	previewPicture.value = previewBase64;
 };
 
@@ -95,7 +99,7 @@ const emitCreateTantangan = async () => {
 
 	emit('createTantangan', {
 		...tantanganData,
-		deskripsi: DOMPurify.sanitize(tantanganData.value.deskripsi),
+		deskripsi: DOMPurify.sanitize(tantanganData.deskripsi),
 	}, isCreatingTantangan, resetFormTantangan);
 };
 
@@ -113,15 +117,15 @@ const handleResetForm = async () => {
 };
 
 // Resets the end date if the start date is later
-watch(() => tantanganData.value.tanggal_mulai, newValue => {
-	if (tantanganData.value.tanggal_selesai && newValue > tantanganData.value.tanggal_selesai) {
-		tantanganData.value.tanggal_selesai = null;
+watch(() => tantanganData.tanggal_mulai, newValue => {
+	if (tantanganData.tanggal_selesai && newValue > tantanganData.tanggal_selesai) {
+		tantanganData.tanggal_selesai = null;
 	}
 });
 </script>
 
 <template>
-	<VCard tag="form">
+	<VCard tag="form" @submit.prevent="emitCreateTantangan">
 		<VCardItem>
 			<VCardTitle>{{ title ?? "Form Tantangan" }}</VCardTitle>
 		</VCardItem>
@@ -167,9 +171,8 @@ watch(() => tantanganData.value.tanggal_mulai, newValue => {
 		</VCardText>
 
 		<VCardActions class="flex-wrap gap-2">
-			<VBtn color="primary" :disabled="!isFormValid" :loading="isCreatingTantangan" variant="flat" type="button"
-				@click="emitCreateTantangan">
-				Buat Tantangan
+			<VBtn color="primary" :disabled="!isFormValid" :loading="isCreatingTantangan" variant="flat" type="submit">
+				{{mainActionTitle ?? "Buat Tantangan"}}
 			</VBtn>
 			<VBtn v-if="!isCreatingTantangan" :loading="isCreatingTantangan" color="error" type="button"
 				@click="handleResetForm">

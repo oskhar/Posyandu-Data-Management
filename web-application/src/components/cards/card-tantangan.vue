@@ -29,8 +29,8 @@ const { dataTantangan, to } = defineProps({
 
 		<VCardText>
 			<div class="mb-4 position-relative text-secodary">
-				<p v-if="dataTantangan.deskripsi" style="height: 80px;">
-					{{ dataTantangan.deskripsi.split(0, 40).join(" ") }}...
+				<p v-if="dataTantangan.overview" style="height: 80px;">
+					{{ dataTantangan.overview.split(0, 40).join(" ") }}...
 				</p>
 				<p v-else>
 					...

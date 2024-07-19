@@ -1,6 +1,6 @@
 <script setup>
 import { getSwalErrorMessage } from '@/utils/get-error-message';
-import { createFeedback, getSubmissions } from '../../api/submissions-api';
+import { editFeedback, getSubmissions } from '../../api/submissions-api';
 import { createDownload } from '@/utils/file';
 import Swal from 'sweetalert2';
 import debounce from 'just-debounce';
@@ -79,7 +79,7 @@ const handleSaveChanges = async submissionId => {
 
 
 	if (isConfirmed) {
-		const result = await createFeedback(submissionId, {
+		await editFeedback(submissionId, {
 			feedback: "",
 			peringkat: pickedJuara.value.find(val => val.submission.id === submissionId).juara,
 		});
@@ -87,7 +87,6 @@ const handleSaveChanges = async submissionId => {
 		await Swal.fire({
 			icon: 'success',
 			title: 'Berhasil menyimpan perubahan',
-			text: result.message,
 		});
 
 	}
@@ -154,6 +153,9 @@ watch(submissionSearch, () => page.value = 1);
 				<td>
 					<VBtn prepend-icon="bx-save" @click="handleSaveChanges(submission.id)">Simpan Perubahan</VBtn>
 				</td>
+			</tr>
+			<tr v-if="listSubmission.length === 0">
+				<td colspan="5">Belum ada submission</td>
 			</tr>
 		</tbody>
 	</VTable>

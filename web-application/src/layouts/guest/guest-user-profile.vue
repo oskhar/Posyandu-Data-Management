@@ -2,6 +2,7 @@
 import { useRouter } from "vue-router";
 import { api } from "@/lib/api";
 import { getSwalErrorMessage } from "@/utils/get-error-message";
+import Swal from "sweetalert2";
 
 const router = useRouter()
 
@@ -48,7 +49,7 @@ const logout = async () => {
             <VListItemTitle class="font-weight-semibold">
               {{ namaLengkap }}
             </VListItemTitle>
-            <VListItemSubtitle>{{ poinUser }}</VListItemSubtitle>
+            <VListItemSubtitle>Poin: {{ poinUser }}</VListItemSubtitle>
           </VListItem>
           <VDivider class="my-2" />
 

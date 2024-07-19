@@ -3,9 +3,11 @@ import { QuillEditor } from "@vueup/vue-quill"
 import { reactive, ref } from 'vue';
 import DOMPurify from 'dompurify';
 import DitugaskanTable from "./buat-surat-tugas/ditugaskan-table.vue";
-import { previewSuratTugasHandler } from "../handlers/surat-tugas-handler";
 import PreviewSuratTugas from "./preview-surat-tugas.vue";
 import { pdfBase64 } from "@/utils/file";
+import { previewSuratTugas } from "../api/surat-tugas-api";
+import Swal from "sweetalert2";
+import { getSwalErrorMessage } from "@/utils/get-error-message";
 
 const { surat } = defineProps({ surat: { type: Object } });
 const emit = defineEmits(['create', "createDraft"]);
@@ -32,13 +34,19 @@ const openPreviewSuratTugas = async () => {
 	try {
 		isPreviewSuratLoading.value = true;
 
-		const file = await previewSuratTugasHandler(suratData);
+		const { file } = await previewSuratTugas(suratData);
 
 		previewSuratTugasBase64.value = file;
 		isPreviewSuratActive.value = true;
 	} catch (error) {
 		previewSuratTugasBase64.value = null;
 		isPreviewSuratActive.value = false;
+
+		await Swal.fire({
+			icon: "error",
+			title: "Gagal Membuka Preview Surat",
+			html: getSwalErrorMessage(error),
+		});
 	} finally {
 		isPreviewSuratLoading.value = false;
 	}

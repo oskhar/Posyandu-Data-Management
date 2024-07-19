@@ -7,17 +7,17 @@ import z from 'zod';
 import { sendSubmissionTantangan } from '../api/resliting-tantangan-page-api';
 
 
-const { activator } = defineProps({
-	activator: {
-		type: String,
-		required: true,
-	},
+const { activator, tantanganId } = defineProps({
+	activator: { type: String, required: true },
+	tantanganId: { type: String, required: true },
 })
+
+const emit = defineEmits(['finishSubmit'])
 
 
 const submissionValidator = z.object({
-	file: z.string().trim().base64("File tidak valid").nullable(),
-	link: z.string().trim().url("Link tidak valid").nullable(),
+	file: z.string().trim().nullable(),
+	link: z.string().trim().nullable(),
 }).refine(data => data.file !== null || data.link !== null, {
 	message: "File atau link, salah satunya harus diisi!",
 	path: ['file', 'link'],
@@ -65,7 +65,8 @@ const handleSubmit = async () => {
 
 		const data = await submissionValidator.parseAsync(formWithBase64File);
 
-		await sendSubmissionTantangan(data);
+		await sendSubmissionTantangan({ tantangan_id: tantanganId, ...data });
+		emit("finishSubmit");
 
 		await Swal.fire({
 			icon: "success",

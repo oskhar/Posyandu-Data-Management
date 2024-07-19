@@ -1,7 +1,9 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import FollowedTantanganTab from './components/tabs/followed-tantangan-tab.vue';
 import AvailableTantanganTab from './components/tabs/available-tantangan-tab.vue';
+
+const isAdminOrUnauthorized = ref(localStorage.getItem("id_admin") !== null || !localStorage.getItem("tokenAuth"));
 
 const tabs = [
 	{
@@ -17,12 +19,15 @@ const tabs = [
 ];
 
 const activeTab = ref(tabs[0].tab);
+
+const filteredTabs = computed(() => {
+	return isAdminOrUnauthorized.value ? [tabs[0]] : tabs;
+});
 </script>
 
 <template>
 	<VRow tag="section" class="px-5 mb-4" style="margin-top: 90px;">
 		<VCol cols="12" md="9" class="mx-auto">
-
 			<VBtn prepend-icon="bx-left-arrow-alt" variant="text" to="/layanan/remaja-peduli-stunting" class="mb-4">Kembali
 			</VBtn>
 
@@ -32,9 +37,11 @@ const activeTab = ref(tabs[0].tab);
 			</p>
 
 			<VTabs v-model="activeTab" show-arrows>
-				<VTab v-for="item in tabs" :key="item.icon" :value="item.tab">
-					<VIcon size="20" start :icon="item.icon" />
-					{{ item.title }}
+				<VTab v-for="item in filteredTabs" :key="item.icon" :value="item.tab">
+					<div>
+						<VIcon size="20" start :icon="item.icon" />
+						{{ item.title }}
+					</div>
 				</VTab>
 			</VTabs>
 			<VDivider />
@@ -44,7 +51,7 @@ const activeTab = ref(tabs[0].tab);
 					<AvailableTantanganTab v-if="activeTab === tabs[0].tab" />
 				</VWindowItem>
 
-				<VWindowItem :value="tabs[1].tab">
+				<VWindowItem v-if="!isAdminOrUnauthorized" :value="tabs[1].tab">
 					<FollowedTantanganTab v-if="activeTab === tabs[1].tab" />
 				</VWindowItem>
 			</VWindow>
