@@ -98,7 +98,7 @@
             <td>
                 <h2 style="font-weight: light">POSYANDU MELATI IX</h2>
                 <p>Jl. Vila mutiara pluit RT 02 rw 09 Kel. Periuk Jaya Kec. Periuk Kota Tangerang</p>
-                <p>Tlp.(081) 29084810 Email : masih kosong</p>
+                <p>Tlp.(081) 29084810</p>
             </td>
             <td class="right-image">
                 <img src="./images/posyandu.png" alt="Logo puskesmas">
