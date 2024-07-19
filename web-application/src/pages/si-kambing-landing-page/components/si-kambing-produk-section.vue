@@ -6,16 +6,19 @@ import CardTantangan from "@/components/cards/card-tantangan.vue";
 import { fetchProdukPreviews } from "../api/si-kambing-landing-page-api";
 
 const isLoading = ref(true);
-const dataTantangan = ref([]);
+const dataProduk = ref([]);
 
 onMounted(async () => {
 	try {
 		isLoading.value = true;
-		dataTantangan.value = await fetchProdukPreviews();
+
+		const { listProduk } = await fetchProdukPreviews();
+
+		dataProduk.value = listProduk;
 	} catch (error) {
 		await Swal.fire({
 			icon: "error",
-			text: getErrorMessage(error, "Terjadi kesalahan saat loading data tantangan!"),
+			text: getErrorMessage(error, "Terjadi kesalahan saat loading produk!"),
 			showCloseButton: true,
 		});
 	} finally {
@@ -36,7 +39,7 @@ onMounted(async () => {
 					</p>
 				</VCol>
 				<VCol cols="12" md="3" class="d-flex justify-end align-center">
-					<VBtn variant="tonal" prepend-icon="bx-paper-plane" to="/layanan/remaja-peduli-stunting/tantangan">
+					<VBtn variant="tonal" prepend-icon="bx-paper-plane" to="/layanan/si-kambing/produk/cari">
 						Lihat Semua
 					</VBtn>
 				</VCol>
@@ -49,11 +52,11 @@ onMounted(async () => {
 			</VRow>
 
 			<VRow v-else class="mt-5">
-				<VCol v-for="(data) in dataTantangan" :key="data.id" cols="12" sm="6" lg="4">
+				<VCol v-for="(data) in dataProduk" :key="data.id" cols="12" sm="6" lg="4">
 					<CardTantangan :data-tantangan="data" />
 				</VCol>
 
-				<VCol v-if="dataTantangan.length === 0" cols="12">
+				<VCol v-if="dataProduk.length === 0" cols="12">
 					<p class="mt-5 text-secondary text-center">Belum ada Tantangan..</p>
 				</VCol>
 			</VRow>

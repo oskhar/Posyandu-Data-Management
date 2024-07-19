@@ -23,8 +23,8 @@
 						melalui WhatsApp dengan pesan yang sudah disiapkan untuk kemudahan transaksi.
 					</p>
 
-					<VBtn variant="elevated" color="primary" class="w-100 w-sm-auto" height="52" to="/produk"
-						append-icon="bx-right-arrow-alt">Lihat Produk</VBtn>
+					<VBtn variant="elevated" color="primary" class="w-100 w-sm-auto" height="52"
+						to="/layanan/si-kambing/produk/cari" append-icon="bx-right-arrow-alt">Lihat Produk</VBtn>
 				</VCol>
 
 				<VCol cols="12" sm="6" md="5" class="mx-auto">

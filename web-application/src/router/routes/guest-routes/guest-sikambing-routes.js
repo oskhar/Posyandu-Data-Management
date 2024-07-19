@@ -9,16 +9,12 @@ export const guestSiKambingRoutes = [
 				component: () => import("../../../pages/si-kambing-landing-page/si-kambing-landing-page.vue"),
 			},
 			{
-				path: "produk",
-				component: () => import("../../../pages/resliting-tantangan-page/resliting-tantangan-page.vue"),
-			},
-			{
 				path: "produk/cari",
-				component: () => import("../../../pages/resliting-tantangan-page/resliting-tantangan-page.vue"),
+				component: () => import("../../../pages/si-kambing-pages/si-kambing-search-page.vue"),
 			},
 			{
 				path: "produk/:id",
-				component: () => import("../../../pages/resliting-tantangan-page/resliting-tantangan-page.vue"),
+				component: () => import("../../../pages/si-kambing-pages/si-kambing-detail-page.vue"),
 			},
 		],
 	},
