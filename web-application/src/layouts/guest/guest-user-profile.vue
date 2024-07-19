@@ -2,6 +2,7 @@
 import { useRouter } from "vue-router";
 import { api } from "@/lib/api";
 import { getSwalErrorMessage } from "@/utils/get-error-message";
+import Swal from "sweetalert2";
 
 const router = useRouter()
 

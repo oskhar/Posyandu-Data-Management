@@ -9,7 +9,7 @@ import { sendSubmissionTantangan } from '../api/resliting-tantangan-page-api';
 
 const { activator, tantanganId } = defineProps({
 	activator: { type: String, required: true },
-	tantanganId: { type: Number, required: true },
+	tantanganId: { type: String, required: true },
 })
 
 
@@ -63,6 +63,7 @@ const handleSubmit = async () => {
 
 		const data = await submissionValidator.parseAsync(formWithBase64File);
 
+		console.log(tantanganId);
 		await sendSubmissionTantangan({ tantangan_id: tantanganId, ...data });
 
 		await Swal.fire({
