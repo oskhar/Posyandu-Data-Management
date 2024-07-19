@@ -10,6 +10,8 @@ export const getSubmissions = async ({
     params: { search, length: lengthPerPage, page, tantangan_id: tantanganId },
   })
 
+  console.log("🚀 ~ data:", data)
+
   return data;  
 }
 
