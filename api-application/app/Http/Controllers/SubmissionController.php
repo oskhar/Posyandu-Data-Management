@@ -66,6 +66,8 @@ class SubmissionController extends Controller
             $data['file'] = '/' . $zipPath;
         }
 
+        $data["user_id"] = Auth::user()->id;
+
         SubmissionModel::create($data);
 
         return response()->json([
