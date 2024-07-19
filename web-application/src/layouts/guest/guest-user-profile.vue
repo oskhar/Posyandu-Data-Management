@@ -1,8 +1,8 @@
 <script setup>
 import { useRouter } from "vue-router";
-import { api } from "@/lib/api";
 import { getSwalErrorMessage } from "@/utils/get-error-message";
 import Swal from "sweetalert2";
+import { clearUserToken } from "@/utils/auth-token";
 
 const router = useRouter()
 
@@ -12,7 +12,7 @@ const poinUser = localStorage.getItem("poin");
 
 const logout = async () => {
   try {
-    await api.post(`/user/logout`);
+    clearUserToken()
   } catch (error) {
     await Swal.fire({
       icon: "error",
@@ -20,7 +20,6 @@ const logout = async () => {
       html: getSwalErrorMessage(error),
     })
   } finally {
-    localStorage.clear();
     router.push("/login");
   }
 };
