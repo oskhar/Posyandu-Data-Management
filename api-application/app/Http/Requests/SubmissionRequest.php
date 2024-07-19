@@ -16,11 +16,11 @@ class SubmissionRequest extends CoreRequest
                 return [
                     "search" => "nullable|string",
                     "tantangan_id" => "nullable|integer",
-                    "length" => "required|integer",
+                    "length" => "required|integer|min:1",
                 ];
             case 'POST':
                 return [
-                    "tantangan_id" => "required|string",
+                    "tantangan_id" => "required|integer",
                     "file" => "nullable|string|required_without_all:link",
                     "link" => "nullable|string|required_without_all:file",
                 ];

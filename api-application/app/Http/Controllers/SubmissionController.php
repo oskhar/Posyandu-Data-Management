@@ -24,7 +24,8 @@ class SubmissionController extends Controller
             "penilaian.peringkat",
             "penilaian.status",
             "user.nama as nama_user"
-        )->join("penilaian", "penilaian.submission_id", "submission.id")
+        )
+            ->leftJoin("penilaian", "penilaian.submission_id", "submission.id")
             ->join("user", "user.id", "submission.user_id");
 
         if (!empty($data["search"])) {
@@ -39,6 +40,7 @@ class SubmissionController extends Controller
 
         return response()->json($submission)->setStatusCode(200);
     }
+
     public function post(SubmissionRequest $request): JsonResponse
     {
         $data = $request->validated();
