@@ -67,7 +67,7 @@ onMounted(fetchData);
 							Ikuti Tantangan
 						</VBtn>
 						<VBtn v-else disabled class="w-100">
-							Tantangan Telah Diikuti
+							Telah Diikuti
 						</VBtn>
 
 						<DetailTantanganFormDialog :tantangan-id="route.params.id" activator="#ikuti-tantangan"

@@ -4,8 +4,9 @@ import { suratTugasValidator } from '../../validators/surat-tugas-validator';
 import { getErrorMessage } from '@/utils/get-error-message';
 import { mysqlDateTime } from '@/utils/mysql-datetime';
 import FormSuratTugas from '../form-surat-tugas.vue';
-import { createSuratTugasHandler } from "../../handlers/surat-tugas-handler";
 import { createDraftSuratTugasHandler } from "../../handlers/draft-surat-tugas-handler";
+import { createSuratTugas } from "../../api/surat-tugas-api";
+import { createDownload } from "@/utils/file";
 
 
 const emitCreateSuratTugas = async (suratData, isCreatingSuratTugas, resetFormSuratTugas) => {
@@ -28,7 +29,17 @@ const emitCreateSuratTugas = async (suratData, isCreatingSuratTugas, resetFormSu
 		})
 
 		if (isConfirmed) {
-			await createSuratTugasHandler(parsedSurat);
+			const result = await createSuratTugas(parsedSurat);
+
+			createDownload(result.file);
+
+			await Swal.fire({
+				icon: 'success',
+				title: 'Berhasil membuat surat',
+				text: result.message,
+			});
+
+
 			resetFormSuratTugas()
 		}
 
