@@ -298,16 +298,31 @@ class ProdukController extends Controller
     }
     public function pin(): JsonResponse
     {
-        ProdukModel::select(
-            "id",
-            "nomor_telepon",
-            "nama",
-            "deskripsi",
-            "overview",
-            "harga",
-            "gambar",
-        );
-
-        return response()->json()->setStatusCode(200);
+        return response()->json([
+            ProdukModel::select(
+                "id",
+                "nomor_telepon",
+                "nama",
+                "deskripsi",
+                "overview",
+                "harga",
+                "gambar",
+            )->where("pin", true)
+                ->get()
+                ->map(function ($item) {
+                    $item["tags"] = TagModel::select("tag")->join("produk_tag", "produk_tag.tag_id", "tag.id")
+                        ->where('produk_tag.produk_id', $item->id)
+                        ->pluck('tag')
+                        ->toArray();
+                    return $item;
+                })
+        ])->setStatusCode(200);
+    }
+    public function tags(): JsonResponse
+    {
+        return response()->json(
+            TagModel::pluck('tag')
+                ->toArray()
+        )->setStatusCode(200);
     }
 }
