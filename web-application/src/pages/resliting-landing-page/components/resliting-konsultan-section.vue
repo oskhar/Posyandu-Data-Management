@@ -2,18 +2,29 @@
 import { WA_POSYANDU } from '@/constants';
 import { getErrorMessage } from '@/utils/get-error-message';
 import { sendWhatsapp } from '@/utils/send-whatsapp';
+import debounce from 'just-debounce';
 import Swal from 'sweetalert2';
-import { computed, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import z from "zod";
 
 const formValidation = z.object({
 	nama: z.string().trim().min(1, "Nama tidak boleh kosong"),
-	noTelepon: z.string().trim().min(1, "No. Telepon tidak boleh kosong"),
 	pesan: z.string().trim().min(1, "Pesan tidak boleh kosong"),
 });
 
-const form = ref({ nama: "", noTelepon: "", pesan: "" });
-const isFormValid = computed(() => formValidation.safeParse(form.value).success);
+const form = ref({ nama: "", pesan: "" });
+const isFormValid = ref(false);
+
+
+const revalidateForm = debounce(async () => {
+	const { success } = await formValidation.safeParseAsync(form.value)
+
+	isFormValid.value = success;
+}, 500)
+
+onMounted(revalidateForm)
+watch(form, revalidateForm, { deep: true });
+
 
 const handleSendKonsultasi = async () => {
 	try {
@@ -22,7 +33,7 @@ const handleSendKonsultasi = async () => {
 
 		sendWhatsapp(
 			WA_POSYANDU
-				`Halo, saya ${nama} dan nomor telepon saya adalah ${noTelepon}. Saya ingin konsultasi stunting. Pesan saya:\n ${pesan}`);
+				`Halo, saya ${nama}. Saya ingin konsultasi stunting. Pesan saya:\n ${pesan}`);
 	} catch (error) {
 		await Swal.fire({
 			icon: "error",
@@ -51,11 +62,10 @@ const handleSendKonsultasi = async () => {
 						</p>
 					</VCol>
 
-					<VCol cols="12" md="6">
-						<VForm class="d-flex flex-column gap-4" @submit.prevent="handleSendKonsultasi">
+					<VCol cols="12" md="6" class="d-flex">
+						<VForm class="d-flex flex-column gap-4 flex-grow w-100" @submit.prevent="handleSendKonsultasi">
 							<VTextField v-model="form.nama" label="Nama Anda" />
-							<VTextField v-model="form.noTelepon" label="No. Telepon Anda" />
-							<VTextarea v-model="form.pesan" label="Pesan Konsultasi" />
+							<VTextarea v-model="form.pesan" height='100%' label="Pesan Konsultasi" />
 
 							<VBtn :disabled="!isFormValid" type="submit" class="w-100" prepend-icon="bx-paper-plane">Kirim</VBtn>
 						</VForm>

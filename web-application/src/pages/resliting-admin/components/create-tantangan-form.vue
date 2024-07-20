@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, reactive, ref, watch } from 'vue';
+import { onMounted, reactive, ref, watch } from 'vue';
 
 import { QuillEditor } from "@vueup/vue-quill";
 
@@ -7,8 +7,9 @@ import DOMPurify from 'dompurify';
 import Swal from 'sweetalert2';
 import { convertBlobToBase64, validateFileInput } from '@/utils/file';
 import { tantanganValidator } from '../validators/tantangan-validator';
-import { mysqlDateTime } from '@/utils/mysql-datetime';
 import { DEFAULT_TANTANGAN } from '@/constants';
+import debounce from 'just-debounce';
+import { mysqlDateTime } from '@/utils/mysql-datetime';
 
 const { tantangan, title, mainActionTitle } = defineProps({
 	tantangan: { type: Object },
@@ -19,22 +20,29 @@ const { tantangan, title, mainActionTitle } = defineProps({
 const emit = defineEmits(['createTantangan']);
 
 
-const tantanganData = reactive({ ...tantangan } ?? DEFAULT_TANTANGAN);
+const descRef = ref(null);
+const tantanganData = reactive(tantangan ?? DEFAULT_TANTANGAN);
 const previewPicture = ref(tantangan?.gambar ? tantangan.gambar : null);
 const isCreatingTantangan = ref(false);
 
-const isFormValid = computed(() => {
+const isFormValid = ref(false);
+
+const revalidateForm = debounce(async () => {
 	const rawTantangan = {
 		...tantanganData,
 		tanggal_mulai: mysqlDateTime(tantanganData.tanggal_mulai),
 		tanggal_selesai: mysqlDateTime(tantanganData.tanggal_selesai),
 	};
 
-	const { success, error } = tantanganValidator.safeParse(rawTantangan);
+	const { success } = await tantanganValidator.safeParseAsync(rawTantangan);
+
+	isFormValid.value = success;
+}, 500);
+
+onMounted(revalidateForm);
+watch(tantanganData, revalidateForm, { deep: true });
 
 
-	return success;
-});
 
 const resetFormTantangan = () => {
 	if (tantangan) {
@@ -45,6 +53,7 @@ const resetFormTantangan = () => {
 		tantanganData.deskripsi = tantangan.deskripsi;
 		tantanganData.tanggal_mulai = new Date(tantangan.tanggal_mulai);
 		tantanganData.tanggal_selesai = new Date(tantangan.tanggal_selesai);
+		descRef.value?.setHTML(tantangan.deskripsi);
 	} else {
 		previewPicture.value = null;
 		tantanganData.judul = "";
@@ -53,6 +62,7 @@ const resetFormTantangan = () => {
 		tantanganData.gambar = null;
 		tantanganData.tanggal_mulai = null;
 		tantanganData.tanggal_selesai = null;
+		descRef.value?.setHTML("");
 	}
 };
 
@@ -155,8 +165,9 @@ watch(() => tantanganData.tanggal_mulai, newValue => {
 			<div class="mt-6">
 				<h2 class="text-h6 mb-4">Detail Tantangan</h2>
 				<div style="min-height: 200px;" class="d-flex flex-column">
-					<QuillEditor v-model:content="tantanganData.deskripsi" :disabled="isCreatingTantangan" content-type="html"
-						placeholder="Jelaskan tantangan secara detail..." theme="snow" class="flex-fill" toolbar="essential" />
+					<QuillEditor ref='descRef' v-model:content="tantanganData.deskripsi" :disabled="isCreatingTantangan"
+						content-type="html" placeholder="Jelaskan tantangan secara detail..." theme="snow" class="flex-fill"
+						toolbar="essential" />
 				</div>
 			</div>
 
@@ -172,7 +183,7 @@ watch(() => tantanganData.tanggal_mulai, newValue => {
 
 		<VCardActions class="flex-wrap gap-2">
 			<VBtn color="primary" :disabled="!isFormValid" :loading="isCreatingTantangan" variant="flat" type="submit">
-				{{mainActionTitle ?? "Buat Tantangan"}}
+				{{ mainActionTitle ?? "Buat Tantangan" }}
 			</VBtn>
 			<VBtn v-if="!isCreatingTantangan" :loading="isCreatingTantangan" color="error" type="button"
 				@click="handleResetForm">

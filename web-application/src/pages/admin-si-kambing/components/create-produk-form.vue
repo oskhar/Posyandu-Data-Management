@@ -28,13 +28,12 @@ const isCreatingProduk = ref(false);
 const isFormValid = ref(false);
 
 const revalidateForm = debounce(async () => {
-	const { success, error } = await produkValidator.safeParseAsync(produkData);
-
-	console.log("🚀 ~ revalidateForm ~ error:", error);
+	const { success } = await produkValidator.safeParseAsync(produkData);
 
 	isFormValid.value = success;
 }, 500);
 
+onMounted(revalidateForm);
 watch(produkData, revalidateForm, { deep: true });
 
 watch(() => produk, newProduk => {
