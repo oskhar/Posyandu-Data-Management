@@ -6,7 +6,7 @@ export const guestSiKambingRoutes = [
 		children: [
 			{ 
 				path: "",
-				component: () => import("../../../pages/si-kambing-landing-page/si-kambing-landing-page.vue"),
+				component: () => import("../../../pages/guest-si-kambing-landing-page/si-kambing-landing-page.vue"),
 			},
 			{
 				path: "produk/cari",

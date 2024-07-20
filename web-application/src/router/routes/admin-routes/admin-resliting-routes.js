@@ -4,14 +4,14 @@ export const adminReslitingRoutes = {
 	children: [
 		{
 			path: "tantangan",
-			component: () => import('../../../pages/resliting-admin/tantangan-page.vue'),
+			component: () => import('../../../pages/admin-resliting/tantangan-page.vue'),
 		},
 		{
 			path: "tantangan/:id",
 			children: [
 				{
 					path: "",
-					component: () => import('../../../pages/resliting-admin/detail-tantangan.page.vue'),
+					component: () => import('../../../pages/admin-resliting/detail-tantangan.page.vue'),
 				},
 			],
 		},
