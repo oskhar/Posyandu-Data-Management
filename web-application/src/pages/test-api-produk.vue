@@ -90,7 +90,7 @@ export default {
     },
     deleteProduk: async () => {
       const response = await axios.delete(
-        `${config.urlServer}/api/produk/1`,
+        `${config.urlServer}/api/produk/300`,
         {
           headers: {
             Authorization: localStorage.getItem("tokenAuth"),

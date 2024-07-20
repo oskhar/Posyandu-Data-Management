@@ -291,6 +291,9 @@ class ProdukController extends Controller
     }
     public function delete($id): JsonResponse
     {
+        ProdukModel::findOrFail($id)
+            ->delete();
+
         return response()->json()->setStatusCode(200);
     }
     public function pin(): JsonResponse
