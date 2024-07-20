@@ -13,10 +13,11 @@ import axios from "axios";
 
 export default {
   mounted() {
-    this.getProduk();
+    // this.getProduk();
     // this.postProduk();
-    this.putProduk();
-    // this.deleteProduk();
+    // this.putProduk();
+    this.deleteProduk();
+    // this.getProduk();
   },
   methods: {
 

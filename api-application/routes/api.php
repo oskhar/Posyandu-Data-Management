@@ -251,7 +251,7 @@ Route::group(['middleware' => ['auth:sanctum', 'checkUserType:admin']], function
      */
     Route::post('/produk', [ProdukController::class, 'post']);
     Route::put('/produk/{id}', [ProdukController::class, 'put']);
-    Route::delete('/produk{id}', [ProdukController::class, 'delete']);
+    Route::delete('/produk/{id}', [ProdukController::class, 'delete']);
 });
 
 /**
