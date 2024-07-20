@@ -1,9 +1,9 @@
-<script setup lang="ts">
+<script setup>
 import { getFullImagePath } from '@/utils/get-full-image-path';
 import { rupiahFormatter } from '@/utils/rupiah-formatter';
 import { ref } from 'vue';
 
-const { listDataProduk } = defineProps<any>({
+const { listDataProduk } = defineProps({
 	listDataProduk: { type: Array, required: true },
 });
 
