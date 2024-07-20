@@ -61,3 +61,16 @@ export const DEFAULT_TANTANGAN = {
 	tanggal_mulai: null,
 	tanggal_selesai: null,
 }
+
+
+export const DEFAULT_PRODUK = {
+	nomor_telepon: '',
+	nama: '',
+	deskripsi: ``,
+	overview: '',
+	tags: [],
+	harga: 0,
+	gambar: '',
+	sedang_dijual: false,
+	pin: false,
+}

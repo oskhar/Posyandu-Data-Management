@@ -1,10 +1,11 @@
 import { api } from "@/lib/api";
+import { clearAdminToken, clearUserToken } from "@/utils/auth-token";
 
 export const isAdminAuthenticated = async () => {
   const token = localStorage.getItem("tokenAuth");
 
   if (!token) {
-    localStorage.removeItem("id_admin");
+    clearAdminToken();
 
     return false;
   }
@@ -14,8 +15,7 @@ export const isAdminAuthenticated = async () => {
 
     return response.status === 200;
   } catch (error) {
-    localStorage.removeItem("tokenAuth");
-    localStorage.removeItem("id_admin");
+    clearAdminToken();
     console.error(error);
 
     return false;
@@ -26,6 +26,8 @@ export const isUserAuthenticated = async () => {
   const token = localStorage.getItem("tokenAuth");
 
   if (!token) {
+    clearUserToken();
+
     return false;
   }
 
@@ -34,7 +36,7 @@ export const isUserAuthenticated = async () => {
 
     return response.status === 200;
   } catch (error) {
-    localStorage.removeItem("tokenAuth");
+    clearUserToken();
     console.error(error);
 
     return false;
@@ -42,7 +44,9 @@ export const isUserAuthenticated = async () => {
 };
 
 export const requireAdminLogin = async (to, from, next) => {
-  if (!(await isAdminAuthenticated())) {
+  const isAdmin = await isAdminAuthenticated().catch(() => false)
+
+  if (!isAdmin) {
     next("/login");
   } else {
     next();
@@ -50,7 +54,9 @@ export const requireAdminLogin = async (to, from, next) => {
 };
 
 export const requireUserLogin = async (to, from, next) => {
-  if (!(await isUserAuthenticated())) {
+  const isUser = await isUserAuthenticated().catch(() => false)
+
+  if (!isUser) {
     next("/login");
   } else {
     next();

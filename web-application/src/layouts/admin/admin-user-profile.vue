@@ -1,8 +1,8 @@
 <script setup>
-import avatar1 from "@images/avatars/avatar-1.png";
-import axios from "axios";
-import config from "@/@core/config";
 import { useRouter } from "vue-router";
+import { clearAdminToken } from "@/utils/auth-token";
+import Swal from "sweetalert2";
+import { getSwalErrorMessage } from "@/utils/get-error-message";
 
 const router = useRouter()
 
@@ -11,18 +11,17 @@ const namaLengkap = localStorage.getItem("nama_lengkap");
 const jabatan = localStorage.getItem("jabatan");
 
 const logout = async () => {
-  const response = await axios.post(
-    `${config.urlServer}/api/logout`,
-    {},
-    {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("tokenAuth"),
-      },
-    },
-  );
-
-  localStorage.clear();
-  router.push("/login");
+  try {
+    clearAdminToken()
+  } catch (error) {
+    await Swal.fire({
+      icon: "error",
+      title: "Error. Tidak Dapat Logout",
+      html: getSwalErrorMessage(error),
+    })
+  } finally {
+    router.push("/login");
+  }
 };
 </script>
 

@@ -165,7 +165,7 @@ class FormatBAExport implements FromCollection, WithHeadings, WithEvents, WithCu
                 $event->sheet->getDelegate()->mergeCells('A1:AS3');
 
                 // Menambahkan judul ke tengah-tengah sel yang digabungkan
-                $event->sheet->setCellValue('A1', 'Regrister bayi (' . $this->batasBulanStart[$this->tabDipilih - 1] . ' - ' . $this->batasBulanEnd[$this->tabDipilih - 1] . ' bulan) dalam wilayah kerja posyandu Januari - Desember. Tahun ' . $this->tahunDipilih);
+                $event->sheet->setCellValue('A1', 'Register bayi (' . $this->batasBulanStart[$this->tabDipilih - 1] . ' - ' . $this->batasBulanEnd[$this->tabDipilih - 1] . ' bulan) dalam wilayah kerja posyandu Januari - Desember. Tahun ' . $this->tahunDipilih);
 
                 $event->sheet->getDelegate()->mergeCells('J4:L4');
                 $event->sheet->getDelegate()->mergeCells('M4:O4');

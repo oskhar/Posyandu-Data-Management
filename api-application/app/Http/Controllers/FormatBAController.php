@@ -109,7 +109,6 @@ class FormatBAController extends Controller
                 foreach ($tahun_bulan_bayi as $tahun_bulan) {
                     $list_waktu[] = $tahun_bulan['tahun'] . ' ' . $this->namaBulan[$tahun_bulan['bulan']];
                 }
-
             } else {
 
                 throw new HttpResponseException(response()->json([
@@ -204,7 +203,6 @@ class FormatBAController extends Controller
                 if ($list_penimbangan[$i]['berat_badan'] == null && $list_penimbangan[$i]['asi_eksklusif'] != 'Alpa') {
                     break;
                 }
-
             }
 
             /**
@@ -282,11 +280,11 @@ class FormatBAController extends Controller
                     "name" => "Berat bayi",
                     "type" => "line",
                     "data" =>
-                        PenimbanganModel::select('berat_badan')
-                            ->where('id_bayi', $data['id_bayi'])
-                            ->get()->map(function ($item) {
-                                return $item->berat_badan == 0 ? null : $item->berat_badan;
-                            })->toArray(),
+                    PenimbanganModel::select('berat_badan')
+                        ->where('id_bayi', $data['id_bayi'])
+                        ->get()->map(function ($item) {
+                            return $item->berat_badan == 0 ? null : $item->berat_badan;
+                        })->toArray(),
                 ],
             ];
 
@@ -391,7 +389,6 @@ class FormatBAController extends Controller
                 })
                 ->whereRaw('(' . $data['tahun'] . ' - YEAR(bayi.tanggal_lahir)) * 12 + ' . $bulan . ' - MONTH(bayi.tanggal_lahir) BETWEEN ' . $this->batasBulanStart[$data['tab'] - 1] . ' AND ' . $this->batasBulanEnd[$data['tab'] - 1])
                 ->whereNull('bayi.tanggal_meninggal');
-
         }
 
         /**
@@ -411,7 +408,6 @@ class FormatBAController extends Controller
                  * 
                  */
                 $mergedQuery = $query;
-
             } else {
 
                 /**
@@ -443,7 +439,6 @@ class FormatBAController extends Controller
              * 
              */
             $query = $query->where('bayi.nama', 'LIKE', '%' . $data['search'] . '%');
-
         }
 
         /**
@@ -466,7 +461,6 @@ class FormatBAController extends Controller
             $query = $query
                 ->offset(($data['start'] - 1) * $data['length'])
                 ->limit($data['length']);
-
         }
 
         /**
@@ -489,7 +483,7 @@ class FormatBAController extends Controller
          * Assigment judul format
          * 
          */
-        $judulFormat = 'Regrister bayi (' . $this->batasBulanStart[$data['tab'] - 1] . ' - ' . $this->batasBulanEnd[$data['tab'] - 1] . ' bulan) dalam wilayah kerja posyandu Januari - Desember';
+        $judulFormat = 'Register bayi (' . $this->batasBulanStart[$data['tab'] - 1] . ' - ' . $this->batasBulanEnd[$data['tab'] - 1] . ' bulan) dalam wilayah kerja posyandu Januari - Desember';
 
         /**
          * Mengembalikan response sesuai request
@@ -652,7 +646,6 @@ class FormatBAController extends Controller
                  * 
                  */
                 array_push($errorField, $index);
-
             }
 
             /**
@@ -679,7 +672,6 @@ class FormatBAController extends Controller
                 $data['ntob'] = "Kosong";
                 $data['berat_badan'] = 0;
                 $data['asi_eksklusif'] = "Alpa";
-
             } else {
 
                 /**
@@ -687,7 +679,6 @@ class FormatBAController extends Controller
                  * 
                  */
                 $data['ntob'] = $this->getNTOB($umurBayi, $dataWHOBulanLalu, $dataWHO, $beratBadanBulanLalu, $data['berat_badan'], $umurDataPertama);
-
             }
 
             /**
@@ -704,7 +695,6 @@ class FormatBAController extends Controller
             if ($lastMountIsT && $thisMountIsT) {
 
                 $data['double_t'] = true;
-
             }
 
             /**
@@ -714,11 +704,9 @@ class FormatBAController extends Controller
             if ($data['asi_eksklusif']) {
 
                 $asiEksklusif++;
-
             } else {
 
                 $asiEksklusif = 0;
-
             }
 
             /**
@@ -731,7 +719,6 @@ class FormatBAController extends Controller
                     ->update([
                         'lulus_asi_eksklusif' => ($data['tahun_penimbangan'] * 12) + $data['bulan_penimbangan']
                     ]);
-
             }
 
             /**
@@ -781,7 +768,6 @@ class FormatBAController extends Controller
              * 
              */
             return "B (Baru pertama kali menimbang)";
-
         } else if (empty($beratBadanBulanLalu)) {
 
             /**
@@ -790,7 +776,6 @@ class FormatBAController extends Controller
              * 
              */
             return "O (Tidak menimbang bulan lalu)";
-
         } else {
 
             /**
@@ -819,7 +804,6 @@ class FormatBAController extends Controller
                  * 
                  */
                 return "BGM (Bayi butuh penanganan khusus)";
-
             } else if ($beratBadanSekarang > $beratBadanBulanLalu && $pitaBulanIni >= $pitaBulanLalu) {
 
                 /**
@@ -829,9 +813,7 @@ class FormatBAController extends Controller
                  * 
                  */
                 return "N" . ($pitaBulanIni > $pitaBulanLalu ? "1 (Naik, Masuk pita diatasnya)" : "2 (Naik, Tetap pada pita yang sama)");
-
             }
-
         }
 
         /**
@@ -850,35 +832,27 @@ class FormatBAController extends Controller
         if ($beratBadan > $dataWHO->sangat_gemuk) {
 
             return 7;
-
         } elseif ($beratBadan > $dataWHO->gemuk) {
 
             return 6;
-
         } elseif ($beratBadan > $dataWHO->normal_gemuk) {
 
             return 5;
-
         } elseif ($beratBadan > $dataWHO->baik) {
 
             return 4;
-
         } elseif ($beratBadan > $dataWHO->normal_kurus) {
 
             return 3;
-
         } elseif ($beratBadan > $dataWHO->kurus) {
 
             return 2;
-
         } elseif ($beratBadan > $dataWHO->sangat_kurus) {
 
             return 1;
-
         } else {
 
             return 0;
-
         }
     }
     public function getListTahun(Request $request): JsonResponse
@@ -1072,7 +1046,6 @@ class FormatBAController extends Controller
             $BGM[$i] = $query->count();
             $BGMP[$i] = $query->where('id_berat_untuk_umur', 2)->count();
             $BGML[$i] = $BGM[$i] - $BGMP[$i];
-
         }
 
         $result = [

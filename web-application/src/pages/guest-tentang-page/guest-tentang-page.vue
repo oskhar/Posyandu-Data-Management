@@ -62,7 +62,7 @@ onMounted(async () => {
               height: 150px;
               object-fit: cover;
               border-radius: 4px;
-            " class="mx-auto d-block" :src="imagePath + item.foto_profile" alt="" />
+            " class="mx-auto d-block" :src="getFullImagePath(item.foto_profile)" :alt="item.nama_lengkap" />
             <div class="text-center mt-3">
               <h2 style="line-height: 1.5rem">{{ item.nama_lengkap }}</h2>
               <p>{{ item.nama_jabatan }}</p>

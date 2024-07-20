@@ -611,7 +611,7 @@ export default {
           data,
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("tokenAuth")}`,
+              Authorization: localStorage.getItem("tokenAuth"),
             },
           },
         );
