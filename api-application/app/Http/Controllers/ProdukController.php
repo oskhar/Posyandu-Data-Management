@@ -25,6 +25,7 @@ class ProdukController extends Controller
             "overview",
             "harga",
             "gambar",
+            "produk.created_at"
         );
 
         if (!empty($data["tags"])) {
@@ -311,6 +312,7 @@ class ProdukController extends Controller
                 "overview",
                 "harga",
                 "gambar",
+                "produk.created_at",
             )->where("pin", true)
                 ->get()
                 ->map(function ($item) {
@@ -327,6 +329,21 @@ class ProdukController extends Controller
         return response()->json(
             TagModel::pluck('tag')
                 ->toArray()
+        )->setStatusCode(200);
+    }
+
+    public function getSpesific($id): JsonResponse
+    {
+        return response()->json(
+            ProdukModel::select(
+                "nomor_telepon",
+                "nama",
+                "deskripsi",
+                "overview",
+                "harga",
+                "gambar",
+                "produk.created_at",
+            )->findOrFail($id)
         )->setStatusCode(200);
     }
 }
