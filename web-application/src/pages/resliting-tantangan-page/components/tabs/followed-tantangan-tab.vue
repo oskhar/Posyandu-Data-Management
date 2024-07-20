@@ -77,7 +77,7 @@ watch(searchQuery, () => page.value = 1)
 
 	<VRow>
 		<VCol cols="12">
-			<VPagination v-model="page" :disabled="isSearching" size="x-large" :total-visible="5" :length="banyakPage || 1"
+			<VPagination v-model="page" :disabled="isSearching" size="x-large" :total-visible="6" :length="banyakPage || 1"
 				@update:model-value="changeSearchPage" />
 		</VCol>
 	</VRow>

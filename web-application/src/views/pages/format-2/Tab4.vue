@@ -122,7 +122,7 @@
         <VCol>
             <Font>Jumlah data: <Font class="text-primary">{{ jumlahData }}</Font>
             </Font>
-            <VPagination v-model="page" class="float-right" :length="banyakPage" :total-visible="4" @click="fetchData">
+            <VPagination v-model="page" class="float-right" :length="banyakPage" :total-visible="6" @click="fetchData">
             </VPagination>
         </VCol>
     </VRow>

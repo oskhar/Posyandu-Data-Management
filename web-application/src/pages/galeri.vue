@@ -52,7 +52,7 @@
   <VRow>
     <VCol>
       <div class="text-center my-3 float-right">
-        <VPagination v-model="page" :length="banyakPage" :total-visible="5" @click="fetchData"></VPagination>
+        <VPagination v-model="page" :length="banyakPage" :total-visible="6" @click="fetchData"></VPagination>
       </div>
     </VCol>
   </VRow>

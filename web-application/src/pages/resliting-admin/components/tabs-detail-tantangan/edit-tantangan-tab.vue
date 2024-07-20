@@ -65,7 +65,8 @@ const handleEditTantangan = async (tantanganData, isEditingTantangan) => {
 
 		if (isConfirmed) {
 			const idTantangan = route.params.id;
-			const result = await editListTantangan(idTantangan, parsedTantangan);
+
+			await editListTantangan(idTantangan, parsedTantangan);
 
 			await Swal.fire({
 				icon: 'success',

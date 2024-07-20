@@ -20,15 +20,15 @@ const searchProduk = async () => {
 	try {
 		isSearching.value = true;
 
-		const { listProduk, pages } = await fetchListProduk({
+		const { data, links } = await fetchListProduk({
 			length: 6,
 			page: page.value,
 			search: searchQuery.value,
 			tags: chosenTags.value,
 		});
 
-		dataProduk.value = listProduk;
-		banyakPage.value = pages;
+		dataProduk.value = data;
+		banyakPage.value = links.length - 2;
 
 	} catch (error) {
 		await Swal.fire({
@@ -124,7 +124,7 @@ watch(searchQuery, () => page.value = 1)
 
 			<VRow>
 				<VCol cols="12">
-					<VPagination v-model="page" :disabled="isSearching" size="x-large" :total-visible="5"
+					<VPagination v-model="page" :disabled="isSearching" size="x-large" :total-visible="6"
 						:length="banyakPage || 1" @update:model-value="changeSearchPage" />
 				</VCol>
 			</VRow>

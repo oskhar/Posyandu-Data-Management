@@ -16,13 +16,13 @@ const searchListProduk = async () => {
 	try {
 		isSearching.value = true;
 
-		const { listProduk, pages } = await getListProduk({
+		const { data, links } = await getListProduk({
 			page: page.value,
 			search: searchProduk.value,
 		})
 
-		listProdukItems.value = listProduk;
-		banyakPage.value = pages || 1
+		listProdukItems.value = data;
+		banyakPage.value = links.length - 2;
 	} catch (error) {
 		await Swal.fire({
 			icon: 'error',
@@ -69,7 +69,7 @@ watch(searchProduk, () => page.value = 1)
 
 	<VRow>
 		<VCol cols="12">
-			<VPagination v-model="page" :disabled="isSearching" size="x-large" :length="banyakPage"
+			<VPagination v-model="page" :total-visible="6" :disabled="isSearching" size="x-large" :length="banyakPage"
 				@update:model-value="changeProdukPage" />
 		</VCol>
 	</VRow>

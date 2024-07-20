@@ -12,9 +12,7 @@ onMounted(async () => {
 	try {
 		isLoading.value = true;
 
-		const { listProduk } = await fetchProdukPreviews();
-
-		dataProduk.value = listProduk;
+		dataProduk.value = await fetchProdukPreviews();
 	} catch (error) {
 		await Swal.fire({
 			icon: "error",

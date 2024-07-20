@@ -42,8 +42,6 @@ const revalidateForm = debounce(async () => {
 onMounted(revalidateForm);
 watch(tantanganData, revalidateForm, { deep: true });
 
-
-
 const resetFormTantangan = () => {
 	if (tantangan) {
 		previewPicture.value = tantangan.gambar;

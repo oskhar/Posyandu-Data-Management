@@ -408,7 +408,7 @@
     <VCol>
       <Font>Jumlah data: <Font class="text-primary">{{ jumlahData }}</Font>
       </Font>
-      <VPagination v-model="page" class="float-right" :length="banyakPage" :total-visible="4" @click="gantiPage">
+      <VPagination v-model="page" class="float-right" :length="banyakPage" :total-visible="6" @click="gantiPage">
       </VPagination>
     </VCol>
   </VRow>

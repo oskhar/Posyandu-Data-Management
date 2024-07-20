@@ -1,20 +1,33 @@
 <script setup>
-import { useProdukStore } from "@/utils/kambing-fake-store";
-import { ref, watch } from "vue";
+import { getSwalErrorMessage } from "@/utils/get-error-message";
+import Swal from "sweetalert2";
+import { onMounted, ref, watch } from "vue";
+import { getTags } from "../api/si-kambing-pages-api";
 
 const emit = defineEmits(["change"]);
 
 const menu = ref(false);
-const produkStore = useProdukStore();
 
 const selectedTags = ref([]);
-const tags = ref(produkStore.tags);
+const tags = ref();
+
 
 const handleTagsChange = newTags => {
 	produkStore.selectedTags = newTags;
 	emit("change", newTags);
 };
 
+onMounted(async () => {
+	try {
+		tags.value = await getTags()
+	} catch (error) {
+		await Swal.fire({
+			icon: "error",
+			title: "Gagal mengambil data tag produk!",
+			html: getSwalErrorMessage(error, "Gagal mengambil data tag produk!"),
+		});
+	}
+})
 watch(selectedTags, handleTagsChange);
 </script>
 
