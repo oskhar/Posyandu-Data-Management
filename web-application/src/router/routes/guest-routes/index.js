@@ -1,6 +1,7 @@
 import { requireUserLogin } from "@/router/middlewares";
 import { guestReslitingRoutes } from "./guest-resliting-routes";
 import { guestSiKambingRoutes } from "./guest-sikambing-routes";
+import { guestScreeningBalitaRoutes } from "./guest-screening-balita-routes";
 
 /** @type { import("vue-router").RouteRecordRaw } */
 export const guestRoutes = {
@@ -38,7 +39,7 @@ export const guestRoutes = {
 		},
 		{
 			path: "layanan",
-			children: [...guestReslitingRoutes, ...guestSiKambingRoutes],
+			children: [...guestReslitingRoutes, ...guestSiKambingRoutes, ...guestScreeningBalitaRoutes],
 		},
 	],
 }
