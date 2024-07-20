@@ -22,8 +22,8 @@ class SubmissionController extends Controller
             "submission.link",
             "penilaian.feedback",
             "penilaian.peringkat",
-            "penilaian.status",
-            "user.nama as nama_user"
+            "submission.status",
+            "user.nama as nama_user",
         )
             ->leftJoin("penilaian", "penilaian.submission_id", "submission.id")
             ->join("user", "user.id", "submission.user_id");
