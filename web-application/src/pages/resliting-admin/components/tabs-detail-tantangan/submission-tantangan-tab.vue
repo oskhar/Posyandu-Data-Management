@@ -1,10 +1,12 @@
 <script setup>
 import { getSwalErrorMessage } from '@/utils/get-error-message';
-import { editFeedback, getSubmissions } from '../../api/submissions-api';
+import { getSubmissions } from '../../api/submissions-api';
 import { createDownload } from '@/utils/file';
 import Swal from 'sweetalert2';
 import debounce from 'just-debounce';
-import { onMounted, ref, watch, computed } from 'vue';
+import { onMounted, ref, watch } from 'vue';
+import SubmissionActionDialog from './submission-action-dialog.vue';
+import { getFullImagePath } from '@/utils/get-full-image-path';
 
 const { tantanganId } = defineProps({
 	tantanganId: { type: String, required: true },
@@ -16,8 +18,7 @@ const listSubmission = ref([]);
 const submissionSearch = ref("");
 const isSearching = ref(true);
 const page = ref(1);
-const links = ref([]);
-const pickedJuara = ref([]);
+const pageAmount = ref(1);
 
 const searchSubmission = async () => {
 	try {
@@ -31,9 +32,8 @@ const searchSubmission = async () => {
 		});
 
 		listSubmission.value = results.data;
-		links.value = results.links;
+		pageAmount.value = results.links - 2;
 		page.value = results.current_page;
-		pickedJuara.value = listSubmission.value.map(submission => ({ juara: null, submission }));
 	} catch (error) {
 		await Swal.fire({
 			icon: 'error',
@@ -52,60 +52,6 @@ const changeSubmissionPage = newPage => {
 	searchSubmission();
 };
 
-const handleJuaraChange = (value, index, submission) => {
-	const parsedValue = parseInt(value);
-
-	if (isNaN(parsedValue) || parsedValue < 1 || parsedValue > 3) {
-		pickedJuara.value[index] = { juara: null, submission };
-
-		return;
-	}
-
-	const pickedValues = pickedJuara.value.filter((v, i) => i !== index).map(v => v.juara);
-	if (pickedValues.includes(parsedValue)) {
-		pickedJuara.value[index] = { juara: null, submission };
-		Swal.fire({
-			icon: 'error',
-			title: 'Angka juara sudah dipilih!',
-		});
-	} else {
-		pickedJuara.value[index] = { juara: parsedValue, submission };
-	}
-};
-
-const handleSaveChanges = async submissionId => {
-	const { isConfirmed } = await Swal.fire({
-		title: 'Simpan Perubahan',
-		text: 'Apakah Anda yakin ingin menyimpan perubahan?',
-		icon: 'question',
-		showCancelButton: true,
-		showConfirmButton: true,
-	});
-
-
-	if (isConfirmed) {
-		await editFeedback(submissionId, {
-			feedback: "",
-			peringkat: pickedJuara.value.find(val => val.submission.id === submissionId).juara,
-		});
-
-		await Swal.fire({
-			icon: 'success',
-			title: 'Berhasil menyimpan perubahan',
-		});
-
-	}
-}
-
-const allNumbersPicked = computed(() => {
-	const pickedValues = pickedJuara.value.filter(val => val.juara !== null).map(val => val.juara);
-
-	return [1, 2, 3].every(num => pickedValues.includes(num));
-});
-
-const rowHasJuara = computed(() => {
-	return listSubmission.value.map((_, index) => pickedJuara.value[index].juara !== null);
-});
 
 onMounted(searchSubmission);
 watch(submissionSearch, debouncedSearchSubmission);
@@ -130,12 +76,11 @@ watch(submissionSearch, () => page.value = 1);
 			</tr>
 		</thead>
 		<tbody>
-			<tr v-for="(submission, index) in listSubmission" :key="index" :class="{ 'bg-primary-faded': rowHasJuara[index] }"
-				height="75">
+			<tr v-for="(submission, index) in listSubmission" :key="index" height=" 75">
 				<td>{{ index + 1 + ((page - 1) * lengthPerPage) }}</td>
 				<td>
 					<VBtn v-if="submission.file" prepend-icon="bx-download"
-						@click="createDownload(submission.file, 'application/x-zip', 'zip')">
+						@click="createDownload(getFullImagePath(submission.file), submission.file.split('/')[3])">
 						Download file
 					</VBtn>
 					<span v-else>
@@ -151,12 +96,11 @@ watch(submissionSearch, () => page.value = 1);
 					</span>
 				</td>
 				<td>
-					<VTextField v-model="pickedJuara[index].juara" label='Juara (1 - 3)' style="max-width: 150px;" class="mx-auto"
-						:min="1" :max="3" :disabled="pickedJuara[index].juara === null && allNumbersPicked"
-						@change="handleJuaraChange($event.target.value, index, submission)" />
+					{{ submission.juara || 'Tidak Juara' }}
 				</td>
 				<td>
-					<VBtn prepend-icon="bx-save" @click="handleSaveChanges(submission.id)">Simpan Perubahan</VBtn>
+					<SubmissionActionDialog :tantangan-id="tantanganId" :submission="submission"
+						@update-submission="searchSubmission" />
 				</td>
 			</tr>
 			<tr v-if="listSubmission.length === 0">
@@ -167,7 +111,7 @@ watch(submissionSearch, () => page.value = 1);
 
 	<VRow class="mt-4">
 		<VCol cols="12">
-			<VPagination v-model="page" :total-visible="6" :disabled="isSearching" size="x-large" :length="links.length - 2"
+			<VPagination v-model="page" :total-visible="6" :disabled="isSearching" size="x-large" :length="pageAmount"
 				@update:model-value="changeSubmissionPage" />
 		</VCol>
 	</VRow>

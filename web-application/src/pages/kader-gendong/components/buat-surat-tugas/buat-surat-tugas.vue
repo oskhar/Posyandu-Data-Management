@@ -6,7 +6,7 @@ import { mysqlDateTime } from '@/utils/mysql-datetime';
 import FormSuratTugas from '../form-surat-tugas.vue';
 import { createDraftSuratTugasHandler } from "../../handlers/draft-surat-tugas-handler";
 import { createSuratTugas } from "../../api/surat-tugas-api";
-import { createDownload } from "@/utils/file";
+import { createDownloadFromBase64 } from "@/utils/file";
 
 
 const emitCreateSuratTugas = async (suratData, isCreatingSuratTugas, resetFormSuratTugas) => {
@@ -31,7 +31,7 @@ const emitCreateSuratTugas = async (suratData, isCreatingSuratTugas, resetFormSu
 		if (isConfirmed) {
 			const result = await createSuratTugas(parsedSurat);
 
-			createDownload(result.file);
+			createDownloadFromBase64(result.file);
 
 			await Swal.fire({
 				icon: 'success',

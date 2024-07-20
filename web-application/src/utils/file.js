@@ -28,7 +28,7 @@ export const validateFileInput = (file, fileType, fileSize = 10 * 1024 * 1024) =
 /**
  * @param {string} base64 
  */
-export const createDownload = (base64, fileType = "application/pdf", fileExtension = "pdf") => {
+export const createDownloadFromBase64 = (base64, fileType = "application/pdf", fileExtension = "pdf") => {
 	// Mengonversi base64 menjadi blob
 	const byteCharacters = atob(base64);
 	const byteNumbers = new Array(byteCharacters.length);
@@ -49,14 +49,20 @@ export const createDownload = (base64, fileType = "application/pdf", fileExtensi
 	const minutes = currentDate.getMinutes();
 	const seconds = currentDate.getSeconds();
 	const currentDateTime = `_${year}-${month}-${day}_${hours}:${minutes}:${seconds}`;
-	const namaFile = `${currentDateTime}.${fileExtension}`;
+	const fileName = `${currentDateTime}.${fileExtension}`;
 
 	// Membuat URL blob dan elemen link untuk mengunduh file
 	const url = window.URL.createObjectURL(blob);
+
+	createDownload(url, fileName);
+	
+}
+
+export const createDownload = (url, fileName) => {
 	const link = document.createElement("a");
 
 	link.href = url;
-	link.setAttribute("download", namaFile);
+	link.setAttribute("download", fileName);
 	document.body.appendChild(link);
 	link.click();
 
