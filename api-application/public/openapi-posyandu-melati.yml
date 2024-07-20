@@ -31,6 +31,8 @@ tags:
     description: Layanan untuk mengelola penugasan antar kader
   - name: Layanan Resleting
     description: Layanan remaja peduli stunting
+  - name: Layanan Penjualan
+    description: Layanan penjualan khusus posyandu
 paths:
   /login:
     post:
@@ -3039,6 +3041,274 @@ paths:
                 prev_page_url: "http://localhost:8000/api/resleting/tantangan?page=1"
                 to: 2
                 total: 8
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+        404:
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data dengan id ... tidak ditemukan"
+  /produk:
+    get:
+      tags:
+        - Layanan Penjualan
+      summary: MELIHAT semua produk
+      requestBody:
+        description: Data untuk mengubah template pagination
+        required: true
+        content:
+          application/json:
+            example:
+              search: "string"
+              length: "integer|required"
+              page: "integer"
+              tag: "string"
+              sort: "string:terbaru|terlama|a-z|z-a|termahal|termurah"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              example:
+                current_page: 2
+                data:
+                  array:
+                    id: "integer"
+                    nomor_telepon: "string"
+                    nama: "string"
+                    deskripsi: "text"
+                    overview: "text"
+                    tags: "array<string>"
+                    harga: "integer"
+                    gambar: "link"
+                first_page_url: "http://localhost:8000/api/produk?page=1"
+                from: 2
+                last_page: 8
+                last_page_url: "http://localhost:8000/api/produk?page=8"
+                links: Array(10) [ {…}, {…}, {…}, … ]
+                next_page_url: "http://localhost:8000/api/produk?page=3"
+                path: "http://localhost:8000/api/produk"
+                per_page: 1
+                prev_page_url: "http://localhost:8000/api/produk?page=1"
+                to: 2
+                total: 8
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+        404:
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data dengan id ... tidak ditemukan"
+    post:
+      tags:
+        - Layanan Penjualan
+      summary: MENAMBAHKAN produk hasil
+      requestBody:
+        description: Data surat untuk ditambahkan ke draf
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+              example:
+                nomor_telepon: "string"
+                nama: "string"
+                deskripsi: "text"
+                overview: "text"
+                tags: "array<string>|nullable"
+                harga: "integer"
+                gambar: "Blob base64"
+                sedang_dijual: "boolean|default:true"
+                pin: "boolean|default:false"
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                success:
+                  message: "Produk berhasil ditambahkan!"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+  /produk/{id}:
+    put:
+      tags:
+        - Layanan Penjualan
+      summary: MENGUBAH data produk
+      requestBody:
+        description: Data surat untuk update draf
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+              example:
+                nomor_telepon: "string"
+                nama: "string"
+                deskripsi: "text"
+                overview: "text"
+                tags: "array<string>|nullable"
+                harga: "integer"
+                gambar: "Blob base64"
+                sedang_dijual: "boolean"
+                pin: "boolean"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                success:
+                  message: "Produk telah diperbarui!"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+    delete:
+      tags:
+        - Layanan Penjualan
+      summary: MENGHAPUS data produk
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                success:
+                  message: "Produk berhasil dihilangkan dari peredaran!"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+  /produk/pin:
+    get:
+      tags:
+        - Layanan Penjualan
+      summary: MELIHAT semua produk yang dipin
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  example:
+                    id: "integer"
+                    nomor_telepon: "string"
+                    nama: "string"
+                    deskripsi: "text"
+                    overview: "text"
+                    tags: "array<string>"
+                    harga: "integer"
+                    gambar: "link"
         400:
           description: BAD REQUEST
           content:
