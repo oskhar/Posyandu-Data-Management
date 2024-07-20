@@ -49,12 +49,12 @@ function decreaseAmount() {
 
 
 const whatsappLink = computed(() => {
-	if (!dataProduk.nomorTelepon || !dataProduk.deskripsi) {
+	if (!dataProduk.nomor_telepon || !dataProduk.deskripsi) {
 		return '#';
 	}
 
 	return getWhatsappLink(
-		dataProduk.nomorTelepon,
+		dataProduk.nomor_telepon,
 		`Halo admin, saya ingin membeli produk "${dataProduk.nama}"" dengan kuantitas ${amount.value} yang ada di website SiKambing.`,
 	);
 })

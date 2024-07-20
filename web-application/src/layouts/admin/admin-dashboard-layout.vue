@@ -70,6 +70,10 @@
             to: '/admin/layanan/remaja-peduli-stunting/tantangan',
           },
           {
+            title: 'SiKambing',
+            to: '/admin/layanan/si-kambing',
+          },
+          {
             title: 'Screening',
             to: '/admin/data/format-2',
           },

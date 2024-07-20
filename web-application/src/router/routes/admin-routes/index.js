@@ -92,8 +92,7 @@ export const adminRoutes = {
       path: "layanan",
       children: [
         adminReslitingRoutes,
-
-        // adminSiKambingRoutes,
+        ...adminSiKambingRoutes,
         {
           path: "kader-gendong",
           component: () =>

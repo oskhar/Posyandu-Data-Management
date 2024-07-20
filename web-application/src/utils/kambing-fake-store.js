@@ -5,7 +5,7 @@ export const useProdukStore = defineStore('productStore', () => {
   const listProduk = ref([
       {
           id: 1,
-          nomorTelepon: '081234567890',
+          nomor_telepon: '081234567890',
           nama: 'Smartphone XYZ',
           deskripsi: `
               <h2>Smartphone XYZ</h2>
@@ -26,7 +26,7 @@ export const useProdukStore = defineStore('productStore', () => {
       },
       {
           id: 2,
-          nomorTelepon: '081234567890',
+          nomor_telepon: '081234567890',
           nama: 'Laptop ABC',
           deskripsi: `
               <h2>Laptop ABC</h2>
@@ -47,7 +47,7 @@ export const useProdukStore = defineStore('productStore', () => {
       },
       {
           id: 3,
-          nomorTelepon: '081234567890',
+          nomor_telepon: '081234567890',
           nama: 'Wireless Headphones',
           deskripsi: `
               <h2>Wireless Headphones</h2>
@@ -68,7 +68,7 @@ export const useProdukStore = defineStore('productStore', () => {
       },
       {
           id: 4,
-          nomorTelepon: '081234567890',
+          nomor_telepon: '081234567890',
           nama: 'Smartwatch 2021',
           deskripsi: `
               <h2>Smartwatch 2021</h2>
@@ -89,7 +89,7 @@ export const useProdukStore = defineStore('productStore', () => {
       },
       {
           id: 5,
-          nomorTelepon: '081234567890',
+          nomor_telepon: '081234567890',
           nama: 'Gaming Console Pro',
           deskripsi: `
               <h2>Gaming Console Pro</h2>
@@ -110,7 +110,7 @@ export const useProdukStore = defineStore('productStore', () => {
       },
       {
           id: 6,
-          nomorTelepon: '081234567890',
+          nomor_telepon: '081234567890',
           nama: 'Tablet 2022',
           deskripsi: `
               <h2>Tablet 2022</h2>
@@ -131,7 +131,7 @@ export const useProdukStore = defineStore('productStore', () => {
       },
       {
           id: 7,
-          nomorTelepon: '081234567890',
+          nomor_telepon: '081234567890',
           nama: 'Bluetooth Speaker',
           deskripsi: `
               <h2>Bluetooth Speaker</h2>
@@ -152,7 +152,7 @@ export const useProdukStore = defineStore('productStore', () => {
       },
       {
           id: 8,
-          nomorTelepon: '081234567890',
+          nomor_telepon: '081234567890',
           nama: '4K TV',
           deskripsi: `
               <h2>4K TV</h2>
@@ -173,7 +173,7 @@ export const useProdukStore = defineStore('productStore', () => {
       },
       {
           id: 9,
-          nomorTelepon: '081234567890',
+          nomor_telepon: '081234567890',
           nama: 'Digital Camera',
           deskripsi: `
               <h2>Digital Camera</h2>
@@ -194,7 +194,7 @@ export const useProdukStore = defineStore('productStore', () => {
       },
       {
           id: 10,
-          nomorTelepon: '081234567890',
+          nomor_telepon: '081234567890',
           nama: 'Smart Home Hub',
           deskripsi: `
               <h2>Smart Home Hub</h2>
@@ -215,7 +215,7 @@ export const useProdukStore = defineStore('productStore', () => {
       },
       {
           id: 11,
-          nomorTelepon: '081234567890',
+          nomor_telepon: '081234567890',
           nama: 'Wireless Charger',
           deskripsi: `
               <h2>Wireless Charger</h2>
@@ -236,7 +236,7 @@ export const useProdukStore = defineStore('productStore', () => {
       },
       {
           id: 12,
-          nomorTelepon: '081234567890',
+          nomor_telepon: '081234567890',
           nama: 'VR Headset',
           deskripsi: `
               <h2>VR Headset</h2>
@@ -257,7 +257,7 @@ export const useProdukStore = defineStore('productStore', () => {
       },
       {
           id: 13,
-          nomorTelepon: '081234567890',
+          nomor_telepon: '081234567890',
           nama: 'Portable Projector',
           deskripsi: `
               <h2>Portable Projector</h2>
@@ -278,7 +278,7 @@ export const useProdukStore = defineStore('productStore', () => {
       },
       {
           id: 14,
-          nomorTelepon: '081234567890',
+          nomor_telepon: '081234567890',
           nama: 'Smart Thermostat',
           deskripsi: `
               <h2>Smart Thermostat</h2>
@@ -299,7 +299,7 @@ export const useProdukStore = defineStore('productStore', () => {
       },
       {
           id: 15,
-          nomorTelepon: '081234567890',
+          nomor_telepon: '081234567890',
           nama: 'Smart Light Bulbs',
           deskripsi: `
               <h2>Smart Light Bulbs</h2>
@@ -320,7 +320,7 @@ export const useProdukStore = defineStore('productStore', () => {
       },
       {
           id: 16,
-          nomorTelepon: '081234567890',
+          nomor_telepon: '081234567890',
           nama: 'Smart Door Lock',
           deskripsi: `
               <h2>Smart Door Lock</h2>
@@ -341,7 +341,7 @@ export const useProdukStore = defineStore('productStore', () => {
       },
       {
           id: 17,
-          nomorTelepon: '081234567890',
+          nomor_telepon: '081234567890',
           nama: 'Smart Security Camera',
           deskripsi: `
               <h2>Smart Security Camera</h2>
@@ -362,7 +362,7 @@ export const useProdukStore = defineStore('productStore', () => {
       },
       {
           id: 18,
-          nomorTelepon: '081234567890',
+          nomor_telepon: '081234567890',
           nama: 'Smart Light Switch',
           deskripsi: `
               <h2>Smart Light Switch</h2>
@@ -388,7 +388,7 @@ export const useProdukStore = defineStore('productStore', () => {
 
 
   const createProduk = product => {
-    product.id = listProduk.value.length + 1;
+    product.id = Date.now();
     product.sedang_dijual = true;
     listProduk.value.push(product);
   };
@@ -399,6 +399,7 @@ export const useProdukStore = defineStore('productStore', () => {
 
   const updateProduk = (productId, updatedProduk) => {
     const index = listProduk.value.findIndex(p => p.id === productId);
+
     if (index !== -1) {
       listProduk.value[index] = { ...listProduk.value[index], ...updatedProduk };
     }
