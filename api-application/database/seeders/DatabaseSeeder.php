@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
          * dipanggil secara terurut sesuai
          * referensi atau ketergantungan
          * tertentu tanpa merusak data.
-         * 
+         *
          */
         $this->call([
             JabatanSeeder::class,
@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             BeritaSeeder::class,
             FormatASeeder::class,
             WilayahSeeder::class,
+            ProdukSeeder::class
         ]);
     }
 }

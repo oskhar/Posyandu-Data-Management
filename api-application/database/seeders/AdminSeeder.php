@@ -21,27 +21,39 @@ class AdminSeeder extends Seeder
             'password' => Hash::make('123456'),
         ]);
         \DB::table('admin')->insert([
-            'id_jabatan' => 3,
-            'email_admin' => 'oskhar@gmail.com',
-            'nama_lengkap' => 'Muh Oskhar',
+            'id_jabatan' => 2,
+            'email_admin' => 'jasniroza@gmail.com',
+            'nama_lengkap' => 'Jasni Roza',
             'password' => Hash::make('123456'),
         ]);
         \DB::table('admin')->insert([
-            'id_jabatan' => 2,
-            'email_admin' => 'faried@gmail.com',
-            'nama_lengkap' => 'Faried Riansyah',
+            'id_jabatan' => 3,
+            'email_admin' => 'saribanon@gmail.com',
+            'nama_lengkap' => 'Saribanon',
             'password' => Hash::make('123456'),
         ]);
         \DB::table('admin')->insert([
             'id_jabatan' => 4,
-            'email_admin' => 'fajar@gmail.com',
-            'nama_lengkap' => 'Fajar Ganevi',
+            'email_admin' => 'hartinigmail.com',
+            'nama_lengkap' => 'Hartini',
             'password' => Hash::make('123456'),
         ]);
         \DB::table('admin')->insert([
             'id_jabatan' => 5,
-            'email_admin' => 'faiz@gmail.com',
-            'nama_lengkap' => 'Faiz Riansyah Manaf',
+            'email_admin' => 'srisuhita@gmail.com',
+            'nama_lengkap' => 'Sri Suhita',
+            'password' => Hash::make('123456'),
+        ]);
+        \DB::table('admin')->insert([
+            'id_jabatan' => 5,
+            'email_admin' => 'nasmah@gmail.com',
+            'nama_lengkap' => 'Nasmah',
+            'password' => Hash::make('123456'),
+        ]);
+        \DB::table('admin')->insert([
+            'id_jabatan' => 5,
+            'email_admin' => 'sriwindiarti@gmail.com',
+            'nama_lengkap' => 'Sri Windiarti',
             'password' => Hash::make('123456'),
         ]);
 
