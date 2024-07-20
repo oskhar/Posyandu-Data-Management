@@ -16,8 +16,9 @@ export default {
     // this.getProduk();
     // this.postProduk();
     // this.putProduk();
-    this.deleteProduk();
-    // this.getProduk();
+    // this.deleteProduk();
+    // this.getProdukPinned();
+    this.getTagProduk();
   },
   methods: {
 
@@ -100,6 +101,28 @@ export default {
       );
 
       console.log(response);
+    },
+    getProdukPinned: async () => {
+      try {
+        const response = await axios.get(
+          `${config.urlServer}/api/produk/pin`
+        );
+
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    getTagProduk: async () => {
+      try {
+        const response = await axios.get(
+          `${config.urlServer}/api/produk/tags`
+        );
+
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };

@@ -302,7 +302,7 @@ class ProdukController extends Controller
     }
     public function pin(): JsonResponse
     {
-        return response()->json([
+        return response()->json(
             ProdukModel::select(
                 "id",
                 "nomor_telepon",
@@ -320,7 +320,7 @@ class ProdukController extends Controller
                         ->toArray();
                     return $item;
                 })
-        ])->setStatusCode(200);
+        )->setStatusCode(200);
     }
     public function tags(): JsonResponse
     {
