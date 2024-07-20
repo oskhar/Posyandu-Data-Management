@@ -334,8 +334,8 @@ class ProdukController extends Controller
 
     public function getSpesific($id): JsonResponse
     {
-        return response()->json(
-            ProdukModel::select(
+        return response()->json([
+            ...ProdukModel::select(
                 "nomor_telepon",
                 "nama",
                 "deskripsi",
@@ -345,7 +345,11 @@ class ProdukController extends Controller
                 "sedang_dijual",
                 "pin",
                 "produk.created_at",
-            )->findOrFail($id)
-        )->setStatusCode(200);
+            )->findOrFail($id)->toArray(),
+            "tags" => TagModel::select("tag")->join("produk_tag", "produk_tag.tag_id", "tag.id")
+                ->where('produk_tag.produk_id', $id)
+                ->pluck('tag')
+                ->toArray()
+        ])->setStatusCode(200);
     }
 }
