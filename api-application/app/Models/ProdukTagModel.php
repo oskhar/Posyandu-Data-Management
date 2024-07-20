@@ -17,6 +17,13 @@ class ProdukTagModel extends Model
     protected $table = 'produk_tag';
 
     /**
+     * Mengatur status aktif timestamps.
+     *
+     * @var boolean
+     */
+    public $timestamps = false;
+
+    /**
      * Atribut atau kolom yang boleh diubah.
      *
      * @var array<int, string>
