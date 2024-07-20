@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SubmissionRequest;
+use App\Models\PenilaianModel;
 use App\Models\SubmissionModel;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
@@ -83,7 +84,7 @@ class SubmissionController extends Controller
     {
         $data = $request->validated();
 
-        SubmissionModel::findOrFail($id)
+        PenilaianModel::where("submission_id", $id)
             ->update($data);
 
         return response()->json([
