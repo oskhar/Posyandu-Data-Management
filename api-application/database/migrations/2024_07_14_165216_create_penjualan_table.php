@@ -13,19 +13,21 @@ return new class extends Migration {
         Schema::create('produk', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("admin_id");
-            $table->string("nama_produk")->unique();
-            $table->text("deskripsi")->nullable();
+            $table->string("nomor_telepon")->unique();
+            $table->string("nama")->unique();
+            $table->text("deskripsi");
+            $table->text("overview");
             $table->integer("harga");
             $table->string("gambar");
-            $table->boolean("sedang_dijual");
-            $table->boolean("pin");
+            $table->boolean("sedang_dijual")->default(true);
+            $table->boolean("pin")->default(false);
             $table->timestamps();
 
             $table->foreign("admin_id")->references("id")->on("admin")->onDelete("cascade");
         });
         Schema::create("tag", function (Blueprint $table) {
             $table->id();
-            $table->string("nama_tag")->unique();
+            $table->string("tag")->unique();
         });
         Schema::create("produk_tag", function (Blueprint $table) {
             $table->id();

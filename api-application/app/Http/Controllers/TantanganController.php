@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TantanganRequest;
-use App\Models\SubmissionModel;
 use App\Models\TantanganModel;
-use App\Models\UserModel;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

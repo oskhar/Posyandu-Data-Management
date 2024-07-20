@@ -14,6 +14,7 @@ use App\Http\Controllers\FormatDController;
 use App\Http\Controllers\GambarController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\PosyanduController;
+use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\StatistikController;
 use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\SuratController;
@@ -216,6 +217,8 @@ Route::post('/user/register', [AuthUserController::class, 'register']);
 
 Route::get('/resleting/tantangan', [TantanganController::class, 'get']);
 Route::get('/resleting/tantangan/{id}', [TantanganController::class, 'getSpesific']);
+
+Route::get('/produk', [ProdukController::class, 'get']);
 
 Route::get('/format-ba', [FormatBAController::class, 'get']);
 

@@ -75,7 +75,7 @@
         }
 
         .kop-surat td p {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             line-height: 0.2rem;
         }
 

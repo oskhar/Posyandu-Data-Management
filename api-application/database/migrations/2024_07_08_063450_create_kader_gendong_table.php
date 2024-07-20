@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->string('penanda_tangan');
             $table->string('jabatan_penanda_tangan');
             $table->date('tanggal_surat');
-            $table->string('nomor', 15);
+            $table->string('nomor', 70);
             $table->text('kalimat_pembuka')->nullable();
             $table->text('isi_surat')->nullable();
             $table->text('kalimat_penutup')->nullable();
