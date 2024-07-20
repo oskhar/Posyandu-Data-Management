@@ -2713,3 +2713,32 @@ paths:
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
+  /produk/tag:
+    get:
+      tags:
+        - Layanan Penjualan
+      summary: MELIHAT semua tag produk yang tersedia
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  example:
+                    "tag string"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+        404:
+          description: NOT FOUND
+          content:
+            application/json:
+              example:
+                errors:
+                  message: "Data dengan id ... tidak ditemukan"
