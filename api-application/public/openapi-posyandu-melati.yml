@@ -2501,7 +2501,7 @@ paths:
               search: "string"
               length: "integer|required"
               page: "integer"
-              tag: "string"
+              tags: "string"
               sort: "string:terbaru|terlama|a-z|z-a|termahal|termurah"
       responses:
         200:
@@ -2713,7 +2713,7 @@ paths:
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
-  /produk/tag:
+  /produk/tags:
     get:
       tags:
         - Layanan Penjualan

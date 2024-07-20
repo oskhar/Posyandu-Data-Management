@@ -18,7 +18,7 @@ class ProdukRequest extends CoreRequest
                 return [
                     "search" => "nullable|string",
                     "length" => "required|integer",
-                    "tag" => "array",
+                    "tags" => "array",
                     "sort" => "in:terbaru,terlama,a-z,z-a,termahal,termurah"
                 ];
             case 'POST':

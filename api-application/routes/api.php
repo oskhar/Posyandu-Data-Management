@@ -35,6 +35,46 @@ use Illuminate\Support\Facades\Route;
 */
 
 /**
+ * Endpoint public
+ *
+ */
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::post('/user/login', [AuthUserController::class, 'login']);
+Route::post('/user/register', [AuthUserController::class, 'register']);
+
+Route::get('/resleting/tantangan', [TantanganController::class, 'get']);
+Route::get('/resleting/tantangan/{id}', [TantanganController::class, 'getSpesific']);
+
+Route::get('/produk', [ProdukController::class, 'get']);
+Route::get('/produk/pin', [ProdukController::class, 'pin']);
+Route::get('/produk/tags', [ProdukController::class, 'tags']);
+
+Route::get('/format-ba', [FormatBAController::class, 'get']);
+
+Route::get('/edukasi', [EdukasiController::class, 'get']);
+Route::get('/jumlah-bayi', [FormatAController::class, 'jumlah_bayi']);
+Route::get('/berita', [BeritaController::class, 'get']);
+Route::get('/gambar', [GambarController::class, 'get']);
+Route::get('/posyandu', [PosyanduController::class, 'get']);
+Route::get('/jabatan', [AdminController::class, 'jabatan']);
+Route::get('/struktur-admin', [AdminController::class, 'strukturAdmin']);
+Route::get('/listtahun', [FormatBAController::class, 'getListTahun']);
+
+/**
+ * API Wilayah Indonesia
+ *
+ */
+Route::prefix('indonesia')->group(function () {
+
+    Route::get('/provinces', [WilayahController::class, 'provinces']);
+    Route::get('/regencies', [WilayahController::class, 'regencies']);
+    Route::get('/districts', [WilayahController::class, 'districts']);
+    Route::get('/villages', [WilayahController::class, 'villages']);
+
+});
+
+/**
  * Endpoint privat Bearer protected user
  *
  */
@@ -210,46 +250,8 @@ Route::group(['middleware' => ['auth:sanctum', 'checkUserType:admin']], function
      *
      */
     Route::post('/produk', [ProdukController::class, 'post']);
-    Route::put('/produk', [ProdukController::class, 'put']);
-    Route::delete('/produk', [ProdukController::class, 'delete']);
-});
-
-/**
- * Endpoint public
- *
- */
-Route::post('/login', [AuthController::class, 'login']);
-
-Route::post('/user/login', [AuthUserController::class, 'login']);
-Route::post('/user/register', [AuthUserController::class, 'register']);
-
-Route::get('/resleting/tantangan', [TantanganController::class, 'get']);
-Route::get('/resleting/tantangan/{id}', [TantanganController::class, 'getSpesific']);
-
-Route::get('/produk', [ProdukController::class, 'get']);
-
-Route::get('/format-ba', [FormatBAController::class, 'get']);
-
-Route::get('/edukasi', [EdukasiController::class, 'get']);
-Route::get('/jumlah-bayi', [FormatAController::class, 'jumlah_bayi']);
-Route::get('/berita', [BeritaController::class, 'get']);
-Route::get('/gambar', [GambarController::class, 'get']);
-Route::get('/posyandu', [PosyanduController::class, 'get']);
-Route::get('/jabatan', [AdminController::class, 'jabatan']);
-Route::get('/struktur-admin', [AdminController::class, 'strukturAdmin']);
-Route::get('/listtahun', [FormatBAController::class, 'getListTahun']);
-
-/**
- * API Wilayah Indonesia
- *
- */
-Route::prefix('indonesia')->group(function () {
-
-    Route::get('/provinces', [WilayahController::class, 'provinces']);
-    Route::get('/regencies', [WilayahController::class, 'regencies']);
-    Route::get('/districts', [WilayahController::class, 'districts']);
-    Route::get('/villages', [WilayahController::class, 'villages']);
-
+    Route::put('/produk/{id}', [ProdukController::class, 'put']);
+    Route::delete('/produk/{id}', [ProdukController::class, 'delete']);
 });
 
 /**

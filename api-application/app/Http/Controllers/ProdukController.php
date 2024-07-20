@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProdukRequest;
 use App\Models\ProdukModel;
+use App\Models\ProdukTagModel;
 use App\Models\TagModel;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
@@ -26,8 +27,8 @@ class ProdukController extends Controller
             "gambar",
         );
 
-        if (!empty($data["tag"])) {
-            $tags = $data["tag"];
+        if (!empty($data["tags"])) {
+            $tags = $data["tags"];
             foreach ($tags as $tag) {
                 $query->whereHas('tags', function ($query) use ($tag) {
                     $query->where('tag', $tag);
@@ -70,7 +71,7 @@ class ProdukController extends Controller
 
         $tmp_data = $produk->getCollection()->map(function ($item) {
 
-            $item["tag"] = TagModel::select("tag")->join("produk_tag", "produk_tag.tag_id", "tag.id")
+            $item["tags"] = TagModel::select("tag")->join("produk_tag", "produk_tag.tag_id", "tag.id")
                 ->where('produk_tag.produk_id', $item->id)
                 ->pluck('tag')
                 ->toArray();
@@ -156,9 +157,32 @@ class ProdukController extends Controller
             }
         }
 
-        ProdukModel::create($data);
+        $produk = ProdukModel::create([
+            "admin_id" => Auth::user()->id,
+            "nomor_telepon" => $data["nomor_telepon"],
+            "nama" => $data["nama"],
+            "deskripsi" => $data["deskripsi"],
+            "overview" => $data["overview"],
+            "harga" => $data["harga"],
+            "gambar" => $data["gambar"],
+            "sedang_dijual" => $data["sedang_dijual"],
+            "pin" => $data["pin"],
+        ]);
 
-        return response()->json()->setStatusCode(200);
+        foreach ($data["tags"] as $item) {
+            $tag = TagModel::firstOrCreate(["tag" => strtolower($item)]);
+
+            ProdukTagModel::create([
+                "produk_id" => $produk->id,
+                "tag_id" => $tag->id,
+            ]);
+        }
+
+        return response()->json([
+            "success" => [
+                "message" => "Produk berhasil ditambahkan!"
+            ]
+        ])->setStatusCode(201);
     }
     public function put(ProdukRequest $request, $id): JsonResponse
     {
@@ -235,26 +259,74 @@ class ProdukController extends Controller
             }
         }
 
-        $produk->update($data);
+        $produk->update([
+            "nomor_telepon" => $data["nomor_telepon"],
+            "nama" => $data["nama"],
+            "deskripsi" => $data["deskripsi"],
+            "overview" => $data["overview"],
+            "harga" => $data["harga"],
+            "gambar" => $data["gambar"],
+            "sedang_dijual" => $data["sedang_dijual"],
+            "pin" => $data["pin"],
+        ]);
 
-        return response()->json()->setStatusCode(200);
+        $currentTags = $produk->tags()->pluck('tag')->toArray();
+        $newTags = array_map('strtolower', $data['tags']);
+
+        foreach (array_diff($currentTags, $newTags) as $tagToRemove) {
+            $tag = TagModel::where('tag', $tagToRemove)->first();
+            $produk->tags()->detach($tag->id);
+        }
+
+        foreach (array_diff($newTags, $currentTags) as $item) {
+            $tag = TagModel::firstOrCreate(["tag" => $item]);
+            $produk->tags()->attach($tag->id);
+        }
+
+        return response()->json([
+            "success" => [
+                "message" => "Produk berhasil diperbarui"
+            ]
+        ])->setStatusCode(200);
     }
     public function delete($id): JsonResponse
     {
-        return response()->json()->setStatusCode(200);
+        ProdukModel::findOrFail($id)
+            ->delete();
+
+        return response()->json([
+            "success" => [
+                "message" => "Produk berhasil dihapus dari peredaran"
+            ]
+        ])->setStatusCode(200);
     }
     public function pin(): JsonResponse
     {
-        ProdukModel::select(
-            "id",
-            "nomor_telepon",
-            "nama",
-            "deskripsi",
-            "overview",
-            "harga",
-            "gambar",
-        );
-
-        return response()->json()->setStatusCode(200);
+        return response()->json(
+            ProdukModel::select(
+                "id",
+                "nomor_telepon",
+                "nama",
+                "deskripsi",
+                "overview",
+                "harga",
+                "gambar",
+            )->where("pin", true)
+                ->get()
+                ->map(function ($item) {
+                    $item["tags"] = TagModel::select("tag")->join("produk_tag", "produk_tag.tag_id", "tag.id")
+                        ->where('produk_tag.produk_id', $item->id)
+                        ->pluck('tag')
+                        ->toArray();
+                    return $item;
+                })
+        )->setStatusCode(200);
+    }
+    public function tags(): JsonResponse
+    {
+        return response()->json(
+            TagModel::pluck('tag')
+                ->toArray()
+        )->setStatusCode(200);
     }
 }
