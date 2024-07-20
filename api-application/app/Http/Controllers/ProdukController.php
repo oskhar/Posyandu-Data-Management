@@ -342,6 +342,8 @@ class ProdukController extends Controller
                 "overview",
                 "harga",
                 "gambar",
+                "sedang_dijual",
+                "pin",
                 "produk.created_at",
             )->findOrFail($id)
         )->setStatusCode(200);
