@@ -294,7 +294,11 @@ class ProdukController extends Controller
         ProdukModel::findOrFail($id)
             ->delete();
 
-        return response()->json()->setStatusCode(200);
+        return response()->json([
+            "success" => [
+                "message" => "Produk berhasil dihapus dari peredaran"
+            ]
+        ])->setStatusCode(200);
     }
     public function pin(): JsonResponse
     {
