@@ -91,6 +91,8 @@ Route::group(['middleware' => ['auth:sanctum', 'checkUserType:user']], function 
 
     Route::post('/resleting/submission', [SubmissionController::class, 'post']);
     Route::delete('/resleting/submission/{id}', [SubmissionController::class, 'delete']);
+
+    Route::get('/user/tantangan', [TantanganController::class, 'user']);
 });
 
 /**
@@ -243,8 +245,6 @@ Route::group(['middleware' => ['auth:sanctum', 'checkUserType:admin']], function
         Route::put('/submission/{id}', [SubmissionController::class, 'put']);
 
     });
-
-    Route::get('/user/tantangan', [TantanganController::class, 'user']);
 
     /**
      * Endpoint untuk produk

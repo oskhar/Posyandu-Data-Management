@@ -85,7 +85,12 @@ class SubmissionController extends Controller
         $data = $request->validated();
 
         PenilaianModel::where("submission_id", $id)
-            ->update($data);
+            ->update([
+                "submission_id" => $id,
+                "admin_id" => Auth::user()->id,
+                "feedback" => $data["feedback"],
+                "peringkat" => $data["peringkat"],
+            ]);
 
         return response()->json([
             "success" => [
