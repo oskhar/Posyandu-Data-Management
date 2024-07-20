@@ -96,7 +96,7 @@ export const adminRoutes = {
         {
           path: "kader-gendong",
           component: () =>
-            import("../../../pages/kader-gendong/kader-gendong-page.vue"),
+            import("../../../pages/admin-kader-gendong/kader-gendong-page.vue"),
         },
       ],
     },

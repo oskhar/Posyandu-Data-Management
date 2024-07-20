@@ -10,11 +10,11 @@ export const guestSiKambingRoutes = [
 			},
 			{
 				path: "produk/cari",
-				component: () => import("../../../pages/si-kambing-pages/si-kambing-search-page.vue"),
+				component: () => import("../../../pages/guest-si-kambing-pages/si-kambing-search-page.vue"),
 			},
 			{
 				path: "produk/:id",
-				component: () => import("../../../pages/si-kambing-pages/si-kambing-detail-page.vue"),
+				component: () => import("../../../pages/guest-si-kambing-pages/si-kambing-detail-page.vue"),
 			},
 		],
 	},
