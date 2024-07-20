@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref, watch } from "vue";
-import { fetchListProduk } from "./api/si-kambing-pages-api";
+import { fetchListProduk, getPinnedProduk } from "./api/si-kambing-pages-api";
 import { getErrorMessage } from "@/utils/get-error-message";
 import Swal from "sweetalert2";
 import CardProduk from "@/components/cards/card-produk.vue";
@@ -9,12 +9,30 @@ import TagCombobox from "./components/tag-combobox.vue";
 import PinnedProdukBanner from "./components/pinned-produk-banner.vue";
 
 const isSearching = ref(true);
+const isPinnedLoading = ref(true);
 const isInitialLoading = ref(true);
+const listPinnedProduk = ref([])
 const dataProduk = ref([]);
 const chosenTags = ref([]);
 const page = ref(1);
 const banyakPage = ref(0);
 const searchQuery = ref("");
+
+const searchPinnedProduk = async () => {
+	try {
+		isPinnedLoading.value = true;
+
+		listPinnedProduk.value = await getPinnedProduk();
+	} catch (error) {
+		await Swal.fire({
+			icon: "error",
+			text: getErrorMessage(error, "Terjadi kesalahan saat loading data produk yang dipin!"),
+			showCloseButton: true,
+		});
+	} finally {
+		isPinnedLoading.value = false;
+	}
+}
 
 const searchProduk = async () => {
 	try {
@@ -58,30 +76,7 @@ onMounted(async () => {
 	isInitialLoading.value = false
 });
 
-const listPinnedProduk = Array.from({ length: 3 }, (_, i) => {
-	return {
-		id: i,
-		nomor_telepon: '081234567890',
-		nama: 'Smart Security Camera',
-		deskripsi: `
-    <h2>Smart Security Camera</h2>
-    <p>Monitor your home with the <strong>Smart Security Camera</strong>. This camera offers high-definition video and remote access for enhanced security.</p>
-    <ul>
-        <li>High-definition video</li>
-        <li>Remote access</li>
-        <li>Night vision</li>
-        <li>Easy installation</li>
-    </ul>
-    <p>Keep your home safe with the reliable and advanced Smart Security Camera.</p>`,
-		overview: 'High-definition video and remote access for enhanced security.',
-		tags: ['smartphone', 'home'],
-		harga: 2499000,
-		gambar: '/images/upload/32024-07-18_1721325926.png',
-		sedang_dijual: true,
-		pin: true,
-	}
-})
-
+onMounted(searchPinnedProduk)
 watch(searchQuery, debouncedSearchProduk)
 watch(searchQuery, () => page.value = 1)
 </script>
@@ -94,8 +89,10 @@ watch(searchQuery, () => page.value = 1)
 				Lihat rekomendasi dan cari produk yang ingin anda beli disini
 			</p>
 
-
-			<PinnedProdukBanner v-if="listPinnedProduk.length > 0" :list-data-produk="listPinnedProduk" />
+			<div v-if="!isPinnedLoading">
+				<PinnedProdukBanner v-if="listPinnedProduk.length > 0" :list-data-produk="listPinnedProduk" />
+			</div>
+			<VSkeletonLoader v-else class="mx-auto border" type="image" />
 
 			<div class="d-flex gap-4 align-center mt-8">
 				<VTextField v-model="searchQuery" prepend-inner-icon="bx-search" label="Cari Produk" />

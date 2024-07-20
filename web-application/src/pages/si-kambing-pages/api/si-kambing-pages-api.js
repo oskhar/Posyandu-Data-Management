@@ -32,6 +32,11 @@ export const fetchDetailProduk = async id => {
 	return  data
 }
 
+export const getPinnedProduk = async () => {
+	const { data } = await api.get("/produk/pin");
+
+  return data.map(item => ({ ...item, gambar: getFullImagePath(item.gambar) }));
+}
 
 export const getTags = async () => {
 	const { data } = await api.get("/produk/tags");
