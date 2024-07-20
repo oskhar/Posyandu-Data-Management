@@ -47,7 +47,7 @@ export default {
         nama:"Bakmi Aloi",
         deskripsi:"text ujicoba untuk menjelaskan secara menyeleruluh tentang definisi produk atau bagaimana produk dapat bekerja",
         overview:"text tesdoang sebagai ujicoba overview",
-        tags: ["aperiam", "vitae", "quisquam"],
+        tags: ["aperiam", "oskhar", "quisquam"],
         harga: 20000,
         sedang_dijual: true,
         pin: false,
