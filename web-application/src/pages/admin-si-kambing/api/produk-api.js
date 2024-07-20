@@ -1,6 +1,5 @@
 import { api } from "@/lib/api";
 import { getFullImagePath } from "@/utils/get-full-image-path";
-import { useProdukStore } from "@/utils/kambing-fake-store";
 
 export const getListProduk = async ({
 	page = 1,
@@ -18,6 +17,13 @@ export const getListProduk = async ({
   dataResponse.data = dataResponse.data.map(item => ({ ...item, gambar: getFullImagePath(item.gambar) }));
 
   return dataResponse;
+}
+
+
+export const getPinnedProduk = async () => {
+	const { data } = await api.get("/produk/pin");
+
+  return data.map(item => ({ ...item, gambar: getFullImagePath(item.gambar) }));
 }
 
 export const getDetailProduk = async id => {
