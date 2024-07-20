@@ -134,7 +134,7 @@ const finalizeDraft = async (suratData, isCreatingSuratTugas) => {
 
 	<VRow>
 		<VCol cols="12">
-			<VPagination v-model="page" :disabled="isSearching" size="x-large" :length="links.length - 2"
+			<VPagination v-model="page" :total-visible="6" :disabled="isSearching" size="x-large" :length="links.length - 2"
 				@update:model-value="changeDraftPage" />
 		</VCol>
 	</VRow>

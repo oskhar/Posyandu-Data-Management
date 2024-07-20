@@ -295,7 +295,7 @@ export const useProdukStore = defineStore('productStore', () => {
           harga: 1799000,
           gambar: '/images/upload/32024-07-18_1721325812.png',
           sedang_dijual: true,
-          pin: false,
+          pin: true,
       },
       {
           id: 15,
@@ -316,7 +316,7 @@ export const useProdukStore = defineStore('productStore', () => {
           harga: 99000,
           gambar: '/images/upload/32024-07-18_1721325865.png',
           sedang_dijual: true,
-          pin: false,
+          pin: true,
       },
       {
           id: 16,
@@ -337,7 +337,7 @@ export const useProdukStore = defineStore('productStore', () => {
           harga: 3999000,
           gambar: '/images/upload/32024-07-18_1721325914.png',
           sedang_dijual: true,
-          pin: false,
+          pin: true,
       },
       {
           id: 17,
@@ -358,7 +358,7 @@ export const useProdukStore = defineStore('productStore', () => {
           harga: 2499000,
           gambar: '/images/upload/32024-07-18_1721325926.png',
           sedang_dijual: true,
-          pin: false,
+          pin: true,
       },
       {
           id: 18,
@@ -379,7 +379,7 @@ export const useProdukStore = defineStore('productStore', () => {
           harga: 199000,
           gambar: '/images/upload/32024-07-18_1721325941.png',
           sedang_dijual: true,
-          pin: false,
+          pin: true,
       },
   ]);
 

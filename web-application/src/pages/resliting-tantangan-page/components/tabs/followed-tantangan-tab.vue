@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref, watch } from "vue";
 import { getErrorMessage } from "@/utils/get-error-message";
 import Swal from "sweetalert2";
@@ -17,39 +17,40 @@ const searchTantangan = async () => {
 	try {
 		isSearching.value = true;
 
-		const { listDataFollowedTantangan, pages } = await fetchDataFollowedTantangan({
+		const { data, links } = await fetchDataFollowedTantangan({
 			page: page.value,
 			search: searchQuery.value,
 		});
 
-		dataFollowedTantangan.value = listDataFollowedTantangan;
-		banyakPage.value = pages;
+		dataFollowedTantangan.value = data;
+		banyakPage.value = links.length - 2;
 
 	} catch (error) {
 		await Swal.fire({
 			icon: "error",
-			text: getErrorMessage(error, "Terjadi kesalahan saat loading data tantangan!"),
+			title: "Terjadi kesalahan saat loading data tantangan yang diikuti!",
+			text: getErrorMessage(error, "Terjadi kesalahan saat loading data tantangan yang diikuti!"),
 			showCloseButton: true,
 		});
 	} finally {
 		isSearching.value = false;
 	}
-}
+};
 
-const debouncedSearchTantangan = debounce(searchTantangan, 350)
+const debouncedSearchTantangan = debounce(searchTantangan, 350);
 
 const changeSearchPage = newPage => {
 	page.value = newPage;
 	searchTantangan();
-}
+};
 
 onMounted(async () => {
-	await searchTantangan()
-	isInitialLoading.value = false
+	await searchTantangan();
+	isInitialLoading.value = false;
 });
 
-watch(searchQuery, debouncedSearchTantangan)
-watch(searchQuery, () => page.value = 1)
+watch(searchQuery, debouncedSearchTantangan);
+watch(searchQuery, () => page.value = 1);
 </script>
 
 <template>
@@ -77,7 +78,7 @@ watch(searchQuery, () => page.value = 1)
 
 	<VRow>
 		<VCol cols="12">
-			<VPagination v-model="page" :disabled="isSearching" size="x-large" :total-visible="5" :length="banyakPage || 1"
+			<VPagination v-model="page" :disabled="isSearching" size="x-large" :total-visible="6" :length="banyakPage || 1"
 				@update:model-value="changeSearchPage" />
 		</VCol>
 	</VRow>

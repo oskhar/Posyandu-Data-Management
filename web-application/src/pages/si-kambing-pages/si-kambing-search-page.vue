@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import CardProduk from "@/components/cards/card-produk.vue";
 import debounce from "just-debounce";
 import TagCombobox from "./components/tag-combobox.vue";
+import PinnedProdukBanner from "./components/pinned-produk-banner.vue";
 
 const isSearching = ref(true);
 const isInitialLoading = ref(true);
@@ -19,15 +20,15 @@ const searchProduk = async () => {
 	try {
 		isSearching.value = true;
 
-		const { listProduk, pages } = await fetchListProduk({
+		const { data, links } = await fetchListProduk({
 			length: 6,
 			page: page.value,
 			search: searchQuery.value,
 			tags: chosenTags.value,
 		});
 
-		dataProduk.value = listProduk;
-		banyakPage.value = pages;
+		dataProduk.value = data;
+		banyakPage.value = links.length - 2;
 
 	} catch (error) {
 		await Swal.fire({
@@ -57,6 +58,30 @@ onMounted(async () => {
 	isInitialLoading.value = false
 });
 
+const listPinnedProduk = Array.from({ length: 3 }, (_, i) => {
+	return {
+		id: i,
+		nomor_telepon: '081234567890',
+		nama: 'Smart Security Camera',
+		deskripsi: `
+    <h2>Smart Security Camera</h2>
+    <p>Monitor your home with the <strong>Smart Security Camera</strong>. This camera offers high-definition video and remote access for enhanced security.</p>
+    <ul>
+        <li>High-definition video</li>
+        <li>Remote access</li>
+        <li>Night vision</li>
+        <li>Easy installation</li>
+    </ul>
+    <p>Keep your home safe with the reliable and advanced Smart Security Camera.</p>`,
+		overview: 'High-definition video and remote access for enhanced security.',
+		tags: ['smartphone', 'home'],
+		harga: 2499000,
+		gambar: '/images/upload/32024-07-18_1721325926.png',
+		sedang_dijual: true,
+		pin: true,
+	}
+})
+
 watch(searchQuery, debouncedSearchProduk)
 watch(searchQuery, () => page.value = 1)
 </script>
@@ -64,14 +89,16 @@ watch(searchQuery, () => page.value = 1)
 <template>
 	<VRow tag="section" class="px-5 mb-4" style="margin-top: 90px;">
 		<VCol cols="12" md="9" class="mx-auto">
-			<h1 class="text-primary text-h5 font-weight-bold">Cari Produk</h1>
+			<h1 class="text-primary text-h5 font-weight-bold">Pencarian Produk</h1>
 			<p class="text-secondary text-subtitle-1">
-				Informasi seputar Produk dari SiKambing
+				Lihat rekomendasi dan cari produk yang ingin anda beli disini
 			</p>
 
 
-			<div class="d-flex gap-4 align-center">
-				<VTextField v-model="searchQuery" prepend-inner-icon="bx-search" label="Cari Postingan Produk" />
+			<PinnedProdukBanner v-if="listPinnedProduk.length > 0" :list-data-produk="listPinnedProduk" />
+
+			<div class="d-flex gap-4 align-center mt-8">
+				<VTextField v-model="searchQuery" prepend-inner-icon="bx-search" label="Cari Produk" />
 				<TagCombobox @change="changeChosenTags" />
 			</div>
 
@@ -97,7 +124,7 @@ watch(searchQuery, () => page.value = 1)
 
 			<VRow>
 				<VCol cols="12">
-					<VPagination v-model="page" :disabled="isSearching" size="x-large" :total-visible="5"
+					<VPagination v-model="page" :disabled="isSearching" size="x-large" :total-visible="6"
 						:length="banyakPage || 1" @update:model-value="changeSearchPage" />
 				</VCol>
 			</VRow>

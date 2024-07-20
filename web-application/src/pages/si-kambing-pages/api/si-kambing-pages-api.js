@@ -1,5 +1,5 @@
+import { api } from "@/lib/api";
 import { getFullImagePath } from "@/utils/get-full-image-path";
-import { useProdukStore } from "@/utils/kambing-fake-store";
 
 /**
  * @param {{search: string; length: number; page: number}} param0 
@@ -10,26 +10,31 @@ export const fetchListProduk = async ({
 	lengthPerPage = 6,
 	tags = [],
 }) => {
-	const produkStore = useProdukStore();
+	const { data } = await api.get("/produk", {
+		params: { search, length: lengthPerPage, page, tags, sort: "terbaru" },
+	});
 
-	return new Promise(resolve => {
-		const produk = produkStore.searchProduk({ tags, search, page, length: lengthPerPage })
+	/** @type {import("./types").ProductResponse} */
+	const dataResponse = data;
 
-		produk.listProduk = produk.listProduk.map(item => ({ ...item, gambar: getFullImagePath(item.gambar) }))
+  dataResponse.data = dataResponse.data.map(item => ({ ...item, gambar: getFullImagePath(item.gambar) }));
 
-		setTimeout(() => resolve(produk), 1000);
-	})
+  return dataResponse;
 }
 
 export const fetchDetailProduk = async id => {
 	const parsedId = parseInt(id);
-	const produkStore = useProdukStore();
+	
+	const { data } = await api.get(`/produk/${parsedId}`);
 
-	return new Promise(resolve => {
-		const produk = produkStore.readProduk(parsedId)
+	 data.gambar = getFullImagePath( data.gambar);
 
-		produk.gambar = getFullImagePath(produk.gambar)
+	return  data
+}
 
-		setTimeout(() => resolve(produk), 1000);	
-	})
+
+export const getTags = async () => {
+	const { data } = await api.get("/produk/tags");
+
+	return data
 }

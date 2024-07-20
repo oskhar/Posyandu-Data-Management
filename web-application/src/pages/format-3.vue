@@ -299,10 +299,10 @@
                                         <VListItem ripple @mousedown.prevent @click="toggleHasil(index)">
                                           <VListItemAction>
                                             <VIcon :color="dataFormatC[index].imunisasi
-                                                .length ===
-                                                itemImunisasi.length
-                                                ? 'primary'
-                                                : 'secondary'
+                                              .length ===
+                                              itemImunisasi.length
+                                              ? 'primary'
+                                              : 'secondary'
                                               ">
                                               {{ iconHasil(index) }}
                                             </VIcon>
@@ -354,7 +354,7 @@
 
                                   <VCol cols="12" md="9">
                                     <VTextField id="kontrasepsi" v-model="dataFormatC[index]
-                                        .penggantian_jenis_kontrasepsi
+                                      .penggantian_jenis_kontrasepsi
                                       " placeholder="jenis kontrasepsi.." persistent-placeholder />
                                     <sup class="text-error">*Wajib diisi</sup>
                                   </VCol>
@@ -394,7 +394,7 @@
     <VCol>
       <Font>Jumlah data: <Font class="text-primary">{{ jumlahData }}</Font>
       </Font>
-      <VPagination v-model="page" class="float-right" :length="banyakPage" :total-visible="4" @click="fetchData">
+      <VPagination v-model="page" class="float-right" :length="banyakPage" :total-visible="6" @click="fetchData">
       </VPagination>
     </VCol>
   </VRow>

@@ -37,6 +37,17 @@ export const FOOTER_MENU_ITEMS = [
 	},
 ]
 
+export const DEFAULT_SURAT = {
+	penanda_tangan: "",
+	tanggal_surat: null,
+	jabatan_penanda_tangan: "",
+	nomor: "",
+	kalimat_pembuka: '',
+	ditugaskan: [],
+	isi_surat: '',
+	kalimat_penutup: '',
+}
+
 
 export const DEFAULT_POSYANDU_DATA = {
   nama_posyandu: '',

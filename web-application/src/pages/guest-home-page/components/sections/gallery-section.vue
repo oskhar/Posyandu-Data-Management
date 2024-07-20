@@ -58,7 +58,7 @@ onMounted(fetchPictures)
 			<VRow>
 				<VCol cols="12">
 					<div class="my-3">
-						<VPagination v-model="page" size="x-large" :length="banyakPage" :total-visible="5" @click="fetchPictures">
+						<VPagination v-model="page" size="x-large" :length="banyakPage" :total-visible="6" @click="fetchPictures">
 						</VPagination>
 					</div>
 				</VCol>

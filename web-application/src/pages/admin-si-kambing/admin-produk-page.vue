@@ -2,12 +2,18 @@
 import { ref } from 'vue';
 import ListProdukTab from './components/tabs-produk/list-produk-tab.vue';
 import CreateProdukTab from './components/tabs-produk/create-produk-tab.vue';
+import ProdukTerPin from './components/tabs-produk/produk-ter-pin.vue';
 
 const tabs = [
 	{
 		title: "Semua Produk",
 		icon: "bx-list-ul",
 		tab: "semua-produk",
+	},
+	{
+		title: "Produk Yang Di Pin",
+		icon: "bx-list-ul",
+		tab: "pinned-produk",
 	},
 	{
 		title: "Buat Produk",
@@ -34,7 +40,11 @@ const activeTab = ref(tabs[0].tab);
 		</VWindowItem>
 
 		<VWindowItem :value="tabs[1].tab">
-			<CreateProdukTab v-if="activeTab === tabs[1].tab" />
+			<ProdukTerPin v-if="activeTab === tabs[1].tab" />
+		</VWindowItem>
+
+		<VWindowItem :value="tabs[2].tab">
+			<CreateProdukTab v-if="activeTab === tabs[2].tab" />
 		</VWindowItem>
 	</VWindow>
 </template>

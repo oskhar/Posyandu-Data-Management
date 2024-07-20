@@ -1,5 +1,5 @@
+import { api } from "@/lib/api";
 import { getFullImagePath } from "@/utils/get-full-image-path";
-import { useProdukStore } from "@/utils/kambing-fake-store";
 
 export const getListProduk = async ({
 	page = 1,
@@ -7,42 +7,44 @@ export const getListProduk = async ({
 	lengthPerPage = 6,
 	tags = [],
 }) => {
-	const produkStore = useProdukStore();
+	const { data } = await api.get("/produk", {
+		params: { search, length: lengthPerPage, page, tags, sort: "terbaru" },
+	});
 
-	return new Promise(resolve => {
-		const produk = produkStore.searchProduk({ tags, search, page, length: lengthPerPage })
+	/** @type {import("./types").ProductResponse} */
+	const dataResponse = data;
 
-		produk.listProduk = produk.listProduk.map(item => ({ ...item, gambar: getFullImagePath(item.gambar) }))
+  dataResponse.data = dataResponse.data.map(item => ({ ...item, gambar: getFullImagePath(item.gambar) }));
 
-		setTimeout(() => resolve(produk), 1000);
-	})
+  return dataResponse;
+}
+
+
+export const getPinnedProduk = async () => {
+	const { data } = await api.get("/produk/pin");
+
+  return data.map(item => ({ ...item, gambar: getFullImagePath(item.gambar) }));
 }
 
 export const getDetailProduk = async id => {
 	const parsedId = parseInt(id);
-	const produkStore = useProdukStore();
+	
+	const { data } = await api.get(`/produk/${parsedId}`);
 
-	return new Promise(resolve => {
-		const produk = produkStore.readProduk(parsedId)
+	 data.gambar = getFullImagePath( data.gambar);
+	 data.sedang_dijual = data.sedang_dijual === 1;
+	 data.pin = data.pin === 1;
 
-		produk.gambar = getFullImagePath(produk.gambar)
-
-		setTimeout(() => resolve(produk), 1000);	
-	})
+	return data
 }
 
 /**
  * @param {import("./types").CreateProduk} produk 
  */
 export const createProduk = async produk => {
-	const produkStore = useProdukStore();
+	const { data } = await api.post(`/produk`, produk);
 
-  new Promise(resolve => {
-    setTimeout(() => {
-      produkStore.createProduk(produk);
-      resolve()
-    }, 1000);
-  })
+	return data
 }
 
 
@@ -52,14 +54,10 @@ export const createProduk = async produk => {
  */
 export const editProduk = async (id, produk) => {
 	const idProduk = parseInt(id);
-	const produkStore = useProdukStore();
 
-  new Promise(resolve => {
-    setTimeout(() => {
-      produkStore.updateProduk(idProduk, produk);
-      resolve()
-    }, 1000);
-  })
+	const { data } = await api.put(`/produk/${idProduk}`, produk);
+
+	return data
 }
 
 /**
@@ -67,20 +65,14 @@ export const editProduk = async (id, produk) => {
  */
 export const deleteProduk = async id => {
 	const idProduk = parseInt(id);
-	const produkStore = useProdukStore();
 
-  new Promise(resolve => {
-    setTimeout(() => {
-      produkStore.deleteProduk(idProduk);
-      resolve()
-    }, 1000);
-  })
+	const { data } = await api.delete(`/produk/${idProduk}`);
+
+	return data
 }
 
 export const getTags = async () => {
-	const produkStore = useProdukStore();
+	const { data } = await api.get("/produk/tags");
 
-	return new Promise(resolve => {
-		setTimeout(() => resolve(produkStore.tags), 1000);
-	})
+	return data
 }

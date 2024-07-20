@@ -14,10 +14,8 @@ export const getSubmissions = async ({
   return data;  
 }
 
-export const editFeedback = async feedback => {
-  const { data } = await api.put(`/resleting/submission/${submissionId}`, {
-    feedback, peringkat,
-  })
+export const editFeedback = async (submissionId, feedback) => {
+  const { data } = await api.put(`/resleting/submission/${submissionId}`, feedback)
 
   return data; 
 }

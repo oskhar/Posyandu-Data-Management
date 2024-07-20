@@ -8,9 +8,9 @@ import Swal from 'sweetalert2';
 import { convertBase64ToDataUri, convertBlobToBase64, validateFileInput } from '@/utils/file';
 import { produkValidator } from '../validators/produk-validator';
 import { DEFAULT_PRODUK } from '@/constants';
-import { getTags } from '../api/produk-api';
 import { VTextField } from 'vuetify/lib/components/index.mjs';
 import debounce from 'just-debounce';
+import { getTags } from '../api/produk-api';
 
 const { produk, title, mainActionTitle } = defineProps({
 	produk: { type: Object },
@@ -28,13 +28,12 @@ const isCreatingProduk = ref(false);
 const isFormValid = ref(false);
 
 const revalidateForm = debounce(async () => {
-	const { success, error } = await produkValidator.safeParseAsync(produkData);
-
-	console.log("🚀 ~ revalidateForm ~ error:", error);
+	const { success } = await produkValidator.safeParseAsync(produkData);
 
 	isFormValid.value = success;
 }, 500);
 
+onMounted(revalidateForm);
 watch(produkData, revalidateForm, { deep: true });
 
 watch(() => produk, newProduk => {
