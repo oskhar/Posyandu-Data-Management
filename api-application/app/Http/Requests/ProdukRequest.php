@@ -35,7 +35,7 @@ class ProdukRequest extends CoreRequest
                     "harga" => "integer|required",
                     "gambar" => "string|required",
                     "sedang_dijual" => "boolean|nullable",
-                    "pin" => "boolean|nullable",
+                    "pin" => "boolean|required",
                 ];
             case 'PUT':
                 return [
@@ -51,7 +51,7 @@ class ProdukRequest extends CoreRequest
                     "harga" => "integer|required",
                     "gambar" => "string|required",
                     "sedang_dijual" => "boolean|nullable",
-                    "pin" => "boolean|nullable",
+                    "pin" => "boolean|required",
                 ];
             default:
                 return [];

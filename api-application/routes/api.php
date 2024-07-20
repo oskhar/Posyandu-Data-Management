@@ -189,7 +189,7 @@ Route::group(['middleware' => ['auth:sanctum', 'checkUserType:admin']], function
     });
 
     /**
-     * Endpoint untuk kader gendong
+     * Endpoint untuk resleting
      *
      */
     Route::prefix('resleting')->group(function () {
@@ -204,6 +204,14 @@ Route::group(['middleware' => ['auth:sanctum', 'checkUserType:admin']], function
     });
 
     Route::get('/user/tantangan', [TantanganController::class, 'user']);
+
+    /**
+     * Endpoint untuk produk
+     *
+     */
+    Route::post('/produk', [ProdukController::class, 'post']);
+    Route::put('/produk', [ProdukController::class, 'put']);
+    Route::delete('/produk', [ProdukController::class, 'delete']);
 });
 
 /**

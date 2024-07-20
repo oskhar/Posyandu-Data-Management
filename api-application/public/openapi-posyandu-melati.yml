@@ -72,14 +72,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -108,14 +100,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -138,14 +122,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -176,14 +152,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -231,14 +199,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -267,14 +227,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -303,14 +255,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -318,14 +262,6 @@ paths:
           description: UNAUTHORIZED
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Anda tidak memiliki akses!"
@@ -373,14 +309,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -419,14 +347,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -469,14 +389,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -505,14 +417,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -573,14 +477,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -588,14 +484,6 @@ paths:
           description: NOT FOUND
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
@@ -639,14 +527,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -690,14 +570,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -705,14 +577,6 @@ paths:
           description: NOT FOUND
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
@@ -750,14 +614,6 @@ paths:
           description: NOT FOUND
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
@@ -821,14 +677,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -836,14 +684,6 @@ paths:
           description: NOT FOUND
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
@@ -889,14 +729,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -942,14 +774,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -957,14 +781,6 @@ paths:
           description: NOT FOUND
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
@@ -1002,14 +818,6 @@ paths:
           description: NOT FOUND
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
@@ -1064,14 +872,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -1079,14 +879,6 @@ paths:
           description: NOT FOUND
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
@@ -1126,14 +918,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -1171,14 +955,6 @@ paths:
           description: NOT FOUND
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
@@ -1230,14 +1006,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -1245,14 +1013,6 @@ paths:
           description: NOT FOUND
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
@@ -1306,14 +1066,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -1321,14 +1073,6 @@ paths:
           description: NOT FOUND
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
@@ -1390,14 +1134,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -1405,14 +1141,6 @@ paths:
           description: NOT FOUND
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
@@ -1456,14 +1184,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -1526,14 +1246,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -1541,14 +1253,6 @@ paths:
           description: NOT FOUND
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
@@ -1586,14 +1290,6 @@ paths:
           description: NOT FOUND
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
@@ -1673,14 +1369,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -1688,14 +1376,6 @@ paths:
           description: NOT FOUND
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
@@ -1747,14 +1427,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -1808,14 +1480,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -1823,14 +1487,6 @@ paths:
           description: NOT FOUND
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
@@ -1868,14 +1524,6 @@ paths:
           description: NOT FOUND
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
@@ -1940,14 +1588,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -1955,14 +1595,6 @@ paths:
           description: NOT FOUND
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
@@ -2008,14 +1640,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -2067,14 +1691,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -2082,14 +1698,6 @@ paths:
           description: NOT FOUND
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
@@ -2140,14 +1748,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -2155,14 +1755,6 @@ paths:
           description: NOT FOUND
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
@@ -2211,14 +1803,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -2271,14 +1855,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -2336,14 +1912,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -2351,14 +1919,6 @@ paths:
           description: NOT FOUND
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
@@ -2406,14 +1966,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -2462,14 +2014,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -2497,14 +2041,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -2534,14 +2070,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -2590,14 +2118,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -2605,14 +2125,6 @@ paths:
           description: NOT FOUND
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
@@ -2655,14 +2167,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -2688,14 +2192,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -2703,14 +2199,6 @@ paths:
           description: NOT FOUND
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
@@ -2753,14 +2241,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -2788,14 +2268,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -2845,14 +2317,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -2860,14 +2324,6 @@ paths:
           description: NOT FOUND
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
@@ -2907,14 +2363,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -2954,14 +2402,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -2989,14 +2429,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -3045,14 +2477,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -3060,14 +2484,6 @@ paths:
           description: NOT FOUND
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
@@ -3119,14 +2535,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -3134,14 +2542,6 @@ paths:
           description: NOT FOUND
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
@@ -3187,17 +2587,16 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
+        422:
+          description: UNPROCESSABLE ENTITY
+          content:
+            application/json:
+              example:
+                errors:
+                  message: "Jumlah produk yang dipin tidak boleh lebih dari 5"
   /produk/{id}:
     put:
       tags:
@@ -3241,17 +2640,16 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
+        422:
+          description: UNPROCESSABLE ENTITY
+          content:
+            application/json:
+              example:
+                errors:
+                  message: "Jumlah produk yang dipin tidak boleh lebih dari 5"
     delete:
       tags:
         - Layanan Penjualan
@@ -3276,14 +2674,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -3313,14 +2703,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data ... tidak valid"
@@ -3328,14 +2710,6 @@ paths:
           description: NOT FOUND
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      message:
-                        type: string
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"

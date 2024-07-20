@@ -145,6 +145,17 @@ class ProdukController extends Controller
             $data['gambar'] = '/' . $path;
         }
 
+        if (isset($data['pin']) && $data['pin']) {
+            $pinCount = ProdukModel::where('pin', true)->count();
+            if ($pinCount > 4) {
+                return response()->json([
+                    "errors" => [
+                        "message" => "Jumlah produk yang dipin tidak boleh lebih dari 5"
+                    ]
+                ])->setStatusCode(422);
+            }
+        }
+
         ProdukModel::create($data);
 
         return response()->json()->setStatusCode(200);
@@ -213,11 +224,22 @@ class ProdukController extends Controller
             $data['gambar'] = '/' . $path;
         }
 
+        if (isset($data['pin']) && $data['pin'] && !$produk->pin) {
+            $pinCount = ProdukModel::where('pin', true)->count();
+            if ($pinCount > 4) {
+                return response()->json([
+                    "errors" => [
+                        "message" => "Jumlah produk yang dipin tidak boleh lebih dari 5"
+                    ]
+                ])->setStatusCode(422);
+            }
+        }
+
         $produk->update($data);
 
         return response()->json()->setStatusCode(200);
     }
-    public function delete(): JsonResponse
+    public function delete($id): JsonResponse
     {
         return response()->json()->setStatusCode(200);
     }
