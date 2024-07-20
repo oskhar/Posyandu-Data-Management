@@ -71,7 +71,7 @@ watch(submissionSearch, () => page.value = 1);
 				<th>No</th>
 				<th>File</th>
 				<th>Link</th>
-				<th>Juara</th>
+				<th>Peringkat (1 - 3)</th>
 				<th>Aksi</th>
 			</tr>
 		</thead>
@@ -96,7 +96,7 @@ watch(submissionSearch, () => page.value = 1);
 					</span>
 				</td>
 				<td>
-					{{ submission.juara || 'Tidak Juara' }}
+					{{ submission.peringkat || 'Tidak Juara' }}
 				</td>
 				<td>
 					<SubmissionActionDialog :tantangan-id="tantanganId" :submission="submission"
