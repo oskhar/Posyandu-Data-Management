@@ -285,7 +285,7 @@ class ProdukController extends Controller
 
         return response()->json([
             "success" => [
-                "message" => "Produk berhasil diubah"
+                "message" => "Produk berhasil diperbarui"
             ]
         ])->setStatusCode(200);
     }
