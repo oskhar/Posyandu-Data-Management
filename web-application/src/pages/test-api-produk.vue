@@ -19,6 +19,7 @@ export default {
     // this.deleteProduk();
     // this.getProdukPinned();
     this.getTagProduk();
+    this.getSpesificProduk();
   },
   methods: {
 
@@ -117,6 +118,17 @@ export default {
       try {
         const response = await axios.get(
           `${config.urlServer}/api/produk/tags`
+        );
+
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    getSpesificProduk: async () => {
+      try {
+        const response = await axios.get(
+          `${config.urlServer}/api/produk/3`
         );
 
         console.log(response);

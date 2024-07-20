@@ -2598,6 +2598,25 @@ paths:
                 errors:
                   message: "Jumlah produk yang dipin tidak boleh lebih dari 5"
   /produk/{id}:
+    get:
+      tags:
+        - Layanan Penjualan
+      summary: MELIHAT semua tag produk yang tersedia
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              example:
+                nomor_telepon: "string"
+                nama: "string"
+                deskripsi: "text"
+                overview: "text"
+                tags: "array<string>|nullable"
+                harga: "integer"
+                gambar: "Blob base64"
+                sedang_dijual: "boolean"
+                pin: "boolean"
     put:
       tags:
         - Layanan Penjualan
@@ -2611,6 +2630,7 @@ paths:
               type: object
               properties:
               example:
+                id: "integer"
                 nomor_telepon: "string"
                 nama: "string"
                 deskripsi: "text"

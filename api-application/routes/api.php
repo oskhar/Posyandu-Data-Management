@@ -49,6 +49,7 @@ Route::get('/resleting/tantangan/{id}', [TantanganController::class, 'getSpesifi
 Route::get('/produk', [ProdukController::class, 'get']);
 Route::get('/produk/pin', [ProdukController::class, 'pin']);
 Route::get('/produk/tags', [ProdukController::class, 'tags']);
+Route::get('/produk/{id}', [ProdukController::class, 'getSpesific']);
 
 Route::get('/format-ba', [FormatBAController::class, 'get']);
 
