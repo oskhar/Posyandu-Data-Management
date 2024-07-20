@@ -28,7 +28,8 @@ class DatabaseSeeder extends Seeder
             BeritaSeeder::class,
             FormatASeeder::class,
             WilayahSeeder::class,
-            ProdukSeeder::class
+            ProdukSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }
