@@ -11,7 +11,7 @@ export const fetchDataTantangan = async ({
   }) 
 
 	/**
-	 * @type {import("../../resliting-admin/api/types").TantanganResponse}
+	 * @type {import("../../admin-resliting/api/types").TantanganResponse}
 	 */
 	const dataResponse = data;
 
@@ -30,7 +30,7 @@ export const fetchDataFollowedTantangan = async ({
   }) 
 
 	/**
-	 * @type {import("../../resliting-admin/api/types").TantanganResponse}
+	 * @type {import("../../admin-resliting/api/types").TantanganResponse}
 	 */
 	const dataResponse = data;
 
@@ -43,7 +43,7 @@ export const fetchDataDetailTantangan = async id => {
 	const { data } = await api.get(`/resleting/tantangan/${id}`) 
 
 	/**
-	 * @type {import("../../resliting-admin/api/types").Tantangan}
+	 * @type {import("../../admin-resliting/api/types").Tantangan}
 	 */
 	const dataResponse = data;
 

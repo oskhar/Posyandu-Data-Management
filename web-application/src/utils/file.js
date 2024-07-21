@@ -58,6 +58,23 @@ export const createDownloadFromBase64 = (base64, fileType = "application/pdf", f
 	
 }
 
+export const createDownloadFromBlob = (blob, fileExtension = "pdf", fileName) => {
+	const date = new Date();
+
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1; // Perlu ditambah 1 karena indeks bulan dimulai dari 0
+  const day = date.getDate();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const seconds = date.getSeconds();
+  const currentDateTime = `_${year}-${month}-${day}_${hours}:${minutes}:${seconds}`;
+
+  const url = window.URL.createObjectURL(new Blob([blob]));
+
+	createDownload(url, `${fileName}_${currentDateTime}.${fileExtension}`);
+	
+}
+
 export const createDownload = (url, fileName) => {
 	const link = document.createElement("a");
 

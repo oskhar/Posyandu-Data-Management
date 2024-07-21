@@ -77,7 +77,8 @@ export default {
         <div class="ml-auto">
           <AdminUserProfile v-if="isAdminLoggedIn()" class="hide-md-and-up" />
           <GuestUserProfile v-else-if="isUserLoggedIn()" class="hide-md-and-up" />
-          <VBtn v-else class="hide-md-and-up" to="/login" exact>Login</VBtn>
+          <VBtn v-else class="hide-md-and-up" to="/login" variant="flat" prepend-icon="bx-log-in-circle" exact>Login
+          </VBtn>
         </div>
       </VCol>
     </VRow>

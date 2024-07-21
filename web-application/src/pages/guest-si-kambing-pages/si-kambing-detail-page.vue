@@ -3,9 +3,9 @@ import { ref, reactive, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import Swal from 'sweetalert2';
 import { getErrorMessage } from '@/utils/get-error-message';
-import { fetchDetailProduk } from '../si-kambing-pages/api/si-kambing-pages-api';
 import { getWhatsappLink } from '@/utils/send-whatsapp';
 import { rupiahFormatter } from '@/utils/rupiah-formatter';
+import { fetchDetailProduk } from './api/si-kambing-pages-api';
 
 const route = useRoute();
 const isLoading = ref(true);
@@ -101,7 +101,7 @@ onMounted(fetchData);
 					<VSkeletonLoader v-if="isLoading" type="button" />
 					<a v-else :disabled="!dataProduk.sedang_dijual" target="_blank" rel="noopener noreferrer"
 						:href="dataProduk.sedang_dijual ? whatsappLink : '#'">
-						<VBtn :disabled="!dataProduk.sedang_dijual" class="w-100">
+						<VBtn :disabled="!dataProduk.sedang_dijual" class="w-100 mt-4">
 							{{ dataProduk.sedang_dijual ? 'Beli Sekarang' : 'Tidak Dijual' }}
 						</VBtn>
 					</a>

@@ -1,3 +1,4 @@
+import { updateAdminSiteTitle } from "@/router/middlewares/admin-middleware";
 import { requireAdminLogin } from "../../middlewares";
 import { adminReslitingRoutes } from "./admin-resliting-routes";
 import { adminSiKambingRoutes } from "./admin-sikambing-routes";
@@ -5,7 +6,10 @@ import { adminSiKambingRoutes } from "./admin-sikambing-routes";
 /** @type { import("vue-router").RouteRecordRaw } */
 export const adminRoutes = {
   path: "/admin",
-  beforeEnter: requireAdminLogin,
+  beforeEnter: async (to, from, next) => {
+    await requireAdminLogin(to, from, next)
+    updateAdminSiteTitle()
+  },
   component: () => import("../../../layouts/admin/admin-dashboard-layout.vue"),
   children: [
     {
@@ -96,7 +100,7 @@ export const adminRoutes = {
         {
           path: "kader-gendong",
           component: () =>
-            import("../../../pages/kader-gendong/kader-gendong-page.vue"),
+            import("../../../pages/admin-kader-gendong/kader-gendong-page.vue"),
         },
       ],
     },

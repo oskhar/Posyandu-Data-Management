@@ -29,11 +29,11 @@ watch(form, revalidateForm, { deep: true });
 const handleSendKonsultasi = async () => {
 	try {
 		const validatedForm = await formValidation.parseAsync(form.value);
-		const { nama, noTelepon, pesan } = validatedForm
+		const { nama, pesan } = validatedForm
 
 		sendWhatsapp(
-			WA_POSYANDU
-				`Halo, saya ${nama}. Saya ingin konsultasi stunting. Pesan saya:\n ${pesan}`);
+			WA_POSYANDU,
+			`Halo, saya ${nama}. Saya ingin konsultasi stunting. Pesan saya:\n ${pesan}`);
 	} catch (error) {
 		await Swal.fire({
 			icon: "error",

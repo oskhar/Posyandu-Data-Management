@@ -15,8 +15,8 @@ const emit = defineEmits(['updateSubmission']);
 const isDialogActive = ref(false);
 
 const form = reactive({
-	feedback: "",
-	juara: null,
+	feedback: submission.feedback,
+	juara: submission.peringkat,
 });
 
 const handleSaveChanges = async () => {
@@ -40,6 +40,8 @@ const handleSaveChanges = async () => {
 				title: 'Berhasil menyimpan feedback',
 			});
 
+			isDialogActive.value = false;
+
 			emit('updateSubmission')
 		}
 	} catch (error) {
@@ -60,7 +62,7 @@ const handleSaveChanges = async () => {
 			<VCard prepend-icon="bx-file" title="Beri Feedback Submission">
 				<VCardText class="mt-6 d-flex flex-column gap-4">
 					<VNumberInput v-model="form.juara" color="primary" variant="outlined" control-variant="stacked"
-						label='Juara (1 - 3)' :min="1" :max="3" />
+						label='Peringkat (1 - 3)' :min="1" :max="3" />
 					<VTextarea v-model="form.feedback" label="Feedback" placeholder="Masukkan feedback anda" />
 				</VCardText>
 

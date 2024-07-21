@@ -50,6 +50,9 @@ onMounted(fetchPictures)
 				</VCol>
 			</VRow>
 			<VRow v-else>
+				<VCol v-if="!dataGambar.length" cols="12">
+					<p class="text-center text-secondary">Belum ada gambar</p>
+				</VCol>
 				<VCol v-for="data in dataGambar" :key="data.gambar" cols="12" sm="6" md="3">
 					<CardGallery :data-gambar="data" />
 				</VCol>
