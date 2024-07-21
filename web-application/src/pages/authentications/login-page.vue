@@ -71,11 +71,13 @@ const handleLoginUser = async () => {
 }
 
 const login = async () => {
+  isLoading.value = true;
   if (isAdminLogin.value) {
     await handleLoginAdmin();
   } else {
     await handleLoginUser();
   }
+  isLoading.value = false;
 }
 
 onMounted(() => {
