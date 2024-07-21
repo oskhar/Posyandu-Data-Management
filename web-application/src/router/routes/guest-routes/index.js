@@ -2,6 +2,7 @@ import { requireUserLogin } from "@/router/middlewares";
 import { guestReslitingRoutes } from "./guest-resliting-routes";
 import { guestSiKambingRoutes } from "./guest-sikambing-routes";
 import { guestScreeningBalitaRoutes } from "./guest-screening-balita-routes";
+import { updateGuestSiteTitle } from "@/router/middlewares/guest-middleware";
 
 /** @type { import("vue-router").RouteRecordRaw } */
 export const guestRoutes = {
@@ -10,6 +11,7 @@ export const guestRoutes = {
 	children: [
 		{
 			path: "",
+			beforeEnter: updateGuestSiteTitle,
 			component: () => import("../../../pages/guest-home-page/guest-home-page.vue"),
 		},
 		{
@@ -19,22 +21,27 @@ export const guestRoutes = {
 		},
 		{
 			path: "edukasi",
+			beforeEnter: updateGuestSiteTitle,
 			component: () => import("../../../pages/guest-edukasi-page/guest-edukasi-page.vue"),
 		},
 		{
 			path: "edukasi/:id",
+			beforeEnter: updateGuestSiteTitle,
 			component: () => import("../../../pages/guest-edukasi-page/detail-guest-edukasi-page.vue"),
 		},
 		{
 			path: "berita-acara",
+			beforeEnter: updateGuestSiteTitle,
 			component: () => import("../../../pages/guest-berita-acara-page/guest-berita-acara-page.vue"),
 		},
 		{
 			path: "berita-acara/:id",
+			beforeEnter: updateGuestSiteTitle,
 			component: () => import("../../../pages/guest-berita-acara-page/detail-guest-berita-acara-page.vue"),
 		},
 		{
 			path: "tentang",
+			beforeEnter: updateGuestSiteTitle,
 			component: () => import("../../../pages/guest-tentang-page/guest-tentang-page.vue"),
 		},
 		{

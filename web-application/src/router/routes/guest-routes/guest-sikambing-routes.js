@@ -1,8 +1,10 @@
+import { updateSiKambingSiteTitle } from "@/router/middlewares/si-kambing-middleware";
 
 /** @type { import("vue-router").RouteRecordRaw[] } */
 export const guestSiKambingRoutes = [
 	{ 
 		path: "si-kambing", 
+		beforeEnter: updateSiKambingSiteTitle,
 		children: [
 			{ 
 				path: "",
