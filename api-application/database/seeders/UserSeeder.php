@@ -20,5 +20,23 @@ class UserSeeder extends Seeder
             "password" => Hash::make("123456"),
             "whatsapp" => "123456789",
         ]);
+        UserModel::create([
+            "nama" => "Oskhar",
+            "email" => "oskhar@gmail.com",
+            "password" => Hash::make("123456"),
+            "whatsapp" => "123456789",
+        ]);
+        UserModel::create([
+            "nama" => "Vallen",
+            "email" => "vallen@gmail.com",
+            "password" => Hash::make("123456"),
+            "whatsapp" => "123456789",
+        ]);
+        UserModel::create([
+            "nama" => "Faryth",
+            "email" => "faryth@gmail.com",
+            "password" => Hash::make("123456"),
+            "whatsapp" => "123456789",
+        ]);
     }
 }

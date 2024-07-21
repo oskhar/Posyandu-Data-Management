@@ -84,24 +84,41 @@ class SubmissionController extends Controller
     {
         $data = $request->validated();
 
+        $submission = SubmissionModel::findOrFail($id);
+        $tantanganId = $submission->tantangan_id;
+
+        $peringkatExists = PenilaianModel::join('submission', 'submission.id', '=', 'penilaian.submission_id')
+            ->where('submission.tantangan_id', $tantanganId)
+            ->where('penilaian.peringkat', $data['peringkat'])
+            ->exists();
+
+        if ($peringkatExists) {
+            return response()->json([
+                'errors' => [
+                    'message' => 'The requested rank is already assigned within this challenge.'
+                ]
+            ], 422);
+        }
+
         PenilaianModel::updateOrCreate(
             [
-                "submission_id" => $id,
+                'submission_id' => $id,
             ],
             [
-                "submission_id" => $id,
-                "admin_id" => Auth::user()->id,
-                "feedback" => $data["feedback"],
-                "peringkat" => $data["peringkat"],
+                'submission_id' => $id,
+                'admin_id' => Auth::user()->id,
+                'feedback' => $data['feedback'],
+                'peringkat' => $data['peringkat']
             ]
         );
 
         return response()->json([
-            "success" => [
-                "message" => "Submission berhasil dinilai!"
+            'success' => [
+                'message' => 'Submission successfully evaluated!'
             ]
         ])->setStatusCode(200);
     }
+
 
     public function delete($id): JsonResponse
     {
