@@ -3,9 +3,9 @@ import { ref, reactive, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import Swal from 'sweetalert2';
 import { getErrorMessage } from '@/utils/get-error-message';
-import { fetchDetailProduk } from '../si-kambing-pages/api/si-kambing-pages-api';
 import { getWhatsappLink } from '@/utils/send-whatsapp';
 import { rupiahFormatter } from '@/utils/rupiah-formatter';
+import { fetchDetailProduk } from './api/si-kambing-pages-api';
 
 const route = useRoute();
 const isLoading = ref(true);

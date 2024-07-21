@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ITEM_BULAN } from '@/constants';
 import { api } from '@/lib/api';
 import { createDownloadFromBlob } from '@/utils/file';
 import { getSwalErrorMessage } from '@/utils/get-error-message';
@@ -11,8 +10,6 @@ const { tab } = defineProps({
   tab: { type: String, required: true },
 });
 
-// Reactive state
-const dialog = ref(false);
 const dataSearch = ref("");
 const page = ref(1);
 const banyakPage = ref(5);
@@ -23,7 +20,6 @@ const kota = ref("");
 const jumlahData = ref(0);
 const tahun = ref(new Date().getFullYear());
 const listTahunLahir = ref([new Date().getFullYear()]);
-const bulan = ref(new Date().getMonth() + 1);
 const isLoading = ref(false);
 
 const fetchData = async () => {
@@ -61,45 +57,6 @@ const fetchData = async () => {
 
 const debouncedFetchData = debounce(fetchData, 500);
 
-
-const exportExcel = async () => {
-  try {
-    const response = await api.get(
-      `/export/format-b?tahun=${tahun.value}`,
-      { params: { tab, tahun: tahun.value }, responseType: 'blob' },
-    );
-
-    createDownloadFromBlob(response.data, 'xlsx', `Format-2_tab-${tab}`);
-  } catch (error) {
-    await Swal.fire({
-      icon: 'error',
-      title: "Gagal download data",
-      html: getSwalErrorMessage(error, "Gagal download data !"),
-    });
-  }
-};
-
-const exportExcelLaporan = async () => {
-  try {
-    const response = await api.get(
-      `/export/laporan-b`,
-      {
-        params: { tahun: tahun.value, bulan: bulan.value },
-        responseType: 'blob',
-      },
-    );
-
-    // Membuat objek Date yang merepresentasikan waktu saat ini
-    createDownloadFromBlob(response.data, `xlsx`, `Format-2_tab-${tab}`);
-  } catch (error) {
-    await Swal.fire({
-      icon: 'error',
-      title: "Gagal download laporan",
-      html: getSwalErrorMessage(error, "Gagal download laporan !"),
-    });
-  }
-};
-
 onMounted(async () => {
   const response = await fetchData();
 
@@ -121,14 +78,14 @@ watch(dataSearch, debouncedFetchData);
   <VRow>
     <VCol cols="12">
       <VCard>
-        <VProgressCircular v-if="isLoading" indeterminate color="primary" class="mt-5 float-center" size="50">
-        </VProgressCircular>
-        <VCardItem v-else style="min-height: 170px">
+        <VSkeletonLoader v-if="isLoading" type="heading, subtitle" />
+        <VCardItem v-else>
           <h2>{{ judulFormatBA }}</h2>
           <h3 class="text-secondary mt-5">{{ namaPosyandu }} - {{ kota }}</h3>
         </VCardItem>
         <VCardItem>
-          <VSelect v-model="tahun" :items="listTahunLahir" />
+          <VSkeletonLoader v-if="isLoading" type="heading" />
+          <VSelect v-else v-model="tahun" :items="listTahunLahir" />
         </VCardItem>
       </VCard>
     </VCol>
@@ -136,54 +93,13 @@ watch(dataSearch, debouncedFetchData);
     <VCol cols="12">
       <VCard>
         <VCardItem>
-          <VRow>
-            <VCol cols="12">
-              <VTextField v-model="dataSearch" label="Cari Data Screening Balita" prepend-inner-icon="bx-search"
-                class="mt-2">
-              </VTextField>
-            </VCol>
-            <VCol cols="12">
-              <VBtn class="mb-3" prepend-icon="bx-download" @click="exportExcel">
-                Data
-              </VBtn>
+          <VSkeletonLoader v-if="isLoading" type="heading" />
+          <VTextField v-else v-model="dataSearch" label="Cari Data Screening Balita" prepend-inner-icon="bx-search"
+            class="mt-2">
+          </VTextField>
 
-              <VDialog v-model="dialog" persistent width="1024">
-                <template #activator="{ props }">
-                  <VBtn color="primary" class="mb-3 ml-3" v-bind="props" prepend-icon="bx-download">
-                    Laporan
-                  </VBtn>
-                </template>
-                <VCard>
-                  <VCardTitle>
-                    <span class="text-h5">Laporan Bulanan</span>
-                  </VCardTitle>
-                  <VCardItem>
-                    <VContainer>
-                      <VRow>
-                        <VCol cols="12">
-                          <VSelect v-model="bulan" :items="ITEM_BULAN" label="Pilih bulan laporan"
-                            placeholder="Pilih bulan" />
-                        </VCol>
-                      </VRow>
-                    </VContainer>
-                  </VCardItem>
-                  <VCardActions>
-                    <VSpacer></VSpacer>
-                    <VBtn color="secondary" variant="text" @click="dialog = false">
-                      Batal
-                    </VBtn>
-                    <VBtn color="primary" variant="text" @click="
-                      exportExcelLaporan();
-                    dialog = false;
-                    ">
-                      Download
-                    </VBtn>
-                  </VCardActions>
-                </VCard>
-              </VDialog>
-            </VCol>
-          </VRow>
-          <VTable>
+          <VSkeletonLoader v-if="isLoading" type="table" />
+          <VTable v-else class="mt-4">
             <thead>
               <tr>
                 <th>No</th>
@@ -199,10 +115,7 @@ watch(dataSearch, debouncedFetchData);
             </thead>
 
             <tbody>
-              <VProgressCircular v-if="isLoading" indeterminate color="primary" class="mt-5 float-center" size="50">
-              </VProgressCircular>
-
-              <tr v-for="(item, index) in dataFormatBA" v-else :key="item.dessert">
+              <tr v-for="(item, index) in dataFormatBA" :key="item.dessert">
                 <td>
                   {{ (page - 1) * 20 + (index + 1) }}
                 </td>
