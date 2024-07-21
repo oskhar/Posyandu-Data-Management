@@ -101,7 +101,7 @@ onMounted(fetchData);
 					<VSkeletonLoader v-if="isLoading" type="button" />
 					<a v-else :disabled="!dataProduk.sedang_dijual" target="_blank" rel="noopener noreferrer"
 						:href="dataProduk.sedang_dijual ? whatsappLink : '#'">
-						<VBtn :disabled="!dataProduk.sedang_dijual" class="w-100">
+						<VBtn :disabled="!dataProduk.sedang_dijual" class="w-100 mt-4">
 							{{ dataProduk.sedang_dijual ? 'Beli Sekarang' : 'Tidak Dijual' }}
 						</VBtn>
 					</a>

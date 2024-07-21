@@ -26,7 +26,7 @@ const activeWindow = ref(0);
 					</div>
 
 					<VBtn variant="elevated" color="primary" class="w-100 w-md-auto"
-						:to="`layanan/si-kambing/produk/${dataProduk.id}`" append-icon="bx-right-arrow-alt">Lihat Produk</VBtn>
+						:to="`/layanan/si-kambing/produk/${dataProduk.id}`" append-icon="bx-right-arrow-alt">Lihat Produk</VBtn>
 				</div>
 			</VCard>
 		</VWindowItem>
