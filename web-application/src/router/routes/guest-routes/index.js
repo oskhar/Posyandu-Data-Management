@@ -2,6 +2,7 @@ import { requireUserLogin } from "@/router/middlewares";
 import { guestReslitingRoutes } from "./guest-resliting-routes";
 import { guestSiKambingRoutes } from "./guest-sikambing-routes";
 import { guestScreeningBalitaRoutes } from "./guest-screening-balita-routes";
+import { guestScreeningRemajaRoutes } from "./guest-screening-remaja-routes";
 import { updateGuestSiteTitle } from "@/router/middlewares/guest-middleware";
 
 /** @type { import("vue-router").RouteRecordRaw } */
@@ -46,7 +47,7 @@ export const guestRoutes = {
 		},
 		{
 			path: "layanan",
-			children: [...guestReslitingRoutes, ...guestSiKambingRoutes, ...guestScreeningBalitaRoutes],
+			children: [...guestReslitingRoutes, ...guestSiKambingRoutes, ...guestScreeningBalitaRoutes, ...guestScreeningRemajaRoutes],
 		},
 	],
 }
