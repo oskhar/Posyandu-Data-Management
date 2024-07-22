@@ -28,7 +28,7 @@
 				</VCol>
 
 				<VCol cols="12" sm="6" md="5" class="mx-auto">
-					<img class="w-100" src="/people-resliting.svg" alt="Gambar hero produk" />
+					<img class="w-100" src="/keluarga-belanja.svg" alt="Gambar hero produk" />
 				</VCol>
 			</VRow>
 		</VCol>

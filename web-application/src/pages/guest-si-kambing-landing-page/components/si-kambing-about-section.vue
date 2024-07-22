@@ -3,7 +3,7 @@
 		<VCol cols="12" md="9" class="mx-auto">
 			<VCard class="d-flex pa-5 flex-column flex-md-row justify-space-between align-center rounded-lg">
 				<VCol cols="12" sm="6" md="5" class="mx-auto">
-					<img class="w-100" src="/burger-resliting.svg" alt="About SiKambing" />
+					<img class="w-100" src="/orang-tua-belanja.svg" alt="About SiKambing" />
 				</VCol>
 
 				<VCol cols="12" md="6">
