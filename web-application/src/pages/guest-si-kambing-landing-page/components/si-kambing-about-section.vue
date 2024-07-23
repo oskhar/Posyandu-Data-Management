@@ -7,7 +7,7 @@
 				</VCol>
 
 				<VCol cols="12" md="6">
-					<h2 class="text-h5 text-lg-h4 font-weight-bold">Tentang SiKambing</h2>
+					<h2 class="text-h5 text-lg-h4 font-weight-bold">Tentang SiBinggo</h2>
 					<p class="text-subtitle-1 mt-4">
 						SiKambing adalah platform e-commerce yang memudahkan pembelian barang secara online. Temukan berbagai
 						produk berkualitas dan hubungi penjual melalui WhatsApp untuk transaksi langsung.
