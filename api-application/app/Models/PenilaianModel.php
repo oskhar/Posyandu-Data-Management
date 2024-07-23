@@ -26,5 +26,6 @@ class PenilaianModel extends Model
         "admin_id",
         "feedback",
         "peringkat",
+        "poin",
     ];
 }

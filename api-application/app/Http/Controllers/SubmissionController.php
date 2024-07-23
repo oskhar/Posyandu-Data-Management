@@ -144,22 +144,27 @@ class SubmissionController extends Controller
                 'admin_id' => Auth::user()->id,
                 'feedback' => $data['feedback'],
                 'peringkat' => $data['peringkat'],
-                'poin' => $data['peringkat'] // Update poin column
             ]
         );
 
         $penambahanPoin = [0, 200, 150, 50][$data['peringkat']];
 
-        $user = UserModel::findOrFail(Auth::user()->id);
+        $user = UserModel::findOrFail($submission->user_id);
         if ($penilaian->wasRecentlyCreated) {
             $user->update([
                 "poin" => $user->poin + $penambahanPoin
+            ]);
+            $penilaian->update([
+                'poin' => $penambahanPoin
             ]);
         } else {
             $poinLama = $penilaian->getOriginal('poin');
             if ($poinLama != $penambahanPoin) {
                 $user->update([
                     "poin" => $user->poin - $poinLama + $penambahanPoin
+                ]);
+                $penilaian->update([
+                    'poin' => $penambahanPoin
                 ]);
             }
         }
