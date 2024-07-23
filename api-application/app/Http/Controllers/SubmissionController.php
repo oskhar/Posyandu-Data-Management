@@ -38,10 +38,22 @@ class SubmissionController extends Controller
             $query->where("submission.tantangan_id", $data["tantangan_id"]);
         }
 
+        /**
+         * Mengubah status submission
+         *
+         */
+        $query->get()->each(function ($item) {
+            if ($item->status == "Tersubmit") {
+                $item->status = "Sedang Diperiksa";
+                $item->save();
+            }
+        });
+
         $submission = $query->paginate($data["length"]);
 
         return response()->json($submission)->setStatusCode(200);
     }
+
 
     public function post(SubmissionRequest $request): JsonResponse
     {
@@ -106,7 +118,7 @@ class SubmissionController extends Controller
             ], 422);
         }
 
-        PenilaianModel::updateOrCreate(
+        $penilaian = PenilaianModel::updateOrCreate(
             [
                 'submission_id' => $id,
             ],
@@ -114,16 +126,32 @@ class SubmissionController extends Controller
                 'submission_id' => $id,
                 'admin_id' => Auth::user()->id,
                 'feedback' => $data['feedback'],
-                'peringkat' => $data['peringkat']
+                'peringkat' => $data['peringkat'],
+                'poin' => $data['peringkat'] // Update poin column
             ]
         );
 
         $penambahanPoin = [0, 200, 150, 50][$data['peringkat']];
 
         $user = UserModel::findOrFail(Auth::user()->id);
-        $user->update([
-            "poin" => $user->poin() + $penambahanPoin
-        ]);
+        if ($penilaian->wasRecentlyCreated) {
+            $user->update([
+                "poin" => $user->poin + $penambahanPoin
+            ]);
+        } else {
+            $poinLama = $penilaian->getOriginal('poin');
+            if ($poinLama != $penambahanPoin) {
+                $user->update([
+                    "poin" => $user->poin - $poinLama + $penambahanPoin
+                ]);
+            }
+        }
+
+        if ($submission->status == "Sedang Diperiksa") {
+            $submission->update([
+                "status" => "Sudah Dinilai"
+            ]);
+        }
 
         return response()->json([
             'success' => [
@@ -131,6 +159,7 @@ class SubmissionController extends Controller
             ]
         ])->setStatusCode(200);
     }
+
 
 
     public function delete($id): JsonResponse
