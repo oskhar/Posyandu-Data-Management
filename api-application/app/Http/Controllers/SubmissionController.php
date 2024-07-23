@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SubmissionRequest;
 use App\Models\PenilaianModel;
 use App\Models\SubmissionModel;
+use App\Models\UserModel;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -73,6 +74,11 @@ class SubmissionController extends Controller
 
         SubmissionModel::create($data);
 
+        $user = UserModel::findOrFail(Auth::user()->id);
+        $user->update([
+            "poin" => $user->poin() + 50
+        ]);
+
         return response()->json([
             "success" => [
                 "message" => "Sumbission berhasil dikirim!"
@@ -94,8 +100,8 @@ class SubmissionController extends Controller
 
         if ($peringkatExists) {
             return response()->json([
-                'errors' => [
-                    'message' => 'The requested rank is already assigned within this challenge.'
+                "errors" => [
+                    "message" => "Peringkat {$data['peringkat']} sudah ditempati!"
                 ]
             ], 422);
         }
@@ -111,6 +117,13 @@ class SubmissionController extends Controller
                 'peringkat' => $data['peringkat']
             ]
         );
+
+        $penambahanPoin = [0, 200, 150, 50][$data['peringkat']];
+
+        $user = UserModel::findOrFail(Auth::user()->id);
+        $user->update([
+            "poin" => $user->poin() + $penambahanPoin
+        ]);
 
         return response()->json([
             'success' => [

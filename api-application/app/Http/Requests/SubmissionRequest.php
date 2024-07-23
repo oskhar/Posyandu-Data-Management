@@ -26,7 +26,7 @@ class SubmissionRequest extends CoreRequest
                 ];
             case 'PUT':
                 return [
-                    "feedback" => "required|string",
+                    "feedback" => "nullable|string",
                     "peringkat" => "required|integer",
                 ];
             default:
