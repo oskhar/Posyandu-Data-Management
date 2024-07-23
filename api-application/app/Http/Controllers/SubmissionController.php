@@ -59,6 +59,23 @@ class SubmissionController extends Controller
     {
         $data = $request->validated();
 
+        /**
+         * Memeriksa apakah user sudah submit
+         * di tantangan ini sebelumnya
+         *
+         */
+        $submissionExists = SubmissionModel::where('tantangan_id', $data['tantangan_id'])
+            ->where('user_id', Auth::user()->id)
+            ->exists();
+
+        if ($submissionExists) {
+            return response()->json([
+                'errors' => [
+                    'message' => 'Kamu sudah submit pada tantangan ini sebelumnya!'
+                ]
+            ])->setStatusCode(400);
+        }
+
         if (!empty($data['file'])) {
             $base64Parts = explode(",", $data['file']);
             $base64Zip = end($base64Parts);
@@ -88,7 +105,7 @@ class SubmissionController extends Controller
 
         $user = UserModel::findOrFail(Auth::user()->id);
         $user->update([
-            "poin" => $user->poin() + 50
+            "poin" => $user->poin + 50
         ]);
 
         return response()->json([
