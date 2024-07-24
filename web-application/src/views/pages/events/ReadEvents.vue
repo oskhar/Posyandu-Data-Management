@@ -32,7 +32,7 @@
       <VProgressCircular indeterminate color="primary" class="mt-5" size="50"></VProgressCircular>
     </VCol>
     <!-- 👉 Popular Uses Of The Internet -->
-    <VCol v-for="(data, index) in dataBerita" v-else cols="12" md="4" sm="12">
+    <VCol v-for="(data, index) in dataEvents" v-else :key="index" cols="12" md="4" sm="12">
       <VCard>
         <VImg :src="data.gambar" cover style="height: 280px">
           <h2 v-if="data.gambar == imagePath + null" class="text-center text-secondary" style="margin-top: 25%">
@@ -61,7 +61,7 @@
                     <VBtn color="primary" class="mx-3" v-bind="props">
                       Edit & Lihat
                     </VBtn>
-                    <VBtn color="error" class="float-right" @click="deleteBerita(data.id_berita)">
+                    <VBtn color="error" class="float-right" @click="deleteEvents(data.id_berita)">
                       <VIcon>bx-trash</VIcon>
                     </VBtn>
                   </VCol>
@@ -145,7 +145,7 @@ export default {
   data() {
     return {
       dialog: [],
-      dataBerita: [],
+      dataEvents: [],
       urlServer: config.urlServer,
       imagePath: config.imagePath,
       page: 1,
@@ -161,14 +161,14 @@ export default {
   },
 
   methods: {
-    async putData(indexBerita) {
+    async putData(indexEvents) {
       this.isUpload = true;
       try {
         const data = {
-          id_berita: this.dataBerita[indexBerita].id_berita,
-          judul: this.dataBerita[indexBerita].judul,
-          tanggal_pelaksanaan: this.dataBerita[indexBerita].tanggal_pelaksanaan,
-          deskripsi: this.dataBerita[indexBerita].deskripsi,
+          id_berita: this.dataEvents[indexEvents].id_berita,
+          judul: this.dataEvents[indexEvents].judul,
+          tanggal_pelaksanaan: this.dataEvents[indexEvents].tanggal_pelaksanaan,
+          deskripsi: this.dataEvents[indexEvents].deskripsi,
         };
 
         const response = await axios.put(`${this.urlServer}/api/berita`, data, {
@@ -225,7 +225,7 @@ export default {
 
       this.isLoading = false;
 
-      this.dataBerita = response.data.berita.map(item => {
+      this.dataEvents = response.data.berita.map(item => {
         item.gambar = this.imagePath + item.gambar;
 
         return item;
@@ -233,7 +233,7 @@ export default {
       this.banyakPage = Math.ceil(response.data.jumlah_data / banyakDataTampil);
     },
 
-    async deleteBerita(id_berita) {
+    async deleteEvents(id_berita) {
       const ask = await Swal.fire({
         title: "Anda yakin ingin menghapus?",
         showConfirmButton: false,
@@ -273,7 +273,7 @@ export default {
       }
     },
 
-    async changeAvatar(file, indexBerita) {
+    async changeAvatar(file, indexEvents) {
       const files = file.target.files[0];
       if (files) {
         const fileReader = new FileReader();
@@ -287,12 +287,12 @@ export default {
           fileReader.readAsDataURL(files);
           fileReader.onload = async () => {
             if (typeof fileReader.result === "string") {
-              this.dataBerita[indexBerita].gambar = fileReader.result;
+              this.dataEvents[indexEvents].gambar = fileReader.result;
 
               const response = await axios.put(
                 `${this.urlServer}/api/berita`,
                 {
-                  id_berita: this.dataBerita[indexBerita].id_berita,
+                  id_berita: this.dataEvents[indexEvents].id_berita,
                   gambar: fileReader.result,
                 },
                 {

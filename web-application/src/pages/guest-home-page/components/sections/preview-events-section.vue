@@ -1,22 +1,22 @@
 <script setup>
 import { onMounted, ref } from "vue";
-import { fetchPreviewBeritaAcara } from "../../api/guest-home-page-api";
+import { fetchPreviewEvents } from "../../api/guest-home-page-api";
 import Swal from "sweetalert2";
 import { getErrorMessage } from "@/utils/get-error-message";
-import CardBeritaAcara from "@/components/cards/card-berita-acara.vue";
+import CardEvent from "@/components/cards/card-event.vue";
 
 const isLoading = ref(true);
-const dataBeritaAcara = ref([]);
+const dataEvents = ref([]);
 
-// Fetch preview berita acara
+// Fetch preview events acara
 onMounted(async () => {
 	try {
 		isLoading.value = true;
-		dataBeritaAcara.value = await fetchPreviewBeritaAcara();
+		dataEvents.value = await fetchPreviewEvents();
 	} catch (error) {
 		await Swal.fire({
 			icon: "error",
-			text: getErrorMessage(error, "Terjadi kesalahan saat loading data berita & acara!"),
+			text: getErrorMessage(error, "Terjadi kesalahan saat loading data events!"),
 			showCloseButton: true,
 		});
 	} finally {
@@ -31,14 +31,14 @@ onMounted(async () => {
 		<VCol cols="12" md="9" class="mx-auto">
 			<VRow class="flex-wrap">
 				<VCol cols="12" md="9">
-					<h2 class="text-primary text-h5 font-weight-bold">Berita & Acara</h2>
+					<h2 class="text-primary text-h5 font-weight-bold">Events</h2>
 					<p class="text-secondary text-subtitle-1">
-						Informasi seputar Berita & Acara Posyandu Melati akan di tampilkan di
+						Informasi seputar Events Posyandu Melati akan di tampilkan di
 						sini
 					</p>
 				</VCol>
 				<VCol cols="12" md="3" class="d-flex justify-end align-center">
-					<VBtn variant="tonal" prepend-icon="bx-paper-plane" to="/berita-acara">
+					<VBtn variant="tonal" prepend-icon="bx-paper-plane" to="/events">
 						Lihat Semua
 					</VBtn>
 				</VCol>
@@ -51,12 +51,12 @@ onMounted(async () => {
 			</VRow>
 
 			<VRow v-else class="mt-5">
-				<VCol v-for="(data) in dataBeritaAcara" :key="data.id_berita" cols="12" sm="6" lg="4">
-					<CardBeritaAcara :data-berita='data' />
+				<VCol v-for="(data) in dataEvents" :key="data.id_berita" cols="12" sm="6" lg="4">
+					<CardEvent :data-event='data' />
 				</VCol>
 
-				<VCol v-if="dataBeritaAcara.length === 0" cols="12">
-					<p class="mt-5 text-secondary text-center">Belum ada berita & acara..</p>
+				<VCol v-if="dataEvents.length === 0" cols="12">
+					<p class="mt-5 text-secondary text-center">Belum ada event..</p>
 				</VCol>
 			</VRow>
 		</VCol>

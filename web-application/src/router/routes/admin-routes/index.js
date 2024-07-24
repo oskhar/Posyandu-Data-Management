@@ -24,8 +24,8 @@ export const adminRoutes = {
         ),
     },
     {
-      path: "berita-acara",
-      component: () => import("../../../pages/berita-acara.vue"),
+      path: "events",
+      component: () => import("../../../pages/events.vue"),
     },
     {
       path: "edukasi",

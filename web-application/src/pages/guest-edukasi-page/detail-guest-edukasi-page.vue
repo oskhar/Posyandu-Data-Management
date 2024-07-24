@@ -1,19 +1,30 @@
 <script setup>
 import { api } from '@/lib/api';
+import { getErrorMessage } from '@/utils/get-error-message';
+import { errorToast } from '@/utils/toast';
 import { ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
+const router = useRouter();
 const route = useRoute();
 const dataEdukasi = ref({})
 
-
 async function fetchData() {
-  const idEdukasi = route.params.id
-  const response = await api.get(`/edukasi?id_edukasi=${idEdukasi}`);
+  try {
+    const idEdukasi = route.params.id
+    const response = await api.get(`/edukasi?id_edukasi=${idEdukasi}`);
 
-  dataEdukasi.value = response.data;
+    dataEdukasi.value = response.data;
+  } catch (error) {
+    errorToast({ text: getErrorMessage(error) })
+    router.push('/edukasi')
+  } finally {
+    if (Object.keys(dataEdukasi.value).length === 0) {
+      errorToast({ text: "Postingan edukasi gagal diambil!" })
+      router.push('/edukasi')
+    }
+  }
 }
-
 onMounted(fetchData)
 </script>
 

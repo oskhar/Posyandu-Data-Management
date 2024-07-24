@@ -1,7 +1,7 @@
 <script setup>
 import { useRoute } from "vue-router";
-import ReadBeritaAcara from "@/views/pages/berita-acara/ReadBeritaAcara.vue";
-import CreateBeritaAcara from "@/views/pages/berita-acara/CreateBeritaAcara.vue";
+import ReadEvents from "@/views/pages/events/ReadEvents.vue";
+import CreateEvent from "@/views/pages/events/CreateEvent.vue";
 
 const route = useRoute();
 const activeTab = ref(route.params.tab);
@@ -34,12 +34,12 @@ const tabs = [
     <VWindow v-model="activeTab" class="mt-5">
       <!-- read -->
       <VWindowItem value="read">
-        <ReadBeritaAcara />
+        <ReadEvents />
       </VWindowItem>
 
       <!-- create -->
       <VWindowItem value="create">
-        <CreateBeritaAcara />
+        <CreateEvent />
       </VWindowItem>
     </VWindow>
   </div>

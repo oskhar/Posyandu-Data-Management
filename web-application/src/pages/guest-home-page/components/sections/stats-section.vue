@@ -1,6 +1,6 @@
 <script setup>
-const { statsBerita, statsEdukasi, statsBayi, statsGambar } = defineProps({
-	statsBerita: { type: Number, required: true },
+const { statsEvents, statsEdukasi, statsBayi, statsGambar } = defineProps({
+	statsEvents: { type: Number, required: true },
 	statsEdukasi: { type: Number, required: true },
 	statsGambar: { type: Number, required: true },
 	statsBayi: { type: Number, required: true },
@@ -18,10 +18,10 @@ const { statsBerita, statsEdukasi, statsBayi, statsGambar } = defineProps({
 								<VIcon>bx-news</VIcon>
 							</h1>
 							<h2 class="mb-1 text-h5 text-no-wrap">
-								Berita & Acara
+								Events
 							</h2>
 							<h5 class="text-h5 text-no-wrap mb-3">
-								{{ statsBerita }}
+								{{ statsEvents }}
 							</h5>
 						</VCol>
 

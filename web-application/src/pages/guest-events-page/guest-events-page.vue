@@ -1,34 +1,34 @@
 <script setup>
 import { onMounted, ref, watch } from "vue";
-import { fetchDataBeritaAcara } from "./api/guest-berita-acara-page-api";
+import { fetchDataEvents } from "./api/guest-events-page-api";
 import { getErrorMessage } from "@/utils/get-error-message";
 import Swal from "sweetalert2";
 import debounce from "just-debounce";
-import CardBeritaAcara from "@/components/cards/card-berita-acara.vue";
+import CardEvent from "@/components/cards/card-event.vue";
 
 const isSearching = ref(true);
 const isInitialLoading = ref(true);
-const dataBeritaAcara = ref([]);
+const dataEvents = ref([]);
 const page = ref(1);
 const banyakPage = ref(0);
 const searchQuery = ref("");
 
-const searchBeritaAcara = async () => {
+const searchEvents = async () => {
   try {
     isSearching.value = true;
 
-    const { listDataBeritaAcara, pages } = await fetchDataBeritaAcara({
+    const { listDataEvents, pages } = await fetchDataEvents({
       page: page.value,
       search: searchQuery.value,
     });
 
-    dataBeritaAcara.value = listDataBeritaAcara;
+    dataEvents.value = listDataEvents;
     banyakPage.value = pages;
 
   } catch (error) {
     await Swal.fire({
       icon: "error",
-      text: getErrorMessage(error, "Terjadi kesalahan saat loading data berita acara!"),
+      text: getErrorMessage(error, "Terjadi kesalahan saat loading data events !"),
       showCloseButton: true,
     });
   } finally {
@@ -36,32 +36,32 @@ const searchBeritaAcara = async () => {
   }
 }
 
-const debouncedSearchBeritaAcara = debounce(searchBeritaAcara, 350)
+const debouncedSearchEvents = debounce(searchEvents, 350)
 
 const changeSearchPage = newPage => {
   page.value = newPage;
-  searchBeritaAcara();
+  searchEvents();
 }
 
 onMounted(async () => {
-  await searchBeritaAcara()
+  await searchEvents()
   isInitialLoading.value = false
 });
 
-watch(searchQuery, debouncedSearchBeritaAcara)
+watch(searchQuery, debouncedSearchEvents)
 watch(searchQuery, () => page.value = 1)
 </script>
 
 <template>
   <VRow tag="section" class="px-5 mb-4" style="margin-top: 90px;">
     <VCol cols="12" md="9" class="mx-auto">
-      <h1 class="text-primary text-h5 font-weight-bold">Berita & Acara</h1>
+      <h1 class="text-primary text-h5 font-weight-bold">Events</h1>
       <p class="text-secondary text-subtitle-1">
-        Informasi seputar Berita & Acara Posyandu Melati akan di tampilkan di
+        Informasi seputar Events Posyandu Melati akan di tampilkan di
         sini
       </p>
 
-      <VTextField v-model="searchQuery" prepend-inner-icon="bx-search" label="Cari Postingan Berita & Acara" />
+      <VTextField v-model="searchQuery" prepend-inner-icon="bx-search" label="Cari Postingan Events" />
 
       <VRow v-if="isSearching && isInitialLoading" class="mt-5">
         <VCol v-for="i in 6" :key="i" cols="12" sm="6" lg="4">
@@ -75,11 +75,11 @@ watch(searchQuery, () => page.value = 1)
         </VCol>
       </VRow>
       <VRow v-else class="mt-5">
-        <VCol v-for="(data) in dataBeritaAcara" :key="data.id" cols="12" sm="6" md="4">
-          <CardBeritaAcara :data-berita="data" />
+        <VCol v-for="(data) in dataEvents" :key="data.id" cols="12" sm="6" md="4">
+          <CardEvent :data-event="data" />
         </VCol>
-        <VCol v-if="dataBeritaAcara.length === 0" cols="12">
-          <p class="mt-5 text-secondary text-center">Belum ada berita & acara...</p>
+        <VCol v-if="dataEvents.length === 0" cols="12">
+          <p class="mt-5 text-secondary text-center">Belum ada events ...</p>
         </VCol>
       </VRow>
 

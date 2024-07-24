@@ -1,7 +1,7 @@
 import { api } from "@/lib/api";
 import { getFullImagePath } from "@/utils/get-full-image-path";
 
-export const fetchDataBeritaAcara = async ({
+export const fetchDataEvents = async ({
 	page = 1,
 	search = "",
 	lengthPerPage = 6,
@@ -13,9 +13,9 @@ export const fetchDataBeritaAcara = async ({
 		},
 	);
 
-	const listDataBeritaAcara = data.berita.map(item => ({ ...item, gambar: getFullImagePath(item.gambar) }));
+	const listDataEvents = data.berita.map(item => ({ ...item, gambar: getFullImagePath(item.gambar) }));
 	const pages = Math.ceil(data.jumlah_data / lengthPerPage);
 
-	return { listDataBeritaAcara, pages };
+	return { listDataEvents, pages };
 }
 

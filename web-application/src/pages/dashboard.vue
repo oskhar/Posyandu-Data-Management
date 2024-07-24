@@ -10,7 +10,7 @@ import info from "@images/cards/chart-info.png";
 const urlServer = config.urlServer;
 let data = ref([]);
 let statEdukasi = ref(0);
-let statBerita = ref(0);
+let statEvents = ref(0);
 let statGambar = ref(0);
 </script>
 

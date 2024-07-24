@@ -31,14 +31,14 @@ export const guestRoutes = {
 			component: () => import("../../../pages/guest-edukasi-page/detail-guest-edukasi-page.vue"),
 		},
 		{
-			path: "berita-acara",
+			path: "events",
 			beforeEnter: updateGuestSiteTitle,
-			component: () => import("../../../pages/guest-berita-acara-page/guest-berita-acara-page.vue"),
+			component: () => import("../../../pages/guest-events-page/guest-events-page.vue"),
 		},
 		{
-			path: "berita-acara/:id",
+			path: "events/:id",
 			beforeEnter: updateGuestSiteTitle,
-			component: () => import("../../../pages/guest-berita-acara-page/detail-guest-berita-acara-page.vue"),
+			component: () => import("../../../pages/guest-events-page/detail-guest-events-page.vue"),
 		},
 		{
 			path: "tentang",

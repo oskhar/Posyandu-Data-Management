@@ -1,31 +1,32 @@
 <script setup>
-import { ref, reactive, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { ref, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { fetchDataDetailTantangan } from './api/resleting-tantangan-page-api';
-import Swal from 'sweetalert2';
 import { getErrorMessage } from '@/utils/get-error-message';
 import DetailTantanganFormDialog from './components/detail-tantangan-form-dialog.vue';
+import { errorToast } from '@/utils/toast';
 
 const route = useRoute();
+const router = useRouter();
 const isLoading = ref(true);
 
-const dataTantangan = reactive({});
+const dataTantangan = ref({});
 
 async function fetchData() {
 	try {
-		isLoading.value = true;
-
 		const idTantangan = route.params.id;
 
-		Object.assign(dataTantangan, await fetchDataDetailTantangan(idTantangan));
+		dataTantangan.value = await fetchDataDetailTantangan(idTantangan);
 	} catch (error) {
-		await Swal.fire({
-			icon: "error",
-			text: getErrorMessage(error, "Terjadi kesalahan saat loading data tantangan!"),
-			showCloseButton: true,
-		});
+		errorToast({ text: getErrorMessage(error) })
+		router.push('/layanan/remaja-peduli-stunting/tantangan')
 	} finally {
 		isLoading.value = false;
+		if (dataTantangan.value.judul === undefined) {
+			errorToast({ text: "Postingan tantangan gagal diambil!" })
+			router.push('/layanan/remaja-peduli-stunting/tantangan')
+		}
+
 	}
 }
 

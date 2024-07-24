@@ -23,9 +23,9 @@
         to: '/admin/dashboard',
       }" />
       <VerticalNavLink :item="{
-        title: 'Berita Acara',
+        title: 'Events',
         icon: 'bx-news',
-        to: '/admin/berita-acara',
+        to: '/admin/events',
       }" />
       <VerticalNavLink :item="{
         title: 'Edukasi',

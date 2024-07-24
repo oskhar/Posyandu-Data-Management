@@ -13,7 +13,7 @@ export const MENU_ITEMS = [
 		], 
 	},
 	{ text: "Edukasi", route: "/edukasi" },
-	{ text: "Berita", route: "/berita-acara" },
+	{ text: "Events", route: "/events" },
 ]
 
 export const FOOTER_MENU_ITEMS = [
@@ -22,7 +22,7 @@ export const FOOTER_MENU_ITEMS = [
 		items: [
 			{ text: "Home", route: "/" },
 			{ text: "Edukasi", route: "/edukasi" },
-			{ text: "Berita", route: "/berita-acara" },
+			{ text: "Events", route: "/events" },
 			{ text: "Tentang", route: "/tentang" },
 		],
 	},

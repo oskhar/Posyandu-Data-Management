@@ -100,7 +100,7 @@ watch(dataSearch, debouncedFetchData);
           </VTextField>
 
           <VSkeletonLoader v-if="isLoading" type="table" />
-          <VTable v-else class="mt-4">
+          <VTable class="mt-4">
             <thead>
               <tr>
                 <th>No</th>

@@ -4,10 +4,10 @@
             <VRow>
                 <!-- 👉 Profit -->
                 <VCol cols="12" md="4">
-                    <CardStatisticsVertical href="/berita-acara" v-bind="{
-                        title: 'Jumlah Berita',
+                    <CardStatisticsVertical href="/events" v-bind="{
+                        title: 'Jumlah Events',
                         image: statsVerticalWallet,
-                        stats: statBerita,
+                        stats: statEvents,
                     }" />
                 </VCol>
 
@@ -48,7 +48,7 @@ export default {
     },
     data() {
         return {
-            statBerita: 0,
+            statEvents: 0,
             statEdukasi: 0,
             statGambar: 0,
             statsVerticalChart,
@@ -57,15 +57,15 @@ export default {
         }
     },
     mounted() {
-        this.fetchBerita();
+        this.fetchEvents();
         this.fetchEdukasi();
         this.fetchGambar();
     },
     methods: {
-        async fetchBerita() {
+        async fetchEvents() {
             const response = await axios.get(`${config.urlServer}/api/berita?start=0&length=0`);
 
-            this.statBerita = response.data.jumlah_data;
+            this.statEvents = response.data.jumlah_data;
         },
 
         async fetchEdukasi() {

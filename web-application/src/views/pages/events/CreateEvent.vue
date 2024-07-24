@@ -2,7 +2,7 @@
   <VRow>
     <VCol cols="12" md="12">
       <!-- 👉 Horizontal Form -->
-      <VCard title="Buat Berita Acara">
+      <VCard title="Buat Events Acara">
         <VCardText>
           <VForm @submit="submitData">
             <VRow>
@@ -183,7 +183,7 @@ export default {
           });
         }
 
-        window.location.href = "/admin/berita-acara";
+        window.location.href = "/admin/events";
       } catch (error) {
         Swal.fire({
           toast: true,
