@@ -121,17 +121,12 @@ class AuthController extends Controller
     public function authData(Request $request)
     {
         /**
-         * Hapus token dari database
-         *
-         */
-        $id_admin = Auth::user()->id;
-
-        /**
          * Kembalikan response yang sesuai
          *
          */
         return response()->json([
-            'id_admin' => $id_admin
+            'id_admin' => Auth::user()->id,
+            'id_jabatan' => Auth::user()->id_jabatan
         ])->setStatusCode(200);
     }
     public function resetPassword(ResetPasswordRequest $request): JsonResponse

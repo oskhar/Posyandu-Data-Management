@@ -83,30 +83,36 @@ class FormatBAExport implements FromCollection, WithHeadings, WithEvents, WithCu
      */
     public function collection()
     {
-        // Label bulan
+        /**
+         * Menyiapkan label bulan
+         *
+         */
         $bulanLabels = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
-        // Query utama untuk mengambil data bayi dan penimbangannya
-        $query = BayiModel::select(
-            'bayi.nama',
-            'bayi.jenis_kelamin',
-            'bayi.tanggal_lahir',
-            'bayi.berat_lahir',
-            'orang_tua.nama_ibu',
-            'orang_tua.nama_ayah',
-            'orang_tua.rt_rw',
-            'bayi.memiliki_kms',
-            'bayi.memiliki_kia'
-        )
-            ->leftJoin('orang_tua', 'orang_tua.id', '=', 'bayi.id_orang_tua')
-            ->leftJoin('penimbangan', function ($join) {
-                $join->on('penimbangan.id_bayi', '=', 'bayi.id')
-                    ->where('penimbangan.tahun_penimbangan', $this->tahunDipilih);
-            })
-            ->leftJoin('standar_deviasi', 'standar_deviasi.id', '=', 'penimbangan.id_standar_deviasi')
-            ->whereNull('bayi.tanggal_meninggal')
-            ->whereRaw('FLOOR(DATEDIFF(NOW(), bayi.tanggal_lahir) / 30.4375) BETWEEN ' . $this->batasBulanStart[$this->tabDipilih - 1] . ' AND ' . $this->batasBulanEnd[$this->tabDipilih - 1])
-            ->groupBy(
+        /**
+         * Membuat case statment untuk dikumpulkan
+         * dan dieksekusi bersamaan nantinya
+         *
+         */
+        $caseStatements = [];
+
+        /**
+         * Melakukan perulangan sebanyak jumlah bulan yang ada
+         *
+         */
+        foreach ($bulanLabels as $index => $bulan) {
+            $caseStatements[] = "MAX(CASE WHEN penimbangan.bulan_penimbangan = " . ($index + 1) . " AND penimbangan.id IS NOT NULL THEN standar_deviasi.umur_bulan ELSE '-' END) as 'Umur - " . $bulan . "'";
+            $caseStatements[] = "MAX(CASE WHEN penimbangan.bulan_penimbangan = " . ($index + 1) . " AND penimbangan.id IS NOT NULL THEN penimbangan.berat_badan ELSE '-' END) as 'Berat - " . $bulan . "'";
+            $caseStatements[] = "MAX(CASE WHEN penimbangan.bulan_penimbangan = " . ($index + 1) . " AND penimbangan.id IS NOT NULL THEN penimbangan.ntob ELSE '-' END) as 'N/T/O/B - " . $bulan . "'";
+        }
+
+        /**
+         * Membuat query utama
+         *
+         */
+        $queries = [];
+        for ($bulan = 1; $bulan <= 12; $bulan++) {
+            $queries[$bulan - 1] = BayiModel::select(
                 'bayi.nama',
                 'bayi.jenis_kelamin',
                 'bayi.tanggal_lahir',
@@ -116,25 +122,74 @@ class FormatBAExport implements FromCollection, WithHeadings, WithEvents, WithCu
                 'orang_tua.rt_rw',
                 'bayi.memiliki_kms',
                 'bayi.memiliki_kia'
-            );
+            )->join('orang_tua', 'orang_tua.id', 'bayi.id_orang_tua')
+                ->leftJoin('penimbangan', function ($join) use ($bulan) {
+                    $join->on('penimbangan.id_bayi', '=', 'bayi.id')
+                        ->where('penimbangan.tahun_penimbangan', $this->tahunDipilih);
+                })
+                ->leftJoin('standar_deviasi', 'standar_deviasi.id', '=', 'penimbangan.id_standar_deviasi')
+                ->whereRaw('(' . $this->tahunDipilih . ' - YEAR(bayi.tanggal_lahir)) * 12 + ' . $bulan . ' - MONTH(bayi.tanggal_lahir) BETWEEN ' . $this->batasBulanStart[$this->tabDipilih - 1] . ' AND ' . $this->batasBulanEnd[$this->tabDipilih - 1])
+                ->whereNull('bayi.tanggal_meninggal');
 
-        // Case statements untuk setiap bulan
-        $caseStatements = [];
-        foreach ($bulanLabels as $index => $bulan) {
-            $caseStatements[] = "MAX(CASE WHEN penimbangan.bulan_penimbangan = " . ($index + 1) . " THEN standar_deviasi.umur_bulan ELSE '-' END) as 'Umur - " . $bulan . "'";
-            $caseStatements[] = "MAX(CASE WHEN penimbangan.bulan_penimbangan = " . ($index + 1) . " THEN penimbangan.berat_badan ELSE '-' END) as 'Berat - " . $bulan . "'";
-            $caseStatements[] = "MAX(CASE WHEN penimbangan.bulan_penimbangan = " . ($index + 1) . " THEN penimbangan.ntob ELSE '-' END) as 'N/T/O/B - " . $bulan . "'";
+            /**
+             * Melakukan grouping data agar bisa benar benar selaras
+             *
+             */
+            $queries[$bulan - 1]->selectRaw(implode(',', $caseStatements))
+                ->groupBy('bayi.nama')
+                ->groupBy('bayi.jenis_kelamin')
+                ->groupBy('bayi.tanggal_lahir')
+                ->groupBy('bayi.berat_lahir')
+                ->groupBy('orang_tua.nama_ibu')
+                ->groupBy('orang_tua.nama_ayah')
+                ->groupBy('orang_tua.rt_rw')
+                ->groupBy('bayi.memiliki_kms')
+                ->groupBy('bayi.memiliki_kia');
+
         }
 
-        // Menambahkan case statements ke dalam query
-        $query->selectRaw(implode(',', $caseStatements));
+        /**
+         * Melakukan perulangan dari queries
+         *
+         */
+        foreach ($queries as $index => $query) {
 
-        // Mengambil data hasil query
-        $results = $query->get();
+            /**
+             * Memeriksa query utama
+             *
+             */
+            if ($index === 0) {
 
-        // Mengembalikan data untuk dicetak sebagai file excel
+                /**
+                 * Tetapkan index 0 menjadi query utama
+                 *
+                 */
+                $mergedQuery = $query;
+            } else {
+
+                /**
+                 * Menambahkan query lainnya untuk
+                 * distak ke dalam query utama
+                 *
+                 */
+                $mergedQuery = $mergedQuery->union($query);
+            }
+        }
+
+        /**
+         * Mengambil data dari query yang sudah diolah
+         *
+         */
+        $results = $mergedQuery->get();
+
+        /**
+         * Mengembalikan data format b untuk
+         * dicetak sebagai file excel
+         *
+         */
         return $results;
     }
+
 
     public function registerEvents(): array
     {

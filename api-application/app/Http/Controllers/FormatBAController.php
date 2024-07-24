@@ -58,19 +58,19 @@ class FormatBAController extends Controller
     {
         /**
          * Melakukan validasi data request
-         * 
+         *
          */
         $data = $request->validated();
 
         /**
          * Memeriksa apakah data id_bayi ada
-         * 
+         *
          */
         if (!empty($data['id_bayi'])) {
 
             /**
              * Mendapatkan informasi bayi
-             * 
+             *
              */
             $bayi = BayiModel::select(
                 'bayi.nama',
@@ -123,7 +123,7 @@ class FormatBAController extends Controller
 
             /**
              * Mendapatkan data penimbangan
-             * 
+             *
              */
             $penimbangan = PenimbanganModel::select(
                 'tahun_penimbangan',
@@ -143,13 +143,13 @@ class FormatBAController extends Controller
 
             /**
              * Deklarasi list_penimbangan
-             * 
+             *
              */
             $list_penimbangan = array();
 
             /**
              * Melakukan perulangan sebanyak data
-             * 
+             *
              */
             for ($i = 0; $i < count($list_waktu); $i++) {
 
@@ -167,19 +167,19 @@ class FormatBAController extends Controller
 
                 /**
                  * Melakukan perulangan sebanyak data yang tersedia
-                 * 
+                 *
                  */
                 foreach ($penimbangan as $dataPenimbangan) {
 
                     /**
                      * Memeriksa kesamaan data penimbangan
-                     * 
+                     *
                      */
                     if ($dataPenimbangan->tahun_penimbangan . ' ' . $this->namaBulan[$dataPenimbangan->bulan_penimbangan] == $list_waktu[$i]) {
 
                         /**
                          * Memasukan data jika penimbangan ada
-                         * 
+                         *
                          */
                         $list_penimbangan[$i] = [
                             'judul' => 'Umur ' . $i . ' Bulan - ' . $list_waktu[$i],
@@ -198,7 +198,7 @@ class FormatBAController extends Controller
                 /**
                  * Memeriksa apakah data selanjutnya null
                  * jika null, perulangan diberhentikan
-                 * 
+                 *
                  */
                 if ($list_penimbangan[$i]['berat_badan'] == null && $list_penimbangan[$i]['asi_eksklusif'] != 'Alpa') {
                     break;
@@ -208,7 +208,7 @@ class FormatBAController extends Controller
             /**
              * Mengambil standar deviasi dari
              * umur yang dipilih bulan ini
-             * 
+             *
              */
             $dataWHO = DB::table('standar_deviasi')->select(
                 'sangat_kurus',
@@ -224,7 +224,7 @@ class FormatBAController extends Controller
 
             /**
              * Mengambil keseluruhan data series
-             * 
+             *
              */
             $series = [
                 [
@@ -280,11 +280,11 @@ class FormatBAController extends Controller
                     "name" => "Berat bayi",
                     "type" => "line",
                     "data" =>
-                    PenimbanganModel::select('berat_badan')
-                        ->where('id_bayi', $data['id_bayi'])
-                        ->get()->map(function ($item) {
-                            return $item->berat_badan == 0 ? null : $item->berat_badan;
-                        })->toArray(),
+                        PenimbanganModel::select('berat_badan')
+                            ->where('id_bayi', $data['id_bayi'])
+                            ->get()->map(function ($item) {
+                                return $item->berat_badan == 0 ? null : $item->berat_badan;
+                            })->toArray(),
                 ],
             ];
 
@@ -295,14 +295,14 @@ class FormatBAController extends Controller
                 /**
                  * Menyatukan array hasil penimbangan
                  * kedalam bentuk string
-                 * 
+                 *
                  */
                 $hasilPenimbangan = explode(', ', $bayi->hasil_penimbangan);
 
                 /**
                  * Melakukan map array pada hasil penimbangan
                  * mengubah text menjadi kumpulan index
-                 * 
+                 *
                  */
                 $hasilPenimbangan = array_map(function ($item) {
                     return $this->itemHasil[$item];
@@ -313,14 +313,14 @@ class FormatBAController extends Controller
                 /**
                  * Menyatukan array pelayanan
                  * kedalam bentuk string
-                 * 
+                 *
                  */
                 $pelayanan = explode(', ', $bayi->pelayanan);
 
                 /**
                  * Melakukan map array pada pelayanan
                  * text menjadi kumpulan index
-                 * 
+                 *
                  */
                 $pelayanan = array_map(function ($item) {
                     return $this->itemPelayanan[$item];
@@ -329,7 +329,7 @@ class FormatBAController extends Controller
 
             /**
              * Mengembalikan response sesuai request
-             * 
+             *
              */
             return response()->json([
                 "bayi" => $bayi,
@@ -343,7 +343,7 @@ class FormatBAController extends Controller
         /**
          * Memeriksa apakah data request yang
          * dibutuhkan sudah tersedia
-         * 
+         *
          */
         if (empty($data['tahun'])) {
             throw new HttpResponseException(response()->json([
@@ -355,7 +355,7 @@ class FormatBAController extends Controller
 
         /**
          * Memeriksa apakah data tab ada di request
-         * 
+         *
          */
         if (empty($data['tab'])) {
             throw new HttpResponseException(response()->json([
@@ -367,7 +367,7 @@ class FormatBAController extends Controller
 
         /**
          * Membuat query utama
-         * 
+         *
          */
         $queries = [];
         for ($bulan = 1; $bulan <= 12; $bulan++) {
@@ -389,23 +389,32 @@ class FormatBAController extends Controller
                 })
                 ->whereRaw('(' . $data['tahun'] . ' - YEAR(bayi.tanggal_lahir)) * 12 + ' . $bulan . ' - MONTH(bayi.tanggal_lahir) BETWEEN ' . $this->batasBulanStart[$data['tab'] - 1] . ' AND ' . $this->batasBulanEnd[$data['tab'] - 1])
                 ->whereNull('bayi.tanggal_meninggal');
+
+            if (!empty($data['search'])) {
+
+                /**
+                 * Memfilter data sesuai request search
+                 *
+                 */
+                $query = $queries[$bulan - 1]->whereRaw('LOWER(bayi.nama) LIKE ?', ['%' . $data['search'] . '%']);
+            }
         }
 
         /**
          * Melakukan perulangan dari queries
-         * 
+         *
          */
         foreach ($queries as $index => $query) {
 
             /**
              * Memeriksa query utama
-             * 
+             *
              */
             if ($index === 0) {
 
                 /**
                  * Tetapkan index 0 menjadi query utama
-                 * 
+                 *
                  */
                 $mergedQuery = $query;
             } else {
@@ -413,7 +422,7 @@ class FormatBAController extends Controller
                 /**
                  * Menambahkan query lainnya untuk
                  * distak ke dalam query utama
-                 * 
+                 *
                  */
                 $mergedQuery = $mergedQuery->union($query);
             }
@@ -422,41 +431,26 @@ class FormatBAController extends Controller
         /**
          * Assigment query yang dimerge kedalam
          * query yang akan dipanggil nantinya
-         * 
+         *
          */
         $query = $mergedQuery;
 
-
-        /**
-         * Melakukan filtering atau penyaringan
-         * data pada kondisi tertentu
-         * 
-         */
-        if (!empty($data['search'])) {
-
-            /**
-             * Memfilter data sesuai request search
-             * 
-             */
-            $query = $query->where('bayi.nama', 'LIKE', '%' . $data['search'] . '%');
-        }
-
         /**
          * Mengambil banyaknya data yang diambil
-         * 
+         *
          */
         $count = $query->count();
 
         /**
          * Memeriksa apakah data ingin difilter
-         * 
+         *
          */
         if (isset($data['start']) && isset($data['length'])) {
 
             /**
              * Mengambil data gambar dari
              * query yang sudah difilter
-             * 
+             *
              */
             $query = $query
                 ->offset(($data['start'] - 1) * $data['length'])
@@ -466,13 +460,13 @@ class FormatBAController extends Controller
         /**
          * Mengambil data dari query dan
          * akan dijadikan response
-         * 
+         *
          */
         $formatBA = $query->get();
 
         /**
          * Mengambil data posyandu
-         * 
+         *
          */
         $posyandu = PosyanduModel::select(
             'nama_posyandu',
@@ -481,13 +475,13 @@ class FormatBAController extends Controller
 
         /**
          * Assigment judul format
-         * 
+         *
          */
         $judulFormat = 'Register bayi (' . $this->batasBulanStart[$data['tab'] - 1] . ' - ' . $this->batasBulanEnd[$data['tab'] - 1] . ' bulan) dalam wilayah kerja posyandu Januari - Desember';
 
         /**
          * Mengembalikan response sesuai request
-         * 
+         *
          */
         return response()->json([
             'nama_posyandu' => $posyandu->nama_posyandu,
@@ -501,7 +495,7 @@ class FormatBAController extends Controller
     {
         /**
          * Melakukan validasi data request
-         * 
+         *
          */
         $allData = $request->validated();
 
@@ -512,13 +506,13 @@ class FormatBAController extends Controller
 
         /**
          * Inisiasi apakah bayi sudah pernah mendapat T
-         * 
+         *
          */
         $lastMountIsT = false;
 
         /**
          * Inisiasi apakah bayi sudah pernah mendapat T
-         * 
+         *
          */
         $asiEksklusif = 0;
 
@@ -535,7 +529,7 @@ class FormatBAController extends Controller
 
             /**
              * Memeriksa apakah data valid
-             * 
+             *
              */
             if (empty($data['asi_eksklusif']) && is_null($data['berat_badan'])) {
                 break;
@@ -550,7 +544,7 @@ class FormatBAController extends Controller
 
             /**
              * Mengambil tahun dan bulan dari data judul
-             * 
+             *
              */
             $dataJudul = explode(' - ', $data['judul']);
             $umurBayi = explode(' ', $dataJudul[0])[1];
@@ -560,27 +554,27 @@ class FormatBAController extends Controller
 
             /**
              * Menghabpus data judul
-             * 
+             *
              */
             unset($data['judul']);
 
             /**
              * Menambahkan tahun dan bulan ke dalam data
-             * 
+             *
              */
             $data['tahun_penimbangan'] = intval($tahunPenimbangan);
             $data['bulan_penimbangan'] = intval($bulanPenimbangan);
 
             /**
              * Mengambil jenis kelamin bayi
-             * 
+             *
              */
             $jenisKelamin = BayiModel::select('jenis_kelamin')
                 ->where('id', $idBayi)->first()->jenis_kelamin;
 
             /**
              * Mengambil standar deviasi dari WHO
-             * 
+             *
              */
             $dataWHO = DB::table('standar_deviasi')->select(
                 'id',
@@ -599,7 +593,7 @@ class FormatBAController extends Controller
             /**
              * Mengambil standar deviasi dari WHO
              * Untuk berat badan umur bulan lalu
-             * 
+             *
              */
             $dataWHOBulanLalu = DB::table('standar_deviasi')->select(
                 'sangat_kurus',
@@ -614,7 +608,7 @@ class FormatBAController extends Controller
 
             /**
              * Mengambil data berat badan bulan lalu
-             * 
+             *
              */
             $beratBadanBulanLalu = PenimbanganModel::select('penimbangan.berat_badan')
                 ->where('penimbangan.id_bayi', $idBayi)
@@ -625,13 +619,13 @@ class FormatBAController extends Controller
             /**
              * Jika data berat badan dan data
              * asi_ekslisif tidak relevan
-             * 
+             *
              */
             if ($data['asi_eksklusif'] == "Alpa" && $data['berat_badan'] != 0) {
 
                 /**
                  * Memeberikan peringatan
-                 * 
+                 *
                  */
                 $pesan = [
                     'warning' => [
@@ -643,14 +637,14 @@ class FormatBAController extends Controller
                  * Menambahkan data errorField untuk
                  * memberi tau bagian yang diisi
                  * dengan tidak sesuai oleh user
-                 * 
+                 *
                  */
                 array_push($errorField, $index);
             }
 
             /**
              * Mendapatkan data pertama
-             * 
+             *
              */
             $umurDataPertama = PenimbanganModel::select('standar_deviasi.umur_bulan')
                 ->join('standar_deviasi', 'standar_deviasi.id', 'penimbangan.id_standar_deviasi')
@@ -660,14 +654,14 @@ class FormatBAController extends Controller
 
             /**
              * Memeriksa apakah data kosong
-             * 
+             *
              */
             if ($data['asi_eksklusif'] == "Alpa" || $data['berat_badan'] == 0) {
 
                 /**
                  * Atur semua data yang tidak
                  * relevan secara paksa
-                 * 
+                 *
                  */
                 $data['ntob'] = "Kosong";
                 $data['berat_badan'] = 0;
@@ -676,7 +670,7 @@ class FormatBAController extends Controller
 
                 /**
                  * Ambil data NTOB sesuai dengan perhitungan
-                 * 
+                 *
                  */
                 $data['ntob'] = $this->getNTOB($umurBayi, $dataWHOBulanLalu, $dataWHO, $beratBadanBulanLalu, $data['berat_badan'], $umurDataPertama);
             }
@@ -684,13 +678,13 @@ class FormatBAController extends Controller
             /**
              * Memeriksa kondisi apakah
              * bulan ini ntob adalah t
-             * 
+             *
              */
             $thisMountIsT = $data['ntob'][0] == "T";
 
             /**
              * Memeriksa kondisi double t
-             * 
+             *
              */
             if ($lastMountIsT && $thisMountIsT) {
 
@@ -699,7 +693,7 @@ class FormatBAController extends Controller
 
             /**
              * Memeriksa asi eksklusif bayi
-             * 
+             *
              */
             if ($data['asi_eksklusif']) {
 
@@ -711,7 +705,7 @@ class FormatBAController extends Controller
 
             /**
              * Menyatakan lulus asi eksklusif
-             * 
+             *
              */
             if ($asiEksklusif == 7) {
 
@@ -723,13 +717,13 @@ class FormatBAController extends Controller
 
             /**
              * Mengupdate data t bulan lalu
-             * 
+             *
              */
             $lastMountIsT = $thisMountIsT == "T" ? true : false;
 
             /**
              * Menggunakan updateOrCreate untuk menyimpan atau memperbarui data
-             * 
+             *
              */
             PenimbanganModel::updateOrCreate(
                 [
@@ -747,7 +741,7 @@ class FormatBAController extends Controller
         /**
          * Mengembalikan response setelah
          * melakukan penambahan data
-         * 
+         *
          */
         return response()->json(
             $pesan
@@ -758,14 +752,14 @@ class FormatBAController extends Controller
 
         /**
          * Memeriksa apakah berat bayi tersedia
-         * 
+         *
          */
         if (is_null($umurDataPertama) || $umurBayi <= $umurDataPertama) {
 
             /**
              * Menetapkan nilai ntob sebagai B jika bayi
              * baru pertama kali menimbang di posyandu
-             * 
+             *
              */
             return "B (Baru pertama kali menimbang)";
         } else if (empty($beratBadanBulanLalu)) {
@@ -773,27 +767,27 @@ class FormatBAController extends Controller
             /**
              * Mengembalikan O jika bulan lalu bayi
              * tidak melakukan penimbangan
-             * 
+             *
              */
             return "O (Tidak menimbang bulan lalu)";
         } else {
 
             /**
              * Mendapatkan pita berat bulan lalu
-             * 
+             *
              */
             $pitaBulanLalu = $this->getPitaBeratBadan($beratBadanBulanLalu, $dataWHOBulanLalu);
 
             /**
              * Mendapatkan pita berat bulan sekarang
-             * 
+             *
              */
             $pitaBulanIni = $this->getPitaBeratBadan($beratBadanSekarang, $dataWHO);
 
             /**
              * Membandingkan pita bulan ini dengan
              * pita bulan lalu
-             * 
+             *
              */
             if ($pitaBulanIni == 0) {
 
@@ -801,7 +795,7 @@ class FormatBAController extends Controller
                  * Mengembalikan response BGM karena bayi
                  * berada di pita paling bawah berat
                  * bayi berada di zona bahaya
-                 * 
+                 *
                  */
                 return "BGM (Bayi butuh penanganan khusus)";
             } else if ($beratBadanSekarang > $beratBadanBulanLalu && $pitaBulanIni >= $pitaBulanLalu) {
@@ -810,7 +804,7 @@ class FormatBAController extends Controller
                  * Kembalikan N1 Jika berat bayi masuk ke
                  * pita diatasnya dan berat badan lebih
                  * tinggi dari bulan lalu
-                 * 
+                 *
                  */
                 return "N" . ($pitaBulanIni > $pitaBulanLalu ? "1 (Naik, Masuk pita diatasnya)" : "2 (Naik, Tetap pada pita yang sama)");
             }
@@ -819,7 +813,7 @@ class FormatBAController extends Controller
         /**
          * Mengembalikan response T yang menandakan
          * bahwa berat bayi berada di zona waspada
-         * 
+         *
          */
         return "T" . ($beratBadanSekarang > $beratBadanBulanLalu ? "1 (Naik, Namun masuk ke pita bawahnya)" : ($beratBadanSekarang == $beratBadanBulanLalu ? "2 (Tetap, Tidak mengalami pertumbuah)" : "3 (Turun, Tumbuh negatif)"));
     }
@@ -827,7 +821,7 @@ class FormatBAController extends Controller
     {
         /**
          * Memeriksa berat bayi berada di pita mana
-         * 
+         *
          */
         if ($beratBadan > $dataWHO->sangat_gemuk) {
 
@@ -859,7 +853,7 @@ class FormatBAController extends Controller
     {
         /**
          * Memeriksa apakah request tab ada
-         * 
+         *
          */
         if (empty($request->tab)) {
             throw new HttpResponseException(response()->json([
@@ -871,7 +865,7 @@ class FormatBAController extends Controller
         /**
          * Mendapatkan tahun terkecil dan terbesar
          * yang ada di database
-         * 
+         *
          */
         $listTahunLahir = BayiModel::selectRaw('MIN(YEAR(tanggal_lahir) + FLOOR((MONTH(tanggal_lahir) + ' . $this->batasBulanStart[intval($request->tab) - 1] . ') / 12)) as min_tahun')
             ->selectRaw('MAX(YEAR(tanggal_lahir) + FLOOR((MONTH(tanggal_lahir) + ' . $this->batasBulanEnd[intval($request->tab) - 1] . ') / 12)) as max_tahun')
@@ -880,14 +874,14 @@ class FormatBAController extends Controller
         /**
          * Mendapatkan seluruh list tahun berdasarkan
          * range dari tahun terkecil dan terbesar
-         * 
+         *
          */
         $listTahunLahir = range($listTahunLahir->min_tahun, $listTahunLahir->max_tahun);
 
         /**
          * Mengembalikan response setelah
          * melakukan penambahan data
-         * 
+         *
          */
         return response()->json(
             $listTahunLahir,
@@ -898,7 +892,7 @@ class FormatBAController extends Controller
         /**
          * Melakukan map array pada hasil penimbangan
          * mengubah text menjadi kumpulan index
-         * 
+         *
          */
         $hasil = array_map(function ($item) {
             return array_search($item, $this->itemHasil);
@@ -907,14 +901,14 @@ class FormatBAController extends Controller
         /**
          * Menyatukan array hasil penimbangan
          * kedalam bentuk string
-         * 
+         *
          */
         $hasil = implode(', ', $hasil);
 
         /**
          * Melakukan map array pada pelayanan
          * text menjadi kumpulan index
-         * 
+         *
          */
         $pelayanan = array_map(function ($item) {
             return array_search($item, $this->itemPelayanan);
@@ -923,13 +917,13 @@ class FormatBAController extends Controller
         /**
          * Menyatukan array pelayanan
          * kedalam bentuk string
-         * 
+         *
          */
         $pelayanan = implode(', ', $pelayanan);
 
         /**
          * Melakukan pengubahan data bayi
-         * 
+         *
          */
         BayiModel::where('id', $request->id_bayi)
             ->update([
@@ -940,7 +934,7 @@ class FormatBAController extends Controller
         /**
          * Mengembalikan response setelah
          * melakukan penambahan data
-         * 
+         *
          */
         return response()->json([
             'success' => [
@@ -1207,7 +1201,7 @@ class FormatBAController extends Controller
 
         /**
          * Mengembalikan response sesuai request
-         * 
+         *
          */
         return response()->json(
             $result

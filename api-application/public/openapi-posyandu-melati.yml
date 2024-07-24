@@ -33,6 +33,8 @@ tags:
     description: Layanan remaja peduli stunting
   - name: Layanan Penjualan
     description: Layanan penjualan khusus posyandu
+  - name: Import excel
+    description: Fitur untuk mengimport data excel ke database
 paths:
   /login:
     post:
@@ -2746,8 +2748,7 @@ paths:
               schema:
                 type: array
                 items:
-                  example:
-                    "tag string"
+                  example: "tag string"
         400:
           description: BAD REQUEST
           content:
@@ -2762,3 +2763,30 @@ paths:
               example:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
+  /import/format-a:
+    post:
+      tags:
+        - Import excel
+      summary: MELAKUKAN import data bayi
+      requestBody:
+        description: File excel yang dikirim
+        required: true
+        content:
+          multipart/form-data:
+            example:
+              file: "file"
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              example:
+                success:
+                  message: "Data berhasil diimport"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              example:
+                errors:
+                  message: "Data ... tidak valid"
