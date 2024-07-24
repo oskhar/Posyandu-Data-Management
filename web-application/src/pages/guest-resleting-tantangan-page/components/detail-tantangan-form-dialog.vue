@@ -4,7 +4,7 @@ import { getErrorMessage } from '@/utils/get-error-message';
 import Swal from 'sweetalert2';
 import { computed, ref } from 'vue';
 import z from 'zod';
-import { sendSubmissionTantangan } from '../api/resliting-tantangan-page-api';
+import { sendSubmissionTantangan } from '../api/resleting-tantangan-page-api';
 
 
 const { activator, tantanganId } = defineProps({

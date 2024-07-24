@@ -27,8 +27,8 @@ const searchTantangan = async () => {
 	} catch (error) {
 		await Swal.fire({
 			icon: 'error',
-			title: 'Gagal mengambil data tantangan resliting!',
-			text: getErrorMessage(error, 'Gagal mengambil data tantangan resliting!'),
+			title: 'Gagal mengambil data tantangan resleting!',
+			text: getErrorMessage(error, 'Gagal mengambil data tantangan resleting!'),
 		})
 	} finally {
 		isSearching.value = false;

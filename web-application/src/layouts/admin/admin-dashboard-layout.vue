@@ -66,7 +66,7 @@
             to: '/admin/layanan/kader-gendong',
           },
           {
-            title: 'Resliting',
+            title: 'Resleting',
             to: '/admin/layanan/remaja-peduli-stunting/tantangan',
           },
           {

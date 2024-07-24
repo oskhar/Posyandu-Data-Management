@@ -1,7 +1,7 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { fetchDataDetailTantangan } from './api/resliting-tantangan-page-api';
+import { fetchDataDetailTantangan } from './api/resleting-tantangan-page-api';
 import Swal from 'sweetalert2';
 import { getErrorMessage } from '@/utils/get-error-message';
 import DetailTantanganFormDialog from './components/detail-tantangan-form-dialog.vue';

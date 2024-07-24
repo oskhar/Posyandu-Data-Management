@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import Swal from "sweetalert2";
-import { fetchTantanganPreviews } from "../api/resliting-landing-page-api";
+import { fetchTantanganPreviews } from "../api/resleting-landing-page-api";
 import { getErrorMessage } from "@/utils/get-error-message";
 import CardTantangan from "@/components/cards/card-tantangan.vue";
 
@@ -31,7 +31,7 @@ onMounted(async () => {
 		<VCol cols="12" md="9" class="mx-auto">
 			<VRow>
 				<VCol cols="12" md="9">
-					<h2 class="text-primary text-h5 text-lg-h4 font-weight-bold">Tantangan Resliting</h2>
+					<h2 class="text-primary text-h5 text-lg-h4 font-weight-bold">Tantangan Resleting</h2>
 					<p class="text-secondary text-subtitle-1">
 						Tantangan yang anda dapat ikuti, menangkan dan dapatkan hadiahnya!
 					</p>

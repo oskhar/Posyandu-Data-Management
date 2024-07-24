@@ -1,14 +1,14 @@
-<script setup lang="ts">
+<script setup>
 import { onMounted, ref, watch } from "vue";
 import { getErrorMessage } from "@/utils/get-error-message";
 import Swal from "sweetalert2";
 import debounce from "just-debounce";
 import CardTantangan from "@/components/cards/card-tantangan.vue";
-import { fetchDataFollowedTantangan } from "../../api/resliting-tantangan-page-api";
+import { fetchDataTantangan } from "../../api/resleting-tantangan-page-api";
 
 const isSearching = ref(true);
 const isInitialLoading = ref(true);
-const dataFollowedTantangan = ref([]);
+const dataTantangan = ref([]);
 const page = ref(1);
 const banyakPage = ref(0);
 const searchQuery = ref("");
@@ -17,44 +17,44 @@ const searchTantangan = async () => {
 	try {
 		isSearching.value = true;
 
-		const { data, links } = await fetchDataFollowedTantangan({
+		const { data, current_page, links } = await fetchDataTantangan({
 			page: page.value,
 			search: searchQuery.value,
 		});
 
-		dataFollowedTantangan.value = data;
-		banyakPage.value = links.length - 2;
+		dataTantangan.value = data;
+		banyakPage.value = links.length;
+		page.value = current_page;
 
 	} catch (error) {
 		await Swal.fire({
 			icon: "error",
-			title: "Terjadi kesalahan saat loading data tantangan yang diikuti!",
-			text: getErrorMessage(error, "Terjadi kesalahan saat loading data tantangan yang diikuti!"),
+			text: getErrorMessage(error, "Terjadi kesalahan saat loading data tantangan!"),
 			showCloseButton: true,
 		});
 	} finally {
 		isSearching.value = false;
 	}
-};
+}
 
-const debouncedSearchTantangan = debounce(searchTantangan, 350);
+const debouncedSearchTantangan = debounce(searchTantangan, 350)
 
 const changeSearchPage = newPage => {
 	page.value = newPage;
 	searchTantangan();
-};
+}
 
 onMounted(async () => {
-	await searchTantangan();
-	isInitialLoading.value = false;
+	await searchTantangan()
+	isInitialLoading.value = false
 });
 
-watch(searchQuery, debouncedSearchTantangan);
-watch(searchQuery, () => page.value = 1);
+watch(searchQuery, debouncedSearchTantangan)
+watch(searchQuery, () => page.value = 1)
 </script>
 
 <template>
-	<VTextField v-model="searchQuery" prepend-inner-icon="bx-search" label="Cari Tantangan Yang Diikuti" />
+	<VTextField v-model="searchQuery" prepend-inner-icon="bx-search" label="Cari Semua Tantangan" />
 
 	<VRow v-if="isSearching && isInitialLoading" class="mt-5">
 		<VCol v-for="i in 6" :key="i" cols="12" sm="6" lg="4">
@@ -68,11 +68,11 @@ watch(searchQuery, () => page.value = 1);
 		</VCol>
 	</VRow>
 	<VRow v-else class="mt-5">
-		<VCol v-for="(data) in dataFollowedTantangan" :key="data.id" cols="12" sm="6" md="4">
+		<VCol v-for="(data) in dataTantangan" :key="data.id" cols="12" sm="6" md="4">
 			<CardTantangan :data-tantangan="data" />
 		</VCol>
-		<VCol v-if="dataFollowedTantangan.length === 0" cols="12">
-			<p class="mt-5 text-secondary text-center">Belum ada tantangan yang diikuti...</p>
+		<VCol v-if="dataTantangan.length === 0" cols="12">
+			<p class="mt-5 text-secondary text-center">Belum ada tantangan...</p>
 		</VCol>
 	</VRow>
 
