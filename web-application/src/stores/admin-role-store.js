@@ -9,5 +9,11 @@ export const useAdminRoleStore = defineStore("admin-role", {
 		resetRole() {
 			this.currentRole = null
 		},
+		is(allowedRoles) {
+			return allowedRoles.includes(this.currentRole) 
+		},
+		isNot(exceptionRoles) {
+			return !exceptionRoles.includes(this.currentRole) 
+		},
 	},
 })
