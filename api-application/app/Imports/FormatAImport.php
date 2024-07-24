@@ -121,11 +121,11 @@ class FormatAImport implements ToCollection
                         // If no match by names, create a new parent record
                         $orangTua = OrangTuaModel::create([
                             'nama_ayah' => $data[0],
-                            'nik_ayah' => $data[1],
+                            'nik_ayah' => ltrim($data[1], "'"),
                             'nama_ibu' => $data[2],
-                            'nik_ibu' => $data[3],
+                            'nik_ibu' => ltrim($data[3], "'"),
                             'rt_rw' => $data[12],
-                            'no_telp' => $data[16],
+                            'no_telp' => ltrim($data[16], "'"),
                             'tempat_tinggal' => $data[17],
                             'tanggal_meninggal_ibu' => $tanggal_meninggal_ibu,
                         ]);
@@ -146,7 +146,7 @@ class FormatAImport implements ToCollection
                 $bayi = BayiModel::create([
                     'id_orang_tua' => $orangTua->id,
                     'nama' => $data[4],
-                    'nik' => $data[5],
+                    'nik' => ltrim($data[5], "'"),
                     'jenis_kelamin' => $data[6],
                     'memiliki_kms' => $data[13],
                     'memiliki_kia' => $data[14],
