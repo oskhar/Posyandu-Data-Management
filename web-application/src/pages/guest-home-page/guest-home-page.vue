@@ -2,7 +2,7 @@
 import Swal from "sweetalert2";
 import GallerySection from "./components/sections/gallery-section.vue";
 import HeroSection from "./components/sections/hero-section.vue";
-import StatsSection from "./components/sections/stats-section.vue";
+import LayananAndStats from "./components/sections/layanan-and-stats-section.vue";
 import { getFullImagePath } from "@/utils/get-full-image-path";
 import { onMounted, reactive, ref } from "vue";
 import { fetchDataPosyanduMelati, fetchJumlahBayi, fetchJumlahEvents, fetchJumlahEdukasi, fetchJumlahGambar } from "./api/guest-home-page-api";
@@ -42,7 +42,7 @@ onMounted(async () => {
   <main class="d-flex flex-column gap-10" style="margin-top: -30px;">
     <HeroSection :gambar-gedung="getFullImagePath(dataPosyanduMelati.gambar_gedung)" />
 
-    <StatsSection :stats-bayi="statsBayi" :stats-events="statsEvents" :stats-edukasi="statsEdukasi"
+    <LayananAndStats :stats-bayi="statsBayi" :stats-events="statsEvents" :stats-edukasi="statsEdukasi"
       :stats-gambar="statsGambar" />
 
     <PreviewEdukasiSection />

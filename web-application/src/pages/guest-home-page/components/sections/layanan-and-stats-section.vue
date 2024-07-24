@@ -10,7 +10,7 @@ const { statsEvents, statsEdukasi, statsBayi, statsGambar } = defineProps({
 <template>
 	<VRow tag="section" class="px-5">
 		<VCol cols=" 12" md="9" class="mx-auto text-center">
-			<h2 class="text-h5 font-weight-bold text-primary">Layanan Kami</h2>
+			<h2 class="text-h5 font-weight-bold text-primary">Layanan & Statistik</h2>
 			<p class="text-secondary text-subtitle-1">
 				Layanan dari SiDilan yang kami sediakan untuk anda
 			</p>

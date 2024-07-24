@@ -5,9 +5,11 @@ import { MENU_ITEMS, WA_POSYANDU } from "@/constants";
 import FooterGuest from "@/layouts/guest/footer-guest.vue";
 import { getWhatsappLink } from "@/utils/send-whatsapp";
 import { isUserLoggedIn, isAdminLoggedIn } from "@/utils/auth-token"
+import VerticalNavItems from "@/components/vertical-nav-items.vue";
 
 export default {
   components: {
+    VerticalNavItems,
     GuestUserProfile,
     AdminUserProfile,
     FooterGuest,
@@ -91,27 +93,7 @@ export default {
         <img src=" /logo.svg" />
       </VListItem>
 
-      <template v-for="(item, index) in menu" :key="index">
-        <VListItem v-if="item.childrens">
-          <VExpansionPanels>
-            <VExpansionPanel class="text-primary">
-              <VExpansionPanelTitle class="pa-0">{{ item.text }}</VExpansionPanelTitle>
-
-              <VExpansionPanelText class="list-item-accordion">
-                <VList class="text-primary">
-                  <VListItem v-for="(child) in item.childrens" :key="child.text" :to="child.route" exact>
-                    {{ child.text }}
-                  </VListItem>
-                </VList>
-              </VExpansionPanelText>
-
-            </VExpansionPanel>
-          </VExpansionPanels>
-        </VListItem>
-        <VListItem v-else class=" text-primary" :to="item.route" exact>
-          <VListItemContent>{{ item.text }}</VListItemContent>
-        </VListItem>
-      </template>
+      <VerticalNavItems :menu-items="menu" />
     </VList>
   </VNavigationDrawer>
 
@@ -146,9 +128,6 @@ export default {
   background-color: transparent !important;
 }
 
-.list-item-accordion>.v-expansion-panel-text__wrapper {
-  padding: 0;
-}
 
 .wa-help-button .v-icon {
   color: white !important;

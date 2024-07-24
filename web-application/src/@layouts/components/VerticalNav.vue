@@ -63,10 +63,7 @@ const handleNavScroll = evt => {
       <div class="vertical-nav-items-shadow" />
     </slot>
     <slot name="nav-items" :update-is-vertical-nav-scrolled="updateIsVerticalNavScrolled">
-      <PerfectScrollbar tag="ul" class="nav-items" :options="{ wheelPropagation: false }"
-        @ps-scroll-y="handleNavScroll">
-        <slot />
-      </PerfectScrollbar>
+      <slot />
     </slot>
 
     <slot name="after-nav-items" />
@@ -111,7 +108,7 @@ const handleNavScroll = evt => {
     // overflow-x: hidden;
 
     // // ℹ️ We used `overflow-y` instead of `overflow` to mitigate overflow x. Revert back if any issue found.
-    // overflow-y: auto;
+    overflow-y: auto;
   }
 
   .nav-item-title {
