@@ -42,14 +42,14 @@ export default {
 </script>
 
 <template>
-  <VAppBar :elevation="2">
+  <VAppBar :elevation="2" height="90">
     <VRow>
       <VCol cols="12" md="9" class="d-flex justify-space-between align-center px-5 mx-auto">
         <!-- Logo di sebelah pojok kiri -->
         <VAppBarNavIcon class="hide-md-and-up hamburger ma-0" @click="toggleDrawer"></VAppBarNavIcon>
 
         <RouterLink to="/" class="mr-4">
-          <img class="hidden-sm-and-down" src="/logo.svg" />
+          <img class="hidden-sm-and-down" style="width: 80px;" src="/logo.svg" />
         </RouterLink>
 
         <!-- Navigasi desktop -->
@@ -124,7 +124,9 @@ export default {
     </VTooltip>
   </a>
 
-  <RouterView />
+  <div style="margin-top: 120px;">
+    <RouterView />
+  </div>
 
   <FooterGuest />
 </template>

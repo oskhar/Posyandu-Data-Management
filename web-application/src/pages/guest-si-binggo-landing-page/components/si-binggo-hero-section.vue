@@ -1,6 +1,5 @@
 <template>
-	<VRow id="hero-section" style="scroll-margin-top: 60px;" tag="section"
-		class="mt-12 pt-16 pb-8 position-relative px-5">
+	<VRow id="hero-section" tag="section" class="py-8 position-relative px-5">
 		<VCol cols="12" md="9" class="mx-auto">
 			<VRow align="center" justify="space-between" class="gap-6">
 				<VCol cols="12" md="6">

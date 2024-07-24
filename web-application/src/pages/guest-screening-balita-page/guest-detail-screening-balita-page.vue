@@ -108,7 +108,7 @@ onMounted(fetchData);
 </script>
 
 <template>
-  <VRow tag="section" class="px-5 mb-4" style="margin-top: 90px;">
+  <VRow tag="section" class="px-5 mb-4">
     <VCol cols="12" md="9" class="mx-auto">
       <VRow>
         <VBtn prepend-icon="bx-left-arrow-alt" variant="text" to="/layanan/screening-balita" class="mb-4">

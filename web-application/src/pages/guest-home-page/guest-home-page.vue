@@ -39,7 +39,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main class="d-flex flex-column gap-10">
+  <main class="d-flex flex-column gap-10" style="margin-top: -30px;">
     <HeroSection :gambar-gedung="getFullImagePath(dataPosyanduMelati.gambar_gedung)" />
 
     <StatsSection :stats-bayi="statsBayi" :stats-events="statsEvents" :stats-edukasi="statsEdukasi"

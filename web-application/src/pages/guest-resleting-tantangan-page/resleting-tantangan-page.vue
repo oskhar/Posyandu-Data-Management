@@ -26,7 +26,7 @@ const filteredTabs = computed(() => {
 </script>
 
 <template>
-	<VRow tag="section" class="px-5 mb-4" style="margin-top: 90px;">
+	<VRow tag="section" class="px-5 mb-4">
 		<VCol cols="12" md="9" class="mx-auto">
 			<VBtn prepend-icon="bx-left-arrow-alt" variant="text" to="/layanan/remaja-peduli-stunting" class="mb-4">Kembali
 			</VBtn>

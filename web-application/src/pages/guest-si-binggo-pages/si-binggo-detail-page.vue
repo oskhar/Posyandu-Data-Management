@@ -64,7 +64,7 @@ onMounted(fetchData);
 
 
 <template>
-	<VRow tag="section" class="px-5 mb-4" style="margin-top: 70px;">
+	<VRow tag="section" class="px-5 mb-4">
 		<VCol cols="12" md="9" class="mx-auto">
 			<VBtn prepend-icon="bx-left-arrow-alt" variant="text" to="/layanan/si-binggo/produk/cari" class="mb-4">
 				Kembali

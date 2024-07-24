@@ -31,8 +31,8 @@ onMounted(fetchData)
 </script>
 
 <template>
-  <VRow style="margin-block: 70px;">
-    <VCol cols="11" md="9" lg="9" class="mx-auto mt-5">
+  <VRow>
+    <VCol cols="11" md="9" lg="9" class="mx-auto mb-8">
       <VCard>
         <VCardItem>
           <img class="mt-5" style="width: 100%; object-fit: cover" :src="imagePath + dataEvent.gambar" alt="" />

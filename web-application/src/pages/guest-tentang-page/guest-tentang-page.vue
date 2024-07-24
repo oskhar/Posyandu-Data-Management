@@ -31,19 +31,15 @@ onMounted(async () => {
 
 <template>
   <!-- Konten halaman -->
-  <main class="d-flex flex-column gap-10 mb-10">
-    <img style="
-        width: 100vw;
-        height: 550px;
-        object-fit: cover;
-        position: relative;
-        top: 0px;
-        filter: brightness(0.6);
-      " :src="getFullImagePath(dataPosyanduMelati.gambar_gedung)" alt="" />
-    <!-- Isi halaman utama Anda di sini -->
-    <div style="position: absolute; top: 200px; width: 100vw" class="text-center">
-      <h3 class="text-white text-h5">Tentang Kami</h3>
-      <h1 class="text-white text-h3">Posyandu Melati RW 9</h1>
+  <main class="d-flex flex-column gap-10 mb-10" style="margin-top: -30px;">
+    <div style="height:500px" class="position-relative d-flex align-center justify-space-between">
+      <VImg cover min-width="100%" class="position-absolute" height="500"
+        style="object-position:top; filter: brightness(0.6);" :src="getFullImagePath(dataPosyanduMelati.gambar_gedung)"
+        alt="" />
+      <div class="text-center position-relative w-100" style="z-index: 10">
+        <h3 class="text-white text-h5">Tentang Kami</h3>
+        <h1 class="text-white text-h3">Posyandu Melati RW 9</h1>
+      </div>
     </div>
 
     <SambutanSection :foto-profile-ketua="getFullImagePath(dataPosyanduMelati.foto_profile_ketua)"
