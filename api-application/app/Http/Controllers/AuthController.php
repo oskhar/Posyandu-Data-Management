@@ -19,21 +19,21 @@ class AuthController extends Controller
         /**
          * Melakukan pengecekan data apakah
          * data merupakan data yang valid
-         * 
+         *
          */
         $data = $request->validated();
 
         /**
          * Mengambil data programmer dari tabel
          * berdasarkan email yang diberikan
-         * 
+         *
          */
         $admin = AdminModel::where('email_admin', $data['email_admin'])
             ->first();
 
         /**
          * Memeriksa apakah data admin ditemukan
-         * 
+         *
          */
         if (empty($admin)) {
             throw new HttpResponseException(response()->json([
@@ -46,7 +46,7 @@ class AuthController extends Controller
         /**
          * Memeriksa apakah password yang
          * diberikan benar dan sesuai
-         * 
+         *
          */
         $passwordIsCorrect = Hash::check($request->password, $admin->password);
 
@@ -54,7 +54,7 @@ class AuthController extends Controller
          * Kembalikan unauthorize response jika
          * ada kesalahan pada email dan
          * password yang diberikan maka
-         * 
+         *
          */
         if (!$passwordIsCorrect) {
             throw new HttpResponseException(response()->json([
@@ -67,24 +67,31 @@ class AuthController extends Controller
         /**
          * Membuat token dan mendapatkan
          * token berupa string
-         * 
+         *
          */
         $token = $admin->createToken('personal_access_tokens', ['server:update'], null)->plainTextToken;
 
-        $admin = AdminModel::select('admin.id', 'jabatan.nama as nama_jabatan', 'admin.foto_profile', 'admin.nama_lengkap')
+        $admin = AdminModel::select(
+            'admin.id',
+            'jabatan.nama as nama_jabatan',
+            'admin.foto_profile',
+            'admin.nama_lengkap',
+            'admin.id_jabatan'
+        )
             ->join('jabatan', 'jabatan.id', 'admin.id_jabatan')
             ->where('email_admin', $data['email_admin'])
             ->first();
 
         /**
          * Kembalikan response yang sesuai
-         * 
+         *
          */
         return response()->json([
             'success' => [
                 'message' => 'Berhasil login'
             ],
             'id_admin' => $admin->id,
+            'id_jabatan' => $admin->id_jabatan,
             'foto_profile' => $admin->foto_profile,
             'nama_lengkap' => $admin->nama_lengkap,
             'jabatan' => $admin->nama_jabatan,
@@ -96,13 +103,13 @@ class AuthController extends Controller
     {
         /**
          * Hapus token dari database
-         * 
+         *
          */
         Auth::user()->currentAccessToken()->delete();
 
         /**
          * Kembalikan response yang sesuai
-         * 
+         *
          */
         return response()->json([
             'success' => [
@@ -115,13 +122,13 @@ class AuthController extends Controller
     {
         /**
          * Hapus token dari database
-         * 
+         *
          */
         $id_admin = Auth::user()->id;
 
         /**
          * Kembalikan response yang sesuai
-         * 
+         *
          */
         return response()->json([
             'id_admin' => $id_admin
@@ -132,14 +139,14 @@ class AuthController extends Controller
         /**
          * Melakukan pengecekan data apakah
          * data merupakan data yang valid
-         * 
+         *
          */
         $data = $request->validated();
 
         /**
          * Mengambil level dari user saat ini
          * user yang telah terauthentikasi
-         * 
+         *
          */
         $level_jabatan = AdminModel::select('jabatan.level')
             ->where('admin.id', Auth::user()->id)
@@ -148,7 +155,7 @@ class AuthController extends Controller
 
         /**
          * Memeriksa apakah dia diijikan dengan jabatannya
-         * 
+         *
          */
         if ($level_jabatan > 3) {
             throw new HttpResponseException(response()->json([
@@ -161,7 +168,7 @@ class AuthController extends Controller
         /**
          * Memeriksa apakah kedua password
          * baru adalah password yang sama
-         * 
+         *
          */
         if ($data['new_password'] != $data['confirm_password']) {
             throw new HttpResponseException(response()->json([
@@ -174,7 +181,7 @@ class AuthController extends Controller
         /**
          * Memeriksa apakah kedua password
          * baru adalah password yang sama
-         * 
+         *
          */
         if (strlen($data['new_password']) < 6) {
             throw new HttpResponseException(response()->json([
@@ -186,7 +193,7 @@ class AuthController extends Controller
 
         /**
          * Enkripsi data password
-         * 
+         *
          */
         AdminModel::where('id', $data['id_admin'])
             ->update([
@@ -195,7 +202,7 @@ class AuthController extends Controller
 
         /**
          * Mengembalikan response yang sesuai
-         * 
+         *
          */
         return response()->json([
             'success' => [
