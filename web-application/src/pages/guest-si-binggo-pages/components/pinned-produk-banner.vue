@@ -15,7 +15,7 @@ const activeWindow = ref(0);
 	<VWindow v-model="activeWindow" continuous show-arrows>
 		<VWindowItem v-for="dataProduk in listDataProduk" :key="dataProduk.id">
 			<VCard class="d-flex justify-start align-end position-relative" height="400px"
-				:to="`/layanan/si-kambing/produk/${dataProduk.id}`"
+				:to="`/layanan/si-binggo/produk/${dataProduk.id}`"
 				:style="`background-image: url(${getFullImagePath(dataProduk.gambar)}); background-size: cover; background-position: center; position: relative;`">
 				<div class="overlay" />
 
@@ -26,7 +26,7 @@ const activeWindow = ref(0);
 					</div>
 
 					<VBtn variant="elevated" color="primary" class="w-100 w-md-auto"
-						:to="`/layanan/si-kambing/produk/${dataProduk.id}`" append-icon="bx-right-arrow-alt">Lihat Produk</VBtn>
+						:to="`/layanan/si-binggo/produk/${dataProduk.id}`" append-icon="bx-right-arrow-alt">Lihat Produk</VBtn>
 				</div>
 			</VCard>
 		</VWindowItem>

@@ -1,6 +1,6 @@
 import { requireUserLogin } from "@/router/middlewares";
 import { guestResletingRoutes } from "./guest-resleting-routes";
-import { guestSiKambingRoutes } from "./guest-sikambing-routes";
+import { guestSiBinggoRoutes } from "./guest-sibinggo-routes";
 import { guestScreeningBalitaRoutes } from "./guest-screening-balita-routes";
 import { guestScreeningRemajaRoutes } from "./guest-screening-remaja-routes";
 import { updateGuestSiteTitle } from "@/router/middlewares/guest-middleware";
@@ -47,7 +47,7 @@ export const guestRoutes = {
 		},
 		{
 			path: "layanan",
-			children: [...guestResletingRoutes, ...guestSiKambingRoutes, ...guestScreeningBalitaRoutes, ...guestScreeningRemajaRoutes],
+			children: [...guestResletingRoutes, ...guestSiBinggoRoutes, ...guestScreeningBalitaRoutes, ...guestScreeningRemajaRoutes],
 		},
 	],
 }

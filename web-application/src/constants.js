@@ -9,7 +9,7 @@ export const MENU_ITEMS = [
 			{ text: "Screening Balita", route: "/layanan/screening-balita" },
 			{ text: "Screening Remaja", route: "/layanan/screening-remaja" },
 			{ text: "Resleting", route: "/layanan/remaja-peduli-stunting" },
-			{ text: "SiKambing", route: "/layanan/si-kambing" },
+			{ text: "SiBinggo", route: "/layanan/si-binggo" },
 		], 
 	},
 	{ text: "Edukasi", route: "/edukasi" },
@@ -32,7 +32,7 @@ export const FOOTER_MENU_ITEMS = [
 			{ text: "Screening Balita", route: "/layanan/screening-balita" },
 			{ text: "Screening Remaja", route: "/layanan/screening-remaja" },
 			{ text: "Resleting", route: "/layanan/remaja-peduli-stunting" },
-			{ text: "SiKambing", route: "/layanan/si-kambing" },
+			{ text: "SiBinggo", route: "/layanan/si-binggo" },
 		],
 	},
 ]

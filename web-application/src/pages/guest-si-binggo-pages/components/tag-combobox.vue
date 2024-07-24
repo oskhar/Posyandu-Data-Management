@@ -2,7 +2,7 @@
 import { getSwalErrorMessage } from "@/utils/get-error-message";
 import Swal from "sweetalert2";
 import { onMounted, ref, watch } from "vue";
-import { getTags } from "../api/si-kambing-pages-api";
+import { getTags } from "../api/si-binggo-pages-api";
 
 const emit = defineEmits(["change"]);
 

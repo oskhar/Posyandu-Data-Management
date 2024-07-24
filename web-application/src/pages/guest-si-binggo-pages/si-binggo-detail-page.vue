@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import { getErrorMessage } from '@/utils/get-error-message';
 import { getWhatsappLink } from '@/utils/send-whatsapp';
 import { rupiahFormatter } from '@/utils/rupiah-formatter';
-import { fetchDetailProduk } from './api/si-kambing-pages-api';
+import { fetchDetailProduk } from './api/si-binggo-pages-api';
 
 const route = useRoute();
 const isLoading = ref(true);
@@ -55,7 +55,7 @@ const whatsappLink = computed(() => {
 
 	return getWhatsappLink(
 		dataProduk.nomor_telepon,
-		`Halo admin, saya ingin membeli produk "${dataProduk.nama}"" dengan kuantitas ${amount.value} yang ada di website SiKambing.`,
+		`Halo admin, saya ingin membeli produk "${dataProduk.nama}"" dengan kuantitas ${amount.value} yang ada di website SiBinggo.`,
 	);
 })
 
@@ -66,7 +66,7 @@ onMounted(fetchData);
 <template>
 	<VRow tag="section" class="px-5 mb-4" style="margin-top: 70px;">
 		<VCol cols="12" md="9" class="mx-auto">
-			<VBtn prepend-icon="bx-left-arrow-alt" variant="text" to="/layanan/si-kambing/produk/cari" class="mb-4">
+			<VBtn prepend-icon="bx-left-arrow-alt" variant="text" to="/layanan/si-binggo/produk/cari" class="mb-4">
 				Kembali
 			</VBtn>
 

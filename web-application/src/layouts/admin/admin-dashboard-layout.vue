@@ -70,8 +70,8 @@
             to: '/admin/layanan/remaja-peduli-stunting/tantangan',
           },
           {
-            title: 'SiKambing',
-            to: '/admin/layanan/si-kambing',
+            title: 'SiBinggo',
+            to: '/admin/layanan/si-binggo',
           },
           {
             title: 'Screening',

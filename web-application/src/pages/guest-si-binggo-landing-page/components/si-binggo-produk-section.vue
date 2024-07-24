@@ -2,7 +2,7 @@
 import { onMounted, ref } from "vue";
 import Swal from "sweetalert2";
 import { getErrorMessage } from "@/utils/get-error-message";
-import { fetchProdukPreviews } from "../api/si-kambing-landing-page-api";
+import { fetchProdukPreviews } from "../api/si-binggo-landing-page-api";
 import CardProduk from "@/components/cards/card-produk.vue";
 
 const isLoading = ref(true);
@@ -37,7 +37,7 @@ onMounted(async () => {
 					</p>
 				</VCol>
 				<VCol cols="12" md="3" class="d-flex justify-end align-center">
-					<VBtn variant="tonal" prepend-icon="bx-paper-plane" to="/layanan/si-kambing/produk/cari">
+					<VBtn variant="tonal" prepend-icon="bx-paper-plane" to="/layanan/si-binggo/produk/cari">
 						Lihat Semua
 					</VBtn>
 				</VCol>

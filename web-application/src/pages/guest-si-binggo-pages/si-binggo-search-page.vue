@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref, watch } from "vue";
-import { fetchListProduk, getPinnedProduk } from "./api/si-kambing-pages-api";
+import { fetchListProduk, getPinnedProduk } from "./api/si-binggo-pages-api";
 import { getErrorMessage } from "@/utils/get-error-message";
 import Swal from "sweetalert2";
 import CardProduk from "@/components/cards/card-produk.vue";
@@ -115,7 +115,7 @@ watch(searchQuery, () => page.value = 1)
 					<CardProduk :data-produk="data" />
 				</VCol>
 				<VCol v-if="dataProduk.length === 0" cols="12">
-					<p class="mt-5 text-secondary text-center">Belum ada produk dari SiKambing...</p>
+					<p class="mt-5 text-secondary text-center">Belum ada produk dari SiBinggo...</p>
 				</VCol>
 			</VRow>
 

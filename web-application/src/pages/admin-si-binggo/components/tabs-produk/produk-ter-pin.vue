@@ -36,7 +36,7 @@ onMounted(searchListProduk)
 <template>
 	<VRow v-if="!isSearching">
 		<VCol v-for="(produk, index) in listProdukItems" :key="index" cols="12" sm="6" md="4">
-			<CardProduk :to="`/admin/layanan/si-kambing/produk/${produk.id}`" :data-produk="produk" />
+			<CardProduk :to="`/admin/layanan/si-binggo/produk/${produk.id}`" :data-produk="produk" />
 		</VCol>
 		<VCol v-if="listProdukItems.length === 0">
 			<p class="text-center">Belum ada produk atau tidak ada hasil yang sesuai.</p>

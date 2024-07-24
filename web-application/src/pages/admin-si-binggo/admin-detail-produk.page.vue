@@ -29,7 +29,7 @@ async function fetchData() {
 			showCloseButton: true,
 		});
 
-		router.push("/admin/layanan/si-kambing");
+		router.push("/admin/layanan/si-binggo");
 	} finally {
 		isLoading.value = false;
 	}
@@ -89,7 +89,7 @@ const handleDeleteProduk = async () => {
 				title: 'Berhasil menghapus produk',
 			});
 
-			router.push("/admin/layanan/si-kambing")
+			router.push("/admin/layanan/si-binggo")
 		}
 
 	} catch (error) {
@@ -106,7 +106,7 @@ onMounted(fetchData);
 </script>
 
 <template>
-	<VBtn prepend-icon="bx-left-arrow-alt" variant="text" to="/admin/layanan/si-kambing" class="mb-4">
+	<VBtn prepend-icon="bx-left-arrow-alt" variant="text" to="/admin/layanan/si-binggo" class="mb-4">
 		Kembali
 	</VBtn>
 

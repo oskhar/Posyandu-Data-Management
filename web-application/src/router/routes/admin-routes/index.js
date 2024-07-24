@@ -1,7 +1,7 @@
 import { updateAdminSiteTitle } from "@/router/middlewares/admin-middleware";
 import { requireAdminLogin } from "../../middlewares";
 import { adminResletingRoutes } from "./admin-resleting-routes";
-import { adminSiKambingRoutes } from "./admin-sikambing-routes";
+import { adminSiBinggoRoutes } from "./admin-sibinggo-routes";
 
 /** @type { import("vue-router").RouteRecordRaw } */
 export const adminRoutes = {
@@ -96,7 +96,7 @@ export const adminRoutes = {
       path: "layanan",
       children: [
         adminResletingRoutes,
-        ...adminSiKambingRoutes,
+        ...adminSiBinggoRoutes,
         {
           path: "kader-gendong",
           component: () =>
