@@ -177,17 +177,10 @@ class FormatBAExport implements FromCollection, WithHeadings, WithEvents, WithCu
         }
 
         /**
-         * Assigment query yang dimerge kedalam
-         * query yang akan dipanggil nantinya
-         *
-         */
-        $query = $mergedQuery;
-
-        /**
          * Mengambil data dari query yang sudah diolah
          *
          */
-        $results = $query->get();
+        $results = $mergedQuery->get();
 
         /**
          * Mengembalikan data format b untuk
