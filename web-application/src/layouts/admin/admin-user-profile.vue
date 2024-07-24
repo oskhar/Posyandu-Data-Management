@@ -3,9 +3,11 @@ import { useRouter } from "vue-router";
 import { clearAdminToken } from "@/utils/auth-token";
 import Swal from "sweetalert2";
 import { getSwalErrorMessage } from "@/utils/get-error-message";
+import { useAdminRoleStore } from "@/stores/admin-role-store";
 
 const router = useRouter()
 
+const adminRoleStore = useAdminRoleStore();
 const fotoProfile = localStorage.getItem("foto_profile");
 const namaLengkap = localStorage.getItem("nama_lengkap");
 const jabatan = localStorage.getItem("jabatan");
@@ -13,6 +15,7 @@ const jabatan = localStorage.getItem("jabatan");
 const logout = async () => {
   try {
     clearAdminToken()
+    adminRoleStore.resetRole();
   } catch (error) {
     await Swal.fire({
       icon: "error",

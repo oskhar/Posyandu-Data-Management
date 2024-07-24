@@ -1,21 +1,28 @@
-<script>
+<script setup>
 import VerticalNavLayout from "@layouts/components/VerticalNavLayout.vue"
 import UserProfile from "@/layouts/admin/admin-user-profile.vue"
 import VerticalNavItems from "@/components/vertical-nav-items.vue";
 import { ADMIN_DASHBOARD_MENU } from "@/constants/admin-constants";
+import { useAdminRoleStore } from "@/stores/admin-role-store";
+import { computed, watch } from "vue";
+import { clearAdminToken } from "@/utils/auth-token";
 
-export default {
-  components: {
-    VerticalNavLayout,
-    VerticalNavItems,
-    UserProfile,
-  },
-  data() {
-    return {
-      adminMenuItems: ADMIN_DASHBOARD_MENU,
-    }
-  },
-}
+const adminRoleStore = useAdminRoleStore();
+const router = useRouter();
+
+
+const activeNavigation = computed(() => {
+  return ADMIN_DASHBOARD_MENU.find(menu => {
+    return menu.id_jabatan === adminRoleStore.currentRole
+  });
+})
+
+watch(activeNavigation.value, () => {
+  if (!activeNavigation.value) {
+    clearAdminToken();
+    router.push("/login");
+  }
+})
 </script>
 
 
@@ -39,8 +46,8 @@ export default {
 
 
     <template #vertical-nav-content>
-      <VList>
-        <VerticalNavItems :menu-items="adminMenuItems[8].menu" />
+      <VList v-if="activeNavigation">
+        <VerticalNavItems :menu-items="activeNavigation.menu" />
       </VList>
     </template>
 
