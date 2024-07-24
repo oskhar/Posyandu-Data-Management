@@ -3,40 +3,16 @@ import { ref, computed, onMounted } from "vue";
 import VueApexCharts from "vue3-apexcharts";
 import Swal from "sweetalert2";
 import { getSwalErrorMessage } from "@/utils/get-error-message";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { api } from "@/lib/api";
 
+const router = useRouter();
 const route = useRoute();
 
 const pilihHasil = ref([]);
 
-const itemHasil = [
-  "HB-0 24 JAM",
-  "Vitamin",
-  "BCG",
-  "POLIO 1",
-  "POLIO 2",
-  "POLIO 3",
-  "POLIO 4",
-  "DPT-HB-HiB 1",
-  "DPT-HB-HiB 2",
-  "DPT-HB-HiB 3",
-  "DPT-HB-HiB 4",
-  "Inactivated Pollo Vaccine (IPV)",
-  "Campak Rubella",
-];
 
 const pilihPelayanan = ref([]);
-
-const itemPelayanan = [
-  "VIT A I",
-  "VIT A II",
-  "DPT-HB-HiB Lanjutan",
-  "Campak Rubella Lanjutan",
-  "Makanan Tambahan",
-  "ORALIT",
-];
-
 const isLoading = ref(false);
 const series = ref([]);
 
@@ -110,7 +86,6 @@ const fetchData = async () => {
     pilihPelayanan.value = response.data.pelayanan;
     series.value = response.data.series;
     dataEdit.value = response.data;
-    console.log("🚀 ~ fetchData ~ dataEdit.value:", dataEdit.value);
 
     for (let i = 0; i < dataEdit.value.length; i++) {
       isLoading.value[i] = false;
@@ -120,11 +95,10 @@ const fetchData = async () => {
     await Swal.fire({
       icon: "error",
       title: "Gagal mengambil data",
-      text: getSwalErrorMessage(error),
+      html: getSwalErrorMessage(error),
     });
 
-    window.location.href = "/admin/dashboard";
-
+    router.push("/layanan/screening-balita");
   }
 
 };
@@ -200,39 +174,39 @@ onMounted(fetchData);
                   <h4 class="my-5">{{ item.judul }}</h4>
                   <VRow>
                     <VCol cols="12" sm="12" md="6" lg="6">
-                      <VTextField v-model="dataEdit.penimbangan[index].berat_badan" type="number" label="Berat Badan"
+                      <VTextField v-model="dataEdit.penimbangan[index].berat_badan" label="Berat Badan"
                         placeholder="Masukkan Berat Badan" :rules="[
                           (input) => (input >= 0) || 'Berat badan tidak bisa negatif'
                         ]" readonly />
                     </VCol>
                     <VCol v-if="index <= 6" cols="12" sm="12" md="6" lg="6">
-                      <VSelect v-model="dataEdit.penimbangan[index].asi_eksklusif" label="Asi Eksklusif" readonly
+                      <VTextField v-model="dataEdit.penimbangan[index].asi_eksklusif" label="Asi Eksklusif" readonly
                         placeholder="Masukkan Asi Ekslusif" :items="['Ya', 'Tidak', 'Alpa']" />
                     </VCol>
                     <VCol cols="12" sm="12" md="6" lg="6">
-                      <VTextField v-model="dataEdit.penimbangan[index].lila" type="number" label="Lila"
-                        placeholder="Masukkan Lila" :rules="[
+                      <VTextField v-model="dataEdit.penimbangan[index].lila" label="Lila" placeholder="Masukkan Lila"
+                        :rules="[
                           (input) => (input >= 0) || 'Lila tidak bisa negatif'
                         ]" readonly />
                     </VCol>
                     <VCol cols="12" sm="12" md="6" lg="6">
-                      <VTextField v-model="dataEdit.penimbangan[index].lingkar_kepala" type="number"
-                        label="Lingkar Kepala" placeholder="Masukkan Lingkar Kepala" :rules="[
+                      <VTextField v-model="dataEdit.penimbangan[index].lingkar_kepala" label="Lingkar Kepala"
+                        placeholder="Masukkan Lingkar Kepala" :rules="[
                           (input) => (input >= 0) || 'Lingkar Kepala tidak bisa negatif'
                         ]" readonly />
                     </VCol>
                     <VCol cols="12" sm="12" md="6" lg="6">
-                      <VTextField v-model="dataEdit.penimbangan[index].tinggi_badan" type="number" label="Tinggi Badan"
+                      <VTextField v-model="dataEdit.penimbangan[index].tinggi_badan" label="Tinggi Badan"
                         placeholder="Masukkan Tinggi Badan" :rules="[
                           (input) => (input >= 0) || 'Tinggi badan tidak bisa negatif'
                         ]" readonly />
                     </VCol>
                     <VCol cols="12" sm="12" md="6" lg="6">
-                      <VSelect readonlyv-model="dataEdit.penimbangan[index].cara_ukur" label="Cara Ukur"
+                      <VTextField v-model="dataEdit.penimbangan[index].cara_ukur" readonly label="Cara Ukur"
                         placeholder="Cara ukur" :items="['Berdiri', 'Telentang']" />
                     </VCol>
                     <VCol v-if="index > 5" cols="12" sm="12" md="6" lg="6">
-                      <VCheckbox v-model="dataEdit.penimbangan[index].vit_a" label="Mendapatkan Vitamin A" />
+                      <VCheckbox v-model="dataEdit.penimbangan[index].vit_a" readonly label="Mendapatkan Vitamin A" />
                     </VCol>
                   </VRow>
                 </VCol>
