@@ -8,6 +8,7 @@ use App\Models\OrangTuaModel;
 use Carbon\Carbon;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Illuminate\Support\Facades\Log;
 
@@ -28,6 +29,9 @@ class FormatAImport implements ToCollection
             'd M Y',
             'd m y',
             'd M y',
+            'Y-m-d',
+            'Y/m/d',
+            'Y m d',
         ];
 
         foreach ($formats as $format) {
@@ -37,6 +41,9 @@ class FormatAImport implements ToCollection
                 // Continue trying next format
             }
         }
+
+        // Log the problematic date string
+        Log::error('Invalid date format for date string: ' . $dateString);
 
         throw new \Exception('Invalid date format');
     }
@@ -84,6 +91,7 @@ class FormatAImport implements ToCollection
 
                 // Create a new baby record
                 $bayi = BayiModel::create([
+                    'id_orang_tua' => $orangTua->id,
                     'nama' => $data[4],
                     'jenis_kelamin' => $data[5],
                     'tanggal_lahir' => $tanggal_lahir,
@@ -92,7 +100,7 @@ class FormatAImport implements ToCollection
 
                 // Create a new FormatA record
                 FormatAModel::create([
-                    'id_orang' => $orangTua->id,
+                    'id_admin' => Auth::user()->id,
                     'id_bayi' => $bayi->id,
                     'keterangan' => $data[9]
                 ]);
