@@ -26,7 +26,7 @@ class ProdukController extends Controller
             "harga",
             "gambar",
             "produk.created_at"
-        );
+        )->where("sedang_dijual", true);
 
         if (!empty($data["tags"])) {
             $tags = $data["tags"];
@@ -314,6 +314,7 @@ class ProdukController extends Controller
                 "gambar",
                 "produk.created_at",
             )->where("pin", true)
+                ->where("sedang_dijual", true)
                 ->get()
                 ->map(function ($item) {
                     $item["tags"] = TagModel::select("tag")->join("produk_tag", "produk_tag.tag_id", "tag.id")

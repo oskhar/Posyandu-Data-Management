@@ -20,7 +20,7 @@ const logout = async () => {
       html: getSwalErrorMessage(error),
     })
   } finally {
-    router.push("/");
+    router.push("/login");
   }
 };
 </script>

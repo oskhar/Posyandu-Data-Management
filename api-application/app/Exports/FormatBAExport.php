@@ -27,7 +27,7 @@ class FormatBAExport implements FromCollection, WithHeadings, WithEvents, WithCu
     {
         /**
          * Menyusun baris judul Anda
-         * 
+         *
          */
         return [
             'Nama Bayi',
@@ -83,17 +83,10 @@ class FormatBAExport implements FromCollection, WithHeadings, WithEvents, WithCu
      */
     public function collection()
     {
-        /**
-         * Menyiapkan label bulan
-         * 
-         */
+        // Label bulan
         $bulanLabels = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
-        /**
-         * Membuat query yang akan dijadikan query utama
-         * nantinya untuk dilakukan filtering data
-         * 
-         */
+        // Query utama untuk mengambil data bayi dan penimbangannya
         $query = BayiModel::select(
             'bayi.nama',
             'bayi.jenis_kelamin',
@@ -103,57 +96,43 @@ class FormatBAExport implements FromCollection, WithHeadings, WithEvents, WithCu
             'orang_tua.nama_ayah',
             'orang_tua.rt_rw',
             'bayi.memiliki_kms',
-            'bayi.memiliki_kia',
-        )->join('orang_tua', 'orang_tua.id', 'bayi.id_orang_tua')
-            ->join('penimbangan', 'penimbangan.id_bayi', 'bayi.id')
-            ->join('standar_deviasi', 'standar_deviasi.id', 'penimbangan.id_standar_deviasi')
-            ->where('penimbangan.tahun_penimbangan', $this->tahunDipilih)
-            ->whereRaw('standar_deviasi.umur_bulan BETWEEN ' . $this->batasBulanStart[$this->tabDipilih - 1] . ' AND ' . $this->batasBulanEnd[$this->tabDipilih - 1])
-            ->whereNull('bayi.tanggal_meninggal');
+            'bayi.memiliki_kia'
+        )
+            ->leftJoin('orang_tua', 'orang_tua.id', '=', 'bayi.id_orang_tua')
+            ->leftJoin('penimbangan', function ($join) {
+                $join->on('penimbangan.id_bayi', '=', 'bayi.id')
+                    ->where('penimbangan.tahun_penimbangan', $this->tahunDipilih);
+            })
+            ->leftJoin('standar_deviasi', 'standar_deviasi.id', '=', 'penimbangan.id_standar_deviasi')
+            ->whereNull('bayi.tanggal_meninggal')
+            ->whereRaw('FLOOR(DATEDIFF(NOW(), bayi.tanggal_lahir) / 30.4375) BETWEEN ' . $this->batasBulanStart[$this->tabDipilih - 1] . ' AND ' . $this->batasBulanEnd[$this->tabDipilih - 1])
+            ->groupBy(
+                'bayi.nama',
+                'bayi.jenis_kelamin',
+                'bayi.tanggal_lahir',
+                'bayi.berat_lahir',
+                'orang_tua.nama_ibu',
+                'orang_tua.nama_ayah',
+                'orang_tua.rt_rw',
+                'bayi.memiliki_kms',
+                'bayi.memiliki_kia'
+            );
 
-        /**
-         * Membuat case statment untuk dikumpulkan
-         * dan dieksekusi bersamaan nantinya
-         * 
-         */
+        // Case statements untuk setiap bulan
         $caseStatements = [];
-
-        /**
-         * Melakukan perulangan sebanyak jumlah bulan yang ada
-         * 
-         */
         foreach ($bulanLabels as $index => $bulan) {
             $caseStatements[] = "MAX(CASE WHEN penimbangan.bulan_penimbangan = " . ($index + 1) . " THEN standar_deviasi.umur_bulan ELSE '-' END) as 'Umur - " . $bulan . "'";
             $caseStatements[] = "MAX(CASE WHEN penimbangan.bulan_penimbangan = " . ($index + 1) . " THEN penimbangan.berat_badan ELSE '-' END) as 'Berat - " . $bulan . "'";
             $caseStatements[] = "MAX(CASE WHEN penimbangan.bulan_penimbangan = " . ($index + 1) . " THEN penimbangan.ntob ELSE '-' END) as 'N/T/O/B - " . $bulan . "'";
         }
 
-        /**
-         * Melakukan grouping data agar bisa benar benar selaras
-         * 
-         */
-        $query->selectRaw(implode(',', $caseStatements))
-            ->groupBy('bayi.nama')
-            ->groupBy('bayi.jenis_kelamin')
-            ->groupBy('bayi.tanggal_lahir')
-            ->groupBy('bayi.berat_lahir')
-            ->groupBy('orang_tua.nama_ibu')
-            ->groupBy('orang_tua.nama_ayah')
-            ->groupBy('orang_tua.rt_rw')
-            ->groupBy('bayi.memiliki_kms')
-            ->groupBy('bayi.memiliki_kia');
+        // Menambahkan case statements ke dalam query
+        $query->selectRaw(implode(',', $caseStatements));
 
-        /**
-         * Mengambil data dari query yang sudah diolah
-         * 
-         */
+        // Mengambil data hasil query
         $results = $query->get();
 
-        /**
-         * Mengembalikan data format b untuk
-         * dicetak sebagai file excel
-         * 
-         */
+        // Mengembalikan data untuk dicetak sebagai file excel
         return $results;
     }
 
@@ -221,7 +200,7 @@ class FormatBAExport implements FromCollection, WithHeadings, WithEvents, WithCu
         /**
          * Mengatur "wrap text" atau "teks berjalan
          * otomatis" untuk kolom yang membutuhkan
-         * 
+         *
          */
         $sheet->getColumnDimension('A')->setWidth(26);
         $sheet->getColumnDimension('B')->setWidth(3);

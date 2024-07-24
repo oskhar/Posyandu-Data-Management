@@ -23,11 +23,13 @@ class FormatAExport implements FromCollection, WithHeadings, WithEvents, WithCus
     {
         /**
          * Menyusun baris judul Anda
-         * 
+         *
          */
         return [
             'Nama Ayah',
+            'NIK Ayah',
             'Nama Ibu',
+            'NIK Ibu',
             'Nama Bayi',
             'L/P',
             'Tanggal Lahir',
@@ -45,11 +47,13 @@ class FormatAExport implements FromCollection, WithHeadings, WithEvents, WithCus
         /**
          * Membuat query dasar yang akan
          * dijadikan query utama
-         * 
+         *
          */
         $query = FormatAModel::select(
             'orang_tua.nama_ayah',
+            'orang_tua.nik_ayah',
             'orang_tua.nama_ibu',
+            'orang_tua.nik_ibu',
             'bayi.nama as nama_bayi',
             'bayi.jenis_kelamin',
             'bayi.tanggal_lahir',
@@ -64,7 +68,7 @@ class FormatAExport implements FromCollection, WithHeadings, WithEvents, WithCus
         /**
          * Memeriksa apakah user meminta
          * data berdasarkan tahun
-         * 
+         *
          */
         if (!empty($this->tahun)) {
             $query = $query->whereYear('bayi.tanggal_lahir', '=', $this->tahun);
@@ -72,14 +76,14 @@ class FormatAExport implements FromCollection, WithHeadings, WithEvents, WithCus
 
         /**
          * Mengambil data dari query
-         * 
+         *
          */
         $formatA = $query->get();
 
         /**
          * Mengembalikan data format a untuk
          * dicetak sebagai file excel
-         * 
+         *
          */
         return $formatA;
     }
@@ -103,17 +107,19 @@ class FormatAExport implements FromCollection, WithHeadings, WithEvents, WithCus
         /**
          * Mengatur "wrap text" atau "teks berjalan
          * otomatis" untuk kolom yang membutuhkan
-         * 
+         *
          */
         $sheet->getStyle(1)->getAlignment()->setWrapText(true);
         $sheet->getColumnDimension('A')->setWidth(26);
         $sheet->getColumnDimension('B')->setWidth(26);
         $sheet->getColumnDimension('C')->setWidth(26);
-        $sheet->getColumnDimension('D')->setWidth(3);
-        $sheet->getColumnDimension('E')->setWidth(15);
-        $sheet->getColumnDimension('F')->setWidth(20);
-        $sheet->getColumnDimension('G')->setWidth(20);
-        $sheet->getColumnDimension('H')->setWidth(50);
+        $sheet->getColumnDimension('D')->setWidth(26);
+        $sheet->getColumnDimension('E')->setWidth(26);
+        $sheet->getColumnDimension('F')->setWidth(3);
+        $sheet->getColumnDimension('G')->setWidth(15);
+        $sheet->getColumnDimension('H')->setWidth(20);
+        $sheet->getColumnDimension('I')->setWidth(20);
+        $sheet->getColumnDimension('J')->setWidth(50);
         return [
             1 => ['font' => ['bold' => true]],
             4 => ['font' => ['bold' => true]],

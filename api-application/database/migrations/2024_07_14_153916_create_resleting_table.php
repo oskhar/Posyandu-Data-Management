@@ -49,6 +49,7 @@ return new class extends Migration {
             $table->unsignedBigInteger("admin_id");
             $table->text("feedback")->nullable();
             $table->integer("peringkat");
+            $table->integer('poin')->default(0);
             $table->timestamps();
 
             $table->foreign("submission_id")->references("id")->on("submission")->onDelete("cascade");
