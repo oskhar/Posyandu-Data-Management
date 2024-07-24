@@ -150,7 +150,7 @@ onMounted(fetchData);
                     Tanggal Lahir:
                     <span class="float-right">{{
                       dataEdit.bayi.tanggal_lahir
-                    }}</span>
+                      }}</span>
                   </p>
                   <hr class="text-primary mb-5" style="border-style: dashed;opacity: 0.5;">
                   <p class="mb-4">
@@ -174,36 +174,28 @@ onMounted(fetchData);
                   <h4 class="my-5">{{ item.judul }}</h4>
                   <VRow>
                     <VCol cols="12" sm="12" md="6" lg="6">
-                      <VTextField v-model="dataEdit.penimbangan[index].berat_badan" label="Berat Badan"
-                        placeholder="Masukkan Berat Badan" :rules="[
-                          (input) => (input >= 0) || 'Berat badan tidak bisa negatif'
-                        ]" readonly />
-                    </VCol>
-                    <VCol v-if="index <= 6" cols="12" sm="12" md="6" lg="6">
-                      <VTextField v-model="dataEdit.penimbangan[index].asi_eksklusif" label="Asi Eksklusif" readonly
-                        placeholder="Masukkan Asi Ekslusif" :items="['Ya', 'Tidak', 'Alpa']" />
+                      <VTextField v-model="dataEdit.penimbangan[index].berat_badan" label="Berat Badan" :rules="[
+                        (input) => (input >= 0) || 'Berat badan tidak bisa negatif'
+                      ]" readonly />
                     </VCol>
                     <VCol cols="12" sm="12" md="6" lg="6">
-                      <VTextField v-model="dataEdit.penimbangan[index].lila" label="Lila" placeholder="Masukkan Lila"
-                        :rules="[
-                          (input) => (input >= 0) || 'Lila tidak bisa negatif'
-                        ]" readonly />
+                      <VTextField v-model="dataEdit.penimbangan[index].lila" label="Lila" :rules="[
+                        (input) => (input >= 0) || 'Lila tidak bisa negatif'
+                      ]" readonly />
                     </VCol>
                     <VCol cols="12" sm="12" md="6" lg="6">
-                      <VTextField v-model="dataEdit.penimbangan[index].lingkar_kepala" label="Lingkar Kepala"
-                        placeholder="Masukkan Lingkar Kepala" :rules="[
-                          (input) => (input >= 0) || 'Lingkar Kepala tidak bisa negatif'
-                        ]" readonly />
+                      <VTextField v-model="dataEdit.penimbangan[index].lingkar_kepala" label="Lingkar Kepala" :rules="[
+                        (input) => (input >= 0) || 'Lingkar Kepala tidak bisa negatif'
+                      ]" readonly />
                     </VCol>
                     <VCol cols="12" sm="12" md="6" lg="6">
-                      <VTextField v-model="dataEdit.penimbangan[index].tinggi_badan" label="Tinggi Badan"
-                        placeholder="Masukkan Tinggi Badan" :rules="[
-                          (input) => (input >= 0) || 'Tinggi badan tidak bisa negatif'
-                        ]" readonly />
+                      <VTextField v-model="dataEdit.penimbangan[index].tinggi_badan" label="Tinggi Badan" :rules="[
+                        (input) => (input >= 0) || 'Tinggi badan tidak bisa negatif'
+                      ]" readonly />
                     </VCol>
-                    <VCol cols="12" sm="12" md="6" lg="6">
+                    <VCol cols="12">
                       <VTextField v-model="dataEdit.penimbangan[index].cara_ukur" readonly label="Cara Ukur"
-                        placeholder="Cara ukur" :items="['Berdiri', 'Telentang']" />
+                        :items="['Berdiri', 'Telentang']" />
                     </VCol>
                     <VCol v-if="index > 5" cols="12" sm="12" md="6" lg="6">
                       <VCheckbox v-model="dataEdit.penimbangan[index].vit_a" readonly label="Mendapatkan Vitamin A" />

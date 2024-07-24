@@ -109,7 +109,6 @@ watch(dataSearch, debouncedFetchData);
                 <th>Bulan</th>
                 <th>Kelamin</th>
                 <th>Berat Badan</th>
-                <th>Asi Eksklusif</th>
                 <th>N/T/O/B & BGM</th>
                 <th style="width: 220px">Detail</th>
               </tr>
@@ -132,10 +131,6 @@ watch(dataSearch, debouncedFetchData);
                 </td>
                 <td class="text-center">
                   <p v-if="item.berat_badan">{{ item.berat_badan }}</p>
-                  <p v-else> - </p>
-                </td>
-                <td class="text-center">
-                  <p v-if="item.asi_eksklusif">{{ item.asi_eksklusif }}</p>
                   <p v-else> - </p>
                 </td>
                 <td class="text-center">
