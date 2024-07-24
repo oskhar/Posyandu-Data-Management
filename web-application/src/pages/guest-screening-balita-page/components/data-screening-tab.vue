@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { api } from '@/lib/api';
-import { createDownloadFromBlob } from '@/utils/file';
 import { getSwalErrorMessage } from '@/utils/get-error-message';
 import debounce from 'just-debounce';
 import Swal from 'sweetalert2';
@@ -20,6 +19,7 @@ const kota = ref("");
 const jumlahData = ref(0);
 const tahun = ref(new Date().getFullYear());
 const listTahunLahir = ref([new Date().getFullYear()]);
+const isInitialLoading = ref(true);
 const isLoading = ref(false);
 
 const fetchData = async () => {
@@ -51,6 +51,8 @@ const fetchData = async () => {
       title: "Gagal mengambil data screening balita",
       html: getSwalErrorMessage(error, "Gagal mengambil data screening balita!"),
     });
+  } finally {
+    isInitialLoading.value = false;
   }
 
 };
@@ -78,13 +80,13 @@ watch(dataSearch, debouncedFetchData);
   <VRow>
     <VCol cols="12">
       <VCard>
-        <VSkeletonLoader v-if="isLoading" type="heading, subtitle" />
+        <VSkeletonLoader v-if="isLoading && isInitialLoading" type="heading, subtitle" />
         <VCardItem v-else>
           <h2>{{ judulFormatBA }}</h2>
           <h3 class="text-secondary mt-5">{{ namaPosyandu }} - {{ kota }}</h3>
         </VCardItem>
         <VCardItem>
-          <VSkeletonLoader v-if="isLoading" type="heading" />
+          <VSkeletonLoader v-if="isLoading && isInitialLoading" type="heading" />
           <VSelect v-else v-model="tahun" :items="listTahunLahir" />
         </VCardItem>
       </VCard>
@@ -93,8 +95,7 @@ watch(dataSearch, debouncedFetchData);
     <VCol cols="12">
       <VCard>
         <VCardItem>
-          <VSkeletonLoader v-if="isLoading" type="heading" />
-          <VTextField v-else v-model="dataSearch" label="Cari Data Screening Balita" prepend-inner-icon="bx-search"
+          <VTextField v-model="dataSearch" label="Cari Data Screening Balita" prepend-inner-icon="bx-search"
             class="mt-2">
           </VTextField>
 
