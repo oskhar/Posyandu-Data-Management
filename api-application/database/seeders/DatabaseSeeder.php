@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             BeratUmurSeeder::class,
             EdukasiSeeder::class,
             BeritaSeeder::class,
-            FormatASeeder::class,
+                // FormatASeeder::class,
             WilayahSeeder::class,
             ProdukSeeder::class,
             UserSeeder::class,
