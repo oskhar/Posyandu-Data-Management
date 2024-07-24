@@ -19,12 +19,12 @@ async function fetchData() {
 		dataTantangan.value = await fetchDataDetailTantangan(idTantangan);
 	} catch (error) {
 		errorToast({ text: getErrorMessage(error) })
-		router.push('/layanan/remaja-peduli-stunting/tantangan')
+		router.push('/layanan/resleting/tantangan')
 	} finally {
 		isLoading.value = false;
 		if (dataTantangan.value.judul === undefined) {
 			errorToast({ text: "Postingan tantangan gagal diambil!" })
-			router.push('/layanan/remaja-peduli-stunting/tantangan')
+			router.push('/layanan/resleting/tantangan')
 		}
 
 	}
@@ -38,7 +38,7 @@ onMounted(fetchData);
 	<VRow tag="section" class="px-5 mb-4">
 
 		<VCol cols="12" md="9" class="mx-auto">
-			<VBtn prepend-icon="bx-left-arrow-alt" variant="text" to="/layanan/remaja-peduli-stunting/tantangan" class="mb-4">
+			<VBtn prepend-icon="bx-left-arrow-alt" variant="text" to="/layanan/resleting/tantangan" class="mb-4">
 				Kembali
 			</VBtn>
 

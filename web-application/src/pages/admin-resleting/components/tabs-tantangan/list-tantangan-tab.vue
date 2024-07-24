@@ -56,8 +56,7 @@ watch(tantanganSearch, () => page.value = 1)
 
 	<VRow v-if="!isSearching">
 		<VCol v-for="(tantangan, index) in listTantangan" :key="index" cols="12" sm="6" md="4">
-			<CardTantangan :to="`/admin/layanan/remaja-peduli-stunting/tantangan/${tantangan.id}`"
-				:data-tantangan="tantangan" />
+			<CardTantangan :to="`/admin/layanan/resleting/tantangan/${tantangan.id}`" :data-tantangan="tantangan" />
 		</VCol>
 		<VCol v-if="listTantangan.length === 0">
 			<p class="text-center">Belum ada tantangan atau tidak ada hasil yang sesuai.</p>

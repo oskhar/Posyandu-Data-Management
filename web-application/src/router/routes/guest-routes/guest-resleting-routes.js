@@ -3,17 +3,17 @@ import { updateResletingSiteTitle, updateTantanganResletingSiteTitle } from "@/r
 /** @type { import("vue-router").RouteRecordRaw[] } */
 export const guestResletingRoutes = [
 	{ 
-		path: "remaja-peduli-stunting", 
+		path: "resleting", 
 		beforeEnter: updateResletingSiteTitle,
 		component: () => import("../../../pages/guest-resleting-landing-page/resleting-landing-page.vue"), 	
 	},
 	{
-		path: "remaja-peduli-stunting/tantangan",
+		path: "resleting/tantangan",
 		beforeEnter: updateTantanganResletingSiteTitle,
 		component: () => import("../../../pages/guest-resleting-tantangan-page/resleting-tantangan-page.vue"),
 	},
 	{
-		path: "remaja-peduli-stunting/tantangan/:id",
+		path: "resleting/tantangan/:id",
 		beforeEnter: updateTantanganResletingSiteTitle,
 		component: () => import("../../../pages/guest-resleting-tantangan-page/detail-resleting-tantangan-page.vue"),
 	},

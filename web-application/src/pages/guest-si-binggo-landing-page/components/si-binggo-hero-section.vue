@@ -5,7 +5,7 @@
 				<VCol cols="12" md="6">
 					<div class="d-flex gap-4 mb-4 align-center">
 						<img style="width: 70px;" src="/sibingo.webp" alt="Gambar hero produk" />
-						<p style="color: #ff7e11;" class="text-h4 text-md-h3 font-weight-bold ma-0">
+						<p class="text-h4 text-si-binggo text-md-h3 font-weight-bold ma-0">
 							SiBinggo
 						</p>
 					</div>

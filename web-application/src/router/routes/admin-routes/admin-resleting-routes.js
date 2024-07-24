@@ -1,6 +1,6 @@
 /** @type { import("vue-router").RouteRecordRaw } */
 export const adminResletingRoutes = {
-	path: "remaja-peduli-stunting",
+	path: "resleting",
 	children: [
 		{
 			path: "tantangan",

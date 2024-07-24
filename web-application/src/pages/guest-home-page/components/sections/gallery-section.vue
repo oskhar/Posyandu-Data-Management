@@ -2,7 +2,7 @@
 import { onMounted, ref } from "vue";
 import { fetchGallery } from "../../api/guest-home-page-api";
 import Swal from "sweetalert2";
-import { getErrorMessage } from "@/utils/get-error-message";
+import { getSwalErrorMessage } from "@/utils/get-error-message";
 import CardGallery from "@/components/cards/card-gallery.vue";
 
 const isLoading = ref(true);
@@ -23,7 +23,7 @@ const fetchPictures = async () => {
 	} catch (error) {
 		await Swal.fire({
 			icon: "error",
-			text: getErrorMessage(error, "Terjadi kesalahan saat loading data gallery!"),
+			html: getSwalErrorMessage(error, "Terjadi kesalahan saat loading data gallery!"),
 			showCloseButton: true,
 		});
 	} finally {

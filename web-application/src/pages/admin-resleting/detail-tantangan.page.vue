@@ -24,8 +24,7 @@ const activeTab = ref(tabs[0].tab);
 </script>
 
 <template>
-	<VBtn prepend-icon="bx-left-arrow-alt" variant="text" to="/admin/layanan/remaja-peduli-stunting/tantangan"
-		class="mb-4">
+	<VBtn prepend-icon="bx-left-arrow-alt" variant="text" to="/admin/layanan/resleting/tantangan" class="mb-4">
 		Kembali
 	</VBtn>
 

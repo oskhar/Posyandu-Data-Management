@@ -36,7 +36,7 @@ const fetchData = async () => {
 			showCloseButton: true,
 		});
 
-		router.push("/admin/layanan/remaja-peduli-stunting/tantangan")
+		router.push("/admin/layanan/resleting/tantangan")
 	} finally {
 		isLoading.value = false
 	}
@@ -105,7 +105,7 @@ const handleDeleteTantangan = async () => {
 				title: 'Berhasil menghapus tantangan',
 			});
 
-			router.push("/admin/layanan/remaja-peduli-stunting/tantangan")
+			router.push("/admin/layanan/resleting/tantangan")
 		}
 
 	} catch (error) {

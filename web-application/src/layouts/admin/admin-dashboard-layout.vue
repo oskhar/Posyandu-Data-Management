@@ -67,7 +67,7 @@
           },
           {
             title: 'Resleting',
-            to: '/admin/layanan/remaja-peduli-stunting/tantangan',
+            to: '/admin/layanan/resleting/tantangan',
           },
           {
             title: 'SiBinggo',

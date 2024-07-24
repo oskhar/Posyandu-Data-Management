@@ -8,7 +8,7 @@ const { dataTantangan, to } = defineProps({
 </script>
 
 <template>
-	<VCard :to="to || `/layanan/remaja-peduli-stunting/tantangan/${dataTantangan.id}`">
+	<VCard :to="to || `/layanan/resleting/tantangan/${dataTantangan.id}`">
 		<VImg :src="dataTantangan.gambar" cover style="height: 200px">
 			<h2 v-if="dataTantangan.gambar === getFullImagePath(null)" class="text-center text-secondary">
 				Tidak Ada Foto

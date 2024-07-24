@@ -6,6 +6,7 @@ const theme = {
     light: {
       dark: false,
       colors: {
+        'si-binggo': "#FF7E11",
         'primary': '#696CFF',
         'primary-faded': '#B0B2FF',
         'on-primary': '#fff',
@@ -55,6 +56,7 @@ const theme = {
     dark: {
       dark: true,
       colors: {
+        'si-binggo': "#FF7E11",
         'primary': '#696CFF',
         'on-primary': '#fff',
         'secondary': '#8592A3',
