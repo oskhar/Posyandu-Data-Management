@@ -14,12 +14,12 @@ class JabatanSeeder extends Seeder
     {
         //
         \DB::table('jabatan')->insert([
-            'nama' => 'PELINDUNG',
+            'nama' => 'PENANGGUNG JAWAB',
             'level' => '1'
         ]);
 
         \DB::table('jabatan')->insert([
-            'nama' => 'PENANGGUNG JAWAB',
+            'nama' => 'KETUA',
             'level' => '2'
         ]);
 
@@ -51,6 +51,10 @@ class JabatanSeeder extends Seeder
         \DB::table('jabatan')->insert([
             'nama' => 'KERJASAMA KADER',
             'level' => '5'
+        ]);
+        \DB::table('jabatan')->insert([
+            'nama' => 'PENJUAL',
+            'level' => '6'
         ]);
     }
 }
