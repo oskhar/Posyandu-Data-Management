@@ -35,7 +35,7 @@
                   <VDialog v-model="dialogJabatan[index]" persistent width="1024">
                     <template #activator="{ props }">
                       <VBtn class="ml-2 text-none text-subtitle-1" v-bind="props" style="width: 210px" variant="tonal">
-                        {{ listJabatan[item.id_jabatan] }}
+                        {{ arrayListJabatan?.find(jabatan => jabatan.value === item.id_jabatan).title }}
                       </VBtn>
                     </template>
                     <VCard>
@@ -46,16 +46,8 @@
                         <VContainer>
                           <VRow>
                             <VCol cols="12">
-                              <VSelect v-model="dataAdmin[index].id_jabatan" :items="[
-                                { title: 'PELINDUNG', value: 1 },
-                                { title: 'PENANGGUNG JAWAB', value: 2 },
-                                { title: 'SEKRETARIS', value: 3 },
-                                { title: 'BENDAHARA', value: 4 },
-                                { title: 'PENDAFTARAN', value: 5 },
-                                { title: 'PENIMBANGAN', value: 6 },
-                                { title: 'PENCATATAN', value: 7 },
-                                { title: 'PENYULUHAN', value: 8 },
-                              ]" placeholder="Pilih Jabatan" />
+                              <VSelect v-model="dataAdmin[index].id_jabatan" :items="arrayListJabatan"
+                                placeholder="Pilih Jabatan" />
                             </VCol>
                           </VRow>
                         </VContainer>
@@ -138,6 +130,7 @@
 import axios from "axios";
 import config from "@/@core/config";
 import Swal from "sweetalert2";
+import { ADMIN_ROLES } from "@/constants/admin-constants";
 
 export default {
   data() {
@@ -151,17 +144,13 @@ export default {
       isConfirmPasswordVisible: false,
       newPassword: null,
       confirmPassword: null,
-      listJabatan: {
-        1: 'PELINDUNG',
-        2: 'PENANGGUNG JAWAB',
-        3: 'SEKRETARIS',
-        4: 'BENDAHARA',
-        5: 'PENDAFTARAN',
-        6: 'PENIMBANGAN',
-        7: 'PENCATATAN',
-        8: 'PENYULUHAN',
-      },
+      listJabatan: ADMIN_ROLES,
     };
+  },
+  computed: {
+    arrayListJabatan() {
+      return Object.values(this.listJabatan).map(item => ({ title: item.nama_jabatan, value: item.id_jabatan }))
+    },
   },
   mounted() {
     this.fetchData();
