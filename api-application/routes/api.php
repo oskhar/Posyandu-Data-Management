@@ -204,6 +204,18 @@ Route::group(['middleware' => ['auth:sanctum', 'checkUserType:admin']], function
     });
 
     /**
+     * Endpoint untuk import file excel
+     *
+     */
+    Route::prefix('import')->group(function () {
+
+        Route::post('/format-a', [ImportController::class, 'importFormatAExcel']);
+        Route::post('/format-b', [ImportController::class, 'formatBImport']);
+        Route::post('/format-c', [ImportController::class, 'formatCImport']);
+
+    });
+
+    /**
      * Endpoint untuk mendapatkan data statistik
      *
      */
