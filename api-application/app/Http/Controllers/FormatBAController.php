@@ -879,6 +879,13 @@ class FormatBAController extends Controller
         $listTahunLahir = range($listTahunLahir->min_tahun, $listTahunLahir->max_tahun);
 
         /**
+         * Mengurutkan list tahun dari yang paling
+         * besar/terbaru sampai yang paling kecil
+         *
+         */
+        $listTahunLahir = array_reverse($listTahunLahir);
+
+        /**
          * Mengembalikan response setelah
          * melakukan penambahan data
          *

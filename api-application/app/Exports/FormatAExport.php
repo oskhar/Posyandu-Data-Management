@@ -31,14 +31,19 @@ class FormatAExport implements FromCollection, WithHeadings, WithEvents, WithCus
             'Nama Ibu',
             'NIK Ibu',
             'Nama Bayi',
+            'NIK Bayi',
             'L/P',
             'Berat Lahir',
+            'Tinggi Lahir',
             'Tanggal Lahir',
             'Tanggal Meninggal Bayi',
             'Tanggal Meninggal Ibu',
-            'RT/RW',
+            'RT_RW',
             'KMS',
             'KIA',
+            'IMD',
+            'Nomor Telepon',
+            'Alamat',
             'Keterangan',
         ];
     }
@@ -59,14 +64,19 @@ class FormatAExport implements FromCollection, WithHeadings, WithEvents, WithCus
             'orang_tua.nama_ibu',
             'orang_tua.nik_ibu',
             'bayi.nama as nama_bayi',
+            'bayi.nik',
             'bayi.jenis_kelamin',
             'bayi.berat_lahir',
+            'bayi.tinggi_lahir',
             'bayi.tanggal_lahir',
             'bayi.tanggal_meninggal as tanggal_meninggal_bayi',
             'orang_tua.tanggal_meninggal_ibu',
             'orang_tua.rt_rw',
             'bayi.memiliki_kms',
             'bayi.memiliki_kia',
+            'bayi.imd',
+            'orang_tua.no_telp',
+            'orang_tua.tempat_tinggal',
             'format_a.keterangan',
         )
             ->join('bayi', 'bayi.id', 'format_a.id_bayi')
@@ -123,15 +133,20 @@ class FormatAExport implements FromCollection, WithHeadings, WithEvents, WithCus
         $sheet->getColumnDimension('C')->setWidth(26);
         $sheet->getColumnDimension('D')->setWidth(26);
         $sheet->getColumnDimension('E')->setWidth(26);
-        $sheet->getColumnDimension('F')->setWidth(3);
-        $sheet->getColumnDimension('G')->setWidth(10);
-        $sheet->getColumnDimension('H')->setWidth(15);
-        $sheet->getColumnDimension('I')->setWidth(20);
-        $sheet->getColumnDimension('J')->setWidth(20);
-        $sheet->getColumnDimension('K')->setWidth(7);
-        $sheet->getColumnDimension('L')->setWidth(5);
-        $sheet->getColumnDimension('M')->setWidth(5);
-        $sheet->getColumnDimension('N')->setWidth(50);
+        $sheet->getColumnDimension('F')->setWidth(26);
+        $sheet->getColumnDimension('G')->setWidth(3);
+        $sheet->getColumnDimension('H')->setWidth(10);
+        $sheet->getColumnDimension('I')->setWidth(10);
+        $sheet->getColumnDimension('J')->setWidth(15);
+        $sheet->getColumnDimension('K')->setWidth(20);
+        $sheet->getColumnDimension('L')->setWidth(20);
+        $sheet->getColumnDimension('M')->setWidth(7);
+        $sheet->getColumnDimension('N')->setWidth(5);
+        $sheet->getColumnDimension('O')->setWidth(5);
+        $sheet->getColumnDimension('P')->setWidth(5);
+        $sheet->getColumnDimension('Q')->setWidth(15);
+        $sheet->getColumnDimension('R')->setWidth(40);
+        $sheet->getColumnDimension('S')->setWidth(50);
         return [
             1 => ['font' => ['bold' => true]],
             4 => ['font' => ['bold' => true]],
