@@ -6,17 +6,17 @@
 				<VCol cols="12" md="6">
 					<div class="d-flex gap-4 mb-4 align-center">
 						<img style="width: 70px;" src="/sibingo.webp" alt="Gambar hero produk" />
-						<h1 style="color: #ff7e11;" class="text-h4 text-md-h3 font-weight-bold">
+						<p style="color: #ff7e11;" class="text-h4 text-md-h3 font-weight-bold ma-0">
 							SiBinggo
-						</h1>
+						</p>
 					</div>
 
 					<h1 class="text-h4 text-lg-h3 font-weight-bold">
 						Dapatkan Produk Bernutrisi Hewani Terbaik Untuk Keluarga Anda
 					</h1>
 					<p class="text-subtitle-1 text-md-h6 mt-4">
-						Jelajahi koleksi produk kami yang lengkap, temukan barang yang Anda inginkan, dan hubungi penjual langsung
-						melalui WhatsApp dengan pesan yang sudah disiapkan untuk kemudahan transaksi.
+						Jelajahi produk kami, temukan barang yang Anda inginkan, dan hubungi penjual langsung untuk
+						transaksi mudah.
 					</p>
 
 					<VBtn variant="elevated" color="primary" class="w-100 w-sm-auto" height="52"

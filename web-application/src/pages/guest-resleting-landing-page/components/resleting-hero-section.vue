@@ -6,9 +6,9 @@
 				<VCol cols="12" md="6">
 					<div class="d-flex gap-4 mb-4 align-center">
 						<img style="width: 50px;" src="/resleting-logo.webp" alt="Gambar hero produk" />
-						<h1 class="text-h4 text-md-h3 font-weight-bold text-grey-900">
+						<p class="ma-0 text-h4 text-md-h3 font-weight-bold text-grey-900">
 							Resleting
-						</h1>
+						</p>
 					</div>
 
 					<h1 class="text-h4 text-lg-h3 font-weight-bold">

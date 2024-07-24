@@ -9,8 +9,12 @@
 				<VCol cols="12" md="6">
 					<h2 class="text-h5 text-lg-h4 font-weight-bold">Tentang SiBinggo</h2>
 					<p class="text-subtitle-1 mt-4">
-						SiBinggo adalah platform e-commerce yang memudahkan pembelian barang secara online. Temukan berbagai
-						produk berkualitas dan hubungi penjual melalui WhatsApp untuk transaksi langsung.
+						SiBinggo merupakan fitur layanan dari Kelompok Peternakan
+						Usaha Peningkatan Pendapatan Keluarga Akseptor (UPPKA)
+						Melati 9 dalam menjualkan dan memasarkan beberapa produk
+						hewan kambing dan produk lainnya dari UP2K Nyonya 9. Melalui
+						fitur dari aplikasi SIDILAN ini dapat memberdayakan ekonomi
+						masyarakat yang ada di wilayah RW 09 Kelurahan Periuk.
 					</p>
 				</VCol>
 			</VCard>

@@ -41,11 +41,9 @@ onMounted(async () => {
         filter: brightness(0.6);
       " :src="getFullImagePath(dataPosyanduMelati.gambar_gedung)" alt="" />
     <!-- Isi halaman utama Anda di sini -->
-    <div style="position: absolute; top: 200px; width: 100vw">
-      <Center>
-        <h3 class="text-white text-h5">SELAMAT DATANG DI</h3>
-        <h1 class="text-white text-h3">POSYANDU MELATI</h1>
-      </Center>
+    <div style="position: absolute; top: 200px; width: 100vw" class="text-center">
+      <h3 class="text-white text-h5">Tentang Kami</h3>
+      <h1 class="text-white text-h3">Posyandu Melati RW 9</h1>
     </div>
 
     <SambutanSection :foto-profile-ketua="getFullImagePath(dataPosyanduMelati.foto_profile_ketua)"
