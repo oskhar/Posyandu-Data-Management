@@ -5,7 +5,13 @@ import { guestRoutes } from "./routes/guest-routes";
 import { testRoutes } from "./routes/test-routes";
 
 const router = createRouter({
-  scrollBehavior: () => ({ top: 0 }),
+  scrollBehavior(to) {
+    if (to.hash) {
+      return { el: to.hash, behavior: "smooth" }
+    }
+
+    return { top: 0, behavior: "instant" }
+  },
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     guestRoutes,

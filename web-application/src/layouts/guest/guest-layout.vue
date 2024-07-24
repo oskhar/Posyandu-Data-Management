@@ -48,7 +48,7 @@ export default {
         <!-- Logo di sebelah pojok kiri -->
         <VAppBarNavIcon class="hide-md-and-up hamburger ma-0" @click="toggleDrawer"></VAppBarNavIcon>
 
-        <RouterLink to="/" class="mr-4">
+        <RouterLink to="/">
           <img class="hidden-sm-and-down" style="width: 80px;" src="/logo.svg" />
         </RouterLink>
 
