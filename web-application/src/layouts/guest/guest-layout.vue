@@ -5,9 +5,11 @@ import { MENU_ITEMS, WA_POSYANDU } from "@/constants";
 import FooterGuest from "@/layouts/guest/footer-guest.vue";
 import { getWhatsappLink } from "@/utils/send-whatsapp";
 import { isUserLoggedIn, isAdminLoggedIn } from "@/utils/auth-token"
+import VerticalNavItems from "@/components/vertical-nav-items.vue";
 
 export default {
   components: {
+    VerticalNavItems,
     GuestUserProfile,
     AdminUserProfile,
     FooterGuest,
@@ -42,14 +44,14 @@ export default {
 </script>
 
 <template>
-  <VAppBar :elevation="2">
+  <VAppBar :elevation="2" height="90">
     <VRow>
       <VCol cols="12" md="9" class="d-flex justify-space-between align-center px-5 mx-auto">
         <!-- Logo di sebelah pojok kiri -->
         <VAppBarNavIcon class="hide-md-and-up hamburger ma-0" @click="toggleDrawer"></VAppBarNavIcon>
 
-        <RouterLink to="/" class="mr-4">
-          <img class="hidden-sm-and-down" src="/logo.svg" />
+        <RouterLink to="/">
+          <img class="hidden-sm-and-down" style="width: 80px;" src="/logo.svg" />
         </RouterLink>
 
         <!-- Navigasi desktop -->
@@ -60,14 +62,15 @@ export default {
 
               <VMenu open-on-hover open-on-focus location="bottom center" origin="auto" activator="parent">
                 <VList class="text-primary">
-                  <VListItem v-for="(child, childIndex) in item.childrens" :key="childIndex" :to="child.route" exact>
+                  <VListItem v-for="(child, childIndex) in item.childrens" :key="childIndex" :to="child.route"
+                    :active="false">
                     <VListItemContent style="text-transform: uppercase !important; font-size: 14px;">{{ child.text }}
                     </VListItemContent>
                   </VListItem>
                 </VList>
               </VMenu>
             </VBtn>
-            <VBtn v-else text :to="item.route" exact>
+            <VBtn v-else text :to="item.route" :active="false">
               {{ item.text }}
             </VBtn>
           </template>
@@ -91,27 +94,7 @@ export default {
         <img src=" /logo.svg" />
       </VListItem>
 
-      <template v-for="(item, index) in menu" :key="index">
-        <VListItem v-if="item.childrens">
-          <VExpansionPanels>
-            <VExpansionPanel class="text-primary">
-              <VExpansionPanelTitle class="pa-0">{{ item.text }}</VExpansionPanelTitle>
-
-              <VExpansionPanelText class="list-item-accordion">
-                <VList class="text-primary">
-                  <VListItem v-for="(child) in item.childrens" :key="child.text" :to="child.route" exact>
-                    {{ child.text }}
-                  </VListItem>
-                </VList>
-              </VExpansionPanelText>
-
-            </VExpansionPanel>
-          </VExpansionPanels>
-        </VListItem>
-        <VListItem v-else class=" text-primary" :to="item.route" exact>
-          <VListItemContent>{{ item.text }}</VListItemContent>
-        </VListItem>
-      </template>
+      <VerticalNavItems flip-accordion-icon :menu-items="menu" />
     </VList>
   </VNavigationDrawer>
 
@@ -124,7 +107,9 @@ export default {
     </VTooltip>
   </a>
 
-  <RouterView />
+  <div style="margin-top: 120px;">
+    <RouterView />
+  </div>
 
   <FooterGuest />
 </template>
@@ -144,9 +129,6 @@ export default {
   background-color: transparent !important;
 }
 
-.list-item-accordion>.v-expansion-panel-text__wrapper {
-  padding: 0;
-}
 
 .wa-help-button .v-icon {
   color: white !important;

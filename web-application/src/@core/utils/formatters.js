@@ -44,3 +44,9 @@ export const formatDateToMonthShort = (value, toTimeForCurrentDay = true) => {
   return new Intl.DateTimeFormat('en-US', formatting).format(new Date(value))
 }
 export const prefixWithPlus = value => value > 0 ? `+${value}` : value
+
+
+export const rupiahFormatter = value => new Intl.NumberFormat('id-ID', {
+	currency: 'IDR',
+	style: 'currency',
+}).format(value)

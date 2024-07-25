@@ -2,7 +2,6 @@
 import { useRoute } from "vue-router";
 import ReadAdmin from "@/views/pages/admin/ReadAdmin.vue";
 import CreateAdmin from "@/views/pages/admin/CreateAdmin.vue";
-// import AccountSettingsSecurity from "@/views/pages/";
 
 const route = useRoute();
 const activeTab = ref(route.params.tab);

@@ -1,7 +1,9 @@
 import { api } from "@/lib/api";
+import { useAdminRoleStore } from "@/stores/admin-role-store";
 import { clearAdminToken, clearUserToken } from "@/utils/auth-token";
 
 export const isAdminAuthenticated = async () => {
+  const adminRoleStore = useAdminRoleStore();
   const token = localStorage.getItem("tokenAuth");
 
   if (!token) {
@@ -12,6 +14,8 @@ export const isAdminAuthenticated = async () => {
 
   try {
     const response = await api.post("/auth");
+
+    adminRoleStore.setCurrentRole(response.data.id_jabatan);
 
     return response.status === 200;
   } catch (error) {

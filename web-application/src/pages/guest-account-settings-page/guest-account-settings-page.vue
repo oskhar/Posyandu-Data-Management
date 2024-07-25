@@ -23,7 +23,7 @@ const tabs = [
 </script>
 
 <template>
-	<VRow class="mt-16 mb-8">
+	<VRow class="mb-8">
 		<VCol cols="12" md="9" class="mx-auto px-5">
 			<VTabs v-model="activeTab" show-arrows>
 				<VTab v-for="item in tabs" :key="item.icon" :value="item.tab">

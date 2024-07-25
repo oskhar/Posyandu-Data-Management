@@ -1,7 +1,8 @@
 import { requireUserLogin } from "@/router/middlewares";
-import { guestReslitingRoutes } from "./guest-resliting-routes";
-import { guestSiKambingRoutes } from "./guest-sikambing-routes";
+import { guestResletingRoutes } from "./guest-resleting-routes";
+import { guestSiBinggoRoutes } from "./guest-sibinggo-routes";
 import { guestScreeningBalitaRoutes } from "./guest-screening-balita-routes";
+import { guestScreeningRemajaRoutes } from "./guest-screening-remaja-routes";
 import { updateGuestSiteTitle } from "@/router/middlewares/guest-middleware";
 
 /** @type { import("vue-router").RouteRecordRaw } */
@@ -30,14 +31,14 @@ export const guestRoutes = {
 			component: () => import("../../../pages/guest-edukasi-page/detail-guest-edukasi-page.vue"),
 		},
 		{
-			path: "berita-acara",
+			path: "events",
 			beforeEnter: updateGuestSiteTitle,
-			component: () => import("../../../pages/guest-berita-acara-page/guest-berita-acara-page.vue"),
+			component: () => import("../../../pages/guest-events-page/guest-events-page.vue"),
 		},
 		{
-			path: "berita-acara/:id",
+			path: "events/:id",
 			beforeEnter: updateGuestSiteTitle,
-			component: () => import("../../../pages/guest-berita-acara-page/detail-guest-berita-acara-page.vue"),
+			component: () => import("../../../pages/guest-events-page/detail-guest-events-page.vue"),
 		},
 		{
 			path: "tentang",
@@ -46,7 +47,7 @@ export const guestRoutes = {
 		},
 		{
 			path: "layanan",
-			children: [...guestReslitingRoutes, ...guestSiKambingRoutes, ...guestScreeningBalitaRoutes],
+			children: [...guestResletingRoutes, ...guestSiBinggoRoutes, ...guestScreeningBalitaRoutes, ...guestScreeningRemajaRoutes],
 		},
 	],
 }

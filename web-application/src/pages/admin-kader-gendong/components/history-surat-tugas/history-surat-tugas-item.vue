@@ -16,6 +16,7 @@ const isDialogActive = ref(false);
 <template>
 	<VCard style="height: 312px;" class="cursor-pointer" @click="isDialogActive = true">
 		<VCardItem class="border-b-md pb-3">
+			<p class="text-subtitle-1 mb-0 font-black">Penulis: {{ surat.pembuat_surat }}</p>
 			<p class="text-subtitle-1 mb-1 font-black">No. Surat: {{ surat.nomor }}</p>
 			<p class="text-subtitle-2 mb-1 font-black">Penanda Tangan: {{ surat.penanda_tangan }}</p>
 			<p class="text-subtitle-2 mb-1 font-black">Tanggal Surat: {{ new Date(surat.tanggal_surat).toLocaleDateString() }}

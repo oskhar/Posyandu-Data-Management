@@ -7,7 +7,7 @@ export const fetchJumlahEdukasi = async () => {
 	return data.jumlah_data;
 }
 
-export const fetchJumlahBerita = async () => {
+export const fetchJumlahEvents = async () => {
 	const { data } = await api.get(`/berita?start=0&length=0`);
 
 	return data.jumlah_data;
@@ -40,7 +40,7 @@ export const fetchPreviewEdukasi = async () => {
 	return data.edukasi.map(item => ({ ...item, gambar: getFullImagePath(item.gambar) }));
 }
 
-export const fetchPreviewBeritaAcara = async () => {
+export const fetchPreviewEvents = async () => {
 	const { data } = await api.get(
 		`/berita`,
 		{	params: { start: 1, length: 3 } },

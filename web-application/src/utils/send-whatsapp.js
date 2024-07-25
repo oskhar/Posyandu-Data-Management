@@ -1,5 +1,5 @@
 export function getWhatsappLink(phone, message) {
-	return `https://wa.me/${phone}?text=${encodeURI(message)}`;
+	return `https://api.whatsapp.com/send/?phone=${phone}&text=${encodeURI(message)}&type=phone_number`;
 }
 
 export function sendWhatsapp(phone, message) {

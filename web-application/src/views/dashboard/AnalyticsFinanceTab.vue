@@ -9,7 +9,7 @@ import { hexToRgb } from '@layouts/utils'
 const vuetifyTheme = useTheme()
 
 const series = {
-  berita: [{
+  events: [{
     data: [
       24,
       21,
@@ -47,13 +47,13 @@ const series = {
   }],
 }
 
-const currentTab = ref('berita')
+const currentTab = ref('events')
 
 const tabData = computed(() => {
   const data = {
-    berita: {
+    events: {
       avatar: statsVerticalWallet,
-      title: 'Berita acara',
+      title: 'Events',
       stats: '30',
       gambarLoss: 65,
       gambarLossAmount: '60',
@@ -189,8 +189,8 @@ const chartConfig = computed(() => {
   <VCard>
     <VCardItem>
       <VTabs v-model="currentTab" class="v-tabs-pill">
-        <VTab value="berita">
-          Berita
+        <VTab value="events">
+          Events
         </VTab>
         <VTab value="edukasi">
           edukasi

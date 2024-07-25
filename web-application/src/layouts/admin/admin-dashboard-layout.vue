@@ -1,3 +1,31 @@
+<script setup>
+import VerticalNavLayout from "@layouts/components/VerticalNavLayout.vue"
+import UserProfile from "@/layouts/admin/admin-user-profile.vue"
+import VerticalNavItems from "@/components/vertical-nav-items.vue";
+import { ADMIN_DASHBOARD_MENU } from "@/constants/admin-constants";
+import { useAdminRoleStore } from "@/stores/admin-role-store";
+import { computed, watch } from "vue";
+import { clearAdminToken } from "@/utils/auth-token";
+
+const adminRoleStore = useAdminRoleStore();
+const router = useRouter();
+
+
+const activeNavigation = computed(() => {
+  return ADMIN_DASHBOARD_MENU.find(menu => {
+    return menu.id_jabatan === adminRoleStore.currentRole
+  });
+})
+
+watch(activeNavigation.value, () => {
+  if (!activeNavigation.value) {
+    clearAdminToken();
+    router.push("/login");
+  }
+})
+</script>
+
+
 <template>
   <VerticalNavLayout>
     <!-- 👉 navbar -->
@@ -16,101 +44,17 @@
       </div>
     </template>
 
+
     <template #vertical-nav-content>
-      <VerticalNavLink :item="{
-        title: 'Dashboard',
-        icon: 'bx-home',
-        to: '/admin/dashboard',
-      }" />
-      <VerticalNavLink :item="{
-        title: 'Berita Acara',
-        icon: 'bx-news',
-        to: '/admin/berita-acara',
-      }" />
-      <VerticalNavLink :item="{
-        title: 'Edukasi',
-        icon: 'bx-book',
-        to: '/admin/edukasi',
-      }" />
-      <VerticalNavLink :item="{
-        title: 'Gambar',
-        icon: 'bx-image',
-        to: '/admin/galeri',
-      }" />
-      <VerticalNavLinkTree :item="{
-        title: 'Master Data',
-        children: [
-          {
-            title: 'Data Admin',
-            to: '/admin/data/admin',
-          },
-          {
-            title: 'Data Bayi',
-            to: '/admin/data/format-1',
-          },
-          {
-            title: 'WUS & PUS',
-            to: '/admin/data/format-3',
-          },
-          {
-            title: 'Ibu Hamil',
-            to: '/admin/data/format-4',
-          },
-        ],
-      }" />
-      <VerticalNavLinkTree :item="{
-        title: 'Layanan',
-        children: [
-          {
-            title: 'Kader Gendong',
-            to: '/admin/layanan/kader-gendong',
-          },
-          {
-            title: 'Resliting',
-            to: '/admin/layanan/remaja-peduli-stunting/tantangan',
-          },
-          {
-            title: 'SiKambing',
-            to: '/admin/layanan/si-kambing',
-          },
-          {
-            title: 'Screening',
-            to: '/admin/data/format-2',
-          },
-        ],
-      }" />
-      <VerticalNavLink :item="{
-        title: 'Tentang',
-        icon: 'bx-info-circle',
-        to: '/admin/tentang',
-      }" />
-      <VerticalNavLink :item="{
-        title: 'Profil',
-        icon: 'bx-user',
-        to: '/admin/account-settings',
-      }" />
+      <VList v-if="activeNavigation">
+        <VerticalNavItems :menu-items="activeNavigation.menu" />
+      </VList>
     </template>
 
     <!-- 👉 Pages -->
     <RouterView />
   </VerticalNavLayout>
 </template>
-
-<script>
-import VerticalNavLayout from "@layouts/components/VerticalNavLayout.vue"
-import VerticalNavLink from "@layouts/components/VerticalNavLink.vue"
-import VerticalNavLinkTree from "@layouts/components/VerticalNavLinkTree.vue"
-import UserProfile from "@/layouts/admin/admin-user-profile.vue"
-
-export default {
-  components: {
-    VerticalNavLayout,
-    VerticalNavLink,
-    VerticalNavLinkTree,
-    UserProfile,
-  },
-}
-</script>
 
 <style lang="scss">
 // As we are using `layouts` plugin we need its styles to be imported

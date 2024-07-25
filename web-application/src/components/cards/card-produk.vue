@@ -1,6 +1,6 @@
 <script setup>
+import { rupiahFormatter } from '@/@core/utils/formatters';
 import { getFullImagePath } from '@/utils/get-full-image-path';
-import { rupiahFormatter } from '@/utils/rupiah-formatter';
 
 const { dataProduk } = defineProps({
 	dataProduk: { type: Object, required: true },
@@ -8,7 +8,7 @@ const { dataProduk } = defineProps({
 </script>
 
 <template>
-	<VCard :to="`/layanan/si-kambing/produk/${dataProduk.id}`" class="h-100">
+	<VCard :to="`/layanan/si-binggo/produk/${dataProduk.id}`" class="h-100">
 		<VImg :src="dataProduk.gambar" cover style="height: 200px">
 			<h2 v-if="dataProduk.gambar === getFullImagePath(null)" class="text-center text-secondary">
 				Tidak Ada Foto

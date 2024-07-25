@@ -53,7 +53,7 @@ watch(searchQuery, () => page.value = 1)
 </script>
 
 <template>
-  <VRow tag="section" class="px-5 mb-4" style="margin-top: 90px;">
+  <VRow tag="section" class="px-5 mb-4">
     <VCol cols="12" md="9" class="mx-auto">
       <h1 class="text-primary text-h5 font-weight-bold">Penyuluhan Edukasi</h1>
       <p class="text-secondary text-subtitle-1">

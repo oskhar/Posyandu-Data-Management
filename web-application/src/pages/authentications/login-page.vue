@@ -6,9 +6,13 @@ import { clearAdminToken, clearUserToken, setAdminToken, setUserToken } from "@/
 import { loginAdmin, loginUser } from "./api/authentication-api";
 import { getSwalErrorMessage } from "@/utils/get-error-message";
 import { onMounted } from "vue";
+import { useAdminRoleStore } from "@/stores/admin-role-store";
+
 
 const router = useRouter();
 let isLoading = ref(false);
+
+const adminRoleStore = useAdminRoleStore();
 
 const form = ref({
   email: "",
@@ -35,6 +39,7 @@ const handleLoginAdmin = async () => {
       jabatan: response.jabatan,
     })
 
+    adminRoleStore.setCurrentRole(response.id_jabatan);
     router.push("/admin/dashboard");
   } catch (error) {
     await Swal.fire({

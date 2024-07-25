@@ -2,7 +2,7 @@
   <VCard>
     <VCardItem>
       <VTabs v-model="currentTab" class="v-tabs-pill">
-        <VTab value="berita"> Berita </VTab>
+        <VTab value="events"> Events </VTab>
         <VTab value="edukasi"> edukasi </VTab>
         <VTab value="gambar"> gambar </VTab>
       </VTabs>
@@ -31,7 +31,7 @@
       <VProgressCircular size="45" :model-value="tabData[currentTab].gambarLoss">
         <span class="text-xs text-medium-emphasis">{{
           tabData[currentTab].gambarLossAmount
-          }}</span>
+        }}</span>
       </VProgressCircular>
 
       <div>
@@ -41,7 +41,7 @@
         </h6>
         <span class="text-sm text-disabled">{{
           tabData[currentTab].compareToLastWeek
-          }}</span>
+        }}</span>
       </div>
     </VCardText>
   </VCard>
@@ -79,11 +79,11 @@ export default {
 
 
     return {
-      currentTab: "berita",
+      currentTab: "events",
       tabData: {
-        berita: {
+        events: {
           avatar: statsVerticalWallet,
-          title: "Berita acara",
+          title: "Events acara",
           stats: "0",
           gambarLoss: 0,
           gambarLossAmount: "0",
@@ -107,9 +107,9 @@ export default {
         },
       },
       series: {
-        berita: [
+        events: [
           {
-            name: "Berita",
+            name: "Events",
             data: [0, 0, 0, 0, 0, 0, 0],
           },
         ],
@@ -238,7 +238,7 @@ export default {
       );
 
       this.series = {
-        berita: [
+        events: [
           {
             data: Object.values(response.data.berita.statistik),
           },
@@ -256,9 +256,9 @@ export default {
       };
       console.log(this.series);
       this.tabData = {
-        berita: {
+        events: {
           avatar: statsVerticalWallet,
-          title: "Berita acara",
+          title: "Events acara",
           stats: response.data.berita.jumlah_hari_ini,
           gambarLoss: response.data.berita.persentase_perubahan_minggu_lalu,
           gambarLossAmount: response.data.berita.jumlah_minggu_ini,

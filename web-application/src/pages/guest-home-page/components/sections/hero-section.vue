@@ -5,7 +5,7 @@ const { gambarGedung } = defineProps({
 </script>
 
 <template>
-	<VRow tag="section" class="mt-12 position-relative">
+	<VRow tag="section" class="position-relative">
 		<VCol cols="12">
 			<VCarousel hide-delimiters cycle show-arrows="hover" class="position-relative">
 				<VCarouselItem src="/slideshow.jpeg" cover gradient="rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)" />
@@ -17,8 +17,8 @@ const { gambarGedung } = defineProps({
 			</VCarousel>
 
 			<div class="position-absolute heading-text">
-				<h3 class="text-white text-h5">SELAMAT DATANG DI</h3>
-				<h1 class="text-white text-h3">POSYANDU MELATI</h1>
+				<h3 class="text-white text-h5">Selamat Datang Di</h3>
+				<h1 class="text-white text-h3">Sistem Informasi Posyandu RW 9</h1>
 			</div>
 		</VCol>
 	</VRow>

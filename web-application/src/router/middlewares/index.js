@@ -1,2 +1,2 @@
 export * from "./auth-middleware";
-export * from "./resliting-middleware"
+export * from "./resleting-middleware"

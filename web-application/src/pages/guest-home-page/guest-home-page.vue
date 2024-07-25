@@ -2,17 +2,17 @@
 import Swal from "sweetalert2";
 import GallerySection from "./components/sections/gallery-section.vue";
 import HeroSection from "./components/sections/hero-section.vue";
-import StatsSection from "./components/sections/stats-section.vue";
+import LayananAndStats from "./components/sections/layanan-and-stats-section.vue";
 import { getFullImagePath } from "@/utils/get-full-image-path";
 import { onMounted, reactive, ref } from "vue";
-import { fetchDataPosyanduMelati, fetchJumlahBayi, fetchJumlahBerita, fetchJumlahEdukasi, fetchJumlahGambar } from "./api/guest-home-page-api";
+import { fetchDataPosyanduMelati, fetchJumlahBayi, fetchJumlahEvents, fetchJumlahEdukasi, fetchJumlahGambar } from "./api/guest-home-page-api";
 import PreviewEdukasiSection from "./components/sections/preview-edukasi-section.vue";
-import PreviewBeritaAcaraSection from "./components/sections/preview-berita-acara-section.vue";
+import PreviewEventsSection from "./components/sections/preview-events-section.vue";
 import { getErrorMessage } from "@/utils/get-error-message";
 import { DEFAULT_POSYANDU_DATA } from "@/constants";
 
 const statsEdukasi = ref(0);
-const statsBerita = ref(0);
+const statsEvents = ref(0);
 const statsBayi = ref(0);
 const statsGambar = ref(0);
 
@@ -20,7 +20,7 @@ const dataPosyanduMelati = reactive(DEFAULT_POSYANDU_DATA);
 
 onMounted(async () => {
   try {
-    statsBerita.value = await fetchJumlahBerita();
+    statsEvents.value = await fetchJumlahEvents();
     statsEdukasi.value = await fetchJumlahEdukasi();
     statsGambar.value = await fetchJumlahGambar();
     statsBayi.value = await fetchJumlahBayi();
@@ -39,15 +39,15 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main class="d-flex flex-column gap-10">
+  <main class="d-flex flex-column gap-10" style="margin-top: -30px;">
     <HeroSection :gambar-gedung="getFullImagePath(dataPosyanduMelati.gambar_gedung)" />
 
-    <StatsSection :stats-bayi="statsBayi" :stats-berita="statsBerita" :stats-edukasi="statsEdukasi"
+    <LayananAndStats :stats-bayi="statsBayi" :stats-events="statsEvents" :stats-edukasi="statsEdukasi"
       :stats-gambar="statsGambar" />
 
     <PreviewEdukasiSection />
 
-    <PreviewBeritaAcaraSection />
+    <PreviewEventsSection />
 
     <GallerySection />
   </main>

@@ -29,7 +29,7 @@ const activeTab = ref(tabs[0].tab);
 </script>
 
 <template>
-	<VRow tag="section" class="px-5 mb-4" style="margin-top: 90px;">
+	<VRow tag="section" class="px-5 mb-4">
 		<VCol cols="12" md="9" class="mx-auto">
 
 			<h1 class="text-primary text-h5 font-weight-bold">Data Screening Balita</h1>

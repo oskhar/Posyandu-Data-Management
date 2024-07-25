@@ -2,7 +2,7 @@
 import { onMounted, ref } from "vue";
 import { fetchGallery } from "../../api/guest-home-page-api";
 import Swal from "sweetalert2";
-import { getErrorMessage } from "@/utils/get-error-message";
+import { getSwalErrorMessage } from "@/utils/get-error-message";
 import CardGallery from "@/components/cards/card-gallery.vue";
 
 const isLoading = ref(true);
@@ -23,7 +23,7 @@ const fetchPictures = async () => {
 	} catch (error) {
 		await Swal.fire({
 			icon: "error",
-			text: getErrorMessage(error, "Terjadi kesalahan saat loading data gallery!"),
+			html: getSwalErrorMessage(error, "Terjadi kesalahan saat loading data gallery!"),
 			showCloseButton: true,
 		});
 	} finally {
@@ -36,8 +36,8 @@ onMounted(fetchPictures)
 </script>
 
 <template>
-	<VRow tag="section" class="px-5">
-		<VCol cols="12" md="9" class="mx-auto text-center">
+	<VRow id="galeri" tag="section" class="px-5" style="scroll-margin: 100px;">
+		<VCol cols=" 12" md="9" class="mx-auto text-center">
 			<h2 class="mt-5 text-h5 font-weight-bold text-primary">Galeri Kami</h2>
 			<p class="text-secondary text-subtitle-1">
 				Kisah yang diabadikan dalam bentuk Foro akan di tampilkan di
