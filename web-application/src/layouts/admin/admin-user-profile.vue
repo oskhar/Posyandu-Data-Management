@@ -6,8 +6,9 @@ import { getSwalErrorMessage } from "@/utils/get-error-message";
 import { useAdminRoleStore } from "@/stores/admin-role-store";
 import { onMounted, ref } from "vue";
 import { api } from "@/lib/api";
+import { getFullImagePath } from "@/utils/get-full-image-path";
 
-const router = useRouter()
+const router = useRouter();
 
 const adminRoleStore = useAdminRoleStore();
 const isLoading = ref(true);
@@ -17,57 +18,74 @@ const jabatan = ref(null);
 
 const logout = async () => {
   try {
-    clearAdminToken()
+    clearAdminToken();
     adminRoleStore.resetRole();
   } catch (error) {
     await Swal.fire({
       icon: "error",
       title: "Error. Tidak Dapat Logout",
       html: getSwalErrorMessage(error),
-    })
+    });
   } finally {
     router.push("/login");
   }
 };
 
-
 onMounted(async () => {
   try {
     const { data } = await api.post("/auth");
-    const { foto_profile, nama_lengkap, jabatan } = data;
+    const { foto_profile, nama_lengkap, jabatan: nama_jabatan } = data;
 
     fotoProfile.value = foto_profile;
     namaLengkap.value = nama_lengkap;
-    jabatan.value = jabatan;
+    jabatan.value = nama_jabatan;
   } catch (error) {
+    console.log(error);
     await Swal.fire({
       icon: "error",
       title: "Error mengambil data admin",
       html: getSwalErrorMessage(error),
-    })
+    });
   } finally {
     isLoading.value = false;
   }
-
-})
+});
 </script>
 
 <template>
   <VForm @submit="login">
-    <VBadge dot location="bottom right" offset-x="3" offset-y="3" color="success" bordered>
+    <VBadge
+      dot
+      location="bottom right"
+      offset-x="3"
+      offset-y="3"
+      color="success"
+      bordered
+    >
       <VAvatar class="cursor-pointer" color="primary" variant="tonal">
-        <VImg :src="fotoProfile" />
+        <VImg :src="getFullImagePath(fotoProfile)" />
 
         <!-- SECTION Menu -->
-        <VMenu activator="parent" width="230" location="bottom end" offset="14px">
+        <VMenu
+          activator="parent"
+          width="230"
+          location="bottom end"
+          offset="14px"
+        >
           <VList>
             <!-- 👉 User Avatar & Name -->
             <VListItem>
               <template #prepend>
                 <VListItemAction start>
-                  <VBadge dot location="bottom right" offset-x="3" offset-y="3" color="success">
+                  <VBadge
+                    dot
+                    location="bottom right"
+                    offset-x="3"
+                    offset-y="3"
+                    color="success"
+                  >
                     <VAvatar color="primary" variant="tonal">
-                      <VImg :src="fotoProfile" />
+                      <VImg :src="getFullImagePath(fotoProfile)" />
                     </VAvatar>
                   </VBadge>
                 </VListItemAction>

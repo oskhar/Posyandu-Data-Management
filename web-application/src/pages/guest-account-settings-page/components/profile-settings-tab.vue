@@ -3,14 +3,19 @@ import { ref, onMounted } from "vue";
 import { api } from "@/lib/api";
 import Swal from "sweetalert2";
 import { getSwalErrorMessage } from "@/utils/get-error-message";
-import { convertBase64ToDataUri, convertBlobToBase64, validateFileInput } from "@/utils/file";
+import { getFullImagePath } from "@/utils/get-full-image-path";
+import {
+  convertBase64ToDataUri,
+  convertBlobToBase64,
+  validateFileInput,
+} from "@/utils/file";
 
 const isLoading = ref(false);
 const dataUser = ref({});
 
 const fetchData = async () => {
   try {
-    const response = await api.post('/user/auth');
+    const response = await api.post("/user/auth");
 
     dataUser.value = response.data;
   } catch (error) {
@@ -18,23 +23,20 @@ const fetchData = async () => {
       icon: "error",
       title: "Gagal mengambil data user!",
       html: getSwalErrorMessage(error),
-    })
+    });
   }
 };
 
-const submitData = async formData => {
+const submitData = async (formData) => {
   formData.preventDefault();
   isLoading.value = true;
 
   try {
-    const response = await api.put(
-      `/user`,
-      {
-        foto_profile: dataUser.value.foto_profile,
-        nama: dataUser.value.nama,
-        whatsapp: dataUser.value.whatsapp,
-      },
-    );
+    const response = await api.put(`/user`, {
+      foto_profile: dataUser.value.foto_profile,
+      nama: dataUser.value.nama,
+      whatsapp: dataUser.value.whatsapp,
+    });
 
     if (response.data.success) {
       await Swal.fire({
@@ -52,14 +54,13 @@ const submitData = async formData => {
   } finally {
     isLoading.value = false;
   }
-}
+};
 
 const uploadGambar = () => {
-  document.querySelector('#image-upload-ref')?.click()
-}
+  document.querySelector("#image-upload-ref")?.click();
+};
 
-
-const changeAvatar = async event => {
+const changeAvatar = async (event) => {
   const [inputFile] = event.target.files;
 
   try {
@@ -78,9 +79,12 @@ const changeAvatar = async event => {
     }
 
     const foto_profile_base64 = await convertBlobToBase64(inputFile);
-    const foto_profile_data_uri = convertBase64ToDataUri(foto_profile_base64, inputFile.type);
+    const foto_profile_data_uri = convertBase64ToDataUri(
+      foto_profile_base64,
+      inputFile.type
+    );
 
-    dataUser.value.foto_profile = foto_profile_data_uri
+    dataUser.value.foto_profile = foto_profile_data_uri;
 
     const { data } = await api.put(`/user`, {
       nama: dataUser.value.nama,
@@ -116,7 +120,12 @@ onMounted(fetchData);
       <VCard title="Account Details">
         <VCardText class="d-flex">
           <!-- 👉 Avatar -->
-          <VAvatar rounded="lg" size="100" class="me-6" :image="dataUser.foto_profile" />
+          <VAvatar
+            rounded="lg"
+            size="100"
+            class="me-6"
+            :image="getFullImagePath(dataUser.foto_profile)"
+          />
 
           <!-- 👉 Upload Photo -->
           <div class="d-flex flex-column justify-center gap-5">
@@ -126,8 +135,14 @@ onMounted(fetchData);
                 <span class="d-none d-sm-block">Unggah foto baru</span>
               </VBtn>
 
-              <input id="image-upload-ref" multiple="false" type="file" accept=".jpeg,.png,.jpg" hidden
-                @input="changeAvatar($event)" />
+              <input
+                id="image-upload-ref"
+                multiple="false"
+                type="file"
+                accept=".jpeg,.png,.jpg"
+                hidden
+                @input="changeAvatar($event)"
+              />
             </div>
 
             <p class="text-body-1 mb-0">Diperbolehkan JPG atau PNG.</p>
@@ -147,14 +162,16 @@ onMounted(fetchData);
 
               <!-- 👉 WhatsApp Number -->
               <VCol cols="12">
-                <VTextField v-model="dataUser.whatsapp" label="Nomor WhatsApp" type="number" />
+                <VTextField
+                  v-model="dataUser.whatsapp"
+                  label="Nomor WhatsApp"
+                  type="number"
+                />
               </VCol>
 
               <!-- 👉 Form Actions -->
               <VCol cols="12">
-                <VBtn type="submit" :loading="isLoading">
-                  Simpan
-                </VBtn>
+                <VBtn type="submit" :loading="isLoading"> Simpan </VBtn>
               </VCol>
             </VRow>
           </VForm>

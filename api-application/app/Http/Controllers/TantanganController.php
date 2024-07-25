@@ -25,7 +25,7 @@ class TantanganController extends Controller
             "tanggal_mulai",
             "tanggal_selesai",
             "created_at"
-        );
+        )->orderBy("created_at", "desc");
 
         if (!empty($data["search"])) {
             $query->where(function ($query) use ($data) {

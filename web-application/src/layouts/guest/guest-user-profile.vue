@@ -3,8 +3,9 @@ import { useRouter } from "vue-router";
 import { getSwalErrorMessage } from "@/utils/get-error-message";
 import Swal from "sweetalert2";
 import { clearUserToken } from "@/utils/auth-token";
+import { getFullImagePath } from "@/utils/get-full-image-path";
 
-const router = useRouter()
+const router = useRouter();
 
 const fotoProfile = localStorage.getItem("foto_profile");
 const namaLengkap = localStorage.getItem("nama_lengkap");
@@ -12,13 +13,13 @@ const poinUser = localStorage.getItem("poin");
 
 const logout = async () => {
   try {
-    clearUserToken()
+    clearUserToken();
   } catch (error) {
     await Swal.fire({
       icon: "error",
       title: "Error. Tidak Dapat Logout",
       html: getSwalErrorMessage(error),
-    })
+    });
   } finally {
     router.push("/login");
   }
@@ -26,20 +27,32 @@ const logout = async () => {
 </script>
 
 <template>
-  <VBadge dot location="bottom right" offset-x="3" offset-y="3" color="success" bordered>
+  <VBadge
+    dot
+    location="bottom right"
+    offset-x="3"
+    offset-y="3"
+    color="success"
+    bordered
+  >
     <VAvatar class="cursor-pointer" color="primary" variant="tonal">
-      <VImg :src="fotoProfile" />
+      <VImg :src="getFullImagePath(fotoProfile)" />
 
       <VMenu activator="parent" width="230" location="bottom end" offset="14px">
         <VList>
-
           <!-- 👉 User Avatar & Name -->
           <VListItem>
             <template #prepend>
               <VListItemAction start>
-                <VBadge dot location="bottom right" offset-x="3" offset-y="3" color="success">
+                <VBadge
+                  dot
+                  location="bottom right"
+                  offset-x="3"
+                  offset-y="3"
+                  color="success"
+                >
                   <VAvatar color="primary" variant="tonal">
-                    <VImg :src="fotoProfile" />
+                    <VImg :src="getFullImagePath(fotoProfile)" />
                   </VAvatar>
                 </VBadge>
               </VListItemAction>
