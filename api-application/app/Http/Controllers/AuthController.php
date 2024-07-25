@@ -128,7 +128,7 @@ class AuthController extends Controller
             'admin.id_jabatan'
         )
             ->join('jabatan', 'jabatan.id', 'admin.id_jabatan')
-            ->where('id', Auth::user()->id)
+            ->where('admin.id', Auth::user()->id)
             ->first();
         /**
          * Kembalikan response yang sesuai
