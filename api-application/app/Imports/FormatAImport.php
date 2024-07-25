@@ -55,9 +55,7 @@ class FormatAImport implements ToCollection
             'm-j-Y',
         ];
 
-        // Cek apakah $dateString adalah string angka yang seharusnya ditangani sebagai tanggal
         if (is_numeric($dateString)) {
-            // Konversi serial number Excel ke tanggal
             $dateString = Carbon::createFromFormat('Y-m-d', '1899-12-30')->addDays($dateString)->format('Y-m-d');
         }
 
@@ -69,7 +67,6 @@ class FormatAImport implements ToCollection
             }
         }
 
-        // Log the problematic date string
         Log::error("Format tanggal tidak sesuai: {$dateString}");
         throw new \Exception("Format {$namaColumn} {$dateString} tidak sesuai");
     }
@@ -90,9 +87,6 @@ class FormatAImport implements ToCollection
                 $tanggal_lahir = isset($data[9]) ? $this->parseDate($data[9], "Tanggal Lahir") : null;
                 $tanggal_meninggal_bayi = isset($data[10]) ? $this->parseDate($data[10], "Tanggal Meninggal Bayi") : null;
                 $tanggal_meninggal_ibu = isset($data[11]) ? $this->parseDate($data[11], "Tanggal Meninggal Ibu") : null;
-                // $tanggal_lahir = $data[9];
-                // $tanggal_meninggal_bayi = $data[10];
-                // $tanggal_meninggal_ibu = $data[11];
 
                 // Check if parent data already exists by NIK
                 $orangTua = null;

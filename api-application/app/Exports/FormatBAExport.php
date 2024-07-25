@@ -9,7 +9,7 @@ use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Events\AfterSheet;
-use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use DB;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class FormatBAExport implements FromCollection, WithHeadings, WithEvents, WithCustomStartCell, WithStyles
@@ -36,7 +36,7 @@ class FormatBAExport implements FromCollection, WithHeadings, WithEvents, WithCu
             'Berat Lahir',
             'Nama Ibu',
             'Nama Ayah',
-            'RT/RW',
+            'RT_RW',
             'KMS',
             'KIA',
             'Umur',
@@ -100,10 +100,21 @@ class FormatBAExport implements FromCollection, WithHeadings, WithEvents, WithCu
          * Melakukan perulangan sebanyak jumlah bulan yang ada
          *
          */
+        $angkaBulan = 1; // Mulai dari 1 untuk bulan pertama
         foreach ($bulanLabels as $index => $bulan) {
-            $caseStatements[] = "MAX(CASE WHEN penimbangan.bulan_penimbangan = " . ($index + 1) . " AND penimbangan.id IS NOT NULL THEN standar_deviasi.umur_bulan ELSE '-' END) as 'Umur - " . $bulan . "'";
+            $currentPeriod = $this->tahunDipilih . str_pad($angkaBulan, 2, '0', STR_PAD_LEFT);
+            $umurBulanExpr = "PERIOD_DIFF($currentPeriod, DATE_FORMAT(bayi.tanggal_lahir, '%Y%m'))";
+
+            $caseStatements[] = "
+        CASE
+            WHEN $umurBulanExpr BETWEEN " . $this->batasBulanStart[$this->tabDipilih - 1] . " AND " . $this->batasBulanEnd[$this->tabDipilih - 1] . "
+            THEN $umurBulanExpr
+            ELSE '-'
+        END as 'Umur - " . $bulan . "'";
+
             $caseStatements[] = "MAX(CASE WHEN penimbangan.bulan_penimbangan = " . ($index + 1) . " AND penimbangan.id IS NOT NULL THEN penimbangan.berat_badan ELSE '-' END) as 'Berat - " . $bulan . "'";
             $caseStatements[] = "MAX(CASE WHEN penimbangan.bulan_penimbangan = " . ($index + 1) . " AND penimbangan.id IS NOT NULL THEN penimbangan.ntob ELSE '-' END) as 'N/T/O/B - " . $bulan . "'";
+            $angkaBulan++;
         }
 
         /**
@@ -115,7 +126,7 @@ class FormatBAExport implements FromCollection, WithHeadings, WithEvents, WithCu
             $queries[$bulan - 1] = BayiModel::select(
                 'bayi.nama',
                 'bayi.jenis_kelamin',
-                'bayi.tanggal_lahir',
+                DB::raw("DATE_FORMAT(bayi.tanggal_lahir, '%d-%m-%Y') as tanggal_lahir"),
                 'bayi.berat_lahir',
                 'orang_tua.nama_ibu',
                 'orang_tua.nama_ayah',
