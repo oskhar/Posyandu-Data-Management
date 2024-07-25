@@ -16,8 +16,8 @@ export const adminRoutes = {
     {
       path: "dashboard",
       beforeEnter: checkPermittedAdminRoles([
-        ADMIN_ROLES.PELINDUNG.id_jabatan,
         ADMIN_ROLES.PENANGGUNG_JAWAB.id_jabatan,
+        ADMIN_ROLES.KETUA.id_jabatan,
         ADMIN_ROLES.SEKRETARIS.id_jabatan,
         ADMIN_ROLES.BENDAHARA.id_jabatan,
         ADMIN_ROLES.PENDAFTARAN.id_jabatan,
@@ -40,8 +40,8 @@ export const adminRoutes = {
     {
       path: "events",
       beforeEnter: checkPermittedAdminRoles([
-        ADMIN_ROLES.PELINDUNG.id_jabatan,
         ADMIN_ROLES.PENANGGUNG_JAWAB.id_jabatan,
+        ADMIN_ROLES.KETUA.id_jabatan,
         ADMIN_ROLES.SEKRETARIS.id_jabatan,
         ADMIN_ROLES.BENDAHARA.id_jabatan,
         ADMIN_ROLES.PENDAFTARAN.id_jabatan,
@@ -54,8 +54,8 @@ export const adminRoutes = {
     {
       path: "edukasi",
       beforeEnter: checkPermittedAdminRoles([
-        ADMIN_ROLES.PELINDUNG.id_jabatan,
         ADMIN_ROLES.PENANGGUNG_JAWAB.id_jabatan,
+        ADMIN_ROLES.KETUA.id_jabatan,
         ADMIN_ROLES.SEKRETARIS.id_jabatan,
         ADMIN_ROLES.BENDAHARA.id_jabatan,
         ADMIN_ROLES.PENDAFTARAN.id_jabatan,
@@ -68,8 +68,8 @@ export const adminRoutes = {
     {
       path: "galeri",
       beforeEnter: checkPermittedAdminRoles([
-        ADMIN_ROLES.PELINDUNG.id_jabatan,
         ADMIN_ROLES.PENANGGUNG_JAWAB.id_jabatan,
+        ADMIN_ROLES.KETUA.id_jabatan,
         ADMIN_ROLES.SEKRETARIS.id_jabatan,
         ADMIN_ROLES.BENDAHARA.id_jabatan,
         ADMIN_ROLES.PENDAFTARAN.id_jabatan,
@@ -85,8 +85,8 @@ export const adminRoutes = {
         {
           path: "admin",
           beforeEnter: checkPermittedAdminRoles([
-            ADMIN_ROLES.PELINDUNG.id_jabatan,
             ADMIN_ROLES.PENANGGUNG_JAWAB.id_jabatan,
+            ADMIN_ROLES.KETUA.id_jabatan,
             ADMIN_ROLES.SEKRETARIS.id_jabatan,
             ADMIN_ROLES.BENDAHARA.id_jabatan,
             ADMIN_ROLES.PENDAFTARAN.id_jabatan,
@@ -96,8 +96,8 @@ export const adminRoutes = {
         {
           path: "format-1",
           beforeEnter: checkPermittedAdminRoles([
-            ADMIN_ROLES.PELINDUNG.id_jabatan,
             ADMIN_ROLES.PENANGGUNG_JAWAB.id_jabatan,
+            ADMIN_ROLES.KETUA.id_jabatan,
             ADMIN_ROLES.SEKRETARIS.id_jabatan,
             ADMIN_ROLES.BENDAHARA.id_jabatan,
             ADMIN_ROLES.PENDAFTARAN.id_jabatan,
@@ -110,8 +110,8 @@ export const adminRoutes = {
         {
           path: "format-1-create",
           beforeEnter: checkPermittedAdminRoles([
-            ADMIN_ROLES.PELINDUNG.id_jabatan,
             ADMIN_ROLES.PENANGGUNG_JAWAB.id_jabatan,
+            ADMIN_ROLES.KETUA.id_jabatan,
             ADMIN_ROLES.SEKRETARIS.id_jabatan,
             ADMIN_ROLES.BENDAHARA.id_jabatan,
             ADMIN_ROLES.PENDAFTARAN.id_jabatan,
@@ -124,8 +124,8 @@ export const adminRoutes = {
         {
           path: "format-2",
           beforeEnter: checkPermittedAdminRoles([
-            ADMIN_ROLES.PELINDUNG.id_jabatan,
             ADMIN_ROLES.PENANGGUNG_JAWAB.id_jabatan,
+            ADMIN_ROLES.KETUA.id_jabatan,
             ADMIN_ROLES.SEKRETARIS.id_jabatan,
             ADMIN_ROLES.BENDAHARA.id_jabatan,
             ADMIN_ROLES.PENDAFTARAN.id_jabatan,
@@ -138,8 +138,8 @@ export const adminRoutes = {
         {
           path: "format-2-edit",
           beforeEnter: checkPermittedAdminRoles([
-            ADMIN_ROLES.PELINDUNG.id_jabatan,
             ADMIN_ROLES.PENANGGUNG_JAWAB.id_jabatan,
+            ADMIN_ROLES.KETUA.id_jabatan,
             ADMIN_ROLES.SEKRETARIS.id_jabatan,
             ADMIN_ROLES.BENDAHARA.id_jabatan,
             ADMIN_ROLES.PENDAFTARAN.id_jabatan,
@@ -152,8 +152,8 @@ export const adminRoutes = {
         {
           path: "format-3",
           beforeEnter: checkPermittedAdminRoles([
-            ADMIN_ROLES.PELINDUNG.id_jabatan,
             ADMIN_ROLES.PENANGGUNG_JAWAB.id_jabatan,
+            ADMIN_ROLES.KETUA.id_jabatan,
             ADMIN_ROLES.SEKRETARIS.id_jabatan,
             ADMIN_ROLES.BENDAHARA.id_jabatan,
             ADMIN_ROLES.PENDAFTARAN.id_jabatan,
@@ -166,8 +166,8 @@ export const adminRoutes = {
         {
           path: "format-3-create",
           beforeEnter: checkPermittedAdminRoles([
-            ADMIN_ROLES.PELINDUNG.id_jabatan,
             ADMIN_ROLES.PENANGGUNG_JAWAB.id_jabatan,
+            ADMIN_ROLES.KETUA.id_jabatan,
             ADMIN_ROLES.SEKRETARIS.id_jabatan,
             ADMIN_ROLES.BENDAHARA.id_jabatan,
             ADMIN_ROLES.PENDAFTARAN.id_jabatan,
@@ -180,8 +180,8 @@ export const adminRoutes = {
         {
           path: "format-4",
           beforeEnter: checkPermittedAdminRoles([
-            ADMIN_ROLES.PELINDUNG.id_jabatan,
             ADMIN_ROLES.PENANGGUNG_JAWAB.id_jabatan,
+            ADMIN_ROLES.KETUA.id_jabatan,
             ADMIN_ROLES.SEKRETARIS.id_jabatan,
             ADMIN_ROLES.BENDAHARA.id_jabatan,
             ADMIN_ROLES.PENDAFTARAN.id_jabatan,
@@ -194,8 +194,8 @@ export const adminRoutes = {
         {
           path: "format-4-create",
           beforeEnter: checkPermittedAdminRoles([
-            ADMIN_ROLES.PELINDUNG.id_jabatan,
             ADMIN_ROLES.PENANGGUNG_JAWAB.id_jabatan,
+            ADMIN_ROLES.KETUA.id_jabatan,
             ADMIN_ROLES.SEKRETARIS.id_jabatan,
             ADMIN_ROLES.BENDAHARA.id_jabatan,
             ADMIN_ROLES.PENDAFTARAN.id_jabatan,
@@ -235,8 +235,8 @@ export const adminRoutes = {
         {
           path: "kader-gendong",
           beforeEnter: checkPermittedAdminRoles([
-            ADMIN_ROLES.PELINDUNG.id_jabatan,
             ADMIN_ROLES.PENANGGUNG_JAWAB.id_jabatan,
+            ADMIN_ROLES.KETUA.id_jabatan,
             ADMIN_ROLES.SEKRETARIS.id_jabatan,
             ADMIN_ROLES.BENDAHARA.id_jabatan,
             ADMIN_ROLES.PENDAFTARAN.id_jabatan,
@@ -253,8 +253,8 @@ export const adminRoutes = {
     {
       path: "tentang",
       beforeEnter: checkPermittedAdminRoles([
-        ADMIN_ROLES.PELINDUNG.id_jabatan,
         ADMIN_ROLES.PENANGGUNG_JAWAB.id_jabatan,
+        ADMIN_ROLES.KETUA.id_jabatan,
         ADMIN_ROLES.SEKRETARIS.id_jabatan,
         ADMIN_ROLES.BENDAHARA.id_jabatan,
         ADMIN_ROLES.PENDAFTARAN.id_jabatan,

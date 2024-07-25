@@ -197,6 +197,8 @@ export default {
             icon: "success",
             title: response.data.success.message,
           });
+
+          window.location.reload();
         }
       } catch (get) {
         const errorMessage = Object.values(get.response.data.errors).join(
@@ -215,7 +217,8 @@ export default {
           icon: "error",
           title: errorMessage,
         });
-        this.fetchData();
+
+        window.location.reload();
       }
     },
 
@@ -251,6 +254,8 @@ export default {
             icon: "success",
             title: response.data.success.message,
           });
+
+          window.location.reload();
         }
       } catch (get) {
         const errorMessage = Object.values(get.response.data.errors).join(
@@ -305,7 +310,8 @@ export default {
               icon: "success",
               title: response.data.success.message,
             });
-            this.fetchData();
+
+            window.location.reload();
           }
         }
       } catch (get) {

@@ -1,6 +1,6 @@
 export const ADMIN_ROLES = {
-  PELINDUNG: { id_jabatan: 1, nama_jabatan: "PELINDUNG" },
-  PENANGGUNG_JAWAB: { id_jabatan: 2, nama_jabatan: "PENANGGUNG JAWAB" },
+  PENANGGUNG_JAWAB: { id_jabatan: 1, nama_jabatan: "PENANGGUNG JAWAB" },
+  KETUA: { id_jabatan: 2, nama_jabatan: "KETUA" },
   SEKRETARIS: { id_jabatan: 3, nama_jabatan: "SEKRETARIS" },
   BENDAHARA: { id_jabatan: 4, nama_jabatan: "BENDAHARA" },
   PENDAFTARAN: { id_jabatan: 5, nama_jabatan: "PENDAFTARAN" },
@@ -13,8 +13,8 @@ export const ADMIN_ROLES = {
 
 export const ADMIN_DASHBOARD_MENU = [
   {
-    id_jabatan: ADMIN_ROLES.PELINDUNG.id_jabatan,
-    nama_jabatan: ADMIN_ROLES.PELINDUNG.nama_jabatan,
+    id_jabatan: ADMIN_ROLES.PENANGGUNG_JAWAB.id_jabatan,
+    nama_jabatan: ADMIN_ROLES.PENANGGUNG_JAWAB.nama_jabatan,
     menu: [
       { text: "Dashboard", route: "/admin/dashboard", icon: "bx-home" },
       { text: "Events", route: "/admin/events", icon: "bx-news" },
@@ -45,8 +45,8 @@ export const ADMIN_DASHBOARD_MENU = [
     ],
   },
   {
-    id_jabatan: ADMIN_ROLES.PENANGGUNG_JAWAB.id_jabatan,
-    nama_jabatan: ADMIN_ROLES.PENANGGUNG_JAWAB.nama_jabatan,
+    id_jabatan: ADMIN_ROLES.KETUA.id_jabatan,
+    nama_jabatan: ADMIN_ROLES.KETUA.nama_jabatan,
     menu: [
       { text: "Dashboard", route: "/admin/dashboard", icon: "bx-home" },
       { text: "Events", route: "/admin/events", icon: "bx-news" },

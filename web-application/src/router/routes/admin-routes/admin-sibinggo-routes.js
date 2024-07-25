@@ -6,8 +6,8 @@ export const adminSiBinggoRoutes = [
   {
     path: 'si-binggo',
     beforeEnter: checkPermittedAdminRoles([
-      ADMIN_ROLES.PELINDUNG.id_jabatan,
       ADMIN_ROLES.PENANGGUNG_JAWAB.id_jabatan,
+      ADMIN_ROLES.KETUA.id_jabatan,
       ADMIN_ROLES.SEKRETARIS.id_jabatan,
       ADMIN_ROLES.BENDAHARA.id_jabatan,
       ADMIN_ROLES.PENJUAL.id_jabatan,
@@ -17,8 +17,8 @@ export const adminSiBinggoRoutes = [
   {
     path: 'si-binggo/produk/:id',
     beforeEnter: checkPermittedAdminRoles([
-      ADMIN_ROLES.PELINDUNG.id_jabatan,
       ADMIN_ROLES.PENANGGUNG_JAWAB.id_jabatan,
+      ADMIN_ROLES.KETUA.id_jabatan,
       ADMIN_ROLES.SEKRETARIS.id_jabatan,
       ADMIN_ROLES.BENDAHARA.id_jabatan,
       ADMIN_ROLES.PENJUAL.id_jabatan,
