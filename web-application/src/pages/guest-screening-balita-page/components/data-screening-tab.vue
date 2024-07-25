@@ -106,9 +106,6 @@ watch(dataSearch, debouncedFetchData);
                 <th>No</th>
                 <th>Nama Anak</th>
                 <th>Umur</th>
-                <th>Bulan</th>
-                <th>Kelamin</th>
-                <th>Berat Badan</th>
                 <th>N/T/O/B & BGM</th>
                 <th style="width: 220px">Detail</th>
               </tr>
@@ -123,16 +120,6 @@ watch(dataSearch, debouncedFetchData);
                   {{ item.nama_bayi }}
                 </td>
                 <td class="text-center">{{ item.umur }} Bulan</td>
-                <td class="text-center">
-                  {{ item.bulan }}
-                </td>
-                <td class="text-center">
-                  {{ item.jenis_kelamin }}
-                </td>
-                <td class="text-center">
-                  <p v-if="item.berat_badan">{{ item.berat_badan }}</p>
-                  <p v-else> - </p>
-                </td>
                 <td class="text-center">
                   <p v-if="item.ntob">{{ item.ntob }}</p>
                   <p v-else> - </p>

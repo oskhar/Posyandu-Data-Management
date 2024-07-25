@@ -84,7 +84,7 @@
                             <VRow class="mb-5">
                               <VCol cols="12" md="4" lg="4">
                                 <VRadioGroup v-model="data_tersedia">
-                                  <VRadio label="Ubah data" :value></VRadio>
+                                  <VRadio label="Ubah data" :value="true"></VRadio>
                                 </VRadioGroup>
                               </VCol>
                               <VCol cols="12" md="4" lg="4">
@@ -233,7 +233,6 @@
                                   <VCol cols="12" md="9">
                                     <VTextField id="ks" v-model="dataFormatC[index].tahapan_ks"
                                       placeholder="Tahapan KS.." persistent-placeholder />
-                                    <sup class="text-error">*Wajib diisi</sup>
                                   </VCol>
                                 </VRow>
                               </VCol>
@@ -247,7 +246,6 @@
                                   <VCol cols="12" md="9">
                                     <VTextField id="dasawisma" v-model="dataFormatC[index].kelompok_dasawisma
                                       " placeholder="Kelompok dasawisma.." persistent-placeholder />
-                                    <sup class="text-error">*Wajib diisi</sup>
                                   </VCol>
                                 </VRow>
                               </VCol>
@@ -261,7 +259,6 @@
                                   <VCol cols="12" md="9">
                                     <VTextField id="lila" v-model="dataFormatC[index].lila" placeholder="cm.."
                                       persistent-placeholder type="number" />
-                                    <sup class="text-error">*Wajib diisi</sup>
                                   </VCol>
                                 </VRow>
                               </VCol>
@@ -327,7 +324,6 @@
                                   <VCol cols="12" md="9">
                                     <VTextField id="kontrasepsi" v-model="dataFormatC[index].jenis_kontrasepsi
                                       " placeholder="jenis.." persistent-placeholder />
-                                    <sup class="text-error">*Wajib diisi</sup>
                                   </VCol>
                                 </VRow>
                               </VCol>
@@ -341,7 +337,6 @@
                                   <VCol cols="12" md="9">
                                     <VTextField id="penggantian" v-model="dataFormatC[index].tanggal_penggantian
                                       " placeholder="Tanggal Penggantian.." persistent-placeholder type="date" />
-                                    <sup class="text-error">*Wajib diisi</sup>
                                   </VCol>
                                 </VRow>
                               </VCol>
@@ -356,7 +351,6 @@
                                     <VTextField id="kontrasepsi" v-model="dataFormatC[index]
                                       .penggantian_jenis_kontrasepsi
                                       " placeholder="jenis kontrasepsi.." persistent-placeholder />
-                                    <sup class="text-error">*Wajib diisi</sup>
                                   </VCol>
                                 </VRow>
                               </VCol>

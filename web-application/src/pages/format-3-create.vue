@@ -188,7 +188,6 @@
 
                 <VCol cols="12" md="9">
                   <VTextField id="ks" v-model="tahapan_ks" placeholder="Tahapan KS.." persistent-placeholder />
-                  <sup class="text-error">*Wajib diisi</sup>
                 </VCol>
               </VRow>
             </VCol>
@@ -202,7 +201,6 @@
                 <VCol cols="12" md="9">
                   <VTextField id="dasawisma" v-model="kelompok_dasawisma" placeholder="Kelompok dasawisma.."
                     persistent-placeholder />
-                  <sup class="text-error">*Wajib diisi</sup>
                 </VCol>
               </VRow>
             </VCol>
@@ -215,7 +213,6 @@
 
                 <VCol cols="12" md="9">
                   <VTextField id="lila" v-model="lila" placeholder="cm.." persistent-placeholder type="number" />
-                  <sup class="text-error">*Wajib diisi</sup>
                 </VCol>
               </VRow>
             </VCol>
@@ -251,8 +248,8 @@
                       <VListItem ripple @mousedown.prevent @click="toggleHasil">
                         <VListItemAction>
                           <VIcon :color="pilihImunisasi.length === itemImunisasi.length
-                              ? 'primary'
-                              : 'secondary'
+                            ? 'primary'
+                            : 'secondary'
                             ">
                             {{ iconHasil }}
                           </VIcon>
@@ -275,7 +272,6 @@
                 <VCol cols="12" md="9">
                   <VTextField id="kontrasepsi" v-model="jenis_kontrasepsi" placeholder="jenis.."
                     persistent-placeholder />
-                  <sup class="text-error">*Wajib diisi</sup>
                 </VCol>
               </VRow>
             </VCol>
@@ -289,7 +285,6 @@
                 <VCol cols="12" md="9">
                   <VTextField id="penggantian" v-model="tanggal_penggantian" placeholder="Tanggal Penggantian.."
                     persistent-placeholder type="date" />
-                  <sup class="text-error">*Wajib diisi</sup>
                 </VCol>
               </VRow>
             </VCol>
@@ -303,7 +298,6 @@
                 <VCol cols="12" md="9">
                   <VTextField id="kontrasepsi" v-model="penggantian_jenis_kontrasepsi" placeholder="jenis kontrasepsi.."
                     persistent-placeholder />
-                  <sup class="text-error">*Wajib diisi</sup>
                 </VCol>
               </VRow>
             </VCol>
@@ -317,7 +311,6 @@
                 <VCol cols="12" md="9">
                   <VTextField id="keterangan" v-model="keterangan" placeholder="berikan keterangan.."
                     persistent-placeholder />
-                  <sup class="text-error">*Wajib diisi</sup>
                 </VCol>
               </VRow>
             </VCol>
@@ -381,7 +374,6 @@ export default {
       regencyId: null,
       districtId: null,
       villageId: null,
-      pilihImunisasi: [],
       itemImunisasi: [
         "Imunisasi I",
         "Imunisasi II",
