@@ -10,7 +10,7 @@
           <VRow class="mb-5">
             <VCol cols="12" md="4" lg="4">
               <VRadioGroup v-model="data_tersedia">
-                <VRadio label="Pilih data tersedia" value />
+                <VRadio label="Pilih data tersedia" :value="true" />
               </VRadioGroup>
             </VCol>
             <VCol cols="12" md="4" lg="4">

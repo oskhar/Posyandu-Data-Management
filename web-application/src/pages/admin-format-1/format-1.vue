@@ -409,7 +409,7 @@ export default {
                               <VRow class="mb-5">
                                 <VCol cols="12" md="4" lg="4">
                                   <VRadioGroup v-model="data_tersedia">
-                                    <VRadio label="Ubah data" :value></VRadio>
+                                    <VRadio label="Ubah data" :value="true"></VRadio>
                                   </VRadioGroup>
                                 </VCol>
                                 <VCol cols="12" md="4" lg="4">
