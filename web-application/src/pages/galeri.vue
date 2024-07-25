@@ -43,7 +43,12 @@
     <VCol v-if="isLoadingPage" cols="12" md="12" sm="12" class="text-center">
       <VProgressCircular indeterminate color="primary" class="mt-5" size="50"></VProgressCircular>
     </VCol>
-    <VCol v-for="data in dataGambar" v-else cols="6" md="3" sm="6">
+    <VCol v-if="dataGambar.length === 0" cols="12" class="text-center">
+      <p class="text-h5 ma-0 mb-2 text-grey-600">Belum ada gambar</p>
+      <p class="text-subtitle-1  text-grey-600">Silahkan menambahkan gambar dengan menekan tombol "Tambah Gambar"
+      </p>
+    </VCol>
+    <VCol v-for="(data, i) in dataGambar" v-else :key="i" cols="6" md="3" sm="6">
       <VImg style="width: 100%; height: 200px" cover :src="data.gambar" alt="image"
         @click="lihatGambar(data.gambar, data.nama_lengkap, data.id_gambar)" />
       <!-- <h1>{{ data.id_gambar }}</h1> -->
