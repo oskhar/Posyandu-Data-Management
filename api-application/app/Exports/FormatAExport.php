@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use DB;
 
 class FormatAExport implements FromCollection, WithHeadings, WithEvents, WithCustomStartCell, WithStyles
 {
@@ -31,14 +32,19 @@ class FormatAExport implements FromCollection, WithHeadings, WithEvents, WithCus
             'Nama Ibu',
             'NIK Ibu',
             'Nama Bayi',
+            'NIK Bayi',
             'L/P',
             'Berat Lahir',
+            'Tinggi Lahir',
             'Tanggal Lahir',
             'Tanggal Meninggal Bayi',
             'Tanggal Meninggal Ibu',
-            'RT/RW',
+            'RT_RW',
             'KMS',
             'KIA',
+            'IMD',
+            'Nomor Telepon',
+            'Alamat',
             'Keterangan',
         ];
     }
@@ -55,19 +61,25 @@ class FormatAExport implements FromCollection, WithHeadings, WithEvents, WithCus
          */
         $query = FormatAModel::select(
             'orang_tua.nama_ayah',
-            'orang_tua.nik_ayah',
+            DB::raw("CONCAT('\'', orang_tua.nik_ayah) as nik_ayah"),
             'orang_tua.nama_ibu',
-            'orang_tua.nik_ibu',
+            DB::raw("CONCAT('\'', orang_tua.nik_ibu) as nik_ibu"),
             'bayi.nama as nama_bayi',
+            DB::raw("CONCAT('\'', bayi.nik) as nik_bayi"),
             'bayi.jenis_kelamin',
             'bayi.berat_lahir',
-            'bayi.tanggal_lahir',
-            'bayi.tanggal_meninggal as tanggal_meninggal_bayi',
-            'orang_tua.tanggal_meninggal_ibu',
+            'bayi.tinggi_lahir',
+            DB::raw("DATE_FORMAT(bayi.tanggal_lahir, '%d-%m-%Y') as tanggal_lahir"),
+            DB::raw("DATE_FORMAT(bayi.tanggal_meninggal, '%d-%m-%Y') as tanggal_meninggal_bayi"),
+            DB::raw("DATE_FORMAT(orang_tua.tanggal_meninggal_ibu, '%d-%m-%Y') as tanggal_meninggal_ibu"),
             'orang_tua.rt_rw',
             'bayi.memiliki_kms',
             'bayi.memiliki_kia',
+            'bayi.imd',
+            DB::raw("CONCAT('\'', orang_tua.no_telp) as no_telp"),
+            'orang_tua.tempat_tinggal',
             'format_a.keterangan',
+            DB::raw("DATE_FORMAT(format_a.created_at, '%d-%m-%Y') as created_at")
         )
             ->join('bayi', 'bayi.id', 'format_a.id_bayi')
             ->join('orang_tua', 'orang_tua.id', 'bayi.id_orang_tua')
@@ -123,15 +135,20 @@ class FormatAExport implements FromCollection, WithHeadings, WithEvents, WithCus
         $sheet->getColumnDimension('C')->setWidth(26);
         $sheet->getColumnDimension('D')->setWidth(26);
         $sheet->getColumnDimension('E')->setWidth(26);
-        $sheet->getColumnDimension('F')->setWidth(3);
-        $sheet->getColumnDimension('G')->setWidth(10);
-        $sheet->getColumnDimension('H')->setWidth(15);
-        $sheet->getColumnDimension('I')->setWidth(20);
-        $sheet->getColumnDimension('J')->setWidth(20);
-        $sheet->getColumnDimension('K')->setWidth(7);
-        $sheet->getColumnDimension('L')->setWidth(5);
-        $sheet->getColumnDimension('M')->setWidth(5);
-        $sheet->getColumnDimension('N')->setWidth(50);
+        $sheet->getColumnDimension('F')->setWidth(26);
+        $sheet->getColumnDimension('G')->setWidth(3);
+        $sheet->getColumnDimension('H')->setWidth(10);
+        $sheet->getColumnDimension('I')->setWidth(10);
+        $sheet->getColumnDimension('J')->setWidth(15);
+        $sheet->getColumnDimension('K')->setWidth(20);
+        $sheet->getColumnDimension('L')->setWidth(20);
+        $sheet->getColumnDimension('M')->setWidth(7);
+        $sheet->getColumnDimension('N')->setWidth(5);
+        $sheet->getColumnDimension('O')->setWidth(5);
+        $sheet->getColumnDimension('P')->setWidth(5);
+        $sheet->getColumnDimension('Q')->setWidth(15);
+        $sheet->getColumnDimension('R')->setWidth(40);
+        $sheet->getColumnDimension('S')->setWidth(50);
         return [
             1 => ['font' => ['bold' => true]],
             4 => ['font' => ['bold' => true]],
