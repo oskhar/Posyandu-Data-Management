@@ -210,7 +210,7 @@ Route::group(['middleware' => ['auth:sanctum', 'checkUserType:admin']], function
     Route::prefix('import')->group(function () {
 
         Route::post('/format-a', [ImportController::class, 'importFormatAExcel']);
-        Route::post('/format-b', [ImportController::class, 'formatBImport']);
+        Route::post('/format-b', [ImportController::class, 'importFormatBExcel']);
         Route::post('/format-c', [ImportController::class, 'formatCImport']);
 
     });
