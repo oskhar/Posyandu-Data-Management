@@ -35,7 +35,7 @@ export const ADMIN_DASHBOARD_MENU = [
         icon: "bx-image",
         childrens: [
           { text: "Kader Gendong", route: "/admin/layanan/kader-gendong", icon: "bx-book" },
-          { text: "Resleting", route: "/admin/layanan/resleting", icon: "bx-book" },
+          { text: "Resleting", route: "/admin/layanan/resleting/tantangan", icon: "bx-book" },
           { text: "SiBinggo", route: "/admin/layanan/si-binggo", icon: "bx-book" },
           { text: "Screening Balita", route: "/admin/data/format-2", icon: "bx-book" },
         ],
@@ -67,7 +67,7 @@ export const ADMIN_DASHBOARD_MENU = [
         icon: "bx-image",
         childrens: [
           { text: "Kader Gendong", route: "/admin/layanan/kader-gendong", icon: "bx-book" },
-          { text: "Resleting", route: "/admin/layanan/resleting", icon: "bx-book" },
+          { text: "Resleting", route: "/admin/layanan/resleting/tantangan", icon: "bx-book" },
           { text: "SiBinggo", route: "/admin/layanan/si-binggo", icon: "bx-book" },
           { text: "Screening Balita", route: "/admin/data/format-2", icon: "bx-book" },
         ],
@@ -99,7 +99,7 @@ export const ADMIN_DASHBOARD_MENU = [
         icon: "bx-image",
         childrens: [
           { text: "Kader Gendong", route: "/admin/layanan/kader-gendong", icon: "bx-book" },
-          { text: "Resleting", route: "/admin/layanan/resleting", icon: "bx-book" },
+          { text: "Resleting", route: "/admin/layanan/resleting/tantangan", icon: "bx-book" },
           { text: "SiBinggo", route: "/admin/layanan/si-binggo", icon: "bx-book" },
           { text: "Screening Balita", route: "/admin/data/format-2", icon: "bx-book" },
         ],
@@ -131,7 +131,7 @@ export const ADMIN_DASHBOARD_MENU = [
         icon: "bx-image",
         childrens: [
           { text: "Kader Gendong", route: "/admin/layanan/kader-gendong", icon: "bx-book" },
-          { text: "Resleting", route: "/admin/layanan/resleting", icon: "bx-book" },
+          { text: "Resleting", route: "/admin/layanan/resleting/tantangan", icon: "bx-book" },
           { text: "SiBinggo", route: "/admin/layanan/si-binggo", icon: "bx-book" },
           { text: "Screening Balita", route: "/admin/data/format-2", icon: "bx-book" },
         ],
@@ -163,7 +163,7 @@ export const ADMIN_DASHBOARD_MENU = [
         icon: "bx-image",
         childrens: [
           { text: "Kader Gendong", route: "/admin/layanan/kader-gendong", icon: "bx-book" },
-          { text: "Resleting", route: "/admin/layanan/resleting", icon: "bx-book" },
+          { text: "Resleting", route: "/admin/layanan/resleting/tantangan", icon: "bx-book" },
           { text: "Screening Balita", route: "/admin/data/format-2", icon: "bx-book" },
         ],
       },
@@ -193,7 +193,7 @@ export const ADMIN_DASHBOARD_MENU = [
         icon: "bx-image",
         childrens: [
           { text: "Kader Gendong", route: "/admin/layanan/kader-gendong", icon: "bx-book" },
-          { text: "Resleting", route: "/admin/layanan/resleting", icon: "bx-book" },
+          { text: "Resleting", route: "/admin/layanan/resleting/tantangan", icon: "bx-book" },
           { text: "Screening Balita", route: "/admin/data/format-2", icon: "bx-book" },
         ],
       },
@@ -223,7 +223,7 @@ export const ADMIN_DASHBOARD_MENU = [
         icon: "bx-image",
         childrens: [
           { text: "Kader Gendong", route: "/admin/layanan/kader-gendong", icon: "bx-book" },
-          { text: "Resleting", route: "/admin/layanan/resleting", icon: "bx-book" },  
+          { text: "Resleting", route: "/admin/layanan/resleting/tantangan", icon: "bx-book" },  
           { text: "Screening Balita", route: "/admin/data/format-2", icon: "bx-book" },
         ],
       },
@@ -253,7 +253,7 @@ export const ADMIN_DASHBOARD_MENU = [
         icon: "bx-image",
         childrens: [
           { text: "Kader Gendong", route: "/admin/layanan/kader-gendong", icon: "bx-book" },
-          { text: "Resleting", route: "/admin/layanan/resleting", icon: "bx-book" },
+          { text: "Resleting", route: "/admin/layanan/resleting/tantangan", icon: "bx-book" },
           { text: "Screening Balita", route: "/admin/data/format-2", icon: "bx-book" },
         ],
       },

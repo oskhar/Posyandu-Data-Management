@@ -4,13 +4,16 @@ import { clearAdminToken } from "@/utils/auth-token";
 import Swal from "sweetalert2";
 import { getSwalErrorMessage } from "@/utils/get-error-message";
 import { useAdminRoleStore } from "@/stores/admin-role-store";
+import { onMounted, ref } from "vue";
+import { api } from "@/lib/api";
 
 const router = useRouter()
 
 const adminRoleStore = useAdminRoleStore();
-const fotoProfile = localStorage.getItem("foto_profile");
-const namaLengkap = localStorage.getItem("nama_lengkap");
-const jabatan = localStorage.getItem("jabatan");
+const isLoading = ref(true);
+const fotoProfile = ref(null);
+const namaLengkap = ref(null);
+const jabatan = ref(null);
 
 const logout = async () => {
   try {
@@ -26,6 +29,27 @@ const logout = async () => {
     router.push("/login");
   }
 };
+
+
+onMounted(async () => {
+  try {
+    const { data } = await api.post("/auth");
+    const { foto_profile, nama_lengkap, jabatan } = data;
+
+    fotoProfile.value = foto_profile;
+    namaLengkap.value = nama_lengkap;
+    jabatan.value = jabatan;
+  } catch (error) {
+    await Swal.fire({
+      icon: "error",
+      title: "Error mengambil data admin",
+      html: getSwalErrorMessage(error),
+    })
+  } finally {
+    isLoading.value = false;
+  }
+
+})
 </script>
 
 <template>
