@@ -36,7 +36,6 @@ onMounted(fetchData);
 
 <template>
 	<VRow tag="section" class="px-5 mb-4">
-
 		<VCol cols="12" md="9" class="mx-auto">
 			<VCard>
 				<VCardItem>
@@ -92,7 +91,6 @@ onMounted(fetchData);
 				</VCardItem>
 
 			</VCard>
-
 		</VCol>
 	</VRow>
 </template>
