@@ -23,7 +23,7 @@ const searchTantangan = async () => {
 		});
 
 		dataTantangan.value = data;
-		banyakPage.value = links.length;
+		banyakPage.value = links.length - 2;
 		page.value = current_page;
 
 	} catch (error) {
