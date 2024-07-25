@@ -1,13 +1,15 @@
 <script setup>
 import { api } from '@/lib/api';
 import { getErrorMessage } from '@/utils/get-error-message';
+import { getFullImagePath } from '@/utils/get-full-image-path';
 import { errorToast } from '@/utils/toast';
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 const router = useRouter();
 const route = useRoute();
-const dataEdukasi = ref({})
+const dataEdukasi = ref({});
+const isLoading = ref(true);
 
 async function fetchData() {
   try {
@@ -23,29 +25,68 @@ async function fetchData() {
       errorToast({ text: "Postingan edukasi gagal diambil!" })
       router.push('/edukasi')
     }
+
+    isLoading.value = false;
   }
 }
 onMounted(fetchData)
 </script>
 
+
 <template>
-  <VRow>
-    <VCol cols="11" md="9" lg="9" class="mx-auto mb-8">
+  <VRow tag="section" class="px-5 mb-4">
+    <VCol cols="12" md="9" class="mx-auto">
       <VCard>
         <VCardItem>
-          <img class="mt-5" style="width: 100%; object-fit: cover" :src="imagePath + dataEdukasi.gambar" alt="" />
-          <h2 class="text-h2 text-center">{{ dataEdukasi.judul }}</h2>
-          <p class="text-center text-secondary">{{ dataEdukasi.tanggal }}</p>
-          <p style="white-space: pre-line;">{{ dataEdukasi.materi }}</p>
-          <p>Penulis: <span class="text-primary">{{ dataEdukasi.nama_lengkap }}</span></p>
-          <RouterLink to="./">
-            <div>
-              <VIcon>bx-chevron-left</VIcon>
-              Halaman Depan
+          <VBtn prepend-icon="bx-left-arrow-alt" variant="text" to="/layanan/resleting/tantangan" class="mb-4">
+            Kembali
+          </VBtn>
+
+          <VRow class="mb-2" align="center">
+            <VCol cols="12" md="9" lg="10">
+              <VSkeletonLoader v-if="isLoading" type="heading" />
+              <h1 v-else class="text-h5 text-sm-h4 text-primary font-weight-bold">
+                {{ dataEdukasi.judul }}
+              </h1>
+
+              <VSkeletonLoader v-if="isLoading" type="subtitle" />
+              <div v-else class="d-flex align-center gap-2 text-subtitle-1 mt-2">
+                <VIcon icon="mdi-pencil" size="18" />
+                <span>Ditulis oleh {{ dataEdukasi.nama_lengkap }}</span>
+              </div>
+              <VSkeletonLoader v-if="isLoading" type="subtitle" />
+              <div v-else class="d-flex align-center gap-2 text-subtitle-1">
+                <VIcon icon="mdi-calendar" size="18" />
+                <span>{{ dataEdukasi.tanggal }}</span>
+              </div>
+
+            </VCol>
+
+          </VRow>
+
+          <VSkeletonLoader v-if="isLoading" type="image, paragraph" />
+
+          <div>
+            <div class="rounded-lg overflow-hidden">
+              <VImg :src="getFullImagePath(dataEdukasi.gambar)" class="h-full" />
             </div>
-          </RouterLink>
+
+            <div class="mt-6 edukasi-description" v-html="dataEdukasi.materi">
+            </div>
+          </div>
         </VCardItem>
+
       </VCard>
     </VCol>
   </VRow>
 </template>
+
+<style scoped>
+.edukasi-description>* {
+  margin-bottom: 20px;
+}
+
+.v-skeleton-loader {
+  background-color: transparent;
+}
+</style>

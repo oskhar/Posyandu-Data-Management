@@ -66,47 +66,51 @@ onMounted(fetchData);
 <template>
 	<VRow tag="section" class="px-5 mb-4">
 		<VCol cols="12" md="9" class="mx-auto">
-			<VBtn prepend-icon="bx-left-arrow-alt" variant="text" to="/layanan/si-binggo/produk/cari" class="mb-4">
-				Kembali
-			</VBtn>
+			<VCard>
+				<VCardItem>
+					<VBtn prepend-icon="bx-left-arrow-alt" variant="text" to="/layanan/si-binggo/produk/cari" class="mb-4">
+						Kembali
+					</VBtn>
 
-			<VRow class="flex-column flex-md-row">
-				<VCol cols="12" md="7">
-					<VSkeletonLoader v-if="isLoading" type="image" />
-					<VImg v-else :src="dataProduk.gambar" class="rounded-lg position-sticky" style="top: 110px;" />
-				</VCol>
+					<VRow class="flex-column flex-md-row">
+						<VCol cols="12" md="7">
+							<VSkeletonLoader v-if="isLoading" type="image" />
+							<VImg v-else :src="dataProduk.gambar" class="rounded-lg position-sticky" style="top: 110px;" />
+						</VCol>
 
 
-				<VCol cols="12" md="5">
-					<VSkeletonLoader v-if="isLoading" type="heading" />
-					<h1 v-else class="text-h5 text-sm-h4 text-primary font-weight-bold">
-						{{ dataProduk.nama }}
-					</h1>
+						<VCol cols="12" md="5">
+							<VSkeletonLoader v-if="isLoading" type="heading" />
+							<h1 v-else class="text-h5 text-sm-h4 text-primary font-weight-bold">
+								{{ dataProduk.nama }}
+							</h1>
 
-					<VSkeletonLoader v-if="isLoading" type="subtitle" />
-					<span v-else class="mb-2 d-flex gap-10 align-center font-weight-bold text-h6">
-						{{ rupiahFormatter(currentPrice) }}
-					</span>
+							<VSkeletonLoader v-if="isLoading" type="subtitle" />
+							<span v-else class="mb-2 d-flex gap-10 align-center font-weight-bold text-h6">
+								{{ rupiahFormatter(currentPrice) }}
+							</span>
 
-					<VSkeletonLoader v-if="isLoading" type="subtitle" />
-					<div v-else-if="!isLoading && dataProduk.sedang_dijual" class="d-flex gap-3 align-center">
-						<VBtn icon="bx-minus" size="28" variant="tonal" @click="decreaseAmount" />
-						<span class="font-weight-bold text-subtitle-1">{{ amount }}</span>
-						<VBtn icon="bx-plus" size="28" variant="tonal" @click="increaseAmount" />
-					</div>
+							<VSkeletonLoader v-if="isLoading" type="subtitle" />
+							<div v-else-if="!isLoading && dataProduk.sedang_dijual" class="d-flex gap-3 align-center">
+								<VBtn icon="bx-minus" size="28" variant="tonal" @click="decreaseAmount" />
+								<span class="font-weight-bold text-subtitle-1">{{ amount }}</span>
+								<VBtn icon="bx-plus" size="28" variant="tonal" @click="increaseAmount" />
+							</div>
 
-					<VSkeletonLoader v-if="isLoading" type="paragraph" />
-					<div v-else class="mt-6 tantangan-description text-justify w-100" v-html="dataProduk.deskripsi" />
+							<VSkeletonLoader v-if="isLoading" type="paragraph" />
+							<div v-else class="mt-6 tantangan-description text-justify w-100" v-html="dataProduk.deskripsi" />
 
-					<VSkeletonLoader v-if="isLoading" type="button" />
-					<a v-else :disabled="!dataProduk.sedang_dijual" target="_blank" rel="noopener noreferrer"
-						:href="dataProduk.sedang_dijual ? whatsappLink : '#'">
-						<VBtn :disabled="!dataProduk.sedang_dijual" class="w-100 mt-4">
-							{{ dataProduk.sedang_dijual ? 'Beli Sekarang' : 'Tidak Dijual' }}
-						</VBtn>
-					</a>
-				</VCol>
-			</VRow>
+							<VSkeletonLoader v-if="isLoading" type="button" />
+							<a v-else :disabled="!dataProduk.sedang_dijual" target="_blank" rel="noopener noreferrer"
+								:href="dataProduk.sedang_dijual ? whatsappLink : '#'">
+								<VBtn :disabled="!dataProduk.sedang_dijual" class="w-100 mt-4">
+									{{ dataProduk.sedang_dijual ? 'Beli Sekarang' : 'Tidak Dijual' }}
+								</VBtn>
+							</a>
+						</VCol>
+					</VRow>
+				</VCardItem>
+			</VCard>
 		</VCol>
 	</VRow>
 </template>
