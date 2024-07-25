@@ -62,14 +62,15 @@ export default {
 
               <VMenu open-on-hover open-on-focus location="bottom center" origin="auto" activator="parent">
                 <VList class="text-primary">
-                  <VListItem v-for="(child, childIndex) in item.childrens" :key="childIndex" :to="child.route" exact>
+                  <VListItem v-for="(child, childIndex) in item.childrens" :key="childIndex" :to="child.route"
+                    :active="false">
                     <VListItemContent style="text-transform: uppercase !important; font-size: 14px;">{{ child.text }}
                     </VListItemContent>
                   </VListItem>
                 </VList>
               </VMenu>
             </VBtn>
-            <VBtn v-else text :to="item.route" exact>
+            <VBtn v-else text :to="item.route" :active="false">
               {{ item.text }}
             </VBtn>
           </template>
@@ -93,7 +94,7 @@ export default {
         <img src=" /logo.svg" />
       </VListItem>
 
-      <VerticalNavItems :menu-items="menu" />
+      <VerticalNavItems flip-accordion-icon :menu-items="menu" />
     </VList>
   </VNavigationDrawer>
 

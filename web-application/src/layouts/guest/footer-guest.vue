@@ -1,12 +1,12 @@
 <script setup>
-import { FOOTER_MENU_ITEMS } from "@/constants";
-import { RouterLink } from "vue-router";
+import { EMAIL_POSYANDU, FORMATTED_WA_POSYANDU, IG_POSYANDU, WA_POSYANDU } from "@/constants";
+import { getWhatsappLink } from "@/utils/send-whatsapp";
 
 const currentYear = new Date().getFullYear()
 </script>
 
 <template>
-  <VFooter class="bg-white px-0 py-0 pt-10  d-flex flex-column">
+  <VFooter id="kontak" class="bg-white px-0 py-0 pt-10  d-flex flex-column">
     <VRow class="w-100">
       <VCol cols="12" md="9" class="px-5 mx-auto">
         <VRow class="d-flex justify-space-between">
@@ -18,27 +18,44 @@ const currentYear = new Date().getFullYear()
             </VRow>
 
             <VRow>
-              <VCol v-for="menu in FOOTER_MENU_ITEMS" :key="menu.title" class="text-start" cols="12" sm="6" md="4"
-                lg="3">
-                <h3 class="mb-2 text-primary text-h6 font-weight-bold">{{ menu.title }}</h3>
+              <VCol class="text-start" cols="12">
+                <h3 class="text-h6 font-weight-bold text-primary d-flex align-center gap-2">
+                  <VIcon>bx-phone</VIcon>
+                  Kontak Kami
+                </h3>
+              </VCol>
 
-                <ul class="footer-menu">
-                  <li v-for="item in menu.items" :key="item.text" class="footer-menu-item text-subtitle-1">
-                    <RouterLink :to="item.route" class="text-secondary">
-                      {{ item.text }}
-                    </RouterLink>
-                  </li>
-                </ul>
+              <VCol class="text-start d-flex flex-column gap-4 font-weight-medium" cols="12">
+                <a target="_blank" rel="noopener noreferrer" class="d-flex align-center gap-4"
+                  :href="getWhatsappLink(WA_POSYANDU, 'Halo Posyandu 9')">
+                  <VIcon color="#25D366" size="32">mdi-whatsapp</VIcon>
+                  <span class="text-subtitle-1 font-weight-bold text-grey-600">{{ FORMATTED_WA_POSYANDU }}</span>
+                </a>
+                <a target="_blank" rel="noopener noreferrer" :href="`https://www.instagram.com/${IG_POSYANDU}/`"
+                  class="d-flex align-center gap-4">
+                  <VIcon color="#E52765" size="32">mdi-instagram</VIcon>
+                  <span class="text-subtitle-1 font-weight-bold text-grey-600">{{
+                    IG_POSYANDU }}</span>
+                </a>
+                <a class="d-flex align-center gap-4" target="_blank" rel="noopener noreferrer"
+                  :href="`https://www.facebook.com/${IG_POSYANDU}/`">
+                  <VIcon color="#4267B2" size="32">mdi-facebook</VIcon>
+                  <span class="text-subtitle-1 font-weight-bold text-grey-600">{{ IG_POSYANDU }}</span>
+                </a>
+                <a :href="`mailto:${EMAIL_POSYANDU}`" class="d-flex align-center gap-4">
+                  <VIcon color="#008cb5" size="32">mdi-email-outline</VIcon>
+                  <span class="text-subtitle-1 font-weight-bold text-grey-600">{{ EMAIL_POSYANDU }}</span>
+                </a>
               </VCol>
             </VRow>
           </VCol>
 
           <VCol cols="12" md="6" class="d-flex flex-column">
             <h3 class="text-h6 font-weight-bold text-primary">
-              <VIcon>bx-pin</VIcon>
+              <VIcon size="small">bx-pin</VIcon>
               Lokasi Kami
             </h3>
-            <p class="mt-2">
+            <p class="mt-2 text-subtitle-1">
               Jl. Mutiara Pluit No.40, RT.002/RW.009, Periuk, Tangerang City, Banten
               15131
             </p>

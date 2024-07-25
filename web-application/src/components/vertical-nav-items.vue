@@ -1,6 +1,7 @@
 <script setup>
-const { menuItems } = defineProps({
+const { menuItems, flipAccordionIcon } = defineProps({
 	menuItems: { type: Array, required: true },
+	flipAccordionIcon: { type: Boolean, required: false, default: false },
 })
 </script>
 
@@ -8,11 +9,12 @@ const { menuItems } = defineProps({
 	<template v-for="(item, index) in menuItems" :key="index">
 		<VListItem v-if="item.childrens" class="text-primary">
 			<VExpansionPanels>
-				<VExpansionPanel class="text-primary custom-expansion-panel">
+				<VExpansionPanel class="text-primary" :class="[{ 'custom-expansion-panel': !flipAccordionIcon }]">
 					<VExpansionPanelTitle class="pa-0">{{ item.text }}</VExpansionPanelTitle>
 					<VExpansionPanelText class="list-item-accordion">
 						<VList class="text-primary">
-							<VListItem v-for="(child, childIndex) in item.childrens" :key="childIndex" :to="child.route" exact>
+							<VListItem v-for="(child, childIndex) in item.childrens" :key="childIndex" :to="child.route"
+								:active="false">
 								{{ child.text }}
 							</VListItem>
 						</VList>
@@ -20,7 +22,8 @@ const { menuItems } = defineProps({
 				</VExpansionPanel>
 			</VExpansionPanels>
 		</VListItem>
-		<VListItem v-else class="non-expansion-list-item text-primary" :to="item.route" exact :prepend-icon="item.icon">
+		<VListItem v-else class="non-expansion-list-item text-primary" :to="item.route" :active="false"
+			:prepend-icon="item.icon">
 			{{ item.text }}
 		</VListItem>
 	</template>

@@ -1,6 +1,3 @@
-
-export const WA_POSYANDU = '628129084810'
-
 export const ITEM_BULAN = [
   { value: 1, title: 'Januari' },
   { value: 2, title: 'Februari' },

@@ -69,7 +69,7 @@ const { statsEvents, statsEdukasi, statsBayi, statsGambar } = defineProps({
 							</RouterLink>
 						</VCol>
 						<VCol v-ripple cols="12" sm="6" lg="3">
-							<a href="#galeri" class="d-block pa-4">
+							<RouterLink to="#galeri" class="d-block pa-4">
 								<VIcon class="text-primary text-h4">bx-image</VIcon>
 								<h2 class="font-weight-bold mt-1 text-h6 text-primary">
 									Galeri
@@ -77,7 +77,7 @@ const { statsEvents, statsEdukasi, statsBayi, statsGambar } = defineProps({
 								<p class="text-h6 text-primary ma-0">
 									{{ statsGambar }}
 								</p>
-							</a>
+							</RouterLink>
 						</VCol>
 						<VCol v-ripple cols="12" sm="6" lg="3">
 							<RouterLink class="d-block pa-4" to="/layanan/screening-balita">
