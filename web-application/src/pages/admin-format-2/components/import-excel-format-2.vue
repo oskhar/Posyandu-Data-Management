@@ -40,7 +40,7 @@ const sendExcel = async () => {
 
 			formData.append('file', file.value);
 
-			await api.post('/import/format-a', formData, {
+			await api.post('/import/format-b', formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
 				},

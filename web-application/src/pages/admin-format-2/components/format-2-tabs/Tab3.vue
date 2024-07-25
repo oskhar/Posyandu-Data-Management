@@ -23,14 +23,16 @@
               <VTextField v-model="dataSearch" append-inner-icon="bx-search">
               </VTextField>
             </VCol>
-            <VCol cols="12">
-              <VBtn class="mb-3" prepend-icon="bx-download" @click="exportExcel">
+            <VCol cols="12" class="d-flex gap-2 align-center">
+              <ImportExcelFormat2 />
+
+              <VBtn prepend-icon="bx-download" @click="exportExcel">
                 Data
               </VBtn>
 
               <VDialog v-model="dialog" persistent width="1024">
                 <template #activator="{ props }">
-                  <VBtn color="primary" class="mb-3 ml-3" v-bind="props" prepend-icon="bx-download">
+                  <VBtn color="primary" v-bind="props" prepend-icon="bx-download">
                     Laporan
                   </VBtn>
                 </template>
@@ -73,7 +75,6 @@
                 <th>Bulan</th>
                 <th>Kelamin</th>
                 <th>Berat Badan</th>
-                <th>Asi Eksklusif</th>
                 <th>N/T/O/B & BGM</th>
                 <th style="width: 220px">Aksi</th>
               </tr>
@@ -99,10 +100,6 @@
                 </td>
                 <td class="text-center">
                   <p v-if="item.berat_badan">{{ item.berat_badan }}</p>
-                  <p v-else> - </p>
-                </td>
-                <td class="text-center">
-                  <p v-if="item.asi_eksklusif">{{ item.asi_eksklusif }}</p>
                   <p v-else> - </p>
                 </td>
                 <td class="text-center">
@@ -132,16 +129,13 @@
 </template>
 
 <script>
-//import EditEdukasi from "./EditEdukasi.vue";
 import axios from "axios";
-import AnalyticsBarCharts from "@/views/dashboard/AnalyticsBarCharts.vue";
 import config from "@/@core/config";
-import VueApexCharts from "vue3-apexcharts";
+import ImportExcelFormat2 from "../import-excel-format-2.vue";
 
 export default {
   components: {
-    AnalyticsBarCharts,
-    VueApexCharts,
+    ImportExcelFormat2,
   },
   data() {
     const d = new Date();
@@ -191,6 +185,11 @@ export default {
     dataSearch: function () {
       this.fetchData();
     },
+    bulan: function () {
+      // Ketika tahun berubah, panggil fungsi fetchData
+      this.page = 1;
+      this.fetchData();
+    },
   },
   async mounted() {
     const response = await this.fetchData();
@@ -199,7 +198,7 @@ export default {
     this.namaPosyandu = response.data.nama_posyandu;
     this.kota = response.data.kota;
 
-    const response2 = await axios.get(`${config.urlServer}/api/listtahun?tab=1`, {
+    const response2 = await axios.get(`${config.urlServer}/api/listtahun?tab=3`, {
       headers: {
         Authorization: localStorage.getItem("tokenAuth"),
       },
@@ -208,57 +207,6 @@ export default {
     this.listTahunLahir = response2.data;
   },
   methods: {
-    async exportExcel() {
-      const response = await axios({
-        method: "get",
-        url: `${this.urlServer}/api/export/format-b?tahun=${this.tahun}&tab=1`,
-        responseType: "blob",
-        headers: {
-          Authorization: localStorage.getItem("tokenAuth"),
-        },
-      });
-
-
-      // Membuat objek Date yang merepresentasikan waktu saat ini
-      const currentDate = new Date();
-
-      // Mendapatkan tahun, bulan, tanggal, jam, menit, dan detik
-      const year = currentDate.getFullYear();
-      const month = currentDate.getMonth() + 1; // Perlu ditambah 1 karena indeks bulan dimulai dari 0
-      const day = currentDate.getDate();
-      const hours = currentDate.getHours();
-      const minutes = currentDate.getMinutes();
-      const seconds = currentDate.getSeconds();
-      const currentDateTime = `_${year}-${month}-${day}_${hours}:${minutes}:${seconds}`;
-      const namaFile = `Format-2_tab-1${currentDateTime}.xlsx`;
-
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement("a");
-
-      link.href = url;
-      link.setAttribute("download", namaFile);
-      document.body.appendChild(link);
-      link.click();
-    },
-    async fetchData() {
-      this.isLoading = true;
-
-      const response = await axios.get(
-        `${config.urlServer}/api/format-ba?length=20&start=${this.page}&tahun=${this.tahun}&search=${this.dataSearch}&tab=1`,
-        {
-          headers: {
-            Authorization: localStorage.getItem("tokenAuth"),
-          },
-        },
-      );
-
-      this.banyakPage = Math.ceil(response.data.jumlah_data / 20);
-      this.jumlahData = response.data.jumlah_data;
-      this.dataFormatBA = response.data.format_ba;
-      this.isLoading = false;
-
-      return response;
-    },
 
     async exportExcelLaporan() {
       const response = await axios({
@@ -290,6 +238,58 @@ export default {
       link.setAttribute("download", namaFile);
       document.body.appendChild(link);
       link.click();
+    },
+
+    async exportExcel() {
+      const response = await axios({
+        method: "get",
+        url: `${this.urlServer}/api/export/format-b?tahun=${this.tahun}&tab=3`,
+        responseType: "blob",
+        headers: {
+          Authorization: localStorage.getItem("tokenAuth"),
+        },
+      });
+
+
+      // Membuat objek Date yang merepresentasikan waktu saat ini
+      const currentDate = new Date();
+
+      // Mendapatkan tahun, bulan, tanggal, jam, menit, dan detik
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth() + 1; // Perlu ditambah 1 karena indeks bulan dimulai dari 0
+      const day = currentDate.getDate();
+      const hours = currentDate.getHours();
+      const minutes = currentDate.getMinutes();
+      const seconds = currentDate.getSeconds();
+      const currentDateTime = `_${year}-${month}-${day}_${hours}:${minutes}:${seconds}`;
+      const namaFile = `Format-2_tab-3${currentDateTime}.xlsx`;
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+
+      link.href = url;
+      link.setAttribute("download", namaFile);
+      document.body.appendChild(link);
+      link.click();
+    },
+    async fetchData() {
+      this.isLoading = true;
+
+      const response = await axios.get(
+        `${config.urlServer}/api/format-ba?length=20&start=${this.page}&tahun=${this.tahun}&search=${this.dataSearch}&tab=3`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("tokenAuth"),
+          },
+        },
+      );
+
+      this.jumlahData = response.data.jumlah_data;
+      this.banyakPage = Math.ceil(response.data.jumlah_data / 20);
+      this.dataFormatBA = response.data.format_ba;
+      this.isLoading = false;
+
+      return response;
     },
   },
 };

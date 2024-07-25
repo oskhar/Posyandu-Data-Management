@@ -1,10 +1,9 @@
 <script setup>
 import { useRoute } from "vue-router";
-import Tab1 from "@/views/pages/format-2/Tab1.vue";
-import Tab2 from "@/views/pages/format-2/Tab2.vue";
-import Tab3 from "@/views/pages/format-2/Tab3.vue";
-import Tab4 from "@/views/pages/format-2/Tab4.vue";
-// import AccountSettingsSecurity from "@/views/pages/";
+import Tab1 from "./components/format-2-tabs/Tab1.vue";
+import Tab2 from "./components/format-2-tabs/Tab2.vue";
+import Tab3 from "./components/format-2-tabs/Tab3.vue";
+import Tab4 from "./components/format-2-tabs/Tab4.vue";
 
 const route = useRoute();
 const activeTab = ref(route.params.tab);

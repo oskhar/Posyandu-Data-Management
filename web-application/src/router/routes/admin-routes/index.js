@@ -133,7 +133,7 @@ export const adminRoutes = {
             ADMIN_ROLES.PENCATATAN.id_jabatan,
             ADMIN_ROLES.PENYULUHAN.id_jabatan,
           ]),
-          component: () => import("../../../pages/format-2.vue"),
+          component: () => import("../../../pages/admin-format-2/format-2.vue"),
         },
         {
           path: "format-2-edit",
@@ -147,7 +147,7 @@ export const adminRoutes = {
             ADMIN_ROLES.PENCATATAN.id_jabatan,
             ADMIN_ROLES.PENYULUHAN.id_jabatan,
           ]),
-          component: () => import("../../../pages/format-2-edit.vue"),
+          component: () => import("../../../pages/admin-format-2/format-2-edit.vue"),
         },
         {
           path: "format-3",
