@@ -1,6 +1,19 @@
+import { ADMIN_ROLES } from "@/constants/admin-constants";
+import { checkPermittedAdminRoles } from "@/router/middlewares/admin-middleware";
+
 /** @type { import("vue-router").RouteRecordRaw } */
 export const adminResletingRoutes = {
 	path: "resleting",
+	beforeEnter: checkPermittedAdminRoles([
+    ADMIN_ROLES.PELINDUNG.id_jabatan,
+    ADMIN_ROLES.PENANGGUNG_JAWAB.id_jabatan,
+    ADMIN_ROLES.SEKRETARIS.id_jabatan,
+    ADMIN_ROLES.BENDAHARA.id_jabatan,
+    ADMIN_ROLES.PENDAFTARAN.id_jabatan,
+    ADMIN_ROLES.PENIMBANGAN.id_jabatan,
+    ADMIN_ROLES.PENCATATAN.id_jabatan,
+    ADMIN_ROLES.PENYULUHAN.id_jabatan,
+  ]),
 	children: [
 		{
 			path: "tantangan",
