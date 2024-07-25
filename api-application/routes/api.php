@@ -52,6 +52,7 @@ Route::get('/produk/tags', [ProdukController::class, 'tags']);
 Route::get('/produk/{id}', [ProdukController::class, 'getSpesific']);
 
 Route::get('/format-ba', [FormatBAController::class, 'get']);
+Route::get('/format-ba/unique', [FormatBAController::class, 'getUnique']);
 
 Route::get('/edukasi', [EdukasiController::class, 'get']);
 Route::get('/jumlah-bayi', [FormatAController::class, 'jumlah_bayi']);

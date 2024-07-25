@@ -1645,7 +1645,75 @@ paths:
               example:
                 errors:
                   message: "Data ... tidak valid"
-
+  /format-b/unique:
+    get:
+      tags:
+        - Data Format 2 A
+      summary: MENDAPATKAN data format-b
+      requestBody:
+        description: Data Format 2 A untuk menghapus data format-b
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                search:
+                  type: string
+                start:
+                  type: integer
+                length:
+                  type: integer
+                tahun:
+                  type: integer
+                tab:
+                  type: integer
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jumlah_data:
+                    type: integer
+                  format_ba:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id_bayi:
+                          type: integer
+                        nama_bayi:
+                          type: string
+                        jenis_kelamin:
+                          type: string
+                        berat_badan:
+                          type: number
+                        ntob:
+                          type: string
+                        asi_ekslusif:
+                          type: string
+                        tanggal_lahir:
+                          type: string
+                          format: date
+                        umur:
+                          type: integer
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+        404:
+          description: NOT FOUND
+          content:
+            application/json:
+              example:
+                errors:
+                  message: "Data dengan id ... tidak ditemukan"
   # ==================================================================
 
   /statistik/dashboard:
@@ -2764,6 +2832,33 @@ paths:
                 errors:
                   message: "Data dengan id ... tidak ditemukan"
   /import/format-a:
+    post:
+      tags:
+        - Import excel
+      summary: MELAKUKAN import data bayi
+      requestBody:
+        description: File excel yang dikirim
+        required: true
+        content:
+          multipart/form-data:
+            example:
+              file: "file"
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              example:
+                success:
+                  message: "Data berhasil diimport"
+        400:
+          description: BAD REQUEST
+          content:
+            application/json:
+              example:
+                errors:
+                  message: "Data ... tidak valid"
+  /import/format-b:
     post:
       tags:
         - Import excel
