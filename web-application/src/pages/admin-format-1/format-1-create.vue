@@ -1,12 +1,16 @@
 <template>
   <VRow>
     <VCol cols="12">
+      <VBtn prepend-icon="bx-left-arrow-alt" variant="text" to="/admin/data/format-1" class="mb-4">
+        Kembali
+      </VBtn>
+
       <VCard title="Data orang tua">
         <VCardItem>
           <VRow class="mb-5">
             <VCol cols="12" md="4" lg="4">
               <VRadioGroup v-model="data_tersedia">
-                <VRadio label="Pilih data tersedia" :value="true"></VRadio>
+                <VRadio label="Pilih data tersedia" value />
               </VRadioGroup>
             </VCol>
             <VCol cols="12" md="4" lg="4">
@@ -350,7 +354,6 @@
 import axios from "axios";
 import config from "@/@core/config";
 import Swal from "sweetalert2";
-import { ref } from "vue";
 
 export default {
   data() {

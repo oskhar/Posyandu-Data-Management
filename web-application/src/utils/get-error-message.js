@@ -39,18 +39,26 @@ export function isErrorApiResponse(response) {
 }
 
 /**
- * @param {Record<string, string[] | string>} errors 
+ * @param {Record<string, string[] | string | Object>} errors 
  */
 export function flattenApiErrorResponse(errors) {
 	return Object.entries(errors)
-	.map(([_, messages]) =>{
-		if (typeof messages === 'string') {
-			return messages;
+	.map(([_, entry]) =>{
+		if (typeof entry === 'string') {
+			return entry;
 		}
 
-		return `${messages.join('\n')}`
+		if (typeof entry === 'object') {
+			return fileImportErrorMessage(entry)
+		}
+
+		return `${entry.join('\n')}`
 	})
 	.join('\n');
+}
+
+export function fileImportErrorMessage(errorEntry) {
+	return `Baris(${errorEntry.baris}) ${errorEntry.message}`
 }
 
 export function flattenZodError(zodError) {
