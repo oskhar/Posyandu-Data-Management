@@ -120,13 +120,26 @@ class AuthController extends Controller
 
     public function authData(Request $request)
     {
+        $admin = AdminModel::select(
+            'admin.id',
+            'jabatan.nama as nama_jabatan',
+            'admin.foto_profile',
+            'admin.nama_lengkap',
+            'admin.id_jabatan'
+        )
+            ->join('jabatan', 'jabatan.id', 'admin.id_jabatan')
+            ->where('admin.id', Auth::user()->id)
+            ->first();
         /**
          * Kembalikan response yang sesuai
          *
          */
         return response()->json([
-            'id_admin' => Auth::user()->id,
-            'id_jabatan' => Auth::user()->id_jabatan
+            'id_admin' => $admin->id,
+            'id_jabatan' => $admin->id_jabatan,
+            'foto_profile' => $admin->foto_profile,
+            'nama_lengkap' => $admin->nama_lengkap,
+            'jabatan' => $admin->nama_jabatan,
         ])->setStatusCode(200);
     }
     public function resetPassword(ResetPasswordRequest $request): JsonResponse
