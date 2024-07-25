@@ -74,7 +74,6 @@ class FormatAImport implements ToCollection
         throw new \Exception("Format {$namaColumn} {$dateString} tidak sesuai");
     }
 
-
     /**
      * @param Collection $collection
      */
@@ -167,7 +166,10 @@ class FormatAImport implements ToCollection
             } catch (\Exception $e) {
                 // Log error
                 Log::error('Baris ' . ($index + 1) . ' Error: ' . $e->getMessage());
-                $errors[] = $e->getMessage() . ' pada baris ' . $index + 1;
+                $errors[] = [
+                    "baris" => $index + 1,
+                    "message" => $e->getMessage(),
+                ];
             }
         }
 
