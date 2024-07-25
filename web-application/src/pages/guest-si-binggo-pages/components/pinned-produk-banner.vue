@@ -1,6 +1,6 @@
 <script setup>
 import { getFullImagePath } from '@/utils/get-full-image-path';
-import { rupiahFormatter } from '@/utils/rupiah-formatter';
+import { rupiahFormatter } from '@/@core/utils/formatters';
 import { ref } from 'vue';
 
 const { listDataProduk } = defineProps({

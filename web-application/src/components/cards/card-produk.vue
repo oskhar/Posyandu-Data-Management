@@ -1,6 +1,6 @@
 <script setup>
+import { rupiahFormatter } from '@/@core/utils/formatters';
 import { getFullImagePath } from '@/utils/get-full-image-path';
-import { rupiahFormatter } from '@/utils/rupiah-formatter';
 
 const { dataProduk } = defineProps({
 	dataProduk: { type: Object, required: true },

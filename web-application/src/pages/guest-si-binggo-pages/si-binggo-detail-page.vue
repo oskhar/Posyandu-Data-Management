@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router';
 import Swal from 'sweetalert2';
 import { getErrorMessage } from '@/utils/get-error-message';
 import { getWhatsappLink } from '@/utils/send-whatsapp';
-import { rupiahFormatter } from '@/utils/rupiah-formatter';
+import { rupiahFormatter } from '@/@core/utils/formatters';
 import { fetchDetailProduk } from './api/si-binggo-pages-api';
 
 const route = useRoute();
