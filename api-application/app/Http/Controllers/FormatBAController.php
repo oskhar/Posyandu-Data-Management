@@ -491,6 +491,76 @@ class FormatBAController extends Controller
             "format_ba" => $formatBA
         ])->setStatusCode(200);
     }
+
+    public function getUnique(FormatBARequest $request): JsonResponse
+    {
+        $data = $request->validated();
+
+        /**
+         * Membuat query utama
+         *
+         */
+        $queries = [];
+        for ($bulan = 1; $bulan <= 12; $bulan++) {
+            $queries[$bulan - 1] = BayiModel::select(
+                'bayi.nama as nama_bayi',
+                'penimbangan.ntob',
+            )->selectRaw('(' . $data['tahun'] . ' - YEAR(bayi.tanggal_lahir)) * 12 + ' . $bulan . ' - MONTH(bayi.tanggal_lahir) as umur')
+                ->join('orang_tua', 'orang_tua.id', 'bayi.id_orang_tua')
+                ->leftJoin('penimbangan', function ($join) use ($data) {
+                    $join->on('penimbangan.id_bayi', '=', 'bayi.id')
+                        ->where('penimbangan.tahun_penimbangan', $data['tahun']);
+                })
+                ->whereRaw('(' . $data['tahun'] . ' - YEAR(bayi.tanggal_lahir)) * 12 + ' . $bulan . ' - MONTH(bayi.tanggal_lahir) BETWEEN ' . $this->batasBulanStart[$data['tab'] - 1] . ' AND ' . $this->batasBulanEnd[$data['tab'] - 1])
+                ->whereNull('bayi.tanggal_meninggal');
+
+            if (!empty($data['search'])) {
+
+                /**
+                 * Memfilter data sesuai request search
+                 *
+                 */
+                $query = $queries[$bulan - 1]->whereRaw('LOWER(bayi.nama) LIKE ?', ['%' . $data['search'] . '%']);
+            }
+        }
+
+        /**
+         * Melakukan perulangan dari queries
+         *
+         */
+        foreach ($queries as $index => $query) {
+
+            /**
+             * Memeriksa query utama
+             *
+             */
+            if ($index === 0) {
+
+                /**
+                 * Tetapkan index 0 menjadi query utama
+                 *
+                 */
+                $mergedQuery = $query;
+            } else {
+
+                /**
+                 * Menambahkan query lainnya untuk
+                 * distak ke dalam query utama
+                 *
+                 */
+                $mergedQuery = $mergedQuery->union($query);
+            }
+        }
+
+        /**
+         * Mengambil data dari query yang sudah diolah
+         *
+         */
+        $results = $mergedQuery->get();
+
+        return response()->json($results)->setStatusCode(200);
+    }
+
     public function post(FormatBARequest $request): JsonResponse
     {
         /**
