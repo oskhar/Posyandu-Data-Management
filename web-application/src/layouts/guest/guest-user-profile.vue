@@ -4,12 +4,14 @@ import { getSwalErrorMessage } from "@/utils/get-error-message";
 import Swal from "sweetalert2";
 import { clearUserToken } from "@/utils/auth-token";
 import { getFullImagePath } from "@/utils/get-full-image-path";
+import { api } from "@/lib/api";
+import { DEFAULT_PROFILE_PIC } from "@/constants";
 
 const router = useRouter();
 
-const fotoProfile = localStorage.getItem("foto_profile");
-const namaLengkap = localStorage.getItem("nama_lengkap");
-const poinUser = localStorage.getItem("poin");
+const fotoProfile = ref(null);
+const namaLengkap = ref(null);
+const poinUser = ref(null);
 
 const logout = async () => {
   try {
@@ -24,19 +26,31 @@ const logout = async () => {
     router.push("/login");
   }
 };
+
+
+onMounted(async () => {
+  try {
+    const { data } = await api.post("/user/auth");
+    const { foto_profile, nama, poin } = data;
+
+    fotoProfile.value = foto_profile;
+    namaLengkap.value = nama;
+    poinUser.value = poin;
+  } catch (error) {
+    console.log(error);
+    await Swal.fire({
+      icon: "error",
+      title: "Error mengambil data admin",
+      html: getSwalErrorMessage(error),
+    });
+  }
+});
 </script>
 
 <template>
-  <VBadge
-    dot
-    location="bottom right"
-    offset-x="3"
-    offset-y="3"
-    color="success"
-    bordered
-  >
+  <VBadge dot location="bottom right" offset-x="3" offset-y="3" color="success" bordered>
     <VAvatar class="cursor-pointer" color="primary" variant="tonal">
-      <VImg :src="getFullImagePath(fotoProfile)" />
+      <VImg :src="getFullImagePath(fotoProfile ?? DEFAULT_PROFILE_PIC)" />
 
       <VMenu activator="parent" width="230" location="bottom end" offset="14px">
         <VList>
@@ -44,15 +58,9 @@ const logout = async () => {
           <VListItem>
             <template #prepend>
               <VListItemAction start>
-                <VBadge
-                  dot
-                  location="bottom right"
-                  offset-x="3"
-                  offset-y="3"
-                  color="success"
-                >
+                <VBadge dot location="bottom right" offset-x="3" offset-y="3" color="success">
                   <VAvatar color="primary" variant="tonal">
-                    <VImg :src="getFullImagePath(fotoProfile)" />
+                    <VImg :src="getFullImagePath(fotoProfile ?? DEFAULT_PROFILE_PIC)" />
                   </VAvatar>
                 </VBadge>
               </VListItemAction>

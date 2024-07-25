@@ -9,6 +9,7 @@ import {
   convertBlobToBase64,
   validateFileInput,
 } from "@/utils/file";
+import { DEFAULT_PROFILE_PIC } from "@/constants";
 
 const isLoading = ref(false);
 const dataUser = ref({});
@@ -27,7 +28,7 @@ const fetchData = async () => {
   }
 };
 
-const submitData = async (formData) => {
+const submitData = async formData => {
   formData.preventDefault();
   isLoading.value = true;
 
@@ -60,7 +61,7 @@ const uploadGambar = () => {
   document.querySelector("#image-upload-ref")?.click();
 };
 
-const changeAvatar = async (event) => {
+const changeAvatar = async event => {
   const [inputFile] = event.target.files;
 
   try {
@@ -79,9 +80,10 @@ const changeAvatar = async (event) => {
     }
 
     const foto_profile_base64 = await convertBlobToBase64(inputFile);
+
     const foto_profile_data_uri = convertBase64ToDataUri(
       foto_profile_base64,
-      inputFile.type
+      inputFile.type,
     );
 
     dataUser.value.foto_profile = foto_profile_data_uri;
@@ -120,12 +122,8 @@ onMounted(fetchData);
       <VCard title="Account Details">
         <VCardText class="d-flex">
           <!-- 👉 Avatar -->
-          <VAvatar
-            rounded="lg"
-            size="100"
-            class="me-6"
-            :image="getFullImagePath(dataUser.foto_profile)"
-          />
+          <VAvatar rounded="lg" size="100" class="me-6"
+            :image="getFullImagePath(dataUser.foto_profile ?? DEFAULT_PROFILE_PIC)" />
 
           <!-- 👉 Upload Photo -->
           <div class="d-flex flex-column justify-center gap-5">
@@ -135,14 +133,8 @@ onMounted(fetchData);
                 <span class="d-none d-sm-block">Unggah foto baru</span>
               </VBtn>
 
-              <input
-                id="image-upload-ref"
-                multiple="false"
-                type="file"
-                accept=".jpeg,.png,.jpg"
-                hidden
-                @input="changeAvatar($event)"
-              />
+              <input id="image-upload-ref" multiple="false" type="file" accept=".jpeg,.png,.jpg" hidden
+                @input="changeAvatar($event)" />
             </div>
 
             <p class="text-body-1 mb-0">Diperbolehkan JPG atau PNG.</p>
@@ -162,11 +154,7 @@ onMounted(fetchData);
 
               <!-- 👉 WhatsApp Number -->
               <VCol cols="12">
-                <VTextField
-                  v-model="dataUser.whatsapp"
-                  label="Nomor WhatsApp"
-                  type="number"
-                />
+                <VTextField v-model="dataUser.whatsapp" label="Nomor WhatsApp" type="number" />
               </VCol>
 
               <!-- 👉 Form Actions -->

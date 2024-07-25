@@ -4,7 +4,8 @@
       <VCard title="Account Details">
         <VCardText class="d-flex">
           <!-- 👉 Avatar -->
-          <VAvatar rounded="lg" size="100" class="me-6" :image="dataAdmin.foto_profile" />
+          <VAvatar rounded="lg" size="100" class="me-6"
+            :image="getFullImagePath(dataAdmin.foto_profile ?? DEFAULT_PROFILE_PIC)" />
 
           <!-- 👉 Upload Photo -->
           <form class="d-flex flex-column justify-center gap-5">
@@ -82,6 +83,8 @@ import config from "@/@core/config";
 import avatar1 from "@images/avatars/avatar-1.png";
 import { ref } from "vue";
 import Swal from "sweetalert2";
+import { getFullImagePath } from "@/utils/get-full-image-path";
+import { DEFAULT_PROFILE_PIC } from "@/constants";
 
 let isLoading = ref(false);
 
@@ -89,11 +92,10 @@ export default {
   components: {},
   data() {
     return {
+      DEFAULT_PROFILE_PIC,
       urlServer: config.urlServer,
       refInputEl: ref(),
-      urlServer: config.urlServer,
       imagePath: config.imagePath,
-      refInputEl: ref(),
       dataAdmin: ref([]),
       isLoading: isLoading,
     };
@@ -102,6 +104,7 @@ export default {
     this.fetchData();
   },
   methods: {
+    getFullImagePath,
     async submitData(formData) {
       try {
         formData.preventDefault();

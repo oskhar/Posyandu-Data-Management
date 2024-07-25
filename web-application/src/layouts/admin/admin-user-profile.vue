@@ -7,6 +7,7 @@ import { useAdminRoleStore } from "@/stores/admin-role-store";
 import { onMounted, ref } from "vue";
 import { api } from "@/lib/api";
 import { getFullImagePath } from "@/utils/get-full-image-path";
+import { DEFAULT_PROFILE_PIC } from "@/constants";
 
 const router = useRouter();
 
@@ -54,38 +55,20 @@ onMounted(async () => {
 
 <template>
   <VForm @submit="login">
-    <VBadge
-      dot
-      location="bottom right"
-      offset-x="3"
-      offset-y="3"
-      color="success"
-      bordered
-    >
+    <VBadge dot location="bottom right" offset-x="3" offset-y="3" color="success" bordered>
       <VAvatar class="cursor-pointer" color="primary" variant="tonal">
-        <VImg :src="getFullImagePath(fotoProfile)" />
+        <VImg :src="getFullImagePath(fotoProfile ?? DEFAULT_PROFILE_PIC)" />
 
         <!-- SECTION Menu -->
-        <VMenu
-          activator="parent"
-          width="230"
-          location="bottom end"
-          offset="14px"
-        >
+        <VMenu activator="parent" width="230" location="bottom end" offset="14px">
           <VList>
             <!-- 👉 User Avatar & Name -->
             <VListItem>
               <template #prepend>
                 <VListItemAction start>
-                  <VBadge
-                    dot
-                    location="bottom right"
-                    offset-x="3"
-                    offset-y="3"
-                    color="success"
-                  >
+                  <VBadge dot location="bottom right" offset-x="3" offset-y="3" color="success">
                     <VAvatar color="primary" variant="tonal">
-                      <VImg :src="getFullImagePath(fotoProfile)" />
+                      <VImg :src="getFullImagePath(fotoProfile ?? DEFAULT_PROFILE_PIC)" />
                     </VAvatar>
                   </VBadge>
                 </VListItemAction>

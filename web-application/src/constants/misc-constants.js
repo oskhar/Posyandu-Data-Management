@@ -12,3 +12,6 @@ export const ITEM_BULAN = [
   { value: 11, title: 'November' },
   { value: 12, title: 'Desember' },
 ];
+
+
+export const DEFAULT_PROFILE_PIC = '/images/profile_default.webp'
