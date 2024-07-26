@@ -1,3 +1,9 @@
+<script setup>
+const { fotoStrukturOrganisasi } = defineProps({
+	fotoStrukturOrganisasi: { type: String, required: true },
+})
+</script>
+
 <template>
 	<VRow tag="section" class="px-5">
 		<VCol cols="12" md="9" class="mx-auto">
@@ -9,7 +15,7 @@
 					</p>
 				</VCol>
 				<VCol cols="12">
-					<VImg src="/struktur-organisasi-posyandu.png" max-width="700" rounded class="mx-auto elevation-10" />
+					<VImg :src="fotoStrukturOrganisasi" max-width="700" rounded class="mx-auto elevation-10" />
 				</VCol>
 			</VRow>
 		</VCol>

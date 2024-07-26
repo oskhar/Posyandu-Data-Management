@@ -50,7 +50,7 @@ onMounted(async () => {
 
     <VisiMisiSection :visi="dataPosyanduMelati.visi" :misi="dataPosyanduMelati.misi" />
 
-    <StrukturOrganisasi />
+    <StrukturOrganisasi :foto-struktur-organisasi="getFullImagePath(dataPosyanduMelati.gambar_struktur_organisasi)" />
 
   </main>
 </template>
