@@ -6,6 +6,8 @@ import { fetchDataPosyanduMelati, fetchStrukturKepengurusan } from "./api/guest-
 import { DEFAULT_POSYANDU_DATA } from "@/constants";
 import Swal from "sweetalert2";
 import { getErrorMessage } from "@/utils/get-error-message";
+import VisiMisiSection from "./components/visi-misi-section.vue";
+import StrukturOrganisasi from "./components/struktur-organisasi.vue"
 
 const strukurKepengurusan = ref([]);
 const dataPosyanduMelati = reactive(DEFAULT_POSYANDU_DATA);
@@ -18,7 +20,6 @@ onMounted(async () => {
 
 
     Object.assign(dataPosyanduMelati, posyandu);
-
   } catch (error) {
     await Swal.fire({
       icon: "error",
@@ -47,54 +48,9 @@ onMounted(async () => {
       :jabatan-ketua="dataPosyanduMelati.jabatan_ketua" :sambutan-ketua="dataPosyanduMelati.penyampaian_ketua"
       :nama-lengkap-ketua="dataPosyanduMelati.nama_lengkap_ketua" />
 
-    <VRow tag="section" class="px-5">
-      <VCol cols="12" md="9" class="mx-auto">
-        <VRow>
-          <VCol cols="12" class="text-center">
-            <h2 class="text-h5 font-weight-bold text-primary">Struktur Organisasi</h2>
-            <p class="text-secondary text-subtitle-1">
-              Struktur organisasi dari Posyandu Melati IX RW 09
-            </p>
-          </VCol>
-          <VCol cols="12">
-            <VImg src="/struktur-organisasi-posyandu.png" max-width="700" rounded class="mx-auto elevation-10" />
-          </VCol>
-        </VRow>
-      </VCol>
-    </VRow>
+    <VisiMisiSection :visi="dataPosyanduMelati.visi" :misi="dataPosyanduMelati.misi" />
 
-    <!-- 
-      <VRow v-for="(perlevel, index) in strukurKepengurusan" :key="index">
-      <VCol v-for="(item) in perlevel" :key="item.email_admin" cols="6" md="3" lg="3" class="mx-auto mt-5">
-      <VCard>
-      <VCardItem>
-      <img style="
-      width: 150px;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 4px;
-      " class="mx-auto d-block" :src="getFullImagePath(item.foto_profile)" :alt="item.nama_lengkap" />
-      <div class="text-center mt-3">
-      <h2 style="line-height: 1.5rem">{{ item.nama_lengkap }}</h2>
-      <p>{{ item.nama_jabatan }}</p>
-      <p>{{ item.email_admin }}</p>
-      </div>
-      </VCardItem>
-      </VCard>
-      </VCol>
-      <div v-if="index != strukurKepengurusan.length - 1" style="width: 100%">
-      <div style="
-      height: 5px;
-      width: 50%;
-      background-color: rgba(
-      var(--v-theme-on-background),
-      var(--v-high-emphasis-opacity)
-      );
-      border-radius: 2px;
-      " class="mx-auto"></div>
-      </div>
-      </VRow> 
-    -->
+    <StrukturOrganisasi />
 
   </main>
 </template>
