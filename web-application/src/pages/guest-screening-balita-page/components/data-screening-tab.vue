@@ -27,7 +27,7 @@ const fetchData = async () => {
     isLoading.value = true;
 
     const response = await api.get(
-      `/format-ba`,
+      `/format-ba/unique`,
       {
         params: {
           length: 20,
@@ -112,6 +112,9 @@ watch(dataSearch, debouncedFetchData);
             </thead>
 
             <tbody>
+              <tr v-if='dataFormatBA.length === 0'>
+                <td cols="12">Belum ada data</td>
+              </tr>
               <tr v-for="(item, index) in dataFormatBA" :key="item.dessert">
                 <td>
                   {{ (page - 1) * 20 + (index + 1) }}
@@ -138,7 +141,7 @@ watch(dataSearch, debouncedFetchData);
   </VRow>
 
   <div class="d-flex justify-space-between mt-6 align-center">
-    <span>Jumlah data: <span class="text-primary">{{ jumlahData }}</span>
+    <span>Jumlah data: <span class="text-primary">{{ jumlahData || 0 }}</span>
     </span>
     <VPagination v-model="page" size="x-large" :length="banyakPage" :total-visible="6" @click="fetchData">
     </VPagination>
