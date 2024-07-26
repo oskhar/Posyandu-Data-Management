@@ -11,14 +11,14 @@ class PosyanduModel extends Model
 
     /**
      * Mengatur nama tabel database yang dituju.
-     * 
+     *
      * @var string
      */
     protected $table = 'posyandu';
 
     /**
      * Menentukan primary key (default = id)
-     * 
+     *
      */
     protected $primaryKey = 'nama_posyandu';
     protected $keyType = 'string';
@@ -44,6 +44,7 @@ class PosyanduModel extends Model
         'rt_rw',
         'penyampaian_ketua',
         'gambar_gedung',
+        'gambar_struktur_organisasi',
         'visi',
         'misi',
     ];

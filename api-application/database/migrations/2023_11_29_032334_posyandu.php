@@ -17,7 +17,8 @@ return new class extends Migration {
             $table->string('kelurahan', 30)->nullable();
             $table->string('rt_rw', 10)->nullable();
             $table->text('penyampaian_ketua')->nullable();
-            $table->string('gambar_gedung', 70)->nullable();
+            $table->string('gambar_gedung', 100)->nullable();
+            $table->string('gambar_struktur_organisasi', 100)->nullable();
             $table->text('visi')->nullable();
             $table->text('misi')->nullable();
         });
