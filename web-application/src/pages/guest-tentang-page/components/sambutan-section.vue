@@ -11,28 +11,24 @@ const { namaLengkapKetua, sambutanKetua, fotoProfileKetua, jabatanKetua } = defi
 	<VRow tag="section" class="px-5">
 		<VCol cols="12" md="9" class="mx-auto">
 			<VRow>
-				<VCol md="8" cols="12">
-					<h2 class="text-h5 font-weight-bold text-primary mb-5">
+				<VCol md="7" cols="12" class='d-flex flex-column justify-center'>
+					<h2 class="text-h4 font-weight-bold text-primary mb-5">
 						Sambutan Ketua Posyandu
 					</h2>
 
-					<p style="white-space: pre-line;">
+					<p class="text-subtitle-1">
 						{{ sambutanKetua }}
 					</p>
+
+					<p class="text-high-emphasis font-italic mt-4"> - {{ namaLengkapKetua }}, <span
+							style="text-transform: capitalize;">{{
+								jabatanKetua.toLowerCase() }}</span>
+					</p>
+
 				</VCol>
 
-				<VCol cols="12" md="4" sm="12">
-					<VCard class="pt-5">
-						<VCardItem>
-							<img style="width: 250px; height: 250px; object-fit: cover; border-radius: 4px;" class="mx-auto d-block"
-								:src="fotoProfileKetua" :alt="namaLengkapKetua" />
-
-							<div class="text-center mt-3">
-								<p class="text-h5 font-weight-bold">{{ namaLengkapKetua }}</p>
-								<p>{{ jabatanKetua }}</p>
-							</div>
-						</VCardItem>
-					</VCard>
+				<VCol cols="12" md="5">
+					<VImg class="mx-auto d-block rounded-xl elevation-10" :src="fotoProfileKetua" :alt="namaLengkapKetua" />
 				</VCol>
 			</VRow>
 		</VCol>

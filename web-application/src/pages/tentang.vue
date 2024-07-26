@@ -1,11 +1,11 @@
 <script>
-// 👉 Images
 import posyanduImg from "@images/pages/3.png";
 import langit from "@images/pages/2.png";
 import config from "@/@core/config";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { ref } from "vue";
+import { getFullImagePath } from "@/utils/get-full-image-path";
 
 export default {
   data() {
@@ -25,10 +25,14 @@ export default {
     this.fetchData();
   },
   methods: {
+    getFullImagePath,
     inputGambar() {
       document.getElementById("inputGambar").click();
     },
-    async changeAvatar(file) {
+    inputGambarStruktur() {
+      document.getElementById("inputGambarStruktur").click();
+    },
+    async changeGambarCover(file) {
       const files = file.target.files[0];
       if (files) {
         const fileReader = new FileReader();
@@ -55,6 +59,49 @@ export default {
                   },
                 },
               );
+
+              this.fetchData();
+
+            }
+          };
+        } else {
+          // Tindakan jika tipe file tidak valid
+          alert("File harus berupa gambar dengan tipe jpeg, png, atau jpg.");
+          resetAvatar();
+        }
+      }
+
+
+    },
+    async changeGambarStruktur(file) {
+      const files = file.target.files[0];
+      if (files) {
+        const fileReader = new FileReader();
+
+        // Validasi tipe file sebelum menampilkan gambarnya
+        if (
+          files.type === "image/jpeg" ||
+          files.type === "image/png" ||
+          files.type === "image/jpg"
+        ) {
+          fileReader.readAsDataURL(files);
+          fileReader.onload = async () => {
+            if (typeof fileReader.result === "string") {
+              this.posyandu.gambar_struktur_organisasi = fileReader.result;
+
+              const response = await axios.put(
+                `${this.urlServer}/api/posyandu`,
+                {
+                  gambar_struktur_organisasi: this.posyandu.gambar_struktur_organisasi,
+                },
+                {
+                  headers: {
+                    Authorization: localStorage.getItem("tokenAuth"),
+                  },
+                },
+              );
+
+              this.fetchData();
             }
           };
         } else {
@@ -103,6 +150,8 @@ export default {
             icon: "success",
             title: response.data.success.message,
           });
+
+          this.fetchData();
         }
       } catch (error) {
         Swal.fire({
@@ -129,8 +178,6 @@ export default {
       });
 
       this.posyandu = response.data;
-      this.posyandu.gambar_gedung =
-        config.imagePath + this.posyandu.gambar_gedung;
       this.isLoading = false;
     },
   },
@@ -166,10 +213,8 @@ export default {
             <VDialog v-model="dialog" persistent width="1024">
               <template #activator="{ props }">
                 <div style="width: 100%" class="py-5 px-3">
-                  <h1 class="text-primary float-left">POSYANDU MELATI</h1>
-                  <VBtn color="primary" class="float-right" v-bind="props">
-                    Edit
-                  </VBtn>
+                  <h1 class="text-primary float-left">Halaman Edit Tentang Posyandu Melati</h1>
+                  <VBtn color="primary" class="float-right" v-bind="props" prepend-icon="bx-pencil">Edit</VBtn>
                 </div>
               </template>
               <VCard>
@@ -188,19 +233,31 @@ export default {
                       <VCol cols="12">
                         <VTextarea v-model="posyandu.misi" label="Misi" required></VTextarea>
                       </VCol>
-                      <VCol cols="12" md="9">
-                        <div class="d-flex flex-column justify-center gap-5">
-                          <div class="d-flex flex-wrap gap-2">
+                      <VCol cols="12">
+                        <div class="d-flex justify-center gap-5">
+                          <div class="d-flex justify-center flex-column align-center gap-2">
                             <VBtn id="gambar" color="primary" @click="inputGambar">
                               <VIcon icon="bx-cloud-upload" class="d-sm-none" />
-                              <span class="d-none d-sm-block">Upload foto baru</span>
+                              <span class="d-none d-sm-block">Upload foto cover baru</span>
                             </VBtn>
 
                             <input id="inputGambar" type="file" name="file" accept=".jpeg,.png,.jpg" hidden
-                              @change="changeAvatar($event)" />
+                              @change="changeGambarCover($event)" />
+                            <VAvatar rounded="lg" size="200" class="me-1 mt-3"
+                              :image="getFullImagePath(posyandu.gambar_gedung)" />
+                          </div>
+                          <div class="d-flex justify-center flex-column align-center gap-2">
+                            <VBtn id="gambar" color="primary" @click="inputGambarStruktur">
+                              <VIcon icon="bx-cloud-upload" class="d-sm-none" />
+                              <span class="d-none d-sm-block">Upload foto struktur organisasi</span>
+                            </VBtn>
+
+                            <input id="inputGambarStruktur" type="file" name="file" accept=".jpeg,.png,.jpg" hidden
+                              @change="changeGambarStruktur($event)" />
+                            <VAvatar rounded="lg" size="200" class="me-1 mt-3"
+                              :image="getFullImagePath(posyandu.gambar_struktur_organisasi)" />
                           </div>
                         </div>
-                        <VAvatar rounded="lg" size="200" class="me-1 mt-3" :image="posyandu.gambar_gedung" />
                       </VCol>
                     </VRow>
                   </VContainer>
@@ -224,57 +281,77 @@ export default {
       </VRow>
     </div>
     <VCol cols="12">
-      <img style="width: 100%; height: 500px; object-fit: cover" :src="posyandu.gambar_gedung" alt="" />
+      <VCard>
+        <VCardText>
+          <h2 class="text-md-h5 font-weight-bold text-primary mb-4">Gambar Cover Halaman Tentang</h2>
+          <img style="width: 100%; height: 500px; object-fit: cover" class="rounded"
+            :src="getFullImagePath(posyandu.gambar_gedung)" alt="" />
+        </VCardText>
+      </VCard>
     </VCol>
-    <VCol md="3" sm="12">
-      <img style="width: 250px; height: 250px; object-fit: cover" :src="imagePath + posyandu.foto_profile_ketua"
-        alt="" />
-    </VCol>
-    <VCol md="9" sm="12">
-      <VCard class="text-center text-sm-start">
-        <VRow no-gutters>
-          <VCol cols="12">
-            <VCardItem>
-              <VCardTitle class="text-md-h5 text-primary">
-                PENYAMPAIAN KETUA
-              </VCardTitle>
-            </VCardItem>
-
-            <VCardText style="white-space: pre-line;">
-              {{ posyandu.penyampaian_ketua }}
-            </VCardText>
-          </VCol>
-        </VRow>
+    <VCol cols="12">
+      <VCard>
+        <VCardText>
+          <h2 class="text-md-h5 font-weight-bold text-primary mb-4">Gambar Struktur Organisasi</h2>
+          <img style="width: 100%; height: 500px; object-fit: cover" class="rounded"
+            :src="getFullImagePath(posyandu.gambar_struktur_organisasi)" alt="" />
+        </VCardText>
       </VCard>
     </VCol>
     <VCol cols="12">
       <VCard class="text-center text-sm-start">
-        <VRow no-gutters>
-          <VCol cols="12">
-            <VCardItem>
-              <VCardTitle class="text-md-h5 text-primary"> VISI </VCardTitle>
-            </VCardItem>
+        <VCardText>
+          <VRow>
+            <VCol cols="12" md="3">
+              <img style="width: 100%; object-fit: cover" class="rounded"
+                :src="getFullImagePath(posyandu.foto_profile_ketua)" alt="" />
+            </VCol>
 
-            <VCardText style="white-space: pre-line;">
-              {{ posyandu.visi }}
-            </VCardText>
-          </VCol>
-        </VRow>
+            <VCol cols="12" md="9" class="d-flex flex-column justify-center">
+              <h2 class="text-md-h5 font-weight-bold text-primary mb-2">
+                Penyampaian Ketua
+              </h2>
+
+              <p class='text-subtitle-1 mb-0' style="white-space: pre-line;">
+                {{ posyandu.penyampaian_ketua }}
+              </p>
+            </VCol>
+          </VRow>
+        </VCardText>
       </VCard>
     </VCol>
     <VCol cols="12">
       <VCard class="text-center text-sm-start">
-        <VRow no-gutters>
-          <VCol cols="12">
-            <VCardItem>
-              <VCardTitle class="text-md-h5 text-primary"> MISI </VCardTitle>
-            </VCardItem>
+        <VCardText>
+          <VRow>
+            <VCol cols="12">
+              <h2 class="text-md-h5 font-weight-bold text-primary mb-2">
+                Visi Kami
+              </h2>
 
-            <VCardText style="white-space: pre-line;">
-              {{ posyandu.misi }}
-            </VCardText>
-          </VCol>
-        </VRow>
+              <p class='text-subtitle-1 mb-0' style="white-space: pre-line;">
+                {{ posyandu.visi }}
+              </p>
+            </VCol>
+          </VRow>
+        </VCardText>
+      </VCard>
+    </VCol>
+    <VCol cols="12">
+      <VCard class="text-center text-sm-start">
+        <VCardText>
+          <VRow>
+            <VCol cols="12">
+              <h2 class="text-md-h5 font-weight-bold text-primary mb-2">
+                Misi Kami
+              </h2>
+
+              <p class='text-subtitle-1 mb-0' style="white-space: pre-line;">
+                {{ posyandu.misi }}
+              </p>
+            </VCol>
+          </VRow>
+        </VCardText>
       </VCard>
     </VCol>
   </VRow>
