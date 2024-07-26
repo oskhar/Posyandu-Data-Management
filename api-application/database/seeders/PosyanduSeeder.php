@@ -20,9 +20,10 @@ class PosyanduSeeder extends Seeder
             'kelurahan' => 'Periuk',
             'penyampaian_ketua' => 'Assalamu’alaikum Warahmatullahi Wabarakaatuh. Salam sejahtera untuk kita semua. Selamat datang di website Posyandu Melati. Website ini dibangun sebagai sarana atau media informasi dan komunikasi masyarakat, karena sejalan dengan perkembangan teknologi industri 4.0 yang berguna untuk memudahkan mencari informasi tentang POSYANDU MELATI.',
             'gambar_gedung' => '/images/upload/default.png',
+            'gambar_struktur_organisasi' => '/images/upload/default.png',
             'visi' => 'Mewujudkan masyarakat yang sehat, sejahtera, dan berdaya melalui pelayanan kesehatan yang terpadu dan partisipatif di tingkat desa."',
             'misi' => '1.) Pelayanan Kesehatan Berkualitas:
-            Menyelenggarakan pelayanan kesehatan yang berkualitas melalui kegiatan pengukuran status gizi, imunisasi, pemeriksaan kesehatan ibu dan anak, serta edukasi 
+            Menyelenggarakan pelayanan kesehatan yang berkualitas melalui kegiatan pengukuran status gizi, imunisasi, pemeriksaan kesehatan ibu dan anak, serta edukasi
 2.) Pemberdayaan Masyarakat:
             Meningkatkan pengetahuan dan keterampilan masyarakat dalam hal kesehatan, gizi, dan sanitasi melalui kegiatan pelatihan, sosialisasi, dan diskusi kelompok.
 3.) Kerjasama dan Kemitraan:

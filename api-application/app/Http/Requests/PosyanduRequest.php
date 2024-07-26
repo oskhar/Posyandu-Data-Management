@@ -22,6 +22,7 @@ class PosyanduRequest extends CoreRequest
                     'rt_rw' => 'nullable|string',
                     'penyampaian_ketua' => 'nullable|string',
                     'gambar_gedung' => 'nullable',
+                    'gambar_struktur_organisasi' => 'nullable',
                     'visi' => 'nullable|string',
                     'misi' => 'nullable|string',
                 ];
