@@ -58,7 +58,12 @@ onMounted(fetchData)
               <VSkeletonLoader v-if="isLoading" type="subtitle" />
               <div v-else class="d-flex align-center gap-2 text-subtitle-1">
                 <VIcon icon="mdi-calendar" size="18" />
-                <span>{{ dataEvent.tanggal }}</span>
+                <span>Ditulis Pada: {{ dataEvent.tanggal }}</span>
+              </div>
+              <VSkeletonLoader v-if="isLoading" type="subtitle" />
+              <div v-else class="d-flex align-center gap-2 text-subtitle-1">
+                <VIcon icon="mdi-calendar" size="18" />
+                <span>Dilaksanakan Pada: {{ dataEvent.tanggal_pelaksanaan }}</span>
               </div>
 
             </VCol>
