@@ -541,6 +541,7 @@ class FormatBAController extends Controller
                  *
                  */
                 $mergedQuery = $query;
+
             } else {
 
                 /**
@@ -552,13 +553,57 @@ class FormatBAController extends Controller
             }
         }
 
+
+        /**
+         * Mengambil banyaknya data yang diambil
+         *
+         */
+        $count = $query->count();
+
+        /**
+         * Memeriksa apakah data ingin difilter
+         *
+         */
+        if (isset($data['start']) && isset($data['length'])) {
+
+            /**
+             * Mengambil data gambar dari
+             * query yang sudah difilter
+             *
+             */
+            $query = $query
+                ->offset(($data['start'] - 1) * $data['length'])
+                ->limit($data['length']);
+        }
+
         /**
          * Mengambil data dari query yang sudah diolah
          *
          */
         $results = $mergedQuery->get();
 
-        return response()->json($results)->setStatusCode(200);
+        /**
+         * Mengambil data posyandu
+         *
+         */
+        $posyandu = PosyanduModel::select(
+            'nama_posyandu',
+            'kota'
+        )->first();
+
+        /**
+         * Assigment judul format
+         *
+         */
+        $judulFormat = 'Register bayi (' . $this->batasBulanStart[$data['tab'] - 1] . ' - ' . $this->batasBulanEnd[$data['tab'] - 1] . ' bulan) dalam wilayah kerja posyandu Januari - Desember';
+
+        return response()->json([
+            'nama_posyandu' => $posyandu->nama_posyandu,
+            'kota' => $posyandu->kota,
+            "jumlah_data" => $count,
+            'judul_format' => $judulFormat,
+            "format_ba" => $results
+        ])->setStatusCode(200);
     }
 
     public function post(FormatBARequest $request): JsonResponse
