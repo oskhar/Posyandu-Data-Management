@@ -41,12 +41,14 @@ onMounted(async () => {
     namaLengkap.value = nama_lengkap;
     jabatan.value = nama_jabatan;
   } catch (error) {
-    console.log(error);
     await Swal.fire({
       icon: "error",
       title: "Error mengambil data admin",
       html: getSwalErrorMessage(error),
     });
+
+    clearAdminToken();
+    router.push("/login")
   } finally {
     isLoading.value = false;
   }

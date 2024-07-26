@@ -37,12 +37,14 @@ onMounted(async () => {
     namaLengkap.value = nama;
     poinUser.value = poin;
   } catch (error) {
-    console.log(error);
     await Swal.fire({
       icon: "error",
       title: "Error mengambil data admin",
       html: getSwalErrorMessage(error),
     });
+
+    clearUserToken();
+    router.push("/login")
   }
 });
 </script>
