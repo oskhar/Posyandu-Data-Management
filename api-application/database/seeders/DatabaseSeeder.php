@@ -24,13 +24,14 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             PosyanduSeeder::class,
             BeratUmurSeeder::class,
-                // EdukasiSeeder::class,
+            EdukasiSeeder::class,
                 // BeritaSeeder::class,
                 // FormatASeeder::class,
             WilayahSeeder::class,
                 // ProdukSeeder::class,
             UserSeeder::class,
-            // TantanganSeeder::class,
+                // TantanganSeeder::class,
+            ProdukSeeder::class,
         ]);
     }
 }

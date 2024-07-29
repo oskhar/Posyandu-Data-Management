@@ -18,7 +18,7 @@ class PosyanduSeeder extends Seeder
             'kota' => 'Tangerang',
             'kecamatan' => 'Periuk',
             'kelurahan' => 'Periuk',
-            'penyampaian_ketua' => 'Assalamu’alaikum Warahmatullahi Wabarakaatuh. Salam sejahtera untuk kita semua. Selamat datang di website Posyandu Melati. Website ini dibangun sebagai sarana atau media informasi dan komunikasi masyarakat, karena sejalan dengan perkembangan teknologi industri 4.0 yang berguna untuk memudahkan mencari informasi tentang POSYANDU MELATI.',
+            'penyampaian_ketua' => 'Puji syukur kami panjatkan kehadirat Allah SWT tuhan yang maha esa yang telah melimpahkan rahmat dan karunianya, sehingga kami dapat membangun aplikasi ini dengan baik, tanpa adanya hambatan yang berarti.\n\nAplikasi ini sebagai bahan informasi secara menyeluruh tentang kegiatan posyandu di lingkungan RW 09. Pembangunan aplikasi ini melibatkan berbagai pihak. Oleh karena itu, kami mengucapkan terima kasih kepada semua pihak yang telah membantu dalam pengembangan aplikasi ini',
             'gambar_gedung' => '/images/upload/default.png',
             'gambar_struktur_organisasi' => '/images/upload/default.png',
             'visi' => 'Mewujudkan masyarakat yang sehat, sejahtera, dan berdaya melalui pelayanan kesehatan yang terpadu dan partisipatif di tingkat desa."',
