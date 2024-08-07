@@ -43,6 +43,7 @@ class PosyanduController extends Controller
         )
             ->join('jabatan', 'jabatan.id', 'admin.id_jabatan')
             ->orderBy('jabatan.level')
+            ->where('jabatan.level', '2')
             ->first();
 
         $posyandu->foto_profile_ketua = $admin->foto_profile;
