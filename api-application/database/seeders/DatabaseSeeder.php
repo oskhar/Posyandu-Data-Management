@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
                 // TantanganSeeder::class,
             ProdukSeeder::class,
+            PenimbanganSeeder::class
         ]);
     }
 }
