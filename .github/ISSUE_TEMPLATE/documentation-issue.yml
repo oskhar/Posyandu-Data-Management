@@ -1,0 +1,47 @@
+name: 🔵 Documentation Issue
+description: Report errors or suggest improvements for the documentation.
+title: "🔵 [Docs] Error/Improvement in documentation: <brief description>"
+labels: ["type:documentation"]
+assignees:
+  - oskhar
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for your feedback on the documentation. Please fill out the sections below to help us improve the documentation.
+
+  - type: input
+    id: affected-section
+    attributes:
+      label: Affected Section
+      description: Specify which part of the documentation is affected, such as title or URL.
+      placeholder: Installation chapter or https://docs.example.com/installation
+    validations:
+      required: true
+
+  - type: textarea
+    id: issue-or-suggestion
+    attributes:
+      label: Issue or Suggestion
+      description: Describe the documentation problem or your improvement suggestion.
+      placeholder: "There's an unclear installation step in section 2."
+    validations:
+      required: true
+
+  - type: input
+    id: references
+    attributes:
+      label: References
+      description: Add external references if relevant (optional).
+      placeholder: https://example.com/tutorial
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to abide by the project's [Code of Conduct](https://github.com/oskhar/init-repo-template/blob/master/code_of_conduct.md).
+      options:
+        - label: I agree to follow this project's Code of Conduct.
+          required: true

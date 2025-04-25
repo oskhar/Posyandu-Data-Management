@@ -1,0 +1,47 @@
+name: 🟢 Feature Request
+description: Suggest a new feature.
+title: "🟢 [Feature Request] Add <feature name>: <brief description|optional>"
+labels: ["type:feature"]
+assignees:
+  - oskhar
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for submitting a feature request! Please fill out all sections below to help us better understand your needs.
+
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Feature Description
+      description: Describe the requested feature and why it's important.
+      placeholder: Explain the feature in detail and your reasons for requesting it.
+    validations:
+      required: true
+
+  - type: textarea
+    id: benefits
+    attributes:
+      label: Benefits
+      description: Explain how this feature will help users or improve the experience.
+      placeholder: Describe the benefits users will gain.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Considered Alternatives
+      description: List other solutions you've considered and why they weren't chosen.
+      placeholder: Explain alternatives you've considered.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to abide by the project's [Code of Conduct](https://github.com/oskhar/init-repo-template/blob/master/code_of_conduct.md).
+      options:
+        - label: I agree to follow this project's Code of Conduct.
+          required: true

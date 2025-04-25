@@ -1,0 +1,62 @@
+name: 🟣 Library Error Report
+description: Report errors in specific technologies.
+title: "🟣 [Error] Issue with <technology like Docker/Redis/Express>: <brief description>"
+labels: ["type:library"]
+assignees:
+  - oskhar
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting this error. Please fill out all sections below so we can assist you better.
+
+  - type: textarea
+    id: error-details
+    attributes:
+      label: Error Details
+      description: Copy and paste the error text or code that appeared.
+      placeholder: Connection refused on port 5432..
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction-steps
+    attributes:
+      label: Reproduction Steps
+      description: Describe the steps to reproduce the error.
+      placeholder: |
+        1. Run npm start command
+        2. Connect to database
+        3. Error occurs at this step
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Specify version details of the technologies used (Docker, Redis, Express, etc.) and operating system.
+      placeholder: |
+        Docker v20.10.7
+        Redis v6.2.1
+        Arch 6.11.9-arch1-1
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Logs
+      description: Copy and paste relevant logs (if available). Logs will be automatically formatted.
+      render: shell
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to abide by the project's [Code of Conduct](https://github.com/oskhar/init-repo-template/blob/master/code_of_conduct.md).
+      options:
+        - label: I agree to follow this project's Code of Conduct.
+          required: true

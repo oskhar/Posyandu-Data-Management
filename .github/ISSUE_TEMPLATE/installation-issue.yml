@@ -1,0 +1,55 @@
+name: 🟠 Installation Issue
+description: Report problems encountered during installation.
+title: "🟠 [Error] Installation problem: <brief description>"
+labels: ["type:environment"]
+assignees:
+  - oskhar
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting this installation issue. Please fill out the sections below so we can assist you better.
+
+  - type: textarea
+    id: installation-steps
+    attributes:
+      label: Installation Steps
+      description: Describe the steps you took before encountering the problem.
+      placeholder: |
+        1. Clone repository
+        2. Run npm install
+        3. Execute configuration command
+    validations:
+      required: true
+
+  - type: textarea
+    id: system-environment
+    attributes:
+      label: System Environment
+      description: Specify your operating system, dependencies, and tool versions.
+      placeholder: |
+        OS -> Arch 6.11.9-arch1-1
+        NodeJS -> v16.3.0
+        NPM -> v7.15.1
+        Dependency -> express@4.17.1
+    validations:
+      required: true
+
+  - type: textarea
+    id: error-logs
+    attributes:
+      label: Error Logs
+      description: Copy and paste error messages that appeared during installation.
+      placeholder: ENOENT no such file or directory, open 'config.json'
+      render: shell
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to abide by the project's [Code of Conduct](https://github.com/oskhar/init-repo-template/blob/master/code_of_conduct.md).
+      options:
+        - label: I agree to follow this project's Code of Conduct.
+          required: true
